@@ -73,3 +73,9 @@ body{
 	color: white;
 	font-size: 20px;
 }
+/* Media queries */
+@media only screen and (max-width: 600px){
+	.container, #registration-form {
+		width: 100%;
+	}
+}

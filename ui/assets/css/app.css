@@ -1,0 +1,81 @@
+body{
+	-webkit-font-smoothing: antialiased;
+	background: hsl(200,33%,93%);
+	text-align: center;
+	font-family: cursive;
+	color: hsl(200, 16%, 16%);
+}
+
+.container {
+	max-width: 800px;
+	margin: 20px auto; 
+} 
+
+.shadow {
+	border-radius: 3px;
+	box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
+}
+
+.form {
+	max-width: 100%;
+	border-top: 8px solid teal;
+	border-radius: 8px;
+	padding: 20px;
+	background: ghostwhite;
+}
+
+#registration-form {
+	width: 480px;
+	margin: 5px auto;
+}
+.form-group {
+	margin-bottom: 10px;
+}
+
+.form-control {
+	margin: 10px auto;
+	padding: 10px 20px;
+	border-radius: 5px;	
+	border: 1px solid teal;
+	box-shadow: 0 2px 4px 0 hsla(0, 0%, 0%, 0.08);
+	width: 100%;
+	box-sizing: border-box;
+	font-family: cursive;
+	font-size: 18px;
+}
+.form-header,.form-footer {
+	font-weight: bold;
+}
+.form-header {
+	font-size: 20px;
+}
+.form-footer {
+	display: block;
+	margin: 5px auto;
+	padding: 20px 0;
+	font-size: 18px;
+}
+.form-footer a {
+	text-decoration: dashed;
+	color: black;
+}
+
+.form-footer a:hover {
+	text-decoration: underline;
+}
+
+.form-footer > span {
+	font-weight: normal;
+}
+.btn-primary{
+	cursor: pointer;
+	background: teal;
+	color: white;
+	font-size: 20px;
+}
+/* Media Queries */
+@media only screen and (max-width: 900px){
+	.container, #registration-form {
+		max-width: 100%;
+	}
+}

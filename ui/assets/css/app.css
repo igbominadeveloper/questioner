@@ -7,7 +7,7 @@ body{
 nav {
 	display: flex;
 	justify-content: space-between;
-	width: 1100px;
+	width: 1300px;
 	margin: 20px auto;
 }
 
@@ -29,7 +29,7 @@ h2{
 
 .shadow {
 	border-radius: 3px;
-	box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
+	box-shadow: 6px 1px 35px rgba(0,0,0,0.18);
 }
 
 
@@ -134,18 +134,50 @@ h2{
 }
 
 .meetup-image {
-	width: 300px;
-	height: 200px;
+	width: 376px;
+	height: 220px;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
-	background: url('/assets/images/meetup-logo.png');
+}
+
+.cover-no-repeat{
 	background-repeat: no-repeat;
-	background-size: cover;
+	background-size: 100% 100%;
 }
 
 .meetup-title {
 	font-weight: bold;
 	font-size: 20px;
+}
+
+#gdg {
+	background: url('/assets/images/gdg.jpg');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+#vue{
+	background: url('/assets/images/meetup-logo.png');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+#laravel {
+	background: url('/assets/images/laravel.jpg');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+#mocha {
+	background: url('/assets/images/mocha.png');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+#forloop {
+	background: url('/assets/images/forloop.jpg');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
 }
 
 .text-light{
@@ -159,7 +191,7 @@ i.fa{
 
 .meetup {
 	border-radius: 5px;
-	max-width: 300px;
+	width: 375px;
 	margin: 30px;
 	background-color: white;
 }

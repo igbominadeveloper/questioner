@@ -1,9 +1,21 @@
 body{
 	-webkit-font-smoothing: antialiased;
-	background: hsl(200,33%,93%);
 	text-align: center;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	color: hsl(200, 16%, 16%);
+}
+nav {
+	display: flex;
+	justify-content: space-between;
+	width: 1100px;
+	margin: 20px auto;
+}
+
+ul {
+	list-style: none;
+}
+h2{
+	font-weight: lighter;
 }
 
 .container {
@@ -11,11 +23,37 @@ body{
 	margin: 20px auto; 
 } 
 
+.container-fluid {
+	width: 100%;
+}
+
 .shadow {
 	border-radius: 3px;
 	box-shadow: 0px 2px 4px rgba(0,0,0,0.18);
 }
 
+
+
+.nav-links {
+	width: 200px;
+	margin: 20px 20px;
+}
+.nav-links > ul{
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.nav-links a{
+	text-decoration: none;
+	color: black;
+}
+
+.nav-links a:hover{
+	color: teal;	
+	font-weight: 500;
+}
+
+/* Form specific */
 .form {
 	max-width: 100%;
 	border-top: 8px solid teal;
@@ -73,12 +111,74 @@ body{
 .form-footer > span {
 	font-weight: normal;
 }
+
+/* Buttons */
 .btn-primary{
 	cursor: pointer;
 	background: teal;
 	color: white;
 	font-size: 20px;
 }
+.title{
+	text-align: left;
+	color: black;
+}
+
+/* Meetups */
+.meetup-wrapper{
+ max-width: 1500px;
+ display: flex;
+ flex-wrap: wrap;
+ margin: 10px auto;
+ justify-content: center;
+}
+
+.meetup-image {
+	width: 300px;
+	height: 200px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	background: url('/assets/images/meetup-logo.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.meetup-title {
+	font-weight: bold;
+	font-size: 25px;
+}
+
+.text-light{
+	font-weight: lighter;
+}
+
+i.fa{
+ padding-right: 15px;
+ margin-left: -15px; 
+}
+
+.meetup {
+	border-radius: 5px;
+	max-width: 300px;
+	margin: 30px;
+	background-color: white;
+}
+.meetup:hover {
+	cursor: pointer;
+	transition-duration: .6s;
+	transition-property: margin-top;
+	margin-top: 27px;
+}
+
+.view-more{
+	margin: 40px auto;
+}
+.view-more div{
+	padding: 10px;
+	width: 200px;
+	margin: 10px auto;
+}
+
 /* Media Queries */
 @media only screen and (max-width: 900px){
 	.container, #registration-form, #login-form {

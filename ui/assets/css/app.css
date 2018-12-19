@@ -1,21 +1,38 @@
 body{
 	-webkit-font-smoothing: antialiased;
 	text-align: center;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	color: hsl(200, 16%, 16%);
+	background-color: #f6f7f8;
 }
 nav {
 	display: flex;
 	justify-content: space-between;
-	width: 1300px;
 	margin: 20px auto;
 }
 
 ul {
 	list-style: none;
 }
+
 h2{
 	font-weight: lighter;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover{
+	color: teal;	
+	font-weight: 400;
+}
+p {
+	margin: 0;
+}
+article {
+	padding: 10px 20px 20px 20px;
 }
 
 .container {
@@ -27,12 +44,16 @@ h2{
 	width: 100%;
 }
 
+.br-5{
+	border-radius: 5px;
+}
+
 .shadow {
 	border-radius: 3px;
 	box-shadow: 6px 1px 35px rgba(0,0,0,0.18);
 }
 
-
+/* Navbar */
 .nav-links {
 	width: 200px;
 	margin: 20px 20px;
@@ -42,15 +63,6 @@ h2{
 	justify-content: space-evenly;
 }
 
-.nav-links a{
-	text-decoration: none;
-	color: black;
-}
-
-.nav-links a:hover{
-	color: teal;	
-	font-weight: 500;
-}
 
 /* Form specific */
 .form {
@@ -64,7 +76,27 @@ h2{
 #registration-form, #login-form {
 	width: 480px;
 }
-#registration-form{
+
+#question-form textarea, #comment-form textarea{
+	min-height: 100px;
+	max-width: 700px;
+	margin: 10px auto;
+	min-width: 400px;
+}
+
+#question-form button, #comment-form button{
+	width: 100px;
+}
+
+.new-comment {
+	margin: 5px 125px;
+}
+
+.new-question {
+	margin: 40px;
+}
+
+#registration-form {
 	margin: 5px auto;
 }
 
@@ -112,25 +144,37 @@ h2{
 }
 
 /* Buttons */
-.btn-primary{
+.btn-primary {
 	cursor: pointer;
 	background: teal;
 	color: white;
-	font-size: 20px;
+	font-size: 18px;
+	border-radius: 5px;
 }
 
-.page-title{
+.page-title {
 	text-align: left;
 	color: black;
 	padding-left:35px;
 }
 
 /* Meetups */
-.meetup-wrapper{
+.meetup-wrapper {
  max-width: 1500px;
  display: flex;
  flex-wrap: wrap;
  justify-content: center;
+}
+
+.meetup-header {
+	max-width: 100%;
+	background: white;
+	padding: 18px 20px;
+	margin-bottom: 40px;
+}
+
+.single-meetup {
+	text-align: left;
 }
 
 .meetup-image {
@@ -140,16 +184,140 @@ h2{
 	border-top-right-radius: 5px;
 }
 
-.cover-no-repeat{
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
+.meetup-body {
+	width: 900px;
+	margin: 10px auto;
+}
+
+.meetup-description,.meetup-stats {
+	background: white;
+}
+
+.meetup-image {
+	height: 250px;
+	width: 500px;
+	display: inline-block;
+}
+
+.meetup-stats {
+	padding: 10px 30px;
+	display: inline-block;
+	height: 120px;
+	margin:auto;
 }
 
 .meetup-title {
 	font-weight: bold;
-	font-size: 20px;
+	font-size: 25px;
+	margin: 2px 20px 20px 20px;
 }
 
+/* Utility Classes */
+.mt-1 {
+	margin-top: 10px;
+}
+
+.mt-2{
+	margin-top: 20px;
+}
+
+.mt-5{
+	margin-top: 50px;
+}
+
+.flex{
+	display: flex;
+}
+.flex-row {
+	flex-direction: row;
+}
+.flex-column {
+	flex-direction: column;
+}
+.space-between {
+	justify-content: space-between;
+}
+.space-around {
+	justify-content: space-around;
+}
+
+.bg-black {
+	background: hsl(200, 16%, 16%);
+}
+
+.bg-white {
+	background: black;
+}
+
+.text-black {
+	color: black;
+}
+
+.bg-warning {
+	background: orange;
+}
+
+.bg-danger {
+	background: red;
+}
+
+.text-warning {
+	color: orange;
+}
+
+.text-danger {
+	color: red;
+}
+
+.cover-no-repeat {
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+/* .dislike:hover, .dislike > i:hover {
+	color: red;
+} */
+
+
+.wrapper {
+	display: flex;
+	justify-content: space-between;
+	justify-self: center;
+}
+
+.p-1 {
+	padding: 10px;
+}
+
+.question {
+	margin: 20px auto;
+	padding: 5px;
+}
+.questions-body {
+	background: white;
+}
+
+.question-stats {
+	width: 150px;
+}
+
+.question-stats > p:hover {
+	cursor: pointer;
+	font-weight: 300;
+}
+
+.question-comments {
+	margin: 10px 0 10px 50px;
+	border-left: 1px solid teal;
+}
+
+.organizer {
+	display: flex;
+}
+
+.wrapper {
+	display: flex;
+}
 #gdg {
 	background: url('/assets/images/gdg.jpg');
 	background-repeat: no-repeat;
@@ -184,17 +352,21 @@ h2{
 	font-weight: lighter;
 }
 
-i.fa{
- padding-right: 15px;
- margin-left: -15px; 
+.text-heavy{
+	font-weight: bold;
+}
+
+i{
+ margin-right: 5px; 
+ color:grey;
 }
 
 .meetup {
 	border-radius: 5px;
 	width: 375px;
 	margin: 30px;
-	background-color: white;
 }
+
 .meetup:hover {
 	cursor: pointer;
 	transition-duration: .6s;
@@ -205,10 +377,26 @@ i.fa{
 .view-more{
 	margin: 40px auto;
 }
+
 .view-more div{
 	padding: 10px;
 	width: 200px;
 	margin: 10px auto;
+}
+
+.avatar {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	margin: 5px 15px;
+	border: 1px solid teal;
+}
+
+.avatar > p {
+	text-align: center;
+	color: white;
+	font-size: 20px;
+	padding: 12px;
 }
 
 /* Media Queries */

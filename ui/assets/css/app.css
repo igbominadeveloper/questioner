@@ -21,6 +21,7 @@ h2{
 
 a {
 	text-decoration: none;
+	color: black;
 }
 
 a:hover{
@@ -52,6 +53,7 @@ article {
 	box-shadow: 6px 1px 35px rgba(0,0,0,0.18);
 }
 
+/* Navbar */
 .nav-links {
 	width: 200px;
 	margin: 20px 20px;
@@ -111,18 +113,6 @@ article {
 }
 .form-footer a {
 	text-decoration: dashed;
-	color: black;
-}
-
-.bg-black {
-	background: hsl(200, 16%, 16%);
-}
-
-.bg-white {
-	background: black;
-}
-
-.text-black {
 	color: black;
 }
 
@@ -197,6 +187,13 @@ article {
 	margin:auto;
 }
 
+.meetup-title {
+	font-weight: bold;
+	font-size: 25px;
+	margin: 2px 20px 20px 20px;
+}
+
+/* Utility Classes */
 .mt-1 {
 	margin-top: 10px;
 }
@@ -225,17 +222,25 @@ article {
 	justify-content: space-around;
 }
 
+.bg-black {
+	background: hsl(200, 16%, 16%);
+}
+
+.bg-white {
+	background: black;
+}
+
+.text-black {
+	color: black;
+}
+
 
 .cover-no-repeat {
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }
 
-.meetup-title {
-	font-weight: bold;
-	font-size: 25px;
-	margin: 2px 20px 20px 20px;
-}
+
 
 .wrapper {
 	display: flex;
@@ -256,19 +261,18 @@ article {
 }
 
 .question-stats {
-	width: 200px;
+	width: 150px;
 }
 
 .question-stats > p:hover {
 	color: teal;
 	cursor: pointer;
-	font-weight: 300;
+	font-weight: 350;
 }
 .question-comments {
 	margin: 10px 0 10px 50px;
 	border-left: 1px solid teal;
 }
-
 
 .organizer {
 	display: flex;
@@ -317,6 +321,7 @@ article {
 
 i{
  margin-right: 5px; 
+ color:teal;
 }
 
 .meetup {

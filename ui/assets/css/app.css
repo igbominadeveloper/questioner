@@ -77,6 +77,14 @@ article {
 	width: 480px;
 }
 
+#question-form textarea{
+	min-height: 100px;
+}
+
+#question-form button{
+	width: 100px;
+}
+
 #registration-form {
 	margin: 5px auto;
 }

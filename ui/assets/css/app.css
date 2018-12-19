@@ -251,6 +251,7 @@ article {
 .question {
 	background:white;
 	margin: 40px auto;
+	padding: 20px;
 }
 
 .question-stats {
@@ -260,7 +261,7 @@ article {
 .question-stats > p:hover {
 	color: teal;
 	cursor: pointer;
-	font-weight: 400;
+	font-weight: 300;
 }
 
 .organizer {

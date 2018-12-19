@@ -77,11 +77,11 @@ article {
 	width: 480px;
 }
 
-#question-form textarea{
+#question-form textarea, #comment-form textarea{
 	min-height: 100px;
 }
 
-#question-form button{
+#question-form button, #comment-form button{
 	width: 100px;
 }
 

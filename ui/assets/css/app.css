@@ -3,20 +3,32 @@ body{
 	text-align: center;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	color: hsl(200, 16%, 16%);
+	background-color: #f6f7f8;
 }
 nav {
 	display: flex;
 	justify-content: space-between;
-	width: 1300px;
 	margin: 20px auto;
 }
 
 ul {
 	list-style: none;
 }
+
 h2{
 	font-weight: lighter;
 }
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover{
+	color: teal;	
+	font-weight: 500;
+}
+
 
 .container {
 	max-width: 800px;
@@ -32,7 +44,6 @@ h2{
 	box-shadow: 6px 1px 35px rgba(0,0,0,0.18);
 }
 
-
 .nav-links {
 	width: 200px;
 	margin: 20px 20px;
@@ -42,15 +53,6 @@ h2{
 	justify-content: space-evenly;
 }
 
-.nav-links a{
-	text-decoration: none;
-	color: black;
-}
-
-.nav-links a:hover{
-	color: teal;	
-	font-weight: 500;
-}
 
 /* Form specific */
 .form {
@@ -64,7 +66,8 @@ h2{
 #registration-form, #login-form {
 	width: 480px;
 }
-#registration-form{
+
+#registration-form {
 	margin: 5px auto;
 }
 
@@ -103,6 +106,14 @@ h2{
 	color: black;
 }
 
+.bg-black {
+	background: black;
+}
+
+.text-black {
+	color: black;
+}
+
 .form-footer a:hover {
 	text-decoration: underline;
 }
@@ -112,21 +123,22 @@ h2{
 }
 
 /* Buttons */
-.btn-primary{
+.btn-primary {
 	cursor: pointer;
 	background: teal;
 	color: white;
-	font-size: 20px;
+	font-size: 18px;
+	border-radius: 5px;
 }
 
-.page-title{
+.page-title {
 	text-align: left;
 	color: black;
 	padding-left:35px;
 }
 
 /* Meetups */
-.meetup-wrapper{
+.meetup-wrapper {
  max-width: 1500px;
  display: flex;
  flex-wrap: wrap;
@@ -134,8 +146,16 @@ h2{
 }
 
 .meetup-header {
-	
+	max-width: 100%;
+	/* border: 1px solid teal; */
+	padding: 20px;
 }
+
+.single-meetup {
+	text-align: left;
+	padding: 10px;
+}
+
 .meetup-image {
 	width: 376px;
 	height: 220px;
@@ -143,16 +163,37 @@ h2{
 	border-top-right-radius: 5px;
 }
 
-.cover-no-repeat{
+.cover-no-repeat {
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }
 
 .meetup-title {
 	font-weight: bold;
-	font-size: 20px;
+	font-size: 30px;
+	margin-left: 20px;
 }
 
+.wrapper {
+	display: flex;
+	justify-content: space-between;
+}
+
+.p-1 {
+	padding: 10px;
+}
+.register {
+
+
+}
+
+.organizer {
+	display: flex;
+}
+
+.wrapper {
+	display: flex;
+}
 #gdg {
 	background: url('/assets/images/gdg.jpg');
 	background-repeat: no-repeat;
@@ -196,8 +237,9 @@ i.fa{
 	border-radius: 5px;
 	width: 375px;
 	margin: 30px;
-	background-color: white;
+	/* background-color: white; */
 }
+
 .meetup:hover {
 	cursor: pointer;
 	transition-duration: .6s;
@@ -208,11 +250,22 @@ i.fa{
 .view-more{
 	margin: 40px auto;
 }
+
 .view-more div{
 	padding: 10px;
 	width: 200px;
 	margin: 10px auto;
 }
+
+.avatar {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	margin: 5px 5px;
+	border: 1px solid teal;
+}
+
+
 
 /* Media Queries */
 @media only screen and (max-width: 900px){

@@ -1,7 +1,7 @@
 body{
 	-webkit-font-smoothing: antialiased;
 	text-align: center;
-	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	color: hsl(200, 16%, 16%);
 	background-color: #f6f7f8;
 }
@@ -28,6 +28,9 @@ a:hover{
 	color: teal;	
 	font-weight: 500;
 }
+p {
+	margin: 0;
+}
 
 
 .container {
@@ -37,6 +40,10 @@ a:hover{
 
 .container-fluid {
 	width: 100%;
+}
+
+.br-5{
+	border-radius: 5px;
 }
 
 .shadow {
@@ -110,6 +117,10 @@ a:hover{
 	background: black;
 }
 
+.bg-white {
+	background: black;
+}
+
 .text-black {
 	color: black;
 }
@@ -147,13 +158,12 @@ a:hover{
 
 .meetup-header {
 	max-width: 100%;
-	/* border: 1px solid teal; */
-	padding: 20px;
+	background: white;
+	padding: 2px 20px;
 }
 
 .single-meetup {
 	text-align: left;
-	padding: 10px;
 }
 
 .meetup-image {
@@ -163,6 +173,53 @@ a:hover{
 	border-top-right-radius: 5px;
 }
 
+.meetup-body {
+	width: 900px;
+	margin: 10px auto;
+}
+
+.meetup-description,.meetup-stats {
+	background: white;
+}
+
+.meetup-image {
+	height: 250px;
+	width: 500px;
+	display: inline-block;
+}
+
+.meetup-stats {
+	padding: 10px 30px;
+	display: inline-block;
+	height: 120px;
+	margin:auto;
+}
+
+.mt-2{
+	margin-top: 20px;
+}
+
+.mt-5{
+	margin-top: 50px;
+}
+
+.flex{
+	display: flex;
+}
+.flex-row {
+	flex-direction: row;
+}
+.flex-column {
+	flex-direction: column;
+}
+.space-between {
+	justify-content: space-between;
+}
+.space-around {
+	justify-content: space-around;
+}
+
+
 .cover-no-repeat {
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
@@ -170,13 +227,14 @@ a:hover{
 
 .meetup-title {
 	font-weight: bold;
-	font-size: 30px;
-	margin-left: 20px;
+	font-size: 25px;
+	margin: 2px 20px;
 }
 
 .wrapper {
 	display: flex;
 	justify-content: space-between;
+	justify-self: center;
 }
 
 .p-1 {
@@ -228,6 +286,10 @@ a:hover{
 	font-weight: lighter;
 }
 
+.text-heavy{
+	font-weight: bold;
+}
+
 i.fa{
  padding-right: 15px;
  margin-left: -15px; 
@@ -237,7 +299,6 @@ i.fa{
 	border-radius: 5px;
 	width: 375px;
 	margin: 30px;
-	/* background-color: white; */
 }
 
 .meetup:hover {

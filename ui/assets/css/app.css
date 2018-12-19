@@ -249,9 +249,11 @@ article {
 }
 
 .question {
-	background:white;
-	margin: 40px auto;
-	padding: 20px;
+	margin: 20px auto;
+	padding: 5px;
+}
+.questions-body {
+	background: white;
 }
 
 .question-stats {
@@ -263,6 +265,11 @@ article {
 	cursor: pointer;
 	font-weight: 300;
 }
+.question-comments {
+	margin: 10px 0 10px 50px;
+	border-left: 1px solid teal;
+}
+
 
 .organizer {
 	display: flex;

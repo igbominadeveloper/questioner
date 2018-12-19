@@ -253,12 +253,30 @@ article {
 	color: black;
 }
 
+.bg-warning {
+	background: orange;
+}
+
+.bg-danger {
+	background: red;
+}
+
+.text-warning {
+	color: orange;
+}
+
+.text-danger {
+	color: red;
+}
 
 .cover-no-repeat {
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }
 
+/* .dislike:hover, .dislike > i:hover {
+	color: red;
+} */
 
 
 .wrapper {
@@ -284,10 +302,10 @@ article {
 }
 
 .question-stats > p:hover {
-	color: teal;
 	cursor: pointer;
-	font-weight: 350;
+	font-weight: 300;
 }
+
 .question-comments {
 	margin: 10px 0 10px 50px;
 	border-left: 1px solid teal;
@@ -340,7 +358,7 @@ article {
 
 i{
  margin-right: 5px; 
- color:teal;
+ color:grey;
 }
 
 .meetup {

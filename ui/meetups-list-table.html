@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Meetups | Table</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="/assets/css/app.css"/>
+</head>
+<body>
+  <div class="container-fluid">
+    <nav>
+      <div class="page-title">
+        <h3>Dashboard</h3>
+      </div>
+      <div class="nav-links">
+        <ul>
+          <li><a href="login.html">Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="flex flex-row">
+      <section class="sidebar card p-20">
+        <ul class="m-0 p-0">
+          <li class="sidebar-item fs-20"><a href="#">Meetups</a></li>
+          <li class="sidebar-item fs-20"><a href="new-meetup.html">New Meetup</a></li>
+          <li class="sidebar-item fs-20"><a href="#">Users</a></li>
+          <li class="sidebar-item fs-20"><a href="#">Question Thread</a></li>
+          <li class="sidebar-item fs-20"><a href="login.html">Logout</a></li>
+        </ul>
+      </section>
+      <section class="meetups-list card ml-20">
+        <div class="search">
+          <form>
+            <div class="form-group">
+              <input type="search" name="search" class="form-control" placeholder="search">
+            </div>
+          </form>
+        </div>
+        <table class="table p-30">
+          <thead>
+            <th class="text-left">Title</th>
+            <th class="text-left">Organizer</th>
+            <th class="text-left">Date</th>
+            <th class="text-left">Location</th>
+            <!-- <th class="text-left">Actions</th> -->
+          </thead>
+          <tbody>
+            <tr class="mt-1 text-left">
+              <td class="">GDG Dev Fest Lagos 18</td>
+              <td class="">Igbominadeveloper</td>
+              <td class="">21st February 2019</td>
+              <td class="">The Zone, Gbagada, Lagos</td>
+              <td class=""><a href="#">View</a> | <a href="#">Edit</a> | <a href="#">Delete</a></td>
+            </tr>
+            <tr class="mt-1 text-left">
+              <td class="">Vue JS Nigeria Conf.</td>
+              <td class="">Igbominadeveloper</td>
+              <td class="">21st February 2019</td>
+              <td class="">The Zone, Gbagada, Lagos</td>
+              <td class=""><a href="#">View</a> | <a href="#">Edit</a> | <a href="#">Delete</a></td>
+            </tr>
+            <tr class="mt-1 text-left">
+              <td class="">ForLoop Ilorin</td>
+              <td class="">Igbominadeveloper</td>
+              <td class="">21st February 2019</td>
+              <td class="">The Zone, Gbagada, Lagos</td>
+              <td class=""><a href="#">View</a> | <a href="#">Edit</a> | <a href="#">Delete</a></td>
+            </tr>
+            <tr class="mt-1 text-left">
+              <td class="">Pycon Nigeria 18</td>
+              <td class="">Igbominadeveloper</td>
+              <td class="">21st February 2019</td>
+              <td class="">The Zone, Gbagada, Lagos</td>
+              <td class=""><a href="#">View</a> | <a href="#">Edit</a> | <a href="#">Delete</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </div>  
+</body>
+</html>

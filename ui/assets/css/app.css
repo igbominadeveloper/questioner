@@ -222,6 +222,13 @@ nav h3, nav a {
 }
 
 /* Utility Classes */
+.m-0 {
+	margin: 0;
+}
+
+.p-0 {
+	padding: 0;
+}
 
 .mw-10 {
 	max-width: 1000px;
@@ -241,6 +248,10 @@ nav h3, nav a {
 
 .mt-5{
 	margin-top: 50px;
+}
+
+.m-20 {
+	margin: 20px auto;
 }
 
 .p-1 {
@@ -359,7 +370,6 @@ nav h3, nav a {
 
 .question-feed {
 	max-width: 550px;
-	margin: 20px auto;
 }
 
 .question-stats > p:hover {
@@ -434,6 +444,12 @@ i{
 	transition-property: margin-top;
 	margin-top: 27px;
 }
+
+.upcoming-meetups {
+	height: max-content;
+	border-left: 3px solid teal;
+}
+
 
 .view-more{
 	margin: 40px auto;

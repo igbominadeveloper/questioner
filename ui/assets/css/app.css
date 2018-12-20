@@ -26,7 +26,6 @@ a {
 }
 
 a:hover{
-	color: teal;	
 	font-weight: 400;
 }
 p {
@@ -69,7 +68,7 @@ article {
 	display: flex;
 	justify-content: space-evenly;
 }
-nav h3, nav a {
+nav h3, nav a, nav h2 {
 	color: white;
 }
 
@@ -219,6 +218,10 @@ nav h3, nav a {
 	font-weight: bold;
 	font-size: 25px;
 	margin: 2px 20px 20px 20px;
+}
+
+.meetup-questions {
+	max-width: 600px;
 }
 
 /* Utility Classes */

@@ -34,7 +34,10 @@ p {
 article {
 	padding: 10px 20px 20px 20px;
 }
-
+textarea {
+	min-width: 100%;
+	max-width: 100%;
+}
 .container {
 	max-width: 800px;
 	margin: 20px auto; 
@@ -238,8 +241,28 @@ nav h3, nav a, nav h2 {
 	padding: 0;
 }
 
+.p-5 {
+	padding: 5px;
+}
+
+.p-10 {
+	padding: 10px;
+}
+
+.p-20 {
+	padding: 20px;
+}
+
+.p-25 {
+	padding: 25px;
+}
+
 .mw-10 {
 	max-width: 1000px;
+}
+
+.mw-5 {
+	max-width: 500px;
 }
 
 .mt-05 {

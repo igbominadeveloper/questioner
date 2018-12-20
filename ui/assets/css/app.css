@@ -185,6 +185,13 @@ nav h3, nav a, nav h2 {
 	text-align: left;
 }
 
+.single-meetup-image {
+	width: 500px;
+	height: 220px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px
+}
+
 .meetup-image {
 	width: 376px;
 	height: 220px;

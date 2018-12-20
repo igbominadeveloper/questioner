@@ -201,12 +201,6 @@ nav h3, nav a, nav h2 {
 	background: white;
 }
 
-.meetup-image {
-	height: 250px;
-	width: 500px;
-	display: inline-block;
-}
-
 .meetup-stats {
 	padding: 10px 30px;
 	display: inline-block;
@@ -217,7 +211,11 @@ nav h3, nav a, nav h2 {
 .meetup-title {
 	font-weight: bold;
 	font-size: 25px;
-	margin: 2px 20px 20px 20px;
+	margin: 20px;
+}
+
+.meetup-date, .meetup-location {
+	margin: 20px;
 }
 
 .meetup-questions {

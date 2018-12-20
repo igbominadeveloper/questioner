@@ -38,6 +38,10 @@ textarea {
 	min-width: 100%;
 	max-width: 100%;
 }
+table {
+	width: 100%;
+}
+
 .container {
 	max-width: 800px;
 	margin: 20px auto; 
@@ -232,9 +236,39 @@ nav h3, nav a, nav h2 {
 	max-width: 600px;
 }
 
+.meetups-list {
+	height: max-content;
+}
+
+.meetups-list td {
+	height: 40px;
+	width: 220px;
+}
+
+.meetups-list tr {
+	padding: 20px auto;
+}
+
+.meetups-list tr:hover {
+	font-weight: 600;
+}
+
+form input[type="search"] {
+	width: 20%;
+}
+
+
 /* Utility Classes */
 .m-0 {
 	margin: 0;
+}
+
+.m-4 {
+	margin: 4em;
+}
+
+.ml-20 {
+	margin-left: 20px;
 }
 
 .p-0 {
@@ -255,6 +289,10 @@ nav h3, nav a, nav h2 {
 
 .p-25 {
 	padding: 25px;
+}
+
+.p-30 {
+	padding: 30px;
 }
 
 .mw-10 {
@@ -287,6 +325,10 @@ nav h3, nav a, nav h2 {
 
 .p-1 {
 	padding: 10px;
+}
+
+.pb-2 {
+	padding-bottom: 20px;
 }
 
 .p-15 {
@@ -353,6 +395,10 @@ nav h3, nav a, nav h2 {
 	border-radius: 20px;
 }
 
+.br-10 {
+	border-radius: 10px;
+}
+
 .bg-danger {
 	background: red;
 }
@@ -417,9 +463,6 @@ nav h3, nav a, nav h2 {
 	display: flex;
 }
 
-.wrapper {
-	display: flex;
-}
 #gdg {
 	background: url('/assets/images/gdg.jpg');
 	background-repeat: no-repeat;
@@ -532,10 +575,17 @@ i{
 	color: white;
 }
 
-.contact-details {
+.user-contact-details {
 	margin-left: 100px;
 }
 
+.sidebar-item {
+	margin: 60px auto;
+}
+
+.sidebar-item a:hover {
+	color: teal;
+}
 
 
 /* Media Queries */

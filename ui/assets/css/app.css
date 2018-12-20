@@ -395,6 +395,10 @@ form input[type="search"] {
 	border-radius: 20px;
 }
 
+.br-10 {
+	border-radius: 10px;
+}
+
 .bg-danger {
 	background: red;
 }

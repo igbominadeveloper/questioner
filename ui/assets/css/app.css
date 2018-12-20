@@ -327,6 +327,10 @@ form input[type="search"] {
 	padding: 10px;
 }
 
+.pb-2 {
+	padding-bottom: 20px;
+}
+
 .p-15 {
 	padding: 15px;
 }
@@ -567,7 +571,7 @@ i{
 	color: white;
 }
 
-.contact-details {
+.user-contact-details {
 	margin-left: 100px;
 }
 

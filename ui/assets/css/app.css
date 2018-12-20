@@ -34,7 +34,10 @@ p {
 article {
 	padding: 10px 20px 20px 20px;
 }
-
+textarea {
+	min-width: 100%;
+	max-width: 100%;
+}
 .container {
 	max-width: 800px;
 	margin: 20px auto; 
@@ -185,6 +188,13 @@ nav h3, nav a, nav h2 {
 	text-align: left;
 }
 
+.single-meetup-image {
+	width: 500px;
+	height: 220px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px
+}
+
 .meetup-image {
 	width: 376px;
 	height: 220px;
@@ -201,12 +211,6 @@ nav h3, nav a, nav h2 {
 	background: white;
 }
 
-.meetup-image {
-	height: 250px;
-	width: 500px;
-	display: inline-block;
-}
-
 .meetup-stats {
 	padding: 10px 30px;
 	display: inline-block;
@@ -217,7 +221,11 @@ nav h3, nav a, nav h2 {
 .meetup-title {
 	font-weight: bold;
 	font-size: 25px;
-	margin: 2px 20px 20px 20px;
+	margin: 20px;
+}
+
+.meetup-date, .meetup-location {
+	margin: 20px;
 }
 
 .meetup-questions {
@@ -233,8 +241,28 @@ nav h3, nav a, nav h2 {
 	padding: 0;
 }
 
+.p-5 {
+	padding: 5px;
+}
+
+.p-10 {
+	padding: 10px;
+}
+
+.p-20 {
+	padding: 20px;
+}
+
+.p-25 {
+	padding: 25px;
+}
+
 .mw-10 {
 	max-width: 1000px;
+}
+
+.mw-5 {
+	max-width: 500px;
 }
 
 .mt-05 {

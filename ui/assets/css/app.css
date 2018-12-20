@@ -8,14 +8,15 @@ body{
 nav {
 	display: flex;
 	justify-content: space-between;
-	margin: 20px auto;
+	margin: 5px auto;
+	background: teal;
 }
 
 ul {
 	list-style: none;
 }
 
-h2{
+h2,h3{
 	font-weight: lighter;
 }
 
@@ -53,16 +54,24 @@ article {
 	box-shadow: 6px 1px 35px rgba(0,0,0,0.18);
 }
 
+.card {
+	border-radius: 3px;
+	box-shadow: 6px 1px 35px rgba(0,0,0,0.18);
+	background: white;
+}
+
 /* Navbar */
 .nav-links {
 	width: 200px;
-	margin: 20px 20px;
+	margin: 2px 20px;
 }
 .nav-links > ul{
 	display: flex;
 	justify-content: space-evenly;
 }
-
+nav h3, nav a {
+	color: white;
+}
 
 /* Form specific */
 .form {
@@ -213,6 +222,15 @@ article {
 }
 
 /* Utility Classes */
+
+.mw-10 {
+	max-width: 1000px;
+}
+
+.mt-05 {
+	margin-top: 5px;
+}
+
 .mt-1 {
 	margin-top: 10px;
 }
@@ -223,6 +241,14 @@ article {
 
 .mt-5{
 	margin-top: 50px;
+}
+
+.p-1 {
+	padding: 10px;
+}
+
+.p-15 {
+	padding: 15px;
 }
 
 .flex{
@@ -242,19 +268,47 @@ article {
 }
 
 .bg-black {
-	background: hsl(200, 16%, 16%);
+	background: hsl(200, 6%, 67%);
 }
 
 .bg-white {
-	background: black;
+	background: white;
 }
 
 .text-black {
 	color: black;
 }
 
+.text-white {
+	color: white;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-small {
+	font-size: small;
+}
+
+.fs-20 {
+	font-size: 20px;
+}
+
+.text-center {
+	text-align: center;
+}
+
 .bg-warning {
 	background: orange;
+}
+
+.bg-primary {
+	background: teal;
+}
+
+.br-20 {
+	border-radius: 20px;
 }
 
 .bg-danger {
@@ -267,6 +321,10 @@ article {
 
 .text-danger {
 	color: red;
+}
+
+.text-primary {
+	color: teal;
 }
 
 .cover-no-repeat {
@@ -285,13 +343,11 @@ article {
 	justify-self: center;
 }
 
-.p-1 {
-	padding: 10px;
-}
 
 .question {
 	margin: 20px auto;
 	padding: 5px;
+	max-width: 500px;	
 }
 .questions-body {
 	background: white;
@@ -299,6 +355,11 @@ article {
 
 .question-stats {
 	width: 150px;
+}
+
+.question-feed {
+	max-width: 550px;
+	margin: 20px auto;
 }
 
 .question-stats > p:hover {
@@ -391,6 +452,13 @@ i{
 	margin: 5px 15px;
 	border: 1px solid teal;
 }
+.avatar-profile {
+	height: 160px;
+	width: 160px;
+	border-radius: 50%;
+	border: 3px solid white;
+	margin-top: -120px;
+}
 
 .avatar > p {
 	text-align: center;
@@ -398,6 +466,30 @@ i{
 	font-size: 20px;
 	padding: 12px;
 }
+
+.avatar-profile > p {
+	font-size: 6em;
+}
+
+
+/* User Profile */
+.profile-wrapper header {
+	height: 200px;
+}
+.user-stats ul {
+	width: 300px;
+	margin: auto;
+}
+
+.user-stats a:hover {
+	color: white;
+}
+
+.contact-details {
+	margin-left: 100px;
+}
+
+
 
 /* Media Queries */
 @media only screen and (max-width: 900px){

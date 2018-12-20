@@ -744,4 +744,36 @@ i{
 		font-weight: lighter;
 	}
 
+	/* Profile  */
+	.profile-wrapper header {
+		height: 100px;
+	}
+	section.profile-content {
+		flex-direction: column;
+	}
+
+	.user-stats {
+		flex-direction: column;
+	}
+
+	.user-stats > ul {
+		display: none;
+	}
+
+	.user-contact-details {
+		margin-left: inherit;
+		margin-top: -20px;
+		margin-left: 20px;
+	}
+
+	.user-contact-details .avatar-profile {
+		height: 100px;
+		width: 100px;
+	}
+
+	.avatar-profile p {
+		font-size: 4em;
+		margin: 10px auto;
+	}
+
 }

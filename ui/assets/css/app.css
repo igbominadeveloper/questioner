@@ -760,9 +760,13 @@ i{
 		display: none;
 	}
 
+	.user-stats > p {
+		text-align: right;
+	}
+
 	.user-contact-details {
 		margin-left: inherit;
-		margin-top: -20px;
+		margin-top: 5px;
 		margin-left: 20px;
 	}
 

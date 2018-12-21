@@ -609,6 +609,9 @@ i{
 	.upper-details {
 		flex-direction: row;
 	}
+	.user-contact-details {
+		
+	}
 }
 
 @media only screen and (max-width: 992px){
@@ -619,6 +622,7 @@ i{
 
 	.container-fluid {
 		max-width: 100%;
+		text-align: left;
 	}
 
 	#registration-form, #login-form {
@@ -664,7 +668,7 @@ i{
 	
 	.question-content > p,.comment-content > p {
 		margin-left: -55px;
-		margin-top: 40px;
+		margin-top: 30px;
 	}
 
 	/* Question Comments */
@@ -675,6 +679,10 @@ i{
 
 	.single-comment {
 		padding: 0; 
+	}
+
+	.question-feed article {
+		margin: 20px 2px;
 	}
 
 	.new-comment, .new-question {
@@ -734,6 +742,9 @@ i{
 		font-size: 15px;
 		margin: 2px auto;
 	}
+	.upcoming-meetups {
+		display: none;
+	}
 
 	.upper-details {
 		flex-direction: column;
@@ -750,6 +761,7 @@ i{
 	}
 	section.profile-content {
 		flex-direction: column;
+		margin-top: 20px;
 	}
 
 	.user-stats {
@@ -757,7 +769,9 @@ i{
 	}
 
 	.user-stats > ul {
-		display: none;
+		position: absolute;
+		margin: 200px auto;
+		padding-left: 0;
 	}
 
 	.user-stats > p {
@@ -768,6 +782,12 @@ i{
 		margin-left: inherit;
 		margin-top: 5px;
 		margin-left: 20px;
+	}
+
+	.question-feed {
+		margin-top: 40px;
+		background: none;
+		box-shadow: none;
 	}
 
 	.user-contact-details .avatar-profile {

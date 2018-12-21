@@ -515,7 +515,9 @@ i{
 	transition-property: margin-top;
 	margin-top: 27px;
 }
-
+.question-content > p,.comment-content > p{
+	text-align: left;
+}
 .upcoming-meetups {
 	height: max-content;
 	border-left: 3px solid teal;
@@ -606,11 +608,35 @@ i{
 		padding: 10px 4px;
 	}
 
+	.list {
+		width: max-content;
+	}
+
+	.question-feed {
+		box-shadow: none;
+		background: none;
+		margin-top: 0px;
+	}
+
+	.question-feed article {
+		padding-top: 0;
+	}
 	.upper-details {
 		flex-direction: row;
 	}
 	.user-contact-details {
-		
+		margin-left: 10px;
+	}
+	.avatar-profile {
+		height: 120px;
+		width: 120px;
+	}
+	.avatar-profile > p {
+		font-size: 5em;
+	} 
+
+	.upcoming-meetups {
+		display: none;
 	}
 }
 
@@ -669,6 +695,7 @@ i{
 	.question-content > p,.comment-content > p {
 		margin-left: -55px;
 		margin-top: 30px;
+		text-align: left;
 	}
 
 	/* Question Comments */

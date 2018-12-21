@@ -461,31 +461,31 @@ form input[type="search"] {
 }
 
 #gdg {
-	background: url('./assets/images/gdg.jpg');
+	background: url('../images/gdg.jpg');
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }
 
 #vue{
-	background: url('./assets/images/meetup-logo.png');
+	background: url('../images/meetup-logo.png');
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }
 
 #laravel {
-	background: url('./assets/images/laravel.jpg');
+	background: url('../images/laravel.jpg');
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }
 
 #mocha {
-	background: url('./assets/images/mocha.png');
+	background: url('../images/mocha.png');
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }
 
 #forloop {
-	background: url('./assets/images/forloop.jpg');
+	background: url('../images/forloop.jpg');
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }

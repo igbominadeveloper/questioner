@@ -600,7 +600,9 @@ i{
 	#registration-form, #login-form {
 		width: 100%;
 	}
-
+	.sidebar-item {
+		margin: 20px auto;
+	}
 	.meetup-stats {
 		margin: inherit;
 		height: inherit;
@@ -636,6 +638,10 @@ i{
 
 	.upcoming-meetups {
 		display: none;
+	}
+
+	.meetups-list th:nth-child(2), .meetups-list td:nth-child(2), .meetups-list th:nth-child(4), .meetups-list td:nth-child(4)  {
+		display: block;
 	}
 }
 
@@ -675,16 +681,20 @@ i{
 		display: none;
 	}
 
-	
-
 	.meetups-list td {
 		width: max-content;
 		height: max-content;
 	}
 
+	.search form input[type="search"] {
+		width: 29%;
+		font-size: 15px;
+	}
 
-
-
+	.search .form-control {
+		margin: 10px auto;
+		padding: 4px 10px;
+	}
 
 	#registration-form, #login-form {
 		width: 100%;
@@ -869,6 +879,16 @@ i{
 	.avatar-profile p {
 		font-size: 4em;
 		margin: 10px auto;
+	}
+
+	.search form input[type="search"] {
+		width: 29%;
+		font-size: 15px;
+	}
+
+	.search .form-control {
+		margin: 10px auto;
+		padding: 4px 10px;
 	}
 
 }

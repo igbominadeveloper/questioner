@@ -234,7 +234,7 @@ nav h3, nav a, nav h2 {
 
 
 .meetups-list {
-	height: max-content;
+	height: inherit;c
 }
 
 .meetups-list td {

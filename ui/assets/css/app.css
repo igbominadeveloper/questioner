@@ -595,7 +595,6 @@ i{
 	}
 	.container-fluid {
 		max-width: 100%;
-		/* zoom: 2; */
 	}
 
 	#registration-form, #login-form {
@@ -648,8 +647,44 @@ i{
 
 	.container-fluid {
 		max-width: 100%;
-		text-align: left;
 	}
+
+	.sidebar {
+		display: none;
+	}
+
+	.meetups-list {
+		margin-left: 0px;
+	}
+	.table {
+		width: 100%;
+		padding: 5px;
+		border-collapse: collapse;
+	}
+	
+	.meetups-list {
+		width: 100%;
+	}
+
+	.table tr {
+		display: flex;
+		font-size: 10px;
+		justify-content: space-between;
+	}
+	.meetups-list th:nth-child(2), .meetups-list td:nth-child(2), .meetups-list th:nth-child(4), .meetups-list td:nth-child(4)  {
+		display: none;
+	}
+
+	
+
+	.meetups-list td {
+		width: max-content;
+		height: max-content;
+	}
+
+
+
+
 
 	#registration-form, #login-form {
 		width: 100%;
@@ -734,7 +769,7 @@ i{
 	}
 
 	.container-fluid {
-		max-width: 100%;
+		width: 100%;
 	}
 
 	#registration-form, #login-form {
@@ -747,6 +782,12 @@ i{
 		justify-content: center;
 	}
 
+	.table {
+		width: 100%;
+		padding: 5px;
+		border-collapse: collapse;
+	}
+	
 /* Single Meetup Page */
 	.single-meetup {
 		display: flex;
@@ -815,6 +856,9 @@ i{
 		margin-top: 40px;
 		background: none;
 		box-shadow: none;
+	}
+	.question-title {
+		margin-top: 2rem;
 	}
 
 	.user-contact-details .avatar-profile {

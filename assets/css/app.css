@@ -167,6 +167,10 @@ nav h3, nav a, nav h2 {
 	border-radius: 5px;
 }
 
+button#nav-toggle{
+	display: none;
+}
+
 .page-title {
 	text-align: left;
 	color: black;
@@ -256,6 +260,14 @@ form input[type="search"] {
 
 
 /* Utility Classes */
+.hide {
+	display: none !important;
+}
+
+.show {
+	display: block !important;
+}
+
 .m-0 {
 	margin: 0;
 }
@@ -597,6 +609,10 @@ i{
 		max-width: 100%;
 	}
 
+	.navbar-collapse {
+		display: none;
+	}
+
 	#registration-form, #login-form {
 		width: 100%;
 	}
@@ -655,10 +671,14 @@ i{
 		max-width: 100%;
 	}
 
-	.sidebar {
+	.sidebar,.navbar {
 		display: none;
 	}
 
+	button#nav-toggle {
+		display: block;
+	}
+	
 	.meetups-list {
 		margin-left: 0px;
 	}

@@ -670,6 +670,7 @@ i{
 	
 	.meetups-list {
 		width: 100%;
+		padding: 20px;
 	}
 
 	.table tr {

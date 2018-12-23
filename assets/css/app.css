@@ -757,6 +757,7 @@ i{
 
 	.questions-list {
 		margin-left: -20px;
+		text-align-last: left;
 	}
 
 	.upper-details .question-time, .comment-time {

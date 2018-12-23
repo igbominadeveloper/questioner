@@ -79,6 +79,10 @@ nav h3, nav a, nav h2 {
 	color: white;
 }
 
+.navbar-collapse {
+	display: none;
+}
+
 /* Form specific */
 .form {
 	max-width: 100%;
@@ -609,10 +613,6 @@ i{
 		max-width: 100%;
 	}
 
-	.navbar-collapse {
-		display: none;
-	}
-
 	#registration-form, #login-form {
 		width: 100%;
 	}
@@ -678,7 +678,12 @@ i{
 	button#nav-toggle {
 		display: block;
 	}
-	
+
+	.navbar-collapse li {
+		padding: 10px 0;
+		border-bottom: 2px solid white;
+	}
+
 	.meetups-list {
 		margin-left: 0px;
 	}

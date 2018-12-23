@@ -678,6 +678,11 @@ i{
 		padding: 10px 0;
 		border-bottom: 2px solid white;
 	}
+	
+	@keyframes slide-down {
+		0% { opacity: 0; transform: translateY(-100%); }   
+    	100% { opacity: 1; transform: translateY(0); }
+	}
 
 	.meetups-list {
 		margin-left: 0px;

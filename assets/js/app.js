@@ -11,9 +11,11 @@ toggle.addEventListener('click', () =>{
 function toggleDisplay() {
     if (navbar.style.display !== 'block') {
         navbar.style.display = 'block';
+        navbar.style.animation = 'slide-down .3s ease-out';
         return;
     }
     navbar.style.display = 'none';
+    navbar.style.animation = 'slide-down .3s ease-out';
     return;
 
 }

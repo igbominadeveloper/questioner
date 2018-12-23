@@ -79,6 +79,10 @@ nav h3, nav a, nav h2 {
 	color: white;
 }
 
+.navbar-collapse {
+	display: none;
+}
+
 /* Form specific */
 .form {
 	max-width: 100%;
@@ -165,6 +169,10 @@ nav h3, nav a, nav h2 {
 	color: white;
 	font-size: 18px;
 	border-radius: 5px;
+}
+
+button#nav-toggle{
+	display: none;
 }
 
 .page-title {
@@ -256,6 +264,14 @@ form input[type="search"] {
 
 
 /* Utility Classes */
+.hide {
+	display: none !important;
+}
+
+.show {
+	display: block !important;
+}
+
 .m-0 {
 	margin: 0;
 }
@@ -416,11 +432,6 @@ form input[type="search"] {
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }
-
-/* .dislike:hover, .dislike > i:hover {
-	color: red;
-} */
-
 
 .wrapper {
 	display: flex;
@@ -655,8 +666,22 @@ i{
 		max-width: 100%;
 	}
 
-	.sidebar {
+	.sidebar,.navbar {
 		display: none;
+	}
+
+	button#nav-toggle {
+		display: block;
+	}
+
+	.navbar-collapse li {
+		padding: 10px 0;
+		border-bottom: 2px solid white;
+	}
+	
+	@keyframes slide-down {
+		0% { opacity: 0; transform: translateY(-100%); }   
+    	100% { opacity: 1; transform: translateY(0); }
 	}
 
 	.meetups-list {
@@ -670,6 +695,7 @@ i{
 	
 	.meetups-list {
 		width: 100%;
+		padding: 20px;
 	}
 
 	.table tr {
@@ -731,6 +757,7 @@ i{
 
 	.questions-list {
 		margin-left: -20px;
+		text-align-last: left;
 	}
 
 	.upper-details .question-time, .comment-time {
@@ -779,7 +806,7 @@ i{
 	}
 
 	.container-fluid {
-		width: 100%;
+		max-width: 100%;
 	}
 
 	#registration-form, #login-form {

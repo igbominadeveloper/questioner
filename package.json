@@ -4,7 +4,11 @@
   "description": "Crowd-sourcing questions for meetups",
   "main": "index.js",
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "coveralls": "^3.0.2",
+    "expect": "^23.6.0",
+    "mocha": "^5.2.0"
+  },
   "scripts": {
     "test": "mocha"
   },

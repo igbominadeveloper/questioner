@@ -1,0 +1,22 @@
+{
+  "name": "questioner",
+  "version": "1.0.0",
+  "description": "Crowd-sourcing questions for meetups",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/igbominadeveloper/questioner.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/igbominadeveloper/questioner/issues"
+  },
+  "homepage": "https://github.com/igbominadeveloper/questioner#readme"
+}

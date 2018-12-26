@@ -1,0 +1,29 @@
+[
+	{
+		"id" : 1,
+		"createdOn" : "25-12-2018",
+		"location" : "Lagos, Nigeria",
+		"images" : [],
+		"topic" : "Using VueJS for large scale applications",
+		"happeningOn" : "23-02-2019", 
+		"Tags" : []
+	},
+	{
+		"id" : 2,
+		"createdOn" : "25-12-2018",
+		"location" : "Lagos, Nigeria",
+		"images" : [],
+		"topic" : "VueJS for quick prototyping",
+		"happeningOn" : "23-06-2019", 
+		"Tags" : []
+	},
+	{
+		"id" : 3,
+		"createdOn" : "25-12-2018",
+		"location" : "Lagos, Nigeria",
+		"images" : [],
+		"topic" : "VueJS: 2016 in retrospect",
+		"happeningOn" : "23-11-2019", 
+		"Tags" : []
+	}
+]

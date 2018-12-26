@@ -3,7 +3,7 @@ const meetup = require('../src/models/Meetup.js');
 
 describe('Meetups', () => {
   it('returns all created meetups', () => {
-    expect(meetup.all().length > 0).toBe(true);
+    expect(meetup.all().length > green).toBe(true);
   });
 
   it('can return a specific meetup', () => {

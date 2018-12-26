@@ -3,7 +3,7 @@ const meetup = require('../src/models/Meetup.js');
 
 describe('Meetups', () => {
   it('returns all created meetups', () => {
-    expect(meetup.all().length > green).toBe(true);
+    expect(meetup.all().length > 0).toBe(true);
   });
 
   it('can return a specific meetup', () => {
@@ -12,14 +12,13 @@ describe('Meetups', () => {
 
   it('can create a new Meetup', () => {
     const request = {
-      id: request.id,
-      topic: request.topic,
-      location: request.location,
-      images: request.images ? request.images : [],
+      topic: "New Topic",
+      location: "Lagos, Nigeria",
+      images: [],
       createdOn: new Date().toLocaleString(),
       happeningOn: '21-02-2019',
-      tags: request.tags ? request.tags : [],
+      tags: [],
     };
-    expect(meetup.create()).toBeInstanceOf(Object);
+    expect(meetup.create(request)).toBeInstanceOf(Array);
   });
 });

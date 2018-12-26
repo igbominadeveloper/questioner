@@ -1,5 +1,4 @@
 const meetups = require('../data/meetups.json');
-
 class Meetups {
   static all() {
     return meetups;
@@ -11,8 +10,9 @@ class Meetups {
 
   static create(request) {
     if (request) {
+      return meetups.lastObject;
       const meetup = {
-        id: request.id,
+        id: meetups,
         topic: request.topic,
         location: request.location,
         images: request.images ? request.images : [],
@@ -20,7 +20,8 @@ class Meetups {
         happeningOn: '21-02-2019',
         tags: request.tags ? request.tags : [],
       };
-      return meetup;
+     // meetups.push(meetup);
+     return meetup; 
     }
     return 'No Request was Received';
   }

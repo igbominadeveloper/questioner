@@ -17,8 +17,7 @@
   "scripts": {
     "lint": "eslint \"**/*.js\" --fix",
     "test": "mocha tests/*.spec.js",
-    "coveralls": "mocha -- --coverage && cat ./tests/coverage/lcov.info | coveralls
-"
+    "coveralls": "mocha -- --coverage && cat ./tests/coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",

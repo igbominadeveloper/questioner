@@ -15,7 +15,7 @@
   },
   "scripts": {
     "lint": "eslint \"**/*.js\" --fix",
-    "test": "mocha tests/*.spec.js -w",
+    "test": "mocha tests/*.spec.js",
     "coveralls": "npm test --coverage && cat ./tests/coverage/lcov.info | coveralls"
   },
   "repository": {

@@ -1,0 +1,29 @@
+[
+	{
+	"id" : 1,
+	"createdOn" : "29-01-2018",
+	"createdBy" : 1,
+	"meetup" : 2,
+	"title" : "Meetup location",
+	"body" : "Can you send a map location of the meetup?",
+	"votes" : 2
+	},
+	{
+	"id" : 2,
+	"createdOn" : "29-01-2018",
+	"createdBy" : 3,
+	"meetup" : 1,
+	"title" : "Refreshments",
+	"body" : "Will refreshments be available to participants?",
+	"votes" : 10
+	},
+	{
+	"id" : 3,
+	"createdOn" : "29-01-2018",
+	"createdBy" : 1,
+	"meetup" : 3,
+	"title" : "Transportation",
+	"body" : "I am coming from Ogun State, will transportation to specific locations be provided?",
+	"votes" : 90
+	}
+]

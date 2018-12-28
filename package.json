@@ -5,6 +5,9 @@
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "babel-loader": "^8.0.4",
     "coveralls": "^3.0.2",
     "eslint": "^5.11.0",
     "eslint-config-airbnb-base": "^13.1.0",
@@ -16,7 +19,7 @@
   },
   "scripts": {
     "lint": "eslint \"**/*.js\" --fix",
-    "test": "mocha tests/*.spec.js",
+    "test": "nyc --require node_modules/babel-core/register mocha tests/*.spec.js -w",
     "coveralls": "nyc report --reporter=text-lcov > coverage.lcov"
   },
   "repository": {

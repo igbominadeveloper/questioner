@@ -1,0 +1,20 @@
+[
+	{
+		"id" : 1 ,
+		"meetup" : 2 ,
+		"user" : 40,
+		"response" : "I will be available"
+	},
+	{
+		"id" : 2 ,
+		"meetup" : 3 ,
+		"user" : 4,
+		"response" : "I will be available"
+	},
+	{
+		"id" : 3 ,
+		"meetup" : 9 ,
+		"user" : 43,
+		"response" : "I will be available"
+	},
+]

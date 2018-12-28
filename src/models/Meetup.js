@@ -1,7 +1,17 @@
 const meetups = require('../data/meetups.json');
+
 class Meetups {
   static all() {
-    return meetups;
+    return new Promise((resolve, reject) => {
+      if(meetups){
+        resolve(meetups);
+      }
+      reject({"error":"No Meetup found"});
+    });
+  }
+
+  static latest() {
+    return meetups.sort();
   }
 
   static find(id) {
@@ -9,26 +19,36 @@ class Meetups {
   }
 
   static create(request) {
-    if (request) {
-      return meetups.lastObject;
-      const meetup = {
-        id: meetups,
-        topic: request.topic,
-        location: request.location,
-        images: request.images ? request.images : [],
-        createdOn: new Date().toLocaleString(),
-        happeningOn: '21-02-2019',
-        tags: request.tags ? request.tags : [],
-      };
-     // meetups.push(meetup);
-     return meetup; 
-    }
-    return 'No Request was Received';
+    return new Promise((resolve, reject) => {
+      if (request) {
+        const id = meetups.length + 1;
+        const meetup = {
+          id,
+          topic: request.topic,
+          location: request.location,
+          images: request.images ? request.images : [],
+          createdOn: new Date().toLocaleString(),
+          happeningOn: request.happeningOn,
+          tags: request.tags ? request.tags : [],
+        };
+        meetups.push(meetup);
+        resolve(meetup);
+      }
+    });
   }
 
-  static latest() {
-    return meetups.sort();
+  static update(id, request) {
+    const meetup = meetups.find(id);
+  }
+
+  static delete(id) {
+    return new Promise((resolve, reject) => {
+      if (id) {
+        const filtered = meetups.filter(meetup => meetup.id !== id);
+        resolve(filtered);
+      }
+      reject('Error occured');
+    });
   }
 }
-
-module.exports = Meetups;
+module.exports = meetup;

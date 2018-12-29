@@ -1,13 +1,11 @@
-const meetups = require('../data/meetups.json');
+import path from 'path';
+import helper from '../helpers/helper.js';
+import meetups from '../data/meetups.json';
+const filename = path.resolve(__dirname, '../data/meetups.json');
 
-class Meetups {
+class Meetup {
   static all() {
-    return new Promise((resolve, reject) => {
-      if(meetups){
-        resolve(meetups);
-      }
-      reject({"error":"No Meetup found"});
-    });
+    return meetups;
   }
 
   static latest() {
@@ -15,40 +13,53 @@ class Meetups {
   }
 
   static find(id) {
-    return meetups.find(meetup => meetup.id === id);
+    return helper.exists(meetups, id);
   }
 
-  static create(request) {
-    return new Promise((resolve, reject) => {
-      if (request) {
-        const id = meetups.length + 1;
-        const meetup = {
-          id,
-          topic: request.topic,
-          location: request.location,
-          images: request.images ? request.images : [],
-          createdOn: new Date().toLocaleString(),
-          happeningOn: request.happeningOn,
-          tags: request.tags ? request.tags : [],
-        };
-        meetups.push(meetup);
-        resolve(meetup);
-      }
-    });
-  }
-
-  static update(id, request) {
-    const meetup = meetups.find(id);
-  }
-
-  static delete(id) {
-    return new Promise((resolve, reject) => {
-      if (id) {
-        const filtered = meetups.filter(meetup => meetup.id !== id);
-        resolve(filtered);
-      }
-      reject('Error occured');
-    });
+  static create(payload) {
+    if (payload) {
+      const id = helper.getNewId(meetups);
+      const meetup = {
+        id,
+        topic: payload.topic,
+        location: payload.location,
+        images: payload.images ? payload.images : [],
+        createdOn: new Date().toLocaleString(),
+        happeningOn: payload.happeningOn,
+        tags: payload.tags ? payload.tags : [],
+      };
+      meetups.push(meetup);
+      helper.writeToFile(filename, meetups);
+      return meetup;
+    }
   }
 }
-module.exports = meetup;
+    
+//   }
+
+
+//   static update(id, request) {
+//     helper.exists(meetups, id)
+//       .then((response) => {
+//         const fetchedMeetup = {} = response.body; let
+//           request;
+//         const index = meetups.findIndex(request.params.id);
+//         meetups[index] = fetchedMeetup;
+//         helper.writeToFile(filename, meetups);
+//         return meetups[index];
+//       })
+//       .catch(error => error.error);
+//   }
+
+//   static delete(id) {
+//     helper.exists(meetups, id)
+//       .then((response) => {
+//         const filtered = meetups.filter(meetup => meetup.id !== id);
+//         helper.writeToFile(filename, filtered);
+//         return response.body;
+//       })
+//       .catch(error => error.error);
+//   }
+// }
+
+export default Meetup;

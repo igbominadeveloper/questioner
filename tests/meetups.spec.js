@@ -1,10 +1,9 @@
-const expect = require('expect');
-const meetup = require('../src/controllers/meetupController.js');
-const meetupFile = require('../src/data/meetups.json');
+import expect from 'expect';
+import meetup from '../src/models/Meetup.js';
 
 describe('Meetups', () => {
   it('returns all created meetups', () => {
-    expect(meetup.all()).toBe(true);
+    expect(meetup.all()).toBeInstanceOf(Array);
   });
 
   it('can return a specific meetup', () => {
@@ -20,12 +19,9 @@ describe('Meetups', () => {
       happeningOn: '21-02-2019',
       tags: [],
     };
-    expect(meetup.create(request)).toBeInstanceOf(String);
+    expect(meetup.create(request)).toBeInstanceOf(Object);
   });
 
-  // it('can write to the json file', () => {
-  //   expect(meetupFile).toBeInstanceOf(String);    
-  // });
   it('can update a Meetup', () => {
     const request = {
       topic: "New Topic",

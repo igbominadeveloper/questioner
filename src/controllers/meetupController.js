@@ -1,119 +1,35 @@
-const meetup = require('../models/Meetup.js');
+import meetup from '../models/Meetup.js';
+import helper from '../helpers/helper.js';
+import meetups from '../data/meetups.json';
 
-class MeetupController {
-  // Get all meetups
-  static index(request, response) {
-    return new Promise((resolve, reject) => {
-      meetup.all()
-      .then(response => {
-        return response.json({
-          status: response.status,
-          data: response.body,
-          message: 'meetups found',
-        });        
+class meetupController {
+   static index(request, response) {
+    let data = meetup.all();
+    if(data.length > 0){
+      return response.json({
+        status: 200,
+        data: data
       })
-      .catch(error => {
-        return response.json({
-          status: response.status,
-          error: 'No meetup found',
-        });   
-      });
-    });
+    }
+    return response.json({
+      status: 404,
+      message: `No Meetups available`
+    })
   }
 
-  // Get a meetup
   static show(request, response) {
-    return new Promise((resolve, reject) => {
-      meetup.find(request.params.id)
-      .then(response => {
-        return response.json({
-          status: response.status,
-          data: response.body,
-          message: 'meetup found',
-        });        
+    let data = meetup.find(request.params.id);
+    if(data !== false){
+      return response.json({
+        status: 200,
+        data: data
       })
-      .catch(error => {
-        return response.json({
-          status: response.status,
-          error: 'Resource Not found',
-        });   
-      });
-    });
-  }
-
-  // Add meetup
-  static create(request, response) {
-    const payload = {
-      id: meetup.length + 1,
-      topic: request.topic,
-      location: request.location,
-      images: request.images ? request.images : [],
-      createdOn: request.createdOn,
-      happeningOn: request.happeningOn,
-      tags: request.tags ? request.images : []
-    };
-
-    return new Promise((resolve, reject) => {
-      meetup.create(payload)
-      .then(response => {
-        return response.json({
-          status: response.status,
-          data: response.body,
-          message: 'Successfully added meetup',
-        });
-      })
-      .catch(error => {
-        return response.json({
-          status: response.status,
-          error: error.response,
-        });   
-      });
-    });
-  }
-  // Update meetup
-  static update(request, response) {
-    return new Promise((resolve, reject) => {
-      let data = meetup.find(request.params.id);
-      if(!data){ 
-        reject({
-          status: 404,
-          error: "Meetup record not found"
-        });
-      }
-      meetup.update(request.params.id,request.body)
-      .then(response => {
-        return response.json({
-          status: response.status,
-          data: response.body,
-          message: 'Successfully added meetup',
-        });
-      })
-      .catch(error => {
-        return response.json({
-          status: error.status,
-          error: error.error,
-        });   
-      });
-    });
-  }
-
-  // Delete meetup
-  static destroy(request, response) {
-    return new Promise((resolve, reject) => {
-      meetup.delete(request.params.id)
-      .then(response => {
-        return response.json({
-          status: response.status,
-          message: 'Successfully added meetup',
-        });
-      })
-      .catch(error => {
-        return response.json({
-          status: response.status,
-          message: 'Error! Delete operation failed',
-        });
-      });
-    });
+    }
+    return response.json({
+      status: 404,
+      message: `Model doesn't exist`
+    })
   }
 }
+
 export default meetupController;

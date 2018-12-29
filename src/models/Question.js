@@ -1,6 +1,6 @@
 const questions = require('../data/questions.json');
 
-class Questions {
+class Question {
   static all() {
     return questions;
   }
@@ -40,4 +40,4 @@ class Questions {
   }
 }
 
-module.exports = questions;
+module.exports = Question;

@@ -9,7 +9,7 @@ class Meetup {
   }
 
   static latest() {
-    return meetups.sort();
+    return meetups.sort((meetup1, meetup2) => meetup1.happeningOn > meetup2.happeningOn);
   }
 
   static find(id) {

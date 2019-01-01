@@ -35,20 +35,22 @@ class Meetup {
     return false;
   }
 
-  static update(id, request) {
-    let meetup = helper.exists(meetups, id)
-    const index = meetups.findIndex(request.params.id);
-    const {
-      topic,
-      location,
-      happeningOn,
-      tags,
-      images
-    } = request;
-    // meetups[index] = {...topic, ...location, ...happeningOn, ...tags, ...images,};
-    helper.writeToFile(filename, meetups);
-    return meetups[index];
-  }
+  // static update(id, request) {
+  //   let meetup = helper.exists(meetups, id);
+  //   const index = meetups.findIndex(request.params.id);
+  //   let id = { meetup.id };
+  //   meetup
+  //   const {
+  //     title,
+  //     location,
+  //     happeningOn,
+  //     tags,
+  //     images
+  //   } = request.body;
+  //   meetups[index] = {topic,location,happeningOn};
+  //   helper.writeToFile(filename, meetups);
+  //   return meetups[index];
+  // }
 
   static delete(id) {
     let meetup = helper.exists(meetups, id);

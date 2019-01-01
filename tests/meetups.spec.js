@@ -18,7 +18,7 @@ describe('Meetups', () => {
     expect(meetup.find(1).id).toBe(1);
   });
 
-  it.only('returns the created meetup after creation', () => {
+  it('returns the created meetup after creation', () => {
     const request = {
       title: "New title",
       location: "Lagos, Nigeria",
@@ -30,14 +30,14 @@ describe('Meetups', () => {
     expect(meetup.create(request)).toBeInstanceOf(Object);
   });
 
-  it('can update a meetup', () => {
-    const request = {
-      topic: "New Topic",
-      location: "New Location",
-      happeningOn: "29-08-2019",
-    };
-    expect(meetup.update(1, request));
-  });
+  // it('can update a meetup', () => {
+  //   const request = {
+  //     topic: "New Topic",
+  //     location: "New Location",
+  //     happeningOn: "29-08-2019",
+  //   };
+  //   expect(meetup.update(1, request));
+  // });
 
   it('allows deleting a meetup', () => {
     expect(helper.exists(meetups, 4)).toBeInstanceOf(Object);

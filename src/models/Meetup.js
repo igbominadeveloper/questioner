@@ -1,5 +1,5 @@
 import path from 'path';
-import helper from '../helpers/helper.js';
+import helper from '../helpers/helper';
 import meetups from '../data/meetups.json';
 
 const filename = path.resolve(__dirname, '../data/meetups.json');
@@ -56,7 +56,7 @@ class Meetup {
   static delete(id) {
     const meetup = helper.exists(meetups, id);
     if (meetup) {
-      const filtered = meetups.filter(meetup => meetup.id !== meetup.id);
+      const filtered = meetups.filter(eachMeetup => eachMeetup.id !== meetup.id);
       helper.writeToFile(filename, filtered);
       return true;
     }

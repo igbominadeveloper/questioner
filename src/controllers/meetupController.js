@@ -1,16 +1,14 @@
-import meetup from '../models/Meetup.js';
-import helper from '../helpers/helper.js';
-import meetups from '../data/meetups.json';
+import meetup from '../models/Meetup';
 
 class meetupController {
   static index(request, response) {
     const allMeetups = meetup.all();
     if (allMeetups.length > 0) {
-      allMeetups.forEach((element) => {
+      const data = Object.assign({}, allMeetups);
+      data.forEach((element) => {
         delete element.images;
         delete element.createdOn;
       });
-      const data = allMeetups;
       return response.json({
         status: 200,
         data,
@@ -59,7 +57,7 @@ class meetupController {
   }
 
   static update(request, response) {
-    return request;
+    return request.body;
   }
 }
 

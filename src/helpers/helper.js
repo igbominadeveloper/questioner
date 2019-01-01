@@ -10,7 +10,7 @@ const getNewId = (array) => {
 const now = () => new Date().toLocaleString();
 
 const exists = (array, id) => {
-  const row = array.find(row => row.id == id);
+  const row = array.find(row => row.id === id);
   if (row) {
     return row;
   }
@@ -20,7 +20,7 @@ const exists = (array, id) => {
 const writeToFile = (filename, content) => {
   fs.writeFileSync(filename, JSON.stringify(content), 'utf8', (error) => {
     if (error) {
-      console.log(error);
+      alert(error);
     }
   });
 };

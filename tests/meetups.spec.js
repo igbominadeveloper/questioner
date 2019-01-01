@@ -1,6 +1,6 @@
 import expect from 'expect';
-import meetup from '../src/models/Meetup.js';
-import helper from '../src/helpers/helper.js';
+import meetup from '../src/models/Meetup';
+import helper from '../src/helpers/helper';
 import meetups from '../src/data/meetups.json';
 
 describe('Meetups', () => {

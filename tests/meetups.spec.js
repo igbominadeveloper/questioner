@@ -1,7 +1,5 @@
 import expect from 'expect';
 import meetup from '../src/models/Meetup.js';
-import app from '../app.js';
-import router from '../src/routes/index.js';
 import helper from '../src/helpers/helper.js';
 import meetups from '../src/data/meetups.json';
 
@@ -20,8 +18,8 @@ describe('Meetups', () => {
 
   it('returns the created meetup after creation', () => {
     const request = {
-      title: "New title",
-      location: "Lagos, Nigeria",
+      title: 'New title',
+      location: 'Lagos, Nigeria',
       images: [],
       createdOn: new Date().toLocaleString(),
       happeningOn: '21-02-2019',
@@ -43,5 +41,5 @@ describe('Meetups', () => {
     expect(helper.exists(meetups, 4)).toBeInstanceOf(Object);
     // expect(meetup.delete(4)).toBe(true);
     // expect(helper.exists(meetups, 4)).toBe(false);
-  });  
+  });
 });

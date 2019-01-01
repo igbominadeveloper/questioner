@@ -1,6 +1,7 @@
 import path from 'path';
 import helper from '../helpers/helper.js';
 import meetups from '../data/meetups.json';
+
 const filename = path.resolve(__dirname, '../data/meetups.json');
 
 class Meetup {
@@ -53,8 +54,8 @@ class Meetup {
   // }
 
   static delete(id) {
-    let meetup = helper.exists(meetups, id);
-    if(meetup){ 
+    const meetup = helper.exists(meetups, id);
+    if (meetup) {
       const filtered = meetups.filter(meetup => meetup.id !== meetup.id);
       helper.writeToFile(filename, filtered);
       return true;

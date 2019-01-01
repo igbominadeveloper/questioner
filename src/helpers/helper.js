@@ -12,10 +12,10 @@ const now = () => new Date().toLocaleString();
 const exists = (array, id) => {
   const row = array.find(row => row.id == id);
   if (row) {
-    return row 
+    return row;
   }
-  return false
-}
+  return false;
+};
 
 const writeToFile = (filename, content) => {
   fs.writeFileSync(filename, JSON.stringify(content), 'utf8', (error) => {

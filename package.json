@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "start": "nodemon src/index.js",
-    "lint": "node_modules/.bin/eslint src/",
+    "lint": "node_modules/.bin/eslint src tests/**.spec.js --fix",
     "test": "nyc --require babel-register mocha tests/**.spec.js --exit",
     "test:watch": "nyc --require babel-register mocha tests/**.spec.js -w",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
@@ -28,6 +29,7 @@
     "eslint-plugin-import": "^2.14.0",
     "expect": "^23.6.0",
     "mocha": "^5.2.0",
+    "moxios": "^0.4.0",
     "nodemon": "^1.18.9",
     "nyc": "^13.1.0"
   }

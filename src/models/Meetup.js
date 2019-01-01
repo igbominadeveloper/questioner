@@ -21,7 +21,7 @@ class Meetup {
       const id = helper.getNewId(meetups);
       const meetup = {
         id,
-        topic: payload.topic,
+        title: payload.title,
         location: payload.location,
         images: payload.images ? payload.images : [],
         createdOn: new Date().toLocaleString(),
@@ -32,34 +32,33 @@ class Meetup {
       helper.writeToFile(filename, meetups);
       return meetup;
     }
+    return false;
+  }
+
+  static update(id, request) {
+    let meetup = helper.exists(meetups, id)
+    const index = meetups.findIndex(request.params.id);
+    const {
+      topic,
+      location,
+      happeningOn,
+      tags,
+      images
+    } = request;
+    // meetups[index] = {...topic, ...location, ...happeningOn, ...tags, ...images,};
+    helper.writeToFile(filename, meetups);
+    return meetups[index];
+  }
+
+  static delete(id) {
+    let meetup = helper.exists(meetups, id);
+    if(meetup){ 
+      const filtered = meetups.filter(meetup => meetup.id !== meetup.id);
+      helper.writeToFile(filename, filtered);
+      return true;
+    }
+    return false;
   }
 }
-    
-//   }
-
-
-//   static update(id, request) {
-//     helper.exists(meetups, id)
-//       .then((response) => {
-//         const fetchedMeetup = {} = response.body; let
-//           request;
-//         const index = meetups.findIndex(request.params.id);
-//         meetups[index] = fetchedMeetup;
-//         helper.writeToFile(filename, meetups);
-//         return meetups[index];
-//       })
-//       .catch(error => error.error);
-//   }
-
-//   static delete(id) {
-//     helper.exists(meetups, id)
-//       .then((response) => {
-//         const filtered = meetups.filter(meetup => meetup.id !== id);
-//         helper.writeToFile(filename, filtered);
-//         return response.body;
-//       })
-//       .catch(error => error.error);
-//   }
-// }
 
 export default Meetup;

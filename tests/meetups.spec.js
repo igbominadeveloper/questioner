@@ -1,18 +1,26 @@
 import expect from 'expect';
 import meetup from '../src/models/Meetup.js';
+import app from '../app.js';
+import router from '../src/routes/index.js';
+import helper from '../src/helpers/helper.js';
+import meetups from '../src/data/meetups.json';
 
 describe('Meetups', () => {
   it('returns all created meetups', () => {
-    expect(meetup.all()).toBeInstanceOf(Array);
+    expect(meetup.all()).toBeInstanceOf(Object);
+  });
+
+  it('returns false when invalid meetup id is supplied', () => {
+    expect(meetup.find(1000)).toBe(false);
   });
 
   it('can return a specific meetup', () => {
     expect(meetup.find(1).id).toBe(1);
   });
 
-  it('can create a new Meetup', () => {
+  it.only('returns the created meetup after creation', () => {
     const request = {
-      topic: "New Topic",
+      title: "New title",
       location: "Lagos, Nigeria",
       images: [],
       createdOn: new Date().toLocaleString(),
@@ -22,14 +30,18 @@ describe('Meetups', () => {
     expect(meetup.create(request)).toBeInstanceOf(Object);
   });
 
-  it('can update a Meetup', () => {
+  it('can update a meetup', () => {
     const request = {
       topic: "New Topic",
       location: "New Location",
-      images: [],
-      happeningOn: "New Date",
-      tags: [],
+      happeningOn: "29-08-2019",
     };
-    expect(meetup.update(request)).toBeInstanceOf(Object);
+    expect(meetup.update(1, request));
+  });
+
+  it('allows deleting a meetup', () => {
+    expect(helper.exists(meetups, 4)).toBeInstanceOf(Object);
+    // expect(meetup.delete(4)).toBe(true);
+    // expect(helper.exists(meetups, 4)).toBe(false);
   });  
 });

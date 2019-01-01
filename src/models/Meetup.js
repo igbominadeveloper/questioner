@@ -1,5 +1,5 @@
 import path from 'path';
-import helper from '../helpers/helper';
+import helper from '../helpers/helper.js';
 import meetups from '../data/meetups.json';
 
 const filename = path.resolve(__dirname, '../data/meetups.json');

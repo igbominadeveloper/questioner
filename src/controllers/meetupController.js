@@ -2,10 +2,10 @@ import meetup from '../models/Meetup';
 
 class meetupController {
   static index(request, response) {
-    const allMeetups = meetup.all();
+    let allMeetups = meetup.all();
     if (allMeetups.length > 0) {
-      const data = Object.assign({}, allMeetups);
-      data.forEach((element) => {
+      let data = allMeetups;
+      data.forEach(element => {
         delete element.images;
         delete element.createdOn;
       });
@@ -23,7 +23,7 @@ class meetupController {
   static show(request, response) {
     const returnedMeetup = meetup.find(request.params.id);
     if (returnedMeetup !== false) {
-      const data = Object.assign({}, returnedMeetup);
+      let data = Object.assign({}, returnedMeetup);
       delete data.images;
       delete data.createdOn;
       return response.json({

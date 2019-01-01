@@ -10,7 +10,7 @@ const getNewId = (array) => {
 const now = () => new Date().toLocaleString();
 
 const exists = (array, id) => {
-  const row = array.find(row => row.id === id);
+  const row = array.find(one => one.id == id);
   if (row) {
     return row;
   }

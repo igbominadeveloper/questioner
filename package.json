@@ -6,7 +6,8 @@
     "start": "nodemon src/index.js",
     "lint": "node_modules/.bin/eslint src/",
     "test": "nyc --require babel-register mocha tests/**.spec.js --exit",
-    "test:watch": "nyc --require babel-register mocha tests/**.spec.js -w"
+    "test:watch": "nyc --require babel-register mocha tests/**.spec.js -w",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",

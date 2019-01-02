@@ -1,31 +1,20 @@
-const rsvp = require('../data/rsvp.json');
+import rsvps from '../data/rsvp.json';
+import helper from '../helpers/helper';
 
-class rsvp {
+class Rsvp {
   static all() {
-    return rsvp;
+    return rsvps;
   }
 
   static latest() {
-    return rsvp.sort();
+    return rsvps.sort();
   }
 
   static find(id) {
-    return rsvp.find(rsvp => rsvp.id === id);
+    return helper.exists(rsvps, id);
   }
 
   static create(request) {
-    if (request) {
-      const id = rsvp.length + 1;
-      const newRsvp = {
-        id: 1,
-        meetup: 3,
-        user: 4,
-        response: 'Yes, see you in Egypt',
-      };
-      rsvp.push(newRsvp);
-      return newRsvp;
-    }
-    return 'No Request was Received';
   }
 
   static update(id, request) {
@@ -33,8 +22,8 @@ class rsvp {
   }
 
   static delete(id) {
-    return rsvp.filter(rsvp => rsvp.id !== id);
+    return rsvps.filter(rsvp => rsvp.id !== id);
   }
 }
 
-module.exports = rsvp;
+export default Rsvp

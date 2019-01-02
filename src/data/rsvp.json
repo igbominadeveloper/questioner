@@ -3,18 +3,18 @@
 		"id" : 1 ,
 		"meetup" : 2 ,
 		"user" : 40,
-		"response" : "I will be available"
+		"response" : "Yes"
 	},
 	{
 		"id" : 2 ,
 		"meetup" : 3 ,
 		"user" : 4,
-		"response" : "I will be available"
+		"response" : "No"
 	},
 	{
 		"id" : 3 ,
 		"meetup" : 9 ,
-		"user" : 43,
-		"response" : "I will be available"
-	},
+		"user" : 4,
+		"response" : "Yes"
+	}
 ]

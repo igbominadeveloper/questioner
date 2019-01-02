@@ -7,9 +7,7 @@ const getNewId = (array) => {
   return 1;
 };
 
-const getIndex = (array, id) => {
-  return array.findIndex(item => item.id == id);
-}
+const getIndex = (array, id) => array.findIndex(item => item.id == id);
 
 const now = () => new Date().toLocaleString();
 

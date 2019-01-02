@@ -50,8 +50,14 @@ class QuestionsController {
 		let returnedQuestion = question.find(request.params.question);
 		
 		if(returnedQuestion){
-			let result = request.url.endsWith('upvote') ? question.upvote(returnedQuestion.id) : question.downvote(returnedQuestion.id);
-			return response.json({
+			let result = request.url.endsWith('upvote') ? 
+										question.upvote(returnedQuestion.id) : 
+										question.downvote(returnedQuestion.id);
+			delete result.createdOn;
+			delete result.createdBy;
+			delete result.id;
+			delete result.id;
+			return response.status(201).json({
 				status: 201,
 				data: result
 			});

@@ -1,8 +1,12 @@
 import expect from 'expect';
 import axios from 'axios';
 import http from 'http';
+import path from 'path';
 import question from '../src/models/Question';
 import questionsController from '../src/controllers/questionsController';
+import helper from '../src/helpers/helper';
+const filename = path.resolve(__dirname, '../src/data/questions.json');
+import questions from '../src/data/questions.json';
 
 describe('Question', () => {
   it('has a route handling all /questions requests', () => {
@@ -30,11 +34,19 @@ describe('Question', () => {
   	expect(question.find(2).id).toBe(2);
   });
 
-  it('allows upvote and downvote', () => {
+  it('should always have a positive vote value', () => {
+  	let randomQuestion = question.find(2);
+  	expect(randomQuestion.votes >= 0).toBe(true);
+  	question.upvote(randomQuestion);
+  });
+
+  it.only('allows upvote and downvote', () => {
   	let randomQuestion = question.find(5);
-  	expect(randomQuestion).toBeInstanceOf(Object);
-  	expect(randomQuestion.votes).toBe(0);
-  	randomQuestion.upvote();
-  	expect(randomQuestion.votes).toBe(1);
+  	randomQuestion.votes = 0;
+  	let index = questions.findIndex(question => question.id == randomQuestion.id);
+  	expect(index).toBe(4);
+  	questions[index] = randomQuestion;
+  	helper.writeToFile(filename, questions);
+  	expect(question.find(5).votes).toBe(0);
   });
 });

@@ -45,6 +45,12 @@ class QuestionsController {
 			error: `Request missing complete payload. Confirm it includes - meetup, title and the body of a question`
 		});
 	}
+
+	static upvote(request, response) {
+		if (request.params.id) {
+			question.upvote(request.params.id)
+		}
+	}
 }
 
 export default QuestionsController;

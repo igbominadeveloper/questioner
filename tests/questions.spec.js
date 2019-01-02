@@ -9,12 +9,14 @@ const filename = path.resolve(__dirname, '../src/data/questions.json');
 import questions from '../src/data/questions.json';
 
 describe('Question', () => {
-  it('has a route handling all /questions requests', () => {
-    expect(http.get('/api/v1/meetups')).toBeInstanceOf(Function);
-  });
+  // it('has a route handling all /questions requests', () => {
+  //   expect(http.get('/api/v1/meetups')).toBeInstanceOf(Function);
+  // });
+
 	it('returns a custom message when payload is not included in the request', () => {
-  	expect(question.create()).toContain("Request missing complete payload. Confirm it includes - meetup, title and the body of a question");
+  	expect(question.create()).toBe(false);
 	});
+
   it('can create a new question resource', () => {
   	let request = {
 			meetup: 2,
@@ -35,18 +37,19 @@ describe('Question', () => {
   });
 
   it('should always have a positive vote value', () => {
-  	let randomQuestion = question.find(2);
+  	let randomQuestion = question.find(1);
   	expect(randomQuestion.votes >= 0).toBe(true);
-  	question.upvote(randomQuestion);
-  });
-
-  it.only('allows upvote and downvote', () => {
-  	let randomQuestion = question.find(5);
-  	randomQuestion.votes = 0;
-  	let index = questions.findIndex(question => question.id == randomQuestion.id);
-  	expect(index).toBe(4);
-  	questions[index] = randomQuestion;
-  	helper.writeToFile(filename, questions);
-  	expect(question.find(5).votes).toBe(0);
+  	question.downvote(randomQuestion.id);
+  	question.downvote(randomQuestion.id);
+  	question.downvote(randomQuestion.id);
+  	question.downvote(randomQuestion.id);
+  	question.downvote(randomQuestion.id);
+  	question.upvote(randomQuestion.id);
+  	expect(question.find(1).votes).toBe(1);
+  	question.downvote(randomQuestion.id);
+  	question.downvote(randomQuestion.id);
+  	question.downvote(randomQuestion.id);
+  	expect(question.find(1).votes).toBe(0);
+  	expect(randomQuestion.votes >= 0).toBe(true);
   });
 });

@@ -7,8 +7,8 @@ const getNewId = (array) => {
   return 1;
 };
 
-const getIndex = (array, item) => {
-  return array.findIndex(item);
+const getIndex = (array, id) => {
+  return array.findIndex(item => item.id == id);
 }
 
 const now = () => new Date().toLocaleString();
@@ -32,6 +32,7 @@ const writeToFile = (filename, content) => {
 export default {
   getNewId,
   now,
+  getIndex,
   exists,
   writeToFile,
 };

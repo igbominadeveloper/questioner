@@ -10,7 +10,7 @@ class QuestionsController {
 	}
 
 	static show(request, response) {
-		if(question){
+		if(question.find(request.params.id)){
 			delete question.votes;
 			delete question.createdOn;
 			return response.json({
@@ -46,10 +46,21 @@ class QuestionsController {
 		});
 	}
 
-	static upvote(request, response) {
-		if (request.params.id) {
-			question.upvote(request.params.id)
+	static vote(request, response) {
+		let returnedQuestion = question.find(request.params.question);
+		
+		if(returnedQuestion){
+			let result = request.url.endsWith('upvote') ? question.upvote(returnedQuestion.id) : question.downvote(returnedQuestion.id);
+			return response.json({
+				status: 201,
+				data: result
+			});
 		}
+
+		return response.status(400).json({
+			status: response.status,
+			error: `Question model not found`
+		});
 	}
 }
 

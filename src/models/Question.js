@@ -46,9 +46,9 @@ class Question {
 
   static upvote(id){
     let currentQuestion = helper.exists(questions, id);
-    if(currentQuestion.votes >= 0){ 
+    if(currentQuestion.votes >= 0 && currentQuestion){ 
       currentQuestion.votes += 1;
-      let index =  questions.findIndex(question => question.id == currentQuestion.id);
+      let index =  helper.getIndex(questions, currentQuestion.id);
       questions[index] = currentQuestion;
       helper.writeToFile(filename, questions);
       return currentQuestion;
@@ -58,8 +58,10 @@ class Question {
 
   static downvote(id){
     let currentQuestion = helper.exists(questions, id);
-    if(currentQuestion.votes > 0){
+    if(currentQuestion.votes > 0 && currentQuestion){ 
       currentQuestion.votes -= 1;
+      let index =  helper.getIndex(questions, currentQuestion.id);
+      questions[index] = currentQuestion;
       helper.writeToFile(filename, questions);
       return currentQuestion;
     }

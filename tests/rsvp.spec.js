@@ -5,7 +5,6 @@ import RsvpController from '../src/controllers/rsvpController.js';
 import express from 'express';
 import request from 'supertest';
 import app from '../app';
-// request.agent(app.listen());
 const rootApi = '/api/v1/meetups';
 
 

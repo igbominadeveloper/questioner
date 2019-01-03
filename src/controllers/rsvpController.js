@@ -14,7 +14,7 @@ class RsvpController {
 				status: request.body.status
 			};
 			let newRsvp = rsvp.create(payload);
-			if(newRsvp !== ''){
+			if (newRsvp !== ''){
 				return response.status(201).json({
 					status: 201,
 					data: newRsvp 

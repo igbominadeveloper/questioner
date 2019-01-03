@@ -45,7 +45,7 @@ class meetupController {
       delete data.id;
       delete data.images;
       delete data.createdOn;
-      return response.json({
+      return response.status(201).json({
         status: 201,
         data,
       });

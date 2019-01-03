@@ -28,7 +28,7 @@ describe('Rsvp', () => {
 					expect(response.body.data).toBeInstanceOf(Object)
 				})
 				.catch(error => {
-					console.log(error)
+					// console.log(error)
 				})
 		});
 
@@ -42,7 +42,7 @@ describe('Rsvp', () => {
 					expect(response.body.data.status).toBe('Maybe');
 				})
 				.catch(error => { 
-					console.log(error);
+					// console.log(error);
 					expect(error).toBeInstanceOf(Object);
 				})
 		});

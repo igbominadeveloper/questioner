@@ -7,20 +7,24 @@ const getNewId = (array) => {
   return 1;
 };
 
+const getIndex = (array, id) => {
+  return array.findIndex(item => item.id == id);
+}
+
 const now = () => new Date().toLocaleString();
 
 const exists = (array, id) => {
-  const row = array.find(row => row.id == id);
+  const row = array.find(one => one.id == id);
   if (row) {
-    return row 
+    return row;
   }
-  return false
-}
+  return false;
+};
 
 const writeToFile = (filename, content) => {
   fs.writeFileSync(filename, JSON.stringify(content), 'utf8', (error) => {
     if (error) {
-      console.log(error);
+      alert(error);
     }
   });
 };
@@ -28,6 +32,7 @@ const writeToFile = (filename, content) => {
 export default {
   getNewId,
   now,
+  getIndex,
   exists,
   writeToFile,
 };

@@ -1,4 +1,8 @@
-const questions = require('../data/questions.json');
+import questions from '../data/questions.json';
+import path from 'path';
+const filename = path.resolve(__dirname, '../data/questions.json');
+import helper from '../helpers/helper';
+import moment from 'moment';
 
 class Question {
   static all() {
@@ -10,25 +14,26 @@ class Question {
   }
 
   static find(id) {
-    return questions.find(question => question.id === id);
+    return helper.exists(questions, id);
   }
 
   static create(request) {
     if (request) {
-      const id = questions.length + 1;
+      const id = helper.getNewId(questions);
       const question = {
         id,
-        createdOn: new Date().toLocaleString(),
-        createdBy: request.user,
-        meetup: request.meetup.id,
+        createdOn: moment(),
+        createdBy: request.createdBy ? request.createdBy: Math.ceil(Math.random()),
+        meetup: parseInt(request.meetup),
         title: request.title,
-        body: request.question,
+        body: request.body,
         votes: 0,
       };
       questions.push(question);
+      helper.writeToFile(filename, questions);
       return question;
     }
-    return 'No Request was Received';
+    return false;
   }
 
   static update(id, request) {
@@ -38,6 +43,31 @@ class Question {
   static delete(id) {
     return questions.filter(question => question.id !== id);
   }
+
+  static upvote(id){
+    let currentQuestion = helper.exists(questions, id);
+    if(currentQuestion.votes >= 0 && currentQuestion){ 
+      currentQuestion.votes += 1;
+      let index =  helper.getIndex(questions, currentQuestion.id);
+      questions[index] = currentQuestion;
+      helper.writeToFile(filename, questions);
+      return currentQuestion;
+    }
+    return currentQuestion;
+  }
+
+  static downvote(id){
+    let currentQuestion = helper.exists(questions, id);
+    if(currentQuestion.votes > 0 && currentQuestion){ 
+      currentQuestion.votes -= 1;
+      let index =  helper.getIndex(questions, currentQuestion.id);
+      questions[index] = currentQuestion;
+      helper.writeToFile(filename, questions);
+      return currentQuestion;
+    }
+    return currentQuestion;
+  }
+
 }
 
-module.exports = Question;
+export default Question

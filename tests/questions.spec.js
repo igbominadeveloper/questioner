@@ -1,19 +1,8 @@
 import expect from 'expect';
-import axios from 'axios';
-import http from 'http';
 import path from 'path';
 import question from '../src/models/Question';
-import questionsController from '../src/controllers/questionsController';
-import helper from '../src/helpers/helper';
-import questions from '../src/data/questions.json';
-
-const filename = path.resolve(__dirname, '../src/data/questions.json');
 
 describe('Question', () => {
-  // it('has a route handling all /questions requests', () => {
-  //   expect(http.get('/api/v1/meetups')).toBeInstanceOf(Function);
-  // });
-
   it('returns a custom message when payload is not included in the request', () => {
   	expect(question.create()).toBe(false);
   });

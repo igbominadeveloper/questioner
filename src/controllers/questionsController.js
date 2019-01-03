@@ -3,15 +3,15 @@ import question from '../models/Question';
 class QuestionsController {
   static index(request, response) {
     const data = question.all();
-    if(data.length > 0){
+    if (data.length > 0) {
       return response.status(200).json({
         status: 200,
         data,
-    });
+      });
     }
     return response.status(404).json({
       status: 404,
-      error: "No Questions available"
+      error: 'No Questions available',
     });
   }
 

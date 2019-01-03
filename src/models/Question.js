@@ -10,10 +10,6 @@ class Question {
     return questions;
   }
 
-  static latest() {
-    return questions.sort();
-  }
-
   static find(id) {
     return helper.exists(questions, id);
   }
@@ -35,14 +31,6 @@ class Question {
       return question;
     }
     return false;
-  }
-
-  static update(id, request) {
-    const question = questions.find(id);
-  }
-
-  static delete(id) {
-    return questions.filter(question => question.id !== id);
   }
 
   static upvote(id) {

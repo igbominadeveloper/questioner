@@ -1,7 +1,6 @@
 import expect from 'expect';
-import Rsvp from '../src/models/Rsvp';
 import axios from 'axios';
-import RsvpController from '../src/controllers/rsvpController.js';
+import RsvpController from '../src/controllers/rsvpController';
 import express from 'express';
 import request from 'supertest';
 import app from '../app';
@@ -9,10 +8,6 @@ const rootApi = '/api/v1/meetups';
 
 
 describe('Rsvp', () => {
-	it('exposes a create method', () => {
-		expect(Rsvp).toHaveProperty('create');
-	});
-
 	it('returns an error message when meetup ID is invalid', () => {
 	    request(app)
 		    .post(`${rootApi}/2000/rsvps`)

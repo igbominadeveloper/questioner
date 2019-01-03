@@ -1,25 +1,25 @@
+/* eslint-disable no-restricted-globals */
 import expect from 'expect';
-import path from 'path';
 import question from '../src/models/Question';
 
 describe('Question', () => {
   it('returns a custom message when payload is not included in the request', () => {
-  	expect(question.create()).toBe(false);
+    expect(question.create()).toBe(false);
   });
 
   it('can create a new question resource', () => {
-  	const request = {
+    const request = {
       meetup: 2,
       createdBy: 4,
       title: 'Question title',
       body: 'Question body',
-  	};
-  	expect(request).toBeInstanceOf(Object);
-  	expect(isNaN(parseInt(request.meetup))).toBe(false);
-  	expect(isNaN(parseInt(request.body))).toBe(true);
-  	expect(isNaN(parseInt(request.createdBy))).toBe(false);
-  	expect(isNaN(parseInt(request.title))).toBe(true);
-  	expect(question.create(request)).toBeInstanceOf(Object);
+    };
+    expect(request).toBeInstanceOf(Object);
+    expect(isNaN(parseInt(request.meetup))).toBe(false);
+    expect(isNaN(parseInt(request.body))).toBe(true);
+    expect(isNaN(parseInt(request.createdBy))).toBe(false);
+    expect(isNaN(parseInt(request.title))).toBe(true);
+    expect(question.create(request)).toBeInstanceOf(Object);
   });
 
   it('should return a specific question when id is specified', () => {

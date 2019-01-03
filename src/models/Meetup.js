@@ -1,6 +1,7 @@
 import path from 'path';
 import helper from '../helpers/helper';
 import meetups from '../data/meetups.json';
+import testData from '../../tests/testData';
 
 const filename = path.resolve(__dirname, '../data/meetups.json');
 
@@ -36,32 +37,26 @@ class Meetup {
     return false;
   }
 
-  // static update(id, request) {
-  //   let meetup = helper.exists(meetups, id);
-  //   const index = meetups.findIndex(request.params.id);
-  //   let id = { meetup.id };
-  //   meetup
-  //   const {
-  //     title,
-  //     location,
-  //     happeningOn,
-  //     tags,
-  //     images
-  //   } = request.body;
-  //   meetups[index] = {topic,location,happeningOn};
-  //   helper.writeToFile(filename, meetups);
-  //   return meetups[index];
-  // }
-
-  static delete(id) {
-    const meetup = helper.exists(meetups, id);
-    if (meetup) {
-      const filtered = meetups.filter(eachMeetup => eachMeetup.id !== meetup.id);
-      helper.writeToFile(filename, filtered);
-      return true;
-    }
-    return false;
+  static deleteAll() {
+    helper.writeToFile(filename, []);
+    return true;
   }
+
+  static recreateAll() {
+    helper.writeToFile(filename, testData.meetups);
+    return true;
+  }
+
+
+  // static delete(id) {
+  //   const meetup = helper.exists(meetups, id);
+  //   if (meetup) {
+  //     const filtered = meetups.filter(eachMeetup => eachMeetup.id !== meetup.id);
+  //     helper.writeToFile(filename, filtered);
+  //     return true;
+  //   }
+  //   return false;
+  // }
 }
 
 export default Meetup;

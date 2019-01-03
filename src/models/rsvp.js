@@ -1,5 +1,7 @@
 import rsvps from '../data/rsvp.json';
 import helper from '../helpers/helper';
+import path from 'path';
+const filename = path.resolve(__dirname, '../../src/data/rsvp.json');
 
 class Rsvp {
   static all() {
@@ -14,7 +16,10 @@ class Rsvp {
     return helper.exists(rsvps, id);
   }
 
-  static create(request) {
+  static create(rsvp) {
+    rsvps.push(rsvp);
+    helper.writeToFile(filename, rsvps);
+    return rsvps[rsvps.length -1];
   }
 
   static update(id, request) {

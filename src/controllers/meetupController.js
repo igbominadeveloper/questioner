@@ -31,9 +31,9 @@ class meetupController {
         data,
       });
     }
-    return response.json({
+    return response.status(404).json({
       status: 404,
-      message: 'Model doesn\'t exist',
+      message: 'Meetup doesn\'t exist',
     });
   }
 

@@ -36,6 +36,8 @@ app.use(function(err, req, res, next) {
   res.render(err);
 });
 
-app.listen(process.env.PORT || 3000);
+// if(!module.parent){
+	app.listen(process.env.PORT || 3000);
+// }
 
 export default app;

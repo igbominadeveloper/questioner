@@ -1,16 +1,13 @@
-import questions from '../data/questions.json';
 import path from 'path';
-const filename = path.resolve(__dirname, '../data/questions.json');
-import helper from '../helpers/helper';
 import moment from 'moment';
+import questions from '../data/questions.json';
+import helper from '../helpers/helper';
+
+const filename = path.resolve(__dirname, '../data/questions.json');
 
 class Question {
   static all() {
     return questions;
-  }
-
-  static latest() {
-    return questions.sort();
   }
 
   static find(id) {
@@ -23,7 +20,7 @@ class Question {
       const question = {
         id,
         createdOn: moment(),
-        createdBy: request.createdBy ? request.createdBy: Math.ceil(Math.random()),
+        createdBy: request.createdBy ? request.createdBy : Math.ceil(Math.random()),
         meetup: parseInt(request.meetup),
         title: request.title,
         body: request.body,
@@ -36,19 +33,11 @@ class Question {
     return false;
   }
 
-  static update(id, request) {
-    const question = questions.find(id);
-  }
-
-  static delete(id) {
-    return questions.filter(question => question.id !== id);
-  }
-
-  static upvote(id){
-    let currentQuestion = helper.exists(questions, id);
-    if(currentQuestion.votes >= 0 && currentQuestion){ 
+  static upvote(id) {
+    const currentQuestion = helper.exists(questions, id);
+    if (currentQuestion.votes >= 0 && currentQuestion) {
       currentQuestion.votes += 1;
-      let index =  helper.getIndex(questions, currentQuestion.id);
+      const index = helper.getIndex(questions, currentQuestion.id);
       questions[index] = currentQuestion;
       helper.writeToFile(filename, questions);
       return currentQuestion;
@@ -56,18 +45,17 @@ class Question {
     return currentQuestion;
   }
 
-  static downvote(id){
-    let currentQuestion = helper.exists(questions, id);
-    if(currentQuestion.votes > 0 && currentQuestion){ 
+  static downvote(id) {
+    const currentQuestion = helper.exists(questions, id);
+    if (currentQuestion.votes > 0 && currentQuestion) {
       currentQuestion.votes -= 1;
-      let index =  helper.getIndex(questions, currentQuestion.id);
+      const index = helper.getIndex(questions, currentQuestion.id);
       questions[index] = currentQuestion;
       helper.writeToFile(filename, questions);
       return currentQuestion;
     }
     return currentQuestion;
   }
-
 }
 
-export default Question
+export default Question;

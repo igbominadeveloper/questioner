@@ -27,7 +27,7 @@ class QuestionsController {
     }
     return response.status(404).json({
       status: 404,
-      message: 'Model Not Found',
+      error: 'Model Not Found',
     });
   }
 

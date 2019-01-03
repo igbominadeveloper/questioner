@@ -32,9 +32,10 @@ describe('Rsvp', () => {
 
   it('records and returns the correct rsvp status sent in with the request', () => {
     const status = { status: 'Maybe' };
+    const user = { user: 1 };
     request(app)
       .post(`${rootApi}/20/rsvps`)
-      .send(status)
+      .send(status, user)
       .then((response) => {
         expect(response.body.status).toBe(201);
         expect(response.body.data.status).toBe('Maybe');

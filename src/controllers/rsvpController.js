@@ -1,4 +1,4 @@
-import rsvp from '../models/Rsvp.js';
+import rsvp from '../models/rsvp';
 import rsvps from '../data/rsvp.json';
 import meetup from '../models/Meetup';
 import helper from '../helpers/helper';
@@ -11,13 +11,14 @@ class RsvpController {
         id: helper.getNewId(rsvps),
         topic: rsvpMeetup.title,
         meetup: rsvpMeetup.id,
+        user: parseInt(request.body.user),
         status: request.body.status,
       };
       const newRsvp = rsvp.create(payload);
       if (newRsvp !== '') {
         return response.status(201).json({
           status: 201,
-          data: newRsvp,
+          data: payload,
         });
       }
       return response.status(500).json({

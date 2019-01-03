@@ -1,1 +1,1 @@
-[{"id":1,"topic":"New title","meetup":20,"status":"Maybe"},{"id":2,"topic":"New title","meetup":20,"status":"Maybe"},{"id":3,"topic":"New title","meetup":10,"status":"Maybe"},{"id":4,"topic":"New title","meetup":10,"status":"No"}]
+[{"id":1,"topic":"New title","meetup":10,"status":"No"},{"id":2,"topic":"New title","meetup":10,"user":4,"status":"No"},{"id":3,"topic":"New title","meetup":10,"user":5,"status":"Maybe"}]

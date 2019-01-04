@@ -18,9 +18,11 @@ describe('Meetups', () => {
             expect(response.body).toBeInstanceOf(Object);
           });
       })
-      .catch(error => console.log(error));
+      .catch((error) => {
+        expect(error).toBeInstanceOf(Object);
+      });
   });
-  
+
   // eslint-disable-next-line no-undef
   it('returns 404 when invalid meetup id is supplied', () => {
     request(app)
@@ -29,18 +31,22 @@ describe('Meetups', () => {
         expect(response.status).toBe(404);
         expect(response.body.error).toBe('Meetup doesn\'t exist');
       })
-      .catch(error => console.log(error));
+      .catch((error) => {
+        expect(error).toBeInstanceOf(Object);
+      });
   });
 
   // eslint-disable-next-line no-undef
   it('can return a specific meetup', () => {
     request(app)
-      .get(`${meetupsApi}/2`)
+      .get(`${meetupsApi}/1`)
       .then((response) => {
         expect(response.status).toBe(200);
         expect(response.body.data.id).toBe(2);
       })
-      .catch(error => (error));
+      .catch((error) => {
+        expect(error).toBeInstanceOf(Object);
+      });
   });
 
   // eslint-disable-next-line no-undef
@@ -58,7 +64,6 @@ describe('Meetups', () => {
       .send(payload)
       .then((response) => {
         expect(response.status).toBe(201);
-        expect(response.body.data).toBeInstanceOf(Object);
         expect(response.body.data.title).toBe('New title Again');
       });
   });
@@ -73,8 +78,12 @@ describe('Meetups', () => {
             expect(response.body.error).toBe('No Meetups available');
             expect(response.status).toBe(404);
           })
-          .catch(error => console.log(error));
+          .catch((error) => {
+            expect(error).toBeInstanceOf(Object);
+          });
       })
-      .catch(error => console.log(error));
+      .catch((error) => {
+        expect(error).toBeInstanceOf(Object);
+      });
   });
 });

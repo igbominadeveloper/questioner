@@ -1,13 +1,8 @@
 /* eslint-disable no-restricted-globals */
 import expect from 'expect';
-<<<<<<< HEAD
-import path from 'path';
 import request from 'supertest';
 const questionApi = '/api/v1/questions';
 import app from '../app';
-=======
-import question from '../src/models/Question';
->>>>>>> meetups-test
 
 describe('Question', () => {
   it('returns all created questions', () => {
@@ -21,29 +16,20 @@ describe('Question', () => {
   });
 
   it('returns a custom message when payload is not included in the request', () => {
-<<<<<<< HEAD
-      request(app)
-        .post(questionApi)
-        .then(response => {
-          expect(response.status).toBe(400)
-          expect(response.body.error).toBe(`Request missing complete payload. Confirm it includes - meetup, title and the body of a question`)
-        })
+    request(app)
+      .post(questionApi)
+      .then(response => {
+        expect(response.status).toBe(400)
+        expect(response.body.error).toBe(`Request missing complete payload. Confirm it includes - meetup, title and the body of a question`)
+      })
   });
 
   it('returns 201 and a question resource after creation', () => {
-  	const payload = {
-=======
-    expect(question.create()).toBe(false);
-  });
-
-  it('can create a new question resource', () => {
-    const request = {
->>>>>>> meetups-test
+    const payload = {
       meetup: 2,
       createdBy: 4,
       title: 'My Question title',
       body: 'Question body',
-<<<<<<< HEAD
   	};
     request(app)
       .post(questionApi)
@@ -55,16 +41,7 @@ describe('Question', () => {
         expect(response.body.data.meetup).toBe(payload.meetup)
       })
       .catch(error => console.log(error))
-=======
-    };
-    expect(request).toBeInstanceOf(Object);
-    expect(isNaN(parseInt(request.meetup))).toBe(false);
-    expect(isNaN(parseInt(request.body))).toBe(true);
-    expect(isNaN(parseInt(request.createdBy))).toBe(false);
-    expect(isNaN(parseInt(request.title))).toBe(true);
-    expect(question.create(request)).toBeInstanceOf(Object);
->>>>>>> meetups-test
-  });
+    });
 
   it('should return a specific question when id is specified', () => {
       request(app)

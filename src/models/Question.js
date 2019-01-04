@@ -17,18 +17,18 @@ class Question {
   static create(request) {
     if (request) {
       const id = helper.getNewId(questions);
-      const question = {
+      const newQuestion = {
         id,
         createdOn: moment(),
-        createdBy: request.createdBy ? request.createdBy : Math.ceil(Math.random()),
+        createdBy: request.createdBy,
         meetup: parseInt(request.meetup),
         title: request.title,
         body: request.body,
         votes: 0,
       };
-      questions.push(question);
+      questions.push(newQuestion);
       helper.writeToFile(filename, questions);
-      return question;
+      return newQuestion;
     }
     return false;
   }

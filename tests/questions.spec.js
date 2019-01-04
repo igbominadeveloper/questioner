@@ -31,11 +31,6 @@ describe('Question', () => {
       title: 'My Question title',
       body: 'Question body',
   	};
-  	expect(payload).toBeInstanceOf(Object);
-  	expect(isNaN(parseInt(payload.meetup))).toBe(false);
-  	expect(isNaN(parseInt(payload.body))).toBe(true);
-  	expect(isNaN(parseInt(payload.createdBy))).toBe(false);
-  	expect(isNaN(parseInt(payload.title))).toBe(true);
     request(app)
       .post(questionApi)
       .send(payload)
@@ -45,14 +40,15 @@ describe('Question', () => {
         expect(response.body.data.body).toBe(payload.body)
         expect(response.body.data.meetup).toBe(payload.meetup)
       })
+      .catch(error => console.log(error))
   });
 
   it('should return a specific question when id is specified', () => {
       request(app)
-        .get(`${questionApi}/2`)
+        .get(`${questionApi}/1`)
         .then(response => {
           expect(response.status).toBe(200)
-          expect(response.body.data.id).toBe(2)
+          expect(response.body.data.id).toBe(1)
         })
         .catch(error => console.log(error))
   });
@@ -66,9 +62,11 @@ describe('Question', () => {
         })
   });
 
-  it('should always have a positive vote value', () => {
-  	
+  it(`doesn't downvote past 0 marker`, () => {
+  	request(app)
+      .patch(`${questionApi}/1/downvote`)
+      .then((response) => {
+        expect(response.body.data.votes).toBe(0)
+      })
   });
-
-  it('should return the user specified')
 });

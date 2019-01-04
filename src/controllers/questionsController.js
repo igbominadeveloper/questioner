@@ -27,7 +27,7 @@ class QuestionsController {
     }
     return response.status(404).json({
       status: 404,
-      message: 'Model Not Found',
+      error: 'Model Not Found',
     });
   }
 
@@ -50,8 +50,7 @@ class QuestionsController {
   }
 
   static vote(request, response) {
-    const returnedQuestion = question.find(request.params.question);
-
+    const returnedQuestion = question.find(request.params.id);
     if (returnedQuestion) {
       const result = request.url.endsWith('upvote')
         ? question.upvote(returnedQuestion.id)
@@ -59,13 +58,11 @@ class QuestionsController {
       delete result.createdOn;
       delete result.createdBy;
       delete result.id;
-      delete result.id;
       return response.status(201).json({
         status: 201,
         data: result,
       });
     }
-
     return response.status(400).json({
       status: response.status,
       error: 'Question model not found',

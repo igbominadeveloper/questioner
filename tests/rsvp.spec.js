@@ -14,19 +14,20 @@ describe('Rsvp', () => {
 		    	expect(response.status).toBe(404);
 		    })
 		    .catch((error) => {
-		    });
+        expect(error).toBeInstanceOf(Object);
+      });
 	  });
 
   it('returns 200 and a valid meetup model before proceeding to rsvp', () => {
     request(app)
-      .get(`${rootApi}/20`)
+      .get(`${rootApi}/1`)
       .then((response) => {
         expect(response.status).toBe(200);
         expect(response.body.data.id).toBe(20);
         expect(response.body.data).toBeInstanceOf(Object);
       })
       .catch((error) => {
-        // console.log(error)
+        expect(error).toBeInstanceOf(Object);
       });
   });
 
@@ -34,14 +35,13 @@ describe('Rsvp', () => {
     const status = { status: 'Maybe' };
     const user = { user: 1 };
     request(app)
-      .post(`${rootApi}/20/rsvps`)
+      .post(`${rootApi}/1/rsvps`)
       .send(status, user)
       .then((response) => {
         expect(response.body.status).toBe(201);
         expect(response.body.data.status).toBe('Maybe');
       })
       .catch((error) => {
-        // console.log(error);
         expect(error).toBeInstanceOf(Object);
       });
   });

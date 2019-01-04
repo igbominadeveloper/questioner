@@ -1,4 +1,3 @@
 {
-    "extends": "airbnb-base",
-    "linebreak-style": ["error", "windows"]
+    "extends": "airbnb-base"
 }

@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
-
+const port = process.env.PORT || 3000;
 app.use(router);
 
 // catch 404 and forward to error handler
@@ -41,6 +41,8 @@ app.use(function(req, res, next) {
      res.status(500).send('500: Internal Server Error');
   });
 
-app.listen(process.env.PORT || 3000);
+  app.listen(port, () => { 
+  	console.log("Express server listening on port %d in %s mode", port, app.settings.env); 
+  });
 
 export default app;

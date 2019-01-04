@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon src/index.js",
+    "start": "node src/index.js",
     "lint": "node_modules/.bin/eslint src/\"**/*.js\" tests/**.spec.js",
     "test": "nyc --require babel-register mocha tests/**.spec.js --exit",
     "test:watch": "nyc --require babel-register mocha tests/**.spec.js -w",

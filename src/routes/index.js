@@ -7,6 +7,8 @@ const router = express.Router();
 
 router.get('/api/v1/meetups', meetupController.index);
 router.post('/api/v1/meetups', meetupController.create);
+router.delete('/api/v1/meetups/delete', meetupController.destroyAll);
+router.post('/api/v1/meetups/recreate', meetupController.recreateAll);
 router.get('/api/v1/meetups/:id', meetupController.show);
 router.post('/api/v1/meetups/:id/rsvps', rsvpController.create);
 router.post('/api/v1/questions', questionsController.create);

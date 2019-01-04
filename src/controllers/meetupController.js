@@ -9,14 +9,14 @@ class meetupController {
         delete element.images;
         delete element.createdOn;
       });
-      return response.json({
+      return response.status(200).json({
         status: 200,
         data,
       });
     }
-    return response.json({
+    return response.status(404).json({
       status: 404,
-      message: 'No Meetups available',
+      error: 'No Meetups available',
     });
   }
 
@@ -33,7 +33,7 @@ class meetupController {
     }
     return response.status(404).json({
       status: 404,
-      message: 'Meetup doesn\'t exist',
+      error: 'Meetup doesn\'t exist',
     });
   }
 
@@ -52,12 +52,30 @@ class meetupController {
     }
     return response.json({
       status: 500,
-      message: 'Meetup creation failed',
+      error: 'Meetup creation failed',
     });
   }
 
-  static update(request, response) {
-    return request.body;
+  static destroyAll(request, response) {
+    if (meetup.deleteAll()) {
+      return response.status(200).json({
+        status: 200,
+        message: 'Meetups Deleted',
+      });
+    }
+  }
+
+  static recreateAll(request, response) {
+    if (meetup.recreateAll()) {
+      return response.status(200).json({
+        status: 200,
+        message: 'Meetups Recreated',
+      });
+    }
+    return response.status(500).json({
+      status: 500,
+      error: 'Meetups Recreation Failed',
+    });
   }
 }
 

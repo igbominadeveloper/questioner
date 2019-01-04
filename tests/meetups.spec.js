@@ -20,30 +20,14 @@ describe('Meetups', () => {
       })
       .catch(error => console.log(error));
   });
-  // eslint-disable-next-line no-undef
-  it.only('returns an error message when the meetups array is empty', () => {
-    request(app)
-      .delete(`${meetupsApi}/delete`)
-      .then(() => {
-        request(app)
-          .get(meetupsApi)
-          .then((response) => {
-            expect(response.body).toBe('No Meetups available');
-            expect(response.status).toBe(404);
-          })
-          .catch(error => console.log(error));
-      })
-      .catch(error => console.log(error));
-  });
-
-
+  
   // eslint-disable-next-line no-undef
   it('returns 404 when invalid meetup id is supplied', () => {
     request(app)
       .get(`${meetupsApi}/400`)
       .then((response) => {
         expect(response.status).toBe(404);
-        expect(response.body.message).toBe('Meetup doesn\'t exist');
+        expect(response.body.error).toBe('Meetup doesn\'t exist');
       })
       .catch(error => console.log(error));
   });
@@ -77,5 +61,20 @@ describe('Meetups', () => {
         expect(response.body.data).toBeInstanceOf(Object);
         expect(response.body.data.title).toBe('New title Again');
       });
+  });
+  // eslint-disable-next-line no-undef
+  it('returns an error message when the meetups array is empty', () => {
+    request(app)
+      .delete(`${meetupsApi}/delete`)
+      .then(() => {
+        request(app)
+          .get(meetupsApi)
+          .then((response) => {
+            expect(response.body.error).toBe('No Meetups available');
+            expect(response.status).toBe(404);
+          })
+          .catch(error => console.log(error));
+      })
+      .catch(error => console.log(error));
   });
 });

@@ -16,7 +16,7 @@ class meetupController {
     }
     return response.status(404).json({
       status: 404,
-      message: 'No Meetups available',
+      error: 'No Meetups available',
     });
   }
 
@@ -33,7 +33,7 @@ class meetupController {
     }
     return response.status(404).json({
       status: 404,
-      message: 'Meetup doesn\'t exist',
+      error: 'Meetup doesn\'t exist',
     });
   }
 
@@ -52,7 +52,7 @@ class meetupController {
     }
     return response.json({
       status: 500,
-      message: 'Meetup creation failed',
+      error: 'Meetup creation failed',
     });
   }
 
@@ -74,7 +74,7 @@ class meetupController {
     }
     return response.status(500).json({
       status: 500,
-      message: 'Meetups Recreation Failed',
+      error: 'Meetups Recreation Failed',
     });
   }
 }

@@ -62,11 +62,20 @@ describe('Question', () => {
         })
   });
 
+  it(`upvotes a question successfully`, () => {
+    request(app)
+      .patch(`${questionApi}/1/upvote`)
+      .then((response) => {
+        expect(response.body.status).toBe(201)
+      })
+  });
+
   it(`doesn't downvote past 0 marker`, () => {
-  	request(app)
+    request(app)
       .patch(`${questionApi}/1/downvote`)
       .then((response) => {
         expect(response.body.data.votes >= 0).toBe(true)
       })
   });
+
 });

@@ -2,16 +2,11 @@ import meetup from '../models/Meetup';
 
 class meetupController {
   static index(request, response) {
-    const allMeetups = meetup.all();
+  const allMeetups = meetup.all();
     if (allMeetups.length > 0) {
-      const data = allMeetups;
-      data.forEach((element) => {
-        delete element.images;
-        delete element.createdOn;
-      });
       return response.status(200).json({
         status: 200,
-        data,
+        data: allMeetups,
       });
     }
     return response.status(404).json({
@@ -24,8 +19,6 @@ class meetupController {
     const returnedMeetup = meetup.find(request.params.id);
     if (returnedMeetup !== false) {
       const data = Object.assign({}, returnedMeetup);
-      // delete data.images;
-      delete data.createdOn;
       return response.status(200).json({
         status: 200,
         data,
@@ -43,9 +36,6 @@ class meetupController {
     const newMeetup = meetup.create(payload);
     if (newMeetup) {
       const data = Object.assign({}, newMeetup);
-      delete data.id;
-      delete data.images;
-      delete data.createdOn;
       return response.status(201).json({
         status: 201,
         data,

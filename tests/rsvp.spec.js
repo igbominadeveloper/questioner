@@ -15,8 +15,6 @@ describe('Rsvp', () => {
     })
   });
 
-  it('returns the number of rsvps for a meetup')
-
   it('returns an error message when meetup ID is invalid', () => {
 	    request(app)
 		    .post(`${meetupsApi}/2000/rsvps`)

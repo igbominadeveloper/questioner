@@ -26,25 +26,20 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.send(err);
-// });
+  // render the error page
+  res.status(err.status || 500);
+  res.send(err);
+});
 
-  // Handle 500
-  app.use(function(error, req, res, next) {
-     res.status(500).send(`Undefined Route: ${req.method} ${req.url}`);
-  });
-
-  // if(process.parent){	
+  if(process.parent){	
 	  app.listen(port, () => { 
 	  	console.log("Express server listening on port %d in %s mode", port, app.settings.env); 
 	  });
-  // }
+  }
 
 export default app;

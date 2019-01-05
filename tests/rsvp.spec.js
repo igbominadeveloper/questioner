@@ -2,13 +2,13 @@ import expect from 'expect';
 import request from 'supertest';
 import app from '../app';
 
-const rootApi = '/api/v1/meetups';
+const meetupsApi = '/api/v1/meetups';
 
 
 describe('Rsvp', () => {
   it('returns an error message when meetup ID is invalid', () => {
 	    request(app)
-		    .post(`${rootApi}/2000/rsvps`)
+		    .post(`${meetupsApi}/2000/rsvps`)
 		    .then((response) => {
 		    	expect(response.body).toBe(2);
 		    	expect(response.status).toBe(404);
@@ -18,12 +18,12 @@ describe('Rsvp', () => {
       });
 	  });
 
-  it('returns 200 and a valid meetup model before proceeding to rsvp', () => {
+  it('returns 200 when it finds the valid meetup model', () => {
     request(app)
-      .get(`${rootApi}/1`)
+      .get(`${meetupsApi}/1`)
       .then((response) => {
+        expect(response.body.data.id).toBe(1);
         expect(response.status).toBe(200);
-        expect(response.body.data.id).toBe(20);
         expect(response.body.data).toBeInstanceOf(Object);
       })
       .catch((error) => {
@@ -31,18 +31,24 @@ describe('Rsvp', () => {
       });
   });
 
-  it('records and returns the correct rsvp status sent in with the request', () => {
-    const status = { status: 'Maybe' };
-    const user = { user: 1 };
+  it('return 400 and a custom error message when request is missing valid payload', () => {
     request(app)
-      .post(`${rootApi}/1/rsvps`)
-      .send(status, user)
-      .then((response) => {
+    .post(`${meetupsApi}/1/rsvps`)
+    .then(response => {
+      expect(response.body.error).toBe(`Request must contain valid user and a status - Yes, No or Maybe`);
+      expect(response.body.status).toBe(400);
+      })
+  });
+
+  it('returns exact rsvp status a user sends to the server', () => {
+    const payload = {user: 4, status: 'Maybe'};
+    request(app)
+      .post(`${meetupsApi}/1/rsvps`)
+      .send(payload)
+      .then(response => {
         expect(response.body.status).toBe(201);
         expect(response.body.data.status).toBe('Maybe');
       })
-      .catch((error) => {
-        expect(error).toBeInstanceOf(Object);
-      });
   });
+
 });

@@ -5,31 +5,25 @@ import helper from '../helpers/helper';
 
 class RsvpController {
   static create(request, response) {
-    const rsvpMeetup = meetup.find(request.params.id);
-    if (rsvpMeetup) {
-      const payload = {
+    if (request.body.user && request.body.status){
+      const rsvpMeetup = meetup.find(request.params.id);
+      const newRsvp = {
         id: helper.getNewId(rsvps),
+        meetup: parseInt(rsvpMeetup.id),
         topic: rsvpMeetup.title,
-        meetup: rsvpMeetup.id,
-        user: parseInt(request.body.user),
         status: request.body.status,
-      };
-      const newRsvp = rsvp.create(payload);
-      if (newRsvp !== '') {
-        return response.status(201).json({
-          status: 201,
-          data: payload,
-        });
+        user: parseInt(request.body.user),
       }
-      return response.status(500).json({
-        status: 500,
-        data: 'Error occured! Rsvp creation failed',
+      const createdRsvp = rsvp.create(newRsvp);
+      return response.status(201).json({
+        status: 201,
+        data: createdRsvp,
       });
     }
-    return response.status(404).json({
-      status: 404,
-      data: 'Invalid ID, Meetup not found',
-    });
+    return response.status(400).json({
+      status: 400,
+      error: `Request must contain valid user and a status - Yes, No or Maybe`
+    })
   }
 }
 

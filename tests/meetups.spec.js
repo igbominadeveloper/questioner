@@ -1,6 +1,7 @@
 import expect from 'expect';
 import request from 'supertest';
 import app from '../app';
+import moment from 'moment';
 
 const meetupsApi = '/api/v1/meetups';
 
@@ -56,7 +57,7 @@ describe('Meetups', () => {
       location: 'Lagos, Nigeria',
       images: [],
       createdOn: new Date().toLocaleString(),
-      happeningOn: '21-02-2019',
+      happeningOn: `${moment().add(4, 'months').calendar()}, ${moment().format('LT')}`,
       tags: [],
     };
     request(app)

@@ -24,7 +24,7 @@ class meetupController {
     const returnedMeetup = meetup.find(request.params.id);
     if (returnedMeetup !== false) {
       const data = Object.assign({}, returnedMeetup);
-      delete data.images;
+      // delete data.images;
       delete data.createdOn;
       return response.status(200).json({
         status: 200,
@@ -82,6 +82,46 @@ class meetupController {
       status: 500,
       error: 'Meetups Recreation Failed',
     });
+  }
+
+  static lastest() {
+    return meetup.latest();
+  }
+
+  static update(request, response) {
+    if (request.body.title && request.body.happeningOn && request.body.location) {   const fetchedMeetup = meetup.find(request.params.id);
+      const payload = request.body;
+      if(fetchedMeetup instanceof Object){
+        const updatedMeetup = meetup.update(fetchedMeetup, payload);
+        return response.status(200).json({
+          status: 200,
+          data: updatedMeetup
+        })
+      }
+      return response.status(404).json({
+        status: 404,
+        error: `Meetup doesn't exist`
+      })
+    }
+    return response.status(400).json({
+      status: 400,
+      error: `Request must contain valid title, happeningOn and location fields`
+    })
+  }
+
+  static destroy(request, response) {
+    const onDeathRow = meetup.find(request.params.id);
+    if (onDeathRow instanceof Object){
+      meetup.delete(onDeathRow.id);
+      return response.status(204).json({
+        status: 204,
+        data: onDeathRow
+      });
+    }
+    return response.status(404).json({
+      status: 404,
+      error: `Meetup doesn't exist`
+    }) 
   }
 }
 

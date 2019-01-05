@@ -33,16 +33,18 @@ app.use(function(req, res, next) {
 
 //   // render the error page
 //   res.status(err.status || 500);
-//   res.render(err);
+//   res.send(err);
 // });
 
   // Handle 500
   app.use(function(error, req, res, next) {
-     res.status(500).send('500: Internal Server Error');
+     res.status(500).send(`Undefined Route: ${req.method} ${req.url}`);
   });
 
-  app.listen(port, () => { 
-  	console.log("Express server listening on port %d in %s mode", port, app.settings.env); 
-  });
+  // if(process.parent){	
+	  app.listen(port, () => { 
+	  	console.log("Express server listening on port %d in %s mode", port, app.settings.env); 
+	  });
+  // }
 
 export default app;

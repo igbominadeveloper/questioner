@@ -20,7 +20,7 @@ class Question {
       const newQuestion = {
         id,
         createdOn: moment(),
-        createdBy: request.createdBy,
+        createdBy: parseInt(request.createdBy),
         meetup: parseInt(request.meetup),
         title: request.title,
         body: request.body,

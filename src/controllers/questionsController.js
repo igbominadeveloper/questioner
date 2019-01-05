@@ -18,7 +18,7 @@ class QuestionsController {
   static show(request, response) {
     const returnedQuestion = question.find(request.params.id);
     if (returnedQuestion instanceof Object) {
-      delete returnedQuestion.votes;
+      // delete returnedQuestion.votes;
       delete returnedQuestion.createdOn;
       return response.status(200).json({
         status: 200,
@@ -32,7 +32,7 @@ class QuestionsController {
   }
 
   static create(request, response) {
-    if (request.body.title && request.body.body && request.body.meetup) {
+    if (request.body.title && request.body.body && request.body.meetup && request.body.createdBy) {
       const newQuestion = question.create(request.body);
       if (newQuestion instanceof Object) {
         delete newQuestion.createdOn;
@@ -45,7 +45,7 @@ class QuestionsController {
     }
     return response.status(400).json({
       status: 400,
-      error: 'Request missing complete payload. Confirm it includes - meetup, title and the body of a question',
+      error: 'Request missing complete payload. Confirm it includes - meetup, createdBy, title and the body of the question',
     });
   }
 
@@ -55,9 +55,6 @@ class QuestionsController {
       const result = request.url.endsWith('upvote')
         ? question.upvote(returnedQuestion.id)
         : question.downvote(returnedQuestion.id);
-      delete result.createdOn;
-      delete result.createdBy;
-      delete result.id;
       return response.status(201).json({
         status: 201,
         data: result,
@@ -65,7 +62,7 @@ class QuestionsController {
     }
     return response.status(400).json({
       status: response.status,
-      error: 'Question model not found',
+      error: 'Question not found',
     });
   }
 }

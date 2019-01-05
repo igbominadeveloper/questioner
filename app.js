@@ -21,9 +21,9 @@ const port = process.env.PORT || 3000;
 app.use(router);
 
 // catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   next(createError(404));
-// });
+app.use(function(req, res, next) {
+  next(createError(404));
+});
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -35,11 +35,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.send(err);
 });
-
-  // Handle 500
-  // app.use(function(error, req, res, next) {
-  //    res.status(500).send(`Undefined Route: ${req.method} ${req.url}`);
-  // });
 
   // if(process.parent){	
 	  app.listen(port, () => { 

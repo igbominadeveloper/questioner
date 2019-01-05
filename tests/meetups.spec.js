@@ -56,8 +56,7 @@ describe('Meetups', () => {
       title: 'New title Again',
       location: 'Lagos, Nigeria',
       images: [],
-      createdOn: new Date().toLocaleString(),
-      happeningOn: `${moment().add(4, 'months').calendar()}, ${moment().format('LT')}`,
+      happeningOn: moment(new Date()).add(2, 'months'),
       tags: [],
     };
     request(app)
@@ -87,4 +86,44 @@ describe('Meetups', () => {
         expect(error).toBeInstanceOf(Object);
       });
   });
-});
+
+  it('updates a meetup correctly and returns the updated resource', () => {
+    request(app)
+    .post(`${meetupsApi}/recreate`)
+    .then(() => { 
+      return request(app)
+      .get(`${meetupsApi}/1`)
+    })
+    .then(response => {
+    const payload = {
+      title:`My new title`,
+      id: response.body.data.id,
+      happeningOn: response.body.data.happeningOn,
+      location: `Ilorin, Kwara State`, 
+      images: ["Include this image","Now we here"],
+      tags: ["Include this tag","Now we here"]
+    }
+      request(app)
+      .patch(`${meetupsApi}/1`)
+      .send(payload)
+      .then(response => {
+        expect(response.body.data.happeningOn).toEqual(payload.happeningOn)
+      })
+    })
+
+    .catch(error => expect(error).toBe(error))
+    })
+
+  it('deletes a meetup successfully', () => {
+    request(app)
+    .post(`${meetupsApi}/recreate`)
+    .then(response => {
+      request(app)
+      .delete(`${meetupsApi}/3`)
+      .then(response => {
+        expect(response.body.status).toBe(`Meetup doesn't exist`)
+        // expect(response.status).toBe(204)
+      })      
+    })
+  })
+  });

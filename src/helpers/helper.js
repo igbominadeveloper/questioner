@@ -20,11 +20,7 @@ const exists = (array, id) => {
 };
 
 const writeToFile = (filename, content) => {
-  fs.writeFileSync(filename, JSON.stringify(content), 'utf8', (error) => {
-    if (error) {
-      alert(error);
-    }
-  });
+  fs.writeFileSync(filename, JSON.stringify(content), 'utf8');
 };
 
 export default {

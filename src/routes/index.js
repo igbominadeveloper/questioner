@@ -6,10 +6,10 @@ import rsvpController from '../controllers/rsvpController';
 const router = express.Router();
 
 router.get('/', (request, response) => {
-	response.status(200).send("Welcome to questioner API");
+  response.status(200).send('Welcome to questioner API');
 });
 router.get('/api/v1/meetups', meetupController.index);
-router.get('/api/v1/meetups/latest', meetupController.index);
+router.get('/api/v1/meetups/upcoming', meetupController.upcoming);
 router.post('/api/v1/meetups', meetupController.create);
 router.patch('/api/v1/meetups/:id', meetupController.update);
 router.delete('/api/v1/meetups/:id', meetupController.destroy);

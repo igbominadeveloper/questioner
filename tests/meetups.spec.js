@@ -1,7 +1,7 @@
 import expect from 'expect';
 import request from 'supertest';
-import app from '../app';
 import moment from 'moment';
+import app from '../app';
 
 const meetupsApi = '/api/v1/meetups';
 
@@ -30,7 +30,7 @@ describe('Meetups', () => {
       .get(`${meetupsApi}/400`)
       .then((response) => {
         expect(response.status).toBe(404);
-        expect(response.body.error).toBe(`Meetup doesn't exist`);
+        expect(response.body.error).toBe('Meetup doesn\'t exist');
       })
       .catch((error) => {
         expect(error).toBeInstanceOf(Object);
@@ -67,6 +67,15 @@ describe('Meetups', () => {
         expect(response.body.data.title).toBe('New title Again');
       });
   });
+
+  it('returns a 400 error when user tries to create a new meetup without request payload', () => {
+    request(app)
+      .post(meetupsApi)
+      .then((response) => {
+        expect(response.status).toBe(400);
+      });
+  });
+
   // eslint-disable-next-line no-undef
   it('returns an error message when the meetups array is empty', () => {
     request(app)
@@ -90,36 +99,84 @@ describe('Meetups', () => {
   it('updates a meetup correctly and returns the updated resource', () => {
     request(app)
       .get(`${meetupsApi}/1`)
-      .then(response => {
+      .then((response) => {
         const payload = {
-          title: `Get this in there`,
+          title: 'Get this in there',
           happeningOn: response.body.data.happeningOn,
           location: response.body.data.location,
-          tags: "new tag",
-          images: "new image url"
-        }
-        expect(response.body.data.location).toEqual(payload.location)
+          tags: 'new tag',
+          images: 'new image url',
+        };
+        expect(response.body.data.location).toEqual(payload.location);
         request(app)
-        .patch(`${meetupsApi}/1`)
-        .send(payload)
-        .then(response => {
-          expect(response.status).toBe(200)
-          expect(response.body.data.tags.length > 0).toBe(true)
-          expect(response.body.data.title).toBe(payload.title)
-        })
-      })
+          .patch(`${meetupsApi}/1`)
+          .send(payload)
+          .then((response) => {
+            expect(response.status).toBe(200);
+            expect(response.body.data.tags.length > 0).toBe(true);
+            expect(response.body.data.title).toBe(payload.title);
+          });
+      });
   });
 
+  it('returns a 404 error when user tries to update a non-existent resource', () => {
+    request(app)
+      .get(`${meetupsApi}/100`)
+      .then((response) => {
+        const payload = {
+          title: 'Get this in there',
+          happeningOn: new Date(),
+          location: "Tanke, Ilorin",
+          tags: 'new tag',
+          images: 'new image url',
+        };
+        request(app)
+          .patch(`${meetupsApi}/100`)
+          .send(payload)
+          .then((response) => {
+            expect(response.status).toBe(404);
+          });
+      });
+  });
+
+  it('returns a 400 error when user tries to update without sending any request payload', () => {
+    request(app)
+      .get(`${meetupsApi}/1`)
+      .then((response) => {
+        const payload = {
+          title: 'Get this in there',
+          happeningOn: response.body.data.happeningOn,
+          location: response.body.data.location,
+          tags: 'new tag',
+          images: 'new image url',
+        };
+        expect(response.body.data.location).toEqual(payload.location);
+        request(app)
+          .patch(`${meetupsApi}/1`)
+          .then((response) => {
+            expect(response.status).toBe(400);
+          });
+      });
+  });
 
   it('deletes a meetup successfully', () => {
     request(app)
-    .post(`${meetupsApi}/recreate`)
-    .then(response => {
-      request(app)
-      .delete(`${meetupsApi}/1`)
-      .then(response => {
-        expect(response.status).toBe(204)
-      })      
-    })
+      .post(`${meetupsApi}/recreate`)
+      .then((response) => {
+        request(app)
+          .delete(`${meetupsApi}/1`)
+          .then((response) => {
+            expect(response.status).toBe(204);
+          });
+      });
+  });
+
+  it('returns a sorted array of the latest meetups', () => {
+    request(app)
+      .get(`${meetupsApi}/upcoming`)
+      .then((response) => {
+        expect(response.status).toBe(200);
+        expect(new Date(response.body.data[0].happeningOn).getTime() > new Date().getTime()).toBe(true);
+      });
   });
 });

@@ -5,12 +5,8 @@ import helper from '../helpers/helper';
 const filename = path.resolve(__dirname, '../../src/data/rsvp.json');
 
 class Rsvp {
-  static all() {
-    return rsvps;
-  }
-
-  static find(id) {
-    return helper.exists(rsvps, id);
+  static all(id) {
+    return rsvps.filter(rsvp => rsvp.meetup == parseInt(id));
   }
 
   static create(rsvp) {

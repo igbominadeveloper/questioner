@@ -16,6 +16,8 @@ router.delete('/api/v1/meetups/:id', meetupController.destroy);
 router.delete('/api/v1/meetups/delete', meetupController.destroyAll);
 router.post('/api/v1/meetups/recreate', meetupController.recreateAll);
 router.get('/api/v1/meetups/:id', meetupController.show);
+router.get('/api/v1/meetups/:id/rsvps', rsvpController.index);
+// router.get('/api/v1/meetups/:id/rsvps/:rsvps', rsvpController.show);
 router.post('/api/v1/meetups/:id/rsvps', rsvpController.create);
 router.post('/api/v1/questions', questionsController.create);
 router.get('/api/v1/questions', questionsController.index);

@@ -6,6 +6,17 @@ const meetupsApi = '/api/v1/meetups';
 
 
 describe('Rsvp', () => {
+  it('returns all rsvps for a meetup', () => {
+    request(app)
+    .get(`${meetupsApi}/1/rsvps`)
+    .then(response => {
+      expect(response.status).toBe(200);
+      expect(response.body.data.length).toBe(3);
+    })
+  });
+
+  it('returns the number of rsvps for a meetup')
+
   it('returns an error message when meetup ID is invalid', () => {
 	    request(app)
 		    .post(`${meetupsApi}/2000/rsvps`)

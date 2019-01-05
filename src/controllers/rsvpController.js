@@ -4,6 +4,20 @@ import meetup from '../models/Meetup';
 import helper from '../helpers/helper';
 
 class RsvpController {
+  static index(request, response){
+    const returnedRsvps = rsvp.all(request.params.id);
+    if(returnedRsvps.length > 0) {
+      return response.status(200).json({
+        status: 200,
+        data: returnedRsvps
+      })
+    }
+    return response.status(404).json({
+      status: 404,
+      error: `No RSVP exists for this meetup`
+    })
+  }
+
   static create(request, response) {
     if (meetup.all().length > 0) {
       if (request.body.user && request.body.status) {

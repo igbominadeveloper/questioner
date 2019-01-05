@@ -9,6 +9,7 @@ router.get('/', (request, response) => {
 	response.status(200).send("Welcome to questioner API");
 });
 router.get('/api/v1/meetups', meetupController.index);
+router.get('/api/v1/meetups/latest', meetupController.index);
 router.post('/api/v1/meetups', meetupController.create);
 router.delete('/api/v1/meetups/delete', meetupController.destroyAll);
 router.post('/api/v1/meetups/recreate', meetupController.recreateAll);

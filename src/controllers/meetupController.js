@@ -83,6 +83,10 @@ class meetupController {
       error: 'Meetups Recreation Failed',
     });
   }
+
+  static lastest(){
+    return meetup.latest();
+  }
 }
 
 export default meetupController;

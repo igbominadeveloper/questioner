@@ -41,10 +41,10 @@ app.use(function(req, res, next) {
      res.status(500).send(`Undefined Route: ${req.method} ${req.url}`);
   });
 
-  if(process.parent){	
+  // if(process.parent){	
 	  app.listen(port, () => { 
 	  	console.log("Express server listening on port %d in %s mode", port, app.settings.env); 
 	  });
-  }
+  // }
 
 export default app;

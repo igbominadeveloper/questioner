@@ -11,7 +11,7 @@ describe('Rsvp', () => {
     .get(`${meetupsApi}/1/rsvps`)
     .then(response => {
       expect(response.status).toBe(200);
-      expect(response.body.data.length).toBe(3);
+      expect(response.body.data.length > 0).toBe(true);
     })
   });
 

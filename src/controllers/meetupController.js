@@ -11,7 +11,7 @@ class meetupController {
     }
     return response.status(404).json({
       status: 404,
-      error: 'No Meetups available available right now',
+      error: 'No Meetups available right now',
     });
   }
 
@@ -54,8 +54,8 @@ class meetupController {
 
   static destroyAll(request, response) {
     if (meetup.deleteAll()) {
-      return response.status(200).json({
-        status: 200,
+      return response.status(204).json({
+        status: 204,
         message: 'Meetups Deleted',
       });
     }
@@ -101,7 +101,7 @@ class meetupController {
       }
       return response.status(404).json({
         status: 404,
-        error: 'Meetup doesn\'t exist',
+        error: `Meetup doesn't exist`,
       });
     }
     return response.status(400).json({
@@ -121,7 +121,7 @@ class meetupController {
     }
     return response.status(404).json({
       status: 404,
-      error: 'Meetup doesn\'t exist',
+      error: `Meetup doesn't exist`,
     });
   }
 }

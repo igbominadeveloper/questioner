@@ -90,9 +90,9 @@ class meetupController {
 
   static update(request, response) {
     if (request.body.title && request.body.happeningOn && request.body.location) {   const fetchedMeetup = meetup.find(request.params.id);
-      const payload = request.body;
+      const requestBody = request.body;
       if(fetchedMeetup instanceof Object){
-        const updatedMeetup = meetup.update(fetchedMeetup, payload);
+        const updatedMeetup = meetup.update(fetchedMeetup, requestBody);
         return response.status(200).json({
           status: 200,
           data: updatedMeetup

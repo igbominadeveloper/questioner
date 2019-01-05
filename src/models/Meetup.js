@@ -52,31 +52,35 @@ class Meetup {
     const { 
       title,
       location,
-      images,
       happeningOn,
-      tags 
     } = request;
-    
+
     meetup.title = title;
     meetup.location = location;
     meetup.happeningOn = happeningOn;
 
-    if(tags instanceof Array){
-      tags.forEach(tag => {
+    if (request.tags instanceof Array) {
+      request.tags.forEach(tag => {
         meetup.tags.find(item => item == tag) ? '' : meetup.tags.push(tag);
       })
     }
+    else if(request.tags == undefined){
+      meetup.tags = meetup.tags;
+    }
     else {
-      meetup.tags.find(item => item == tags) ? '' : meetup.tags.push(tags);
+      meetup.tags.find(item => item == request.tags) ? '' : meetup.tags.push(request.tags);
     }
 
-    if(images instanceof Array){
-      images.forEach(image => {
+    if (request.images instanceof Array) {
+      request.images.forEach(image => {
         meetup.images.find(item => item == image) ? '' : meetup.images.push(image);
       })
     }
+    else if (request.images == undefined) {
+      meetup.images = meetup.images;
+    }
     else {
-      meetup.images.find(item => item == images) ? '' : meetup.images.push(images);
+      meetup.images.find(item => item == request.images) ? '' : meetup.images.push(request.images);
     }
 
     const index = helper.getIndex(meetups, meetup.id);

@@ -39,7 +39,7 @@ class Meetup {
     }
     return false;
   }
-
+  
   static deleteAll() {
     helper.writeToFile(filename, []);
     return true;
@@ -89,8 +89,8 @@ class Meetup {
   }
 
   static delete(id) {
-    meetups.filter(meetup => meetup.id !== parseInt(id));
-    helper.writeToFile(filename, meetups);
+    let filteredArray = meetups.filter(meetup => meetup.id !== id);
+    helper.writeToFile(filename, filteredArray);
     return true;
   }
 }

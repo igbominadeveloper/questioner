@@ -40,11 +40,15 @@ describe('Meetups', () => {
   // eslint-disable-next-line no-undef
   it('can return a specific meetup', () => {
     request(app)
+    .post(`${meetupsApi}/recreate`)
+    .then(request => {
+      request(app)
       .get(`${meetupsApi}/1`)
-      .then((response) => {
+      .then(response => {
         expect(response.status).toBe(200);
         expect(response.body.data.id).toBe(1);
       })
+    })
       .catch((error) => {
         expect(error).toBeInstanceOf(Object);
       });

@@ -18,15 +18,14 @@ class meetupController {
   static show(request, response) {
     const returnedMeetup = meetup.find(request.params.id);
     if (returnedMeetup !== false) {
-      const data = Object.assign({}, returnedMeetup);
       return response.status(200).json({
         status: 200,
-        data,
+        data: returnedMeetup
       });
     }
     return response.status(404).json({
       status: 404,
-      error: 'Meetup doesn\'t exist',
+      error: `Meetup doesn't exist`,
     });
   }
 

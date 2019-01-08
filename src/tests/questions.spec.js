@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 import expect from 'expect';
 import request from 'supertest';
-import app from '../app';
+import app from '../../app.js';
 
 const questionApi = '/api/v1/questions';
 

@@ -1,7 +1,7 @@
 import expect from 'expect';
 import request from 'supertest';
 import moment from 'moment';
-import app from '../app';
+import app from '../../app.js';
 
 const meetupsApi = '/api/v1/meetups';
 

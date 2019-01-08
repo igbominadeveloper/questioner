@@ -1,6 +1,6 @@
 import expect from 'expect';
 import request from 'supertest';
-import app from '../app';
+import app from '../../app.js';
 
 const meetupsApi = '/api/v1/meetups';
 

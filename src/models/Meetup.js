@@ -2,7 +2,7 @@ import path from 'path';
 import moment from 'moment';
 import helper from '../helpers/helper';
 import meetups from '../data/meetups.json';
-import testData from '../../tests/testData';
+import testData from '../tests/testData';
 
 const filename = path.resolve(__dirname, '../data/meetups.json');
 

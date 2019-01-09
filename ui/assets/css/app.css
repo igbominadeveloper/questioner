@@ -162,10 +162,351 @@ nav h3, nav a, nav h2 {
 	font-weight: normal;
 }
 
+/* Buttons */
+.btn-primary {
+	cursor: pointer;
+	background: teal;
+	color: white;
+	font-size: 18px;
+	border-radius: 5px;
+}
+
+button#nav-toggle{
+	display: none;
+}
+
+.page-title {
+	text-align: left;
+	color: black;
+	padding-left:35px;
+}
+
+/* Meetups */
+.meetup-wrapper {
+ max-width: 1500px;
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: center;
+}
+
+.meetup-header {
+	max-width: 100%;
+	background: white;
+	padding: 18px 20px;
+	margin-bottom: 40px;
+}
+
+.single-meetup {
+	text-align: left;
+}
+
+.single-meetup-image {
+	width: 500px;
+	height: 220px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px
+}
+
+.meetup-image {
+	width: 376px;
+	height: 220px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.meetup-body {
+	width: 900px;
+	margin: 10px auto;
+}
+
+.meetup-description,.meetup-stats {
+	background: white;
+}
+
+.meetup-stats {
+	padding: 10px 30px;
+	display: inline-block;
+	height: 120px;
+	margin:auto;
+}
+
+.meetup-title {
+	font-weight: bold;
+	font-size: 25px;
+	margin: 20px;
+}
+
+.meetup-date, .meetup-location {
+	margin: 20px;
+}
+
+
+.meetups-list {
+	height: inherit;
+}
+
+.meetups-list td {
+	height: 40px;
+	width: 220px;
+}
+
+.meetups-list tr {
+	padding: 20px auto;
+}
+
+.meetups-list tr:hover {
+	font-weight: 600;
+}
+
+form input[type="search"] {
+	width: 20%;
+}
+
+
+/* Utility Classes */
+.hide {
+	display: none !important;
+}
+
+.show {
+	display: block !important;
+}
+
+.m-0 {
+	margin: 0;
+}
+
+.m-4 {
+	margin: 4em;
+}
+
+.ml-20 {
+	margin-left: 20px;
+}
+
+.p-0 {
+	padding: 0;
+}
+
+.p-5 {
+	padding: 5px;
+}
+
+.p-10 {
+	padding: 10px;
+}
+
+.p-20 {
+	padding: 20px;
+}
+
+.p-25 {
+	padding: 25px;
+}
+
+.p-30 {
+	padding: 30px;
+}
+
+.mw-10 {
+	max-width: 1000px;
+}
+
+.mw-5 {
+	max-width: 500px;
+}
+
+.mt-05 {
+	margin-top: 5px;
+}
+
+.mt-1 {
+	margin-top: 10px;
+}
+
+.mt-2{
+	margin-top: 20px;
+}
+
+.mt-5{
+	margin-top: 50px;
+}
+
+.m-20 {
+	margin: 20px auto;
+}
+
+.p-1 {
+	padding: 10px;
+}
+
+.pb-2 {
+	padding-bottom: 20px;
+}
+
+.p-15 {
+	padding: 15px;
+}
+
+.flex{
+	display: flex;
+}
+.flex-row {
+	flex-direction: row;
+}
+.flex-column {
+	flex-direction: column;
+}
+.space-between {
+	justify-content: space-between;
+}
+.space-around {
+	justify-content: space-around;
+}
+
+.bg-black {
+	background: #4a4646;
+}
+
+.bg-white {
+	background: white;
+}
+
+.text-black {
+	color: black;
+}
+
+.text-white {
+	color: white;
+}
+
+.text-left {
+	text-align: left;
+}
+
+.text-small {
+	font-size: small;
+}
+
+.fs-20 {
+	font-size: 20px;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.bg-warning {
+	background: orange;
+}
+
+.bg-primary {
+	background: teal;
+}
+
+.br-20 {
+	border-radius: 20px;
+}
+
+.br-10 {
+	border-radius: 10px;
+}
+
+.bg-danger {
+	background: red;
+}
+
+.text-warning {
+	color: orange;
+}
+
+.text-danger {
+	color: red;
+}
+
+.text-primary {
+	color: teal;
+}
+
+.cover-no-repeat {
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
 .wrapper {
 	display: flex;
 	justify-content: space-between;
 	justify-self: center;
+}
+
+
+.question {
+	margin: 20px auto;
+	padding: 5px;
+}
+
+.questions-body {
+	background: white;
+}
+
+.question-stats {
+	width: 150px;
+}
+
+.question-feed {
+	max-width: 550px;
+}
+
+.question-stats > p:hover {
+	cursor: pointer;
+	font-weight: 300;
+}
+
+.question-comments {
+	margin: 10px 0 10px 50px;
+	border-left: 1px solid teal;
+}
+
+.organizer {
+	display: flex;
+}
+
+#gdg {
+	background: url('../images/gdg.jpg');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+#vue{
+	background: url('../images/meetup-logo.png');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+#laravel {
+	background: url('../images/laravel.jpg');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+#mocha {
+	background: url('../images/mocha.png');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+#forloop {
+	background: url('../images/forloop.jpg');
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+.text-light{
+	font-weight: lighter;
+}
+
+.text-heavy{
+	font-weight: bold;
 }
 
 i{
@@ -177,6 +518,7 @@ i{
 	border-radius: 5px;
 	width: 375px;
 	margin: 30px;
+	/*padding: 10px;*/
 }
 
 .meetup:hover {
@@ -188,6 +530,11 @@ i{
 .question-content > p,.comment-content > p{
 	text-align: left;
 }
+.upcoming-meetups {
+	height: max-content;
+	border-left: 3px solid teal;
+}
+
 
 .view-more{
 	margin: 40px auto;
@@ -225,193 +572,28 @@ i{
 	font-size: 6em;
 }
 
-/* Media Queries */
-@media only screen and (max-width: 1024px){
-	.container {
-		max-width: 100%;
-		zoom: 2;
-	}
-	.container-fluid {
-		max-width: 100%;
-	}
 
-	#registration-form, #login-form {
-		width: 100%;
-	}
-	
-	.meetup-stats {
-		margin: inherit;
-		height: inherit;
-		padding: 10px 4px;
-	}
-
-	.list {
-		width: max-content;
-	}
-
-	.question-feed {
-		box-shadow: none;
-		background: none;
-		margin-top: 0px;
-	}
-
-	.question-feed article {
-		padding-top: 0;
-	}
-	
-	.upcoming-meetups {
-		display: none;
-	}
+/* User Profile */
+.profile-wrapper header {
+	height: 200px;
+}
+.user-stats ul {
+	width: 300px;
+	margin: auto;
 }
 
-@media only screen and (max-width: 992px){
-	.container {
-		max-width: 100%;
-		zoom: 3;
-	}
-
-	.container-fluid {
-		max-width: 100%;
-	}
-
-	.sidebar,.navbar {
-		display: none;
-	}
-
-	button#nav-toggle {
-		display: block;
-	}
-
-	.navbar-collapse li {
-		padding: 10px 0;
-		border-bottom: 2px solid white;
-	}
-	
-	@keyframes slide-down {
-		0% { opacity: 0; transform: translateY(-100%); }   
-    	100% { opacity: 1; transform: translateY(0); }
-	}
-
-	#registration-form, #login-form {
-		width: 100%;
-	}
-
-	.form-footer {
-		margin-top: -30px;
-	}
-
-	.upper-details{
-		flex-direction: row;
-	}
-
-	.questions-list {
-		margin-left: -20px;
-		text-align-last: left;
-	}
-
-	.upper-details .question-time, .comment-time {
-		margin-top: 5px; 
-	}
-	
-	.question-content > p,.comment-content > p {
-		margin-left: -55px;
-		margin-top: 30px;
-		text-align: left;
-	}
-
-	/* Question Comments */
-	.question-comments, .single-comment {
-		margin-top: 20px;
-		margin-bottom: 10px;
-	}
-
-	.single-comment {
-		padding: 0; 
-	}
-
-	.question-feed article {
-		margin: 20px 2px;
-	}
-
-	.new-comment, .new-question {
-		margin: 5px 45px;
-	}
-
-	#question-form textarea, #comment-form textarea {
-		max-width: 100%;
-		min-width: 100%;
-	}
-
-	.new-question {
-		margin: 10px;
-	}
-
+.user-stats a:hover {
+	color: white;
 }
 
-@media only screen and (max-width: 600px){
-	.container {
-		max-width: 100%;
-		zoom: 3;
-	}
+.user-contact-details {
+	margin-left: 100px;
+}
 
-	.container-fluid {
-		max-width: 100%;
-	}
+.sidebar-item {
+	margin: 60px auto;
+}
 
-	#registration-form, #login-form {
-		width: 100%;
-	}
-
-	.table {
-		width: 100%;
-		padding: 5px;
-		border-collapse: collapse;
-	}
-	
-/* Single Meetup Page */
-	.single-meetup {
-		display: flex;
-		flex-direction: column;
-	}
-
-	.single-meetup .wrapper {
-		flex-direction: column;	
-	}
-
-	.wrapper .register {
-		margin: 20px auto;
-	}
-
-	.wrapper .register p > a{
-		font-size: 20px;
-	}
-
-	.wrapper .organizer p{
-		font-size: 15px;
-		margin: 2px auto;
-	}
-	.upcoming-meetups {
-		display: none;
-	}
-
-	.upper-details {
-		flex-direction: column;
-	}
-
-	.nav-links a {
-		font-size: 28px;
-		font-weight: lighter;
-	}
-
-	
-	.search form input[type="search"] {
-		width: 29%;
-		font-size: 15px;
-	}
-
-	.search .form-control {
-		margin: 10px auto;
-		padding: 4px 10px;
-	}
-
+.sidebar-item a:hover {
+	color: teal;
 }

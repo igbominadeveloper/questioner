@@ -1,15 +1,15 @@
 /* Media Queries */
 @media only screen and (min-width: 1200px) {
 	.container {
-		width: 40%;
-		margin: 4% auto;
+		width: 100%;
 	}
+	
 	.container-fluid {
 		width: 100%;
 	}
 
 	#registration-form, #login-form {
-		width: 100%;
+		width: 60%;
 	}
 }
 

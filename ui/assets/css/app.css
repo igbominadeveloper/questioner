@@ -490,7 +490,7 @@ form input[type="search"] {
 }
 
 #mocha {
-	background: url('../images/mocha.png');
+	background: url('../images/mocha.svg');
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 }

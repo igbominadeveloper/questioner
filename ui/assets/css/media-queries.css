@@ -1,4 +1,18 @@
 /* Media Queries */
+@media only screen and (min-width: 1200px) {
+	.container {
+		width: 40%;
+		margin: 4% auto;
+	}
+	.container-fluid {
+		width: 100%;
+	}
+
+	#registration-form, #login-form {
+		width: 100%;
+	}
+}
+
 @media only screen and (max-width: 1024px){
 	.container {
 		max-width: 100%;

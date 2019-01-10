@@ -80,7 +80,16 @@ nav h3, nav a, nav h2 {
 }
 
 .navbar-collapse {
+	margin-top: -20px;
 	display: none;
+}
+
+.nav-mobile-parent{
+	padding: 13px 5px 0px 5px;
+}
+
+.nav-mobile-parent a > p {
+	margin-top: -5px;
 }
 
 
@@ -94,9 +103,13 @@ nav h3, nav a, nav h2 {
 	border-radius: 5px;
 }
 
-button#nav-toggle{
-	display: none;
+#nav-toggle{
+	background: url('../images/hambuger.png');
+	background-size: 19px 14px;
+	height: 28px;
+	width: 48px;
 }
+
 
 .page-title {
 	text-align: left;

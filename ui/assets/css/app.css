@@ -125,7 +125,6 @@ button#nav-toggle{
 
 .single-meetup-image {
 	width: 500px;
-	height: 220px;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px
 }
@@ -142,14 +141,18 @@ button#nav-toggle{
 	margin: 10px auto;
 }
 
+.meetup-body .wrapper {
+	height: 280px;
+}
+
 .meetup-description,.meetup-stats {
 	background: white;
 }
 
 .meetup-stats {
-	padding: 10px 30px;
+	/*padding: 50px 30px;*/
 	display: inline-block;
-	height: 120px;
+	height: inherit;
 	margin:auto;
 }
 
@@ -161,6 +164,10 @@ button#nav-toggle{
 
 .meetup-date, .meetup-location {
 	margin: 20px;
+}
+
+.meetup-date p, .meetup-location p {
+	font-size: 20px;
 }
 
 
@@ -184,8 +191,6 @@ button#nav-toggle{
 form input[type="search"] {
 	width: 20%;
 }
-
-
 
 .wrapper {
 	display: flex;

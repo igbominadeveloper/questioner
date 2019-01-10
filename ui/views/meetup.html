@@ -3,55 +3,53 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Meetup</title>
+  <title>Questioner</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/app.css"/>
+  <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/utility.css"/>
   <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/media-queries.css"/>
   <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/form.css"/>
-  <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/utility.css"/>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
   <div class="container-fluid">
+    <nav class="navbar" id="navbar-desktop">
+      <div class="page-title text-heavy">
+        <a href="index.html"><h3>Questioner</h3></a>
+      </div>
+      <div class="nav-links">
+        <ul>
+          <li>
+            <a href="login.html">Sign in</a>
+          </li>
+          <li>
+            <a href="register.html">Register</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
     
-      <nav class="navbar" id="navbar-desktop">
-        <div class="page-title">
-          <h3>Dashboard</h3>
-        </div>
-        <div class="nav-links">
-          <ul>
-            <li>
-              <a href="login.html">Logout</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-      
-      <button class="flex m-10 text-left" type="button" id="nav-toggle">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30" focusable="false">
-          <title>Menu</title>
-          <path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"></path>
-        </svg>
-      </button>
-      
-      <nav class="navbar-collapse" id="navbar-mobile">
-        <div>
+    <div class="flex bg-primary flex-row space-between pr-1 nav-mobile-parent text-white">    
+      <a href="#" id="nav-toggle" class="no-repeat h-0"></a>
+      <div class="m-0 h-0">
+        <a href="index.html" class="text-white"><p>Questioner</p></a>
+      </div>
+      <div class="text-white m-0 h-0">
+        <a href="login.html" class="text-white"><p>Sign in</p></a>
+      </div>
+    </div>
+    
+    <nav class="navbar-collapse" id="navbar-mobile">
           <ul class="flex flex-column text-left p-1">
-            <li>
-              <a href="meetups.html">Meetups</a>
-            </li>
             <li class="mt-1">
-              <a href="user-profile.html">Profile</a>
-            </li>
+              <a href="login.html"><span class="fa fa-sign-in" style="margin-right:10px;"></span>Login</a>
+            </li> 
             <li class="mt-1">
-              <a href="login.html">Login</a>
-            <li class="mt-1">
-              <a href="register.html">Sign up</a>
+              <a href="register.html"><span class="fa fa-user-plus" style="margin-right:10px;"></span>Sign up</a>
             </li>
           </ul>
-        </div>
-      </nav>
-
+      </div>
+    </nav>
     <div class="single-meetup">
       <div class="meetup-header">
       <p class="meetup-title">Vue JS Lagos Meetup</p>
@@ -345,6 +343,6 @@
       </section>
     </div>
   </div>
-  <script src="assets/js/app.js"></script>
+  <script src="../assets/js/app.js"></script>
 </body>
 </html>

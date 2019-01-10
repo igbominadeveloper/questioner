@@ -26,7 +26,7 @@ a {
 }
 
 a:hover{
-	font-weight: bolder;
+	/*font-weight: bold;*/
 }
 p {
 	margin: 0;
@@ -80,7 +80,16 @@ nav h3, nav a, nav h2 {
 }
 
 .navbar-collapse {
+	margin-top: -20px;
 	display: none;
+}
+
+.nav-mobile-parent{
+	padding: 13px 5px 0px 5px;
+}
+
+.nav-mobile-parent a > p {
+	margin-top: -5px;
 }
 
 
@@ -94,9 +103,13 @@ nav h3, nav a, nav h2 {
 	border-radius: 5px;
 }
 
-button#nav-toggle{
-	display: none;
+#nav-toggle{
+	background: url('../images/hambuger.png');
+	background-size: 19px 14px;
+	height: 28px;
+	width: 48px;
 }
+
 
 .page-title {
 	text-align: left;
@@ -130,8 +143,8 @@ button#nav-toggle{
 }
 
 .meetup-image {
-	width: 376px;
-	height: 220px;
+	width: 250px;
+	height: 150px;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
 }
@@ -158,12 +171,12 @@ button#nav-toggle{
 
 .meetup-title {
 	font-weight: bold;
-	font-size: 25px;
-	margin: 20px;
+	font-size: 17px;
+	margin: 5px;
 }
 
 .meetup-date, .meetup-location {
-	margin: 20px;
+	margin: 5px;
 }
 
 .meetup-date p, .meetup-location p {
@@ -173,6 +186,7 @@ button#nav-toggle{
 
 .meetups-list {
 	height: inherit;
+	width: 100%;
 }
 
 .meetups-list td {
@@ -275,16 +289,15 @@ i{
 
 .meetup {
 	border-radius: 5px;
-	width: 375px;
-	margin: 30px;
-	/*padding: 10px;*/
+	width: 250px;
+	margin: 13px;
 }
 
 .meetup:hover {
 	cursor: pointer;
-	transition-duration: .6s;
+	transition-duration: .3s;
 	transition-property: margin-top;
-	margin-top: 27px;
+	margin-top: 10px;
 }
 .question-content > p,.comment-content > p{
 	text-align: left;
@@ -355,4 +368,10 @@ i{
 
 .sidebar-item a:hover {
 	color: teal;
+}
+
+.control {
+	padding: 4px 10px;
+	margin-top: 10px;
+	font-size: large;
 }

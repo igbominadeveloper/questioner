@@ -133,7 +133,9 @@
 .fs-20 {
 	font-size: 20px;
 }
-
+.h-0 {
+	height: 0;
+}
 .text-center {
 	text-align: center;
 }
@@ -173,4 +175,8 @@
 .cover-no-repeat {
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
+}
+
+.no-repeat {
+	background-repeat: no-repeat !important;
 }

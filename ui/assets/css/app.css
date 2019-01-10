@@ -26,7 +26,7 @@ a {
 }
 
 a:hover{
-	font-weight: bolder;
+	/*font-weight: bold;*/
 }
 p {
 	margin: 0;
@@ -131,8 +131,8 @@ button#nav-toggle{
 }
 
 .meetup-image {
-	width: 376px;
-	height: 220px;
+	width: 250px;
+	height: 150px;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
 }
@@ -155,17 +155,18 @@ button#nav-toggle{
 
 .meetup-title {
 	font-weight: bold;
-	font-size: 25px;
-	margin: 20px;
+	font-size: 17px;
+	margin: 5px;
 }
 
 .meetup-date, .meetup-location {
-	margin: 20px;
+	margin: 5px;
 }
 
 
 .meetups-list {
 	height: inherit;
+	width: 100%;
 }
 
 .meetups-list td {
@@ -270,16 +271,15 @@ i{
 
 .meetup {
 	border-radius: 5px;
-	width: 375px;
-	margin: 30px;
-	/*padding: 10px;*/
+	width: 250px;
+	margin: 13px;
 }
 
 .meetup:hover {
 	cursor: pointer;
-	transition-duration: .6s;
+	transition-duration: .3s;
 	transition-property: margin-top;
-	margin-top: 27px;
+	margin-top: 10px;
 }
 .question-content > p,.comment-content > p{
 	text-align: left;
@@ -350,4 +350,10 @@ i{
 
 .sidebar-item a:hover {
 	color: teal;
+}
+
+.control {
+	padding: 4px 10px;
+	margin-top: 10px;
+	font-size: large;
 }

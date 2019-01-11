@@ -11,6 +11,14 @@
 	width: 480px;
 }
 
+#password-reset {
+	margin: 126px auto;
+}
+
+#password-reset .form-header {
+	margin: 20px auto;
+}
+
 #question-form textarea, #comment-form textarea{
 	min-height: 100px;
 	max-width: 700px;

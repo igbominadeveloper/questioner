@@ -12,6 +12,7 @@ toggle.addEventListener('click', () => {
   }, 200);
 });
 
+
 function toggleDisplay(selector) {
   if (selector.style.display !== 'block') {
     selector.style.display = 'block';
@@ -20,6 +21,7 @@ function toggleDisplay(selector) {
   }
   selector.style.display = 'none';
   selector.style.animation = 'slide-down .3s ease-in-out';
+
 }
 
 

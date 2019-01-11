@@ -3,44 +3,52 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Meetups | Table</title>
+  <title>Questioner</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/app.css"/>
+  <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/utility.css"/>
+  <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/form.css"/>
   <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/media-queries.css"/>
 </head>
 <body>
   <div class="container-fluid">
-
     <nav class="navbar" id="navbar-desktop">
-      <div class="page-title">
-        <h3>Dashboard</h3>
+      <div class="page-title text-heavy">
+        <a href="index.html"><h3>Questioner</h3></a>
       </div>
       <div class="nav-links">
         <ul>
-          <li><a href="login.html">Logout</a></li>
+          <li>
+            <a href="login.html">Sign in</a>
+          </li>
+          <li>
+            <a href="register.html">Register</a>
+          </li>
         </ul>
       </div>
     </nav>
-
-    <button class="flex m-10 text-left" type="button" id="nav-toggle">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30" focusable="false">
-        <title>Menu</title>
-        <path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"></path>
-      </svg>
-    </button>
+    
+    <div class="flex bg-primary flex-row space-between pr-1 nav-mobile-parent text-white">    
+      <a href="#" id="nav-toggle" class="no-repeat h-0"></a>
+      <div class="m-0 h-0">
+        <a href="index.html" class="text-white"><p>Questioner</p></a>
+      </div>
+      <div class="text-white m-0 h-0">
+        <a href="login.html" class="text-white"><p>Sign in</p></a>
+      </div>
+    </div>
     
     <nav class="navbar-collapse" id="navbar-mobile">
-      <div>
-        <ul class="flex flex-column text-left p-1">
-          <li><a href="meetups.html">Meetups</a></li>
-          <li class="mt-1"><a href="new-meetup.html">New Meetup</a></li>
-          <li class="mt-1"><a href="#">Users</a></li>
-          <li class="mt-1"><a href="user-profile.html">Profile</a></li>
-          <li class="mt-1"><a href="login.html">Logout</a></li>
-        </ul>
+          <ul class="flex flex-column text-left p-1">
+            <li class="mt-1">
+              <a href="login.html"><span class="fa fa-sign-in" style="margin-right:10px;"></span>Login</a>
+            </li> 
+            <li class="mt-1">
+              <a href="register.html"><span class="fa fa-user-plus" style="margin-right:10px;"></span>Sign up</a>
+            </li>
+          </ul>
       </div>
     </nav>
-
     <div class="flex flex-row">
       <section class="sidebar card p-20">
         <ul class="m-0 p-0">
@@ -52,55 +60,154 @@
         </ul>
       </section>
       <section class="meetups-list card ml-20">
-        <div class="search">
-          <form>
-            <div class="form-group">
-              <input type="search" name="search" class="form-control" placeholder="search">
+        <div class="meetup-wrapper">
+          <a href="meetup.html">
+            <div class="meetup shadow pb-2">
+              <div class="meetup-image" id="vue"></div>
+              <p class="meetup-title">Vue JS Lagos Meetup</p>
+              <p class="meetup-date text-light"><i class="fa fa-calendar"></i>Thursday, December 20, 9:00 AM</p>
+              <p class="meetup-location text-light"><i class="fa fa-map-marker"></i>Zone Tech Park, Gbagada, Lagos</p>
+              <div class="controls flex space-around">
+                <div class="control edit text-primary">Edit</div>
+                <div class="control delete text-danger">Delete</div>
+              </div>
             </div>
-          </form>
-        </div>
-        <table class="table p-30">
-          <thead>
-            <th class="text-left">Title</th>
-            <th class="text-left">Organizer</th>
-            <th class="text-left">Date</th>
-            <th class="text-left">Location</th>
-            <th class="text-left">Actions</th>
-          </thead>
-          <tbody>
-            <tr class="mt-1 text-left">
-              <td class="">GDG Dev Fest Lagos 18</td>
-              <td class="">Igbominadeveloper</td>
-              <td class="">21st February 2019</td>
-              <td class="">The Zone, Gbagada, Lagos</td>
-              <td class=""><a href="#">View</a> | <a href="#">Edit</a> | <a href="#">Delete</a></td>
-            </tr>
-            <tr class="mt-1 text-left">
-              <td class="">Vue JS Nigeria Conf.</td>
-              <td class="">Igbominadeveloper</td>
-              <td class="">21st February 2019</td>
-              <td class="">The Zone, Gbagada, Lagos</td>
-              <td class=""><a href="#">View</a> | <a href="#">Edit</a> | <a href="#">Delete</a></td>
-            </tr>
-            <tr class="mt-1 text-left">
-              <td class="">ForLoop Ilorin</td>
-              <td class="">Igbominadeveloper</td>
-              <td class="">21st February 2019</td>
-              <td class="">The Zone, Gbagada, Lagos</td>
-              <td class=""><a href="#">View</a> | <a href="#">Edit</a> | <a href="#">Delete</a></td>
-            </tr>
-            <tr class="mt-1 text-left">
-              <td class="">Pycon Nigeria 18</td>
-              <td class="">Igbominadeveloper</td>
-              <td class="">21st February 2019</td>
-              <td class="">The Zone, Gbagada, Lagos</td>
-              <td class=""><a href="#">View</a> | <a href="#">Edit</a> | <a href="#">Delete</a></td>
-            </tr>
-          </tbody>
-        </table>
+          </a>
+          <a href="meetup.html">
+            <div class="meetup shadow pb-2">
+              <div class="meetup-image" id="mocha"></div>
+              <p class="meetup-title">Vue JS Lagos Meetup</p>
+              <p class="meetup-date text-light"><i class="fa fa-calendar"></i>Thursday, December 20, 9:00 AM</p>
+              <p class="meetup-location text-light"><i class="fa fa-map-marker"></i>Zone Tech Park, Gbagada, Lagos</p>
+              <div class="controls flex space-around">
+                <div class="control edit text-primary">Edit</div>
+                <div class="control delete text-danger">Delete</div>
+              </div>
+            </div>
+          </a>
+          <a href="meetup.html">
+            <div class="meetup shadow pb-2">
+              <div class="meetup-image" id="laravel"></div>
+              <p class="meetup-title">Vue JS Lagos Meetup</p>
+              <p class="meetup-date text-light"><i class="fa fa-calendar"></i>Thursday, December 20, 9:00 AM</p>
+              <p class="meetup-location text-light"><i class="fa fa-map-marker"></i>Zone Tech Park, Gbagada, Lagos</p>
+              <div class="controls flex space-around">
+                <div class="control edit text-primary">Edit</div>
+                <div class="control delete text-danger">Delete</div>
+              </div>
+            </div>
+          </a>
+          <a href="meetup.html">
+            <div class="meetup shadow pb-2">
+              <div class="meetup-image" id="forloop"></div>
+              <p class="meetup-title">Vue JS Lagos Meetup</p>
+              <p class="meetup-date text-light"><i class="fa fa-calendar"></i>Thursday, December 20, 9:00 AM</p>
+              <p class="meetup-location text-light"><i class="fa fa-map-marker"></i>Zone Tech Park, Gbagada, Lagos</p>
+              <div class="controls flex space-around">
+                <div class="control edit text-primary">Edit</div>
+                <div class="control delete text-danger">Delete</div>
+              </div>
+            </div>
+          </a>
+          <a href="meetup.html">
+            <div class="meetup shadow pb-2">
+              <div class="meetup-image" id="gdg"></div>
+              <p class="meetup-title">Vue JS Lagos Meetup</p>
+              <p class="meetup-date text-light"><i class="fa fa-calendar"></i>Thursday, December 20, 9:00 AM</p>
+              <p class="meetup-location text-light"><i class="fa fa-map-marker"></i>Zone Tech Park, Gbagada, Lagos</p>
+              <div class="controls flex space-around">
+                <div class="control edit text-primary">Edit</div>
+                <div class="control delete text-danger">Delete</div>
+              </div>
+            </div>
+          </a>
+          <a href="meetup.html">
+            <div class="meetup shadow pb-2">
+              <div class="meetup-image" id="vue"></div>
+              <p class="meetup-title">Vue JS Lagos Meetup</p>
+              <p class="meetup-date text-light"><i class="fa fa-calendar"></i>Thursday, December 20, 9:00 AM</p>
+              <p class="meetup-location text-light"><i class="fa fa-map-marker"></i>Zone Tech Park, Gbagada, Lagos</p>
+              <div class="controls flex space-around">
+                <div class="control edit text-primary">Edit</div>
+                <div class="control delete text-danger">Delete</div>
+              </div>
+            </div>
+          </a>
+          <a href="meetup.html">
+            <div class="meetup shadow pb-2">
+              <div class="meetup-image" id="gdg"></div>
+              <p class="meetup-title">Vue JS Lagos Meetup</p>
+              <p class="meetup-date text-light"><i class="fa fa-calendar"></i>Thursday, December 20, 9:00 AM</p>
+              <p class="meetup-location text-light"><i class="fa fa-map-marker"></i>Zone Tech Park, Gbagada, Lagos</p>
+              <div class="controls flex space-around">
+                <div class="control edit text-primary">Edit</div>
+                <div class="control delete text-danger">Delete</div>
+              </div>
+            </div>
+          </a>
+          <a href="meetup.html">
+            <div class="meetup shadow pb-2">
+              <div class="meetup-image" id="mocha"></div>
+              <p class="meetup-title">Vue JS Lagos Meetup</p>
+              <p class="meetup-date text-light"><i class="fa fa-calendar"></i>Thursday, December 20, 9:00 AM</p>
+              <p class="meetup-location text-light"><i class="fa fa-map-marker"></i>Zone Tech Park, Gbagada, Lagos</p>
+              <div class="controls flex space-around">
+                <div class="control edit text-primary">Edit</div>
+                <div class="control delete text-danger">Delete</div>
+              </div>
+            </div>
+          </a>
+          <a href="meetup.html">
+            <div class="meetup shadow pb-2">
+              <div class="meetup-image" id="laravel"></div>
+              <p class="meetup-title">Vue JS Lagos Meetup</p>
+              <p class="meetup-date text-light"><i class="fa fa-calendar"></i>Thursday, December 20, 9:00 AM</p>
+              <p class="meetup-location text-light"><i class="fa fa-map-marker"></i>Zone Tech Park, Gbagada, Lagos</p>
+              <div class="controls flex space-around">
+                <div class="control edit text-primary">Edit</div>
+                <div class="control delete text-danger">Delete</div>
+              </div>
+            </div>
+          </a>
+          <a href="meetup.html">
+            <div class="meetup shadow pb-2">
+              <div class="meetup-image" id="forloop"></div>
+              <p class="meetup-title">Vue JS Lagos Meetup</p>
+              <p class="meetup-date text-light"><i class="fa fa-calendar"></i>Thursday, December 20, 9:00 AM</p>
+              <p class="meetup-location text-light"><i class="fa fa-map-marker"></i>Zone Tech Park, Gbagada, Lagos</p>
+              <div class="controls flex space-around">
+                <div class="control edit text-primary">Edit</div>
+                <div class="control delete text-danger">Delete</div>
+              </div>
+            </div>
+          </a>
+          <a href="meetup.html">
+            <div class="meetup shadow pb-2">
+              <div class="meetup-image" id="gdg"></div>
+              <p class="meetup-title">Vue JS Lagos Meetup</p>
+              <p class="meetup-date text-light"><i class="fa fa-calendar"></i>Thursday, December 20, 9:00 AM</p>
+              <p class="meetup-location text-light"><i class="fa fa-map-marker"></i>Zone Tech Park, Gbagada, Lagos</p>
+              <div class="controls flex space-around">
+                <div class="control edit text-primary">Edit</div>
+                <div class="control delete text-danger">Delete</div>
+              </div>
+            </div>
+          </a>
+          <a href="meetup.html">
+            <div class="meetup shadow pb-2">
+              <div class="meetup-image" id="vue"></div>
+              <p class="meetup-title">Vue JS Lagos Meetup</p>
+              <p class="meetup-date text-light"><i class="fa fa-calendar"></i>Thursday, December 20, 9:00 AM</p>
+              <p class="meetup-location text-light"><i class="fa fa-map-marker"></i>Zone Tech Park, Gbagada, Lagos</p>
+              <div class="controls flex space-around">
+                <div class="control edit text-primary">Edit</div>
+                <div class="control delete text-danger">Delete</div>
+              </div>
+            </div>
+          </a>
       </section>
     </div>
   </div>
-  <script src="assets/js/app.js"></script>  
+  <script src="../assets/js/app.js"></script>  
 </body>
 </html>

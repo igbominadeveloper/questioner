@@ -5,7 +5,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>User Profile</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/app.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/app.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/form.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/utility.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/media-queries.css" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -59,7 +62,7 @@
           <li class="stat flex flex-column text-center"><span class="text-small text-primary">Likes</span><span class="text-heavy">20</span></li>
           <li class="stat flex flex-column text-center"><span class="text-small text-primary">Meetups</span><span class="text-heavy">3</span></li>
         </ul>
-        <p class="mt-1"><a href="#" class="bg-primary br-20 p-1 text-white">Edit Profile</a></p>
+        <p class="mt-1"><a href="edit-profile.html" class="bg-primary br-20 p-1 text-white">Edit Profile</a></p>
       </div>
       <section class="profile-content flex">
         <div class="user-contact-details">
@@ -78,7 +81,7 @@
         <div class="question-feed card m-20">
           <article>
             <div class="question-title">
-              <h3 class="text-heavy">Top Questions</h3>
+              <h3 class="text-heavy">Top Questions - Laracon Nigeria</h3>
             </div>
             <div class="questions-list">  
               <div class="question flex p-1 flex-column">
@@ -160,15 +163,31 @@
           </article>
         </div>
         <div class="upcoming-meetups m-20 p-1 bg-white card">
+          <p class="text-light">Filter question feed</p>
           <ul class="m-0 p-1">
-            <li class="mt-05"><a href="#">Dev Fest 2018</a></li>
-            <li class="mt-05"><a href="#">VueJS Nigeria</a></li>
-            <li class="mt-05"><a href="#">ForLoop Ilorin</a></li>
+            <form>
+              <li class="mt-05">
+                <input type="radio" class="form-input" />Dev Fest 2018
+              </li> 
+              <li class="mt-05">
+                <input type="radio" class="form-input" />Mocha Meetup
+              </li> 
+              <li class="mt-05">
+                <input type="radio" class="form-input" />Laracon Nigeria
+              </li>
+              <li class="mt-05">
+                <input type="radio" class="form-input" />Laracon Nigeria
+              </li>
+              <li class="mt-05">
+                <input type="radio" class="form-input" />Laracon Nigeria8
+              </li>
+             
+            </form>
           </ul>
         </div>
       </section>
     </div>
   </div>
-  <script src="assets/js/app.js"></script>
+  <script src="../assets/js/app.js"></script>
 </body>
 </html>

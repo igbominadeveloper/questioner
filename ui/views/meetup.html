@@ -8,6 +8,7 @@
   <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/app.css"/>
   <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/utility.css"/>
   <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/media-queries.css"/>
+  <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/utility.css"/>
   <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/form.css"/>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -117,9 +118,9 @@
                   </div>
 
                   <div class="question-stats flex space-between mt-1">
-                    <p class="comment text-light"><i class="fa fa-comment-o"></i>2</p>
-                    <p class="like text-light"><i class="fa fa-thumbs-o-up"></i>10</p>
-                    <p class="dislike text-light"><i class="fa fa-thumbs-o-down"></i>2</p>
+                    <p class="comment text-light" onclick="toggleComments(event)"><i class="fa fa-reply"></i>2</p>
+                    <p class="like text-light upvote" onclick="increaseCount(event)" ><i class="fa fa-thumbs-o-up"></i><span>10</span></p>
+                    <p class="dislike text-light" onclick="decreaseCount(event)"><i class="fa fa-thumbs-o-down"></i><span>2</span></p>
                   </div>
                 </div>
               </div>
@@ -182,9 +183,9 @@
                       praesentium impedit obcaecati est eaque consectetur nisi tempore cupiditate?</p>
                   </div>
                   <div class="question-stats flex space-between mt-1">
-                    <p class="comment text-light"><i class="fa fa-comment-o"></i>1</p>
-                    <p class="like text-light"><i class="fa fa-thumbs-o-up"></i>5</p>
-                    <p class="dislike text-light"><i class="fa fa-thumbs-o-down"></i>1</p>
+                    <p class="comment text-light" onclick="toggleComments(event)"><i class="fa fa-reply"></i>1</p>
+                    <p class="like text-light upvote" onclick="increaseCount(event)" ><i class="fa fa-thumbs-o-up"></i><span>5</span></p>
+                    <p class="dislike text-light" onclick="decreaseCount(event)"><i class="fa fa-thumbs-o-down"></i><span>1</span></p>
                   </div>
                 </div>
               </div>
@@ -231,9 +232,9 @@
                       praesentium impedit obcaecati est eaque consectetur nisi tempore cupiditate?</p>
                   </div>
                   <div class="question-stats flex space-between mt-1">
-                    <p class="comment text-light"><i class="fa fa-comment-o"></i>2</p>
-                    <p class="like text-light"><i class="fa fa-thumbs-o-up"></i>3</p>
-                    <p class="dislike text-light"><i class="fa fa-thumbs-o-down"></i>1</p>
+                    <p class="comment text-light" onclick="toggleComments(event)"><i class="fa fa-reply"></i>2</p>
+                    <p class="like text-light upvote" onclick="increaseCount(event)" ><i class="fa fa-thumbs-o-up"></i><span>3</span></p>
+                    <p class="dislike text-light" onclick="decreaseCount(event)"><i class="fa fa-thumbs-o-down"></i><span>1</span></p>
                   </div>
                 </div>
               </div>
@@ -296,9 +297,9 @@
                       praesentium impedit obcaecati est eaque consectetur nisi tempore cupiditate?</p>
                   </div>
                   <div class="question-stats flex space-between mt-1">
-                    <p class="comment text-light"><i class="fa fa-comment-o"></i>1</p>
-                    <p class="like text-light"><i class="fa fa-thumbs-o-up"></i>2</p>
-                    <p class="dislike text-light"><i class="fa fa-thumbs-o-down"></i>5</p>
+                    <p class="comment text-light" onclick="toggleComments(event)"><i class="fa fa-reply"></i>1</p>
+                    <p class="like text-light upvote" onclick="increaseCount(event)" ><i class="fa fa-thumbs-o-up"></i><span>2</spa></p>
+                    <p class="dislike text-light" onclick="decreaseCount(event)"><i class="fa fa-thumbs-o-down"></i><span>5</span></p>
                   </div>
                 </div>
               </div>

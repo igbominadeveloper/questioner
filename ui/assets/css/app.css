@@ -236,6 +236,7 @@ form input[type="search"] {
 }
 
 .question-comments {
+	display: none;
 	margin: 10px 0 10px 50px;
 	border-left: 1px solid teal;
 }

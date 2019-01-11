@@ -31,6 +31,7 @@
 }
 
 .new-comment {
+	display: none;
 	margin: 5px 125px;
 }
 

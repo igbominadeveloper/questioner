@@ -2,6 +2,7 @@ import expect from 'expect';
 import request from 'supertest';
 import moment from 'moment';
 import app from '../../app.js';
+import Joi from 'joi';
 
 const meetupsApi = '/api/v1/meetups';
 

@@ -2,6 +2,8 @@
 import expect from 'expect';
 import request from 'supertest';
 import app from '../../app.js';
+import Joi from 'joi';
+
 
 const questionApi = '/api/v1/questions';
 

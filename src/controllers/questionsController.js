@@ -32,7 +32,6 @@ class QuestionsController {
   }
 
   static create(request, response) {
-    if (request.body.title && request.body.body && request.body.meetup && request.body.createdBy) {
       const newQuestion = question.create(request.body);
       if (newQuestion instanceof Object) {
         delete newQuestion.createdOn;
@@ -43,11 +42,6 @@ class QuestionsController {
         });
       }
     }
-    return response.status(400).json({
-      status: 400,
-      error: 'Request missing complete payload. Confirm it includes - meetup, createdBy, title and the body of the question',
-    });
-  }
 
   static vote(request, response) {
     const returnedQuestion = question.find(request.params.id);

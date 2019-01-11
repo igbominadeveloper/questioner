@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node src/index.js",
-    "lint": "node_modules/.bin/eslint src/\"**/*.js\" tests/**.spec.js",
+    "lint": "node_modules/.bin/eslint src/\"**/*.js\" src/tests/**.spec.js",
     "test": "nyc --require babel-register mocha src/tests/**.spec.js --exit",
     "test:watch": "nyc --require babel-register mocha src/tests/**.spec.js -w",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
@@ -20,6 +20,7 @@
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
     "moment": "^2.23.0",
+    "joi": "^14.3.1",
     "morgan": "~1.9.0"
   },
   "devDependencies": {

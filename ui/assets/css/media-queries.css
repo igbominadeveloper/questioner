@@ -31,10 +31,16 @@
 	.sidebar-item {
 		margin: 20px auto;
 	}
+	.nav-mobile-parent {
+		display: none;
+	}
 	.meetup-stats {
 		margin: inherit;
 		height: inherit;
 		padding: 10px 4px;
+	}
+	.nav-mobile-parent{
+		display: none;
 	}
 
 	.list {

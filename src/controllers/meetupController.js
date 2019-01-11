@@ -31,8 +31,7 @@ class meetupController {
 
   static create(request, response) {
     const payload = request.body;
-    if (payload.title && payload.location && payload.happeningOn) {
-      const newMeetup = meetup.create(payload);
+    const newMeetup = meetup.create(payload);
       if (newMeetup) {
         const data = Object.assign({}, newMeetup);
         return response.status(201).json({
@@ -44,11 +43,6 @@ class meetupController {
         status: 500,
         error: 'Meetup creation failed',
       });
-    }
-    return response.status(400).json({
-      status: 400,
-      error: 'Payload MUST contain title, location and happeningOn fields',
-    });
   }
 
   static destroyAll(request, response) {
@@ -88,7 +82,6 @@ class meetupController {
   }
 
   static update(request, response) {
-    if (request.body.title && request.body.happeningOn && request.body.location) {
       const fetchedMeetup = meetup.find(request.params.id);
       const requestBody = request.body;
       if (fetchedMeetup instanceof Object) {
@@ -103,11 +96,6 @@ class meetupController {
         error: `Meetup doesn't exist`,
       });
     }
-    return response.status(400).json({
-      status: 400,
-      error: 'Request must contain valid title, happeningOn and location fields',
-    });
-  }
 
   static destroy(request, response) {
     const onDeathRow = meetup.find(request.params.id);

@@ -1,0 +1,56 @@
+header.banner {
+	height: 400px;
+	background: white;
+	margin-top: -8px;
+	background: url(../images/laraconus.png);
+	background-repeat: no-repeat;
+	background-size: cover;
+	align-items: center;
+}
+
+.banner-buttons {
+	height: 75px;
+	width: 598px;
+}
+
+.how-to {
+	height: 280px;
+	background: black;
+	font-size: 25px;
+}
+
+.how-to-title {
+	padding-top: 60px;
+}
+
+.how-to-details {
+	margin-top: 40px;
+}
+.above-footer {
+	height: 160px;
+	background: white;
+}
+
+footer {
+	background: grey;
+	height: 250px;
+	font-size: 20px;
+	align-items: center;
+  justify-content: space-around;
+}
+
+div.footer-groups p {
+	padding: 16px;
+}
+
+.footer-group-title {
+	padding: 10px; 
+}
+
+.footer-groups a {
+	color: white;
+}
+
+.footer-groups p {
+	font-size: 15px;
+}

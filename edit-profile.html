@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Meetup | New</title>
+  <title>Questioner | Edit Profile</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/app.css"/>
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/form.css"/>
@@ -14,23 +14,22 @@
   <div class="container-fluid">
     <nav class="navbar" id="navbar-desktop">
       <div class="page-title">
-        <h3>Dashboard</h3>
+        <h3>Questioner</h3>
       </div>
       <div class="nav-links">
         <ul>
+          <li>
+            <a href="meetups.html">All meetups</a>
+          </li>
+          <li>
+            <a href="user-profile.html">Profile</a>
+          </li>
           <li>
             <a href="login.html">Logout</a>
           </li>
         </ul>
       </div>
     </nav>
-    
-    <button class="flex m-10 text-left" type="button" id="nav-toggle">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30" height="30" focusable="false">
-        <title>Menu</title>
-        <path stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"></path>
-      </svg>
-    </button>
     
     <nav class="navbar-collapse" id="navbar-mobile">
       <div>
@@ -49,32 +48,34 @@
     </nav>
 
     <div class="meetup-form card mw-5 m-20 p-25">
-      <p class="text-light form-header m-20">Schedule a meetup</p>
-      <form action="index.html" id="new-meetup">
+      <p class="text-light form-header m-20">Edit profile</p>
+      <form action="index.html" id="profile-edit">
         <div class="form-group">
-          <input type="text" class="form-control" name="title" id="title" placeholder="Title" required>
+          <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
         </div>
 
         <div class="form-group">
-          <input type="file" class="form-control" name="banner" id="Banner" placeholder="Banner" required>
+          <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Phone number" required>
         </div>
+
+        <!-- <div class="form-group">
+          <label for="banner">Change banner</label>
+          <input type="file" class="form-control" name="banner" id="Banner" placeholder="Profile banner" required>
+        </div> -->
         
         <div class="form-group">
-          <input type="text" class="form-control" name="organizer" id="organizer" placeholder="Organizer" required>
+          <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
         </div>
 
         <div class="form-group">
-          <input type="date" class="form-control" name="date" id="date" placeholder="date" required>
+          <input type="text" class="form-control" name="twitter" id="twitter" placeholder="Twitter handle" required>
         </div>
 
         <div class="form-group">
-          <input type="text" class="form-control" name="location" id="location" placeholder="Location" required>
+          <input type="text" class="form-control" name="github_username" id="github_username" placeholder="Github username" required>
         </div>
 
-        <div class="form-group">
-          <textarea name="description" cols="30" rows="10" class="form-control" placeholder="The juicy highlights go here"></textarea>
-        </div>
-        <button class="btn-primary container-fluid p-10">Schedule</button>
+        <button class="btn-primary container-fluid p-10">Update</button>
       </form>
     </div>
   </div>

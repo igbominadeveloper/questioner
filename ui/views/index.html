@@ -5,10 +5,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Meetups</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/app.css" />
-  <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/landing-page.css" />
-  <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/media-queries.css" />
-  <link rel="stylesheet" type="text/css" media="screen" href="../assets/css/utility.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/app.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/landing-page.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/media-queries.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="assets/css/utility.css" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -21,13 +21,13 @@
       <div class="nav-links">
         <ul>
           <li>
-            <a href="meetups.html">All Meetups</a>
-          </li> 
+            <a href="meetups.html"><span class="fa fa-meetup"></span>Meetups</a>
+          </li>
           <li>
-            <a href="login.html">Sign in</a>
-          </li> 
+            <a href="register.html"><span class="fa fa-user-plus"></span>Sign up</a>
+          </li>
           <li>
-            <a href="register.html">Sign up</a>
+            <a href="login.html"><span class="fa fa-user-plus"></span>Sign in</a>
           </li>
         </ul>
       </div>
@@ -35,9 +35,9 @@
     <nav class="navbar-collapse" id="navbar-mobile">
       <div>
         <ul class="flex flex-column text-left p-1">
-          <li>
+          <!-- <li>
             <a href="meetups-list-table.html">Dashboard</a>
-          </li>
+          </li> -->
           <li>
             <a href="meetups.html">Meetups</a>
           </li>
@@ -50,8 +50,8 @@
       </div>
     </nav>
   <header class="banner mt-0 flex flex-row">
-    <div class="view-more flex flex-row banner-buttons space-between">
-      <div class="btn-primary shadow">Sign up</div>
+    <div class="view-more flex flex-row banner-buttons center">
+      <a href="register.html"><div class="btn-primary shadow">Sign up</div></a>
     </div>    
   </header>
     <div class="view-more">
@@ -93,6 +93,32 @@
           <p class="meetup-location text-light"><i class="fa fa-map-marker"></i>Zone Tech Park, Gbagada, Lagos</p>
         </div>
       </a>
+
+      <a href="meetup.html">
+        <div class="meetup shadow pb-2">
+          <div class="meetup-image" id="laravel"></div>
+          <p class="meetup-title">Laravel Nigeria Meetup</p>
+          <p class="meetup-date text-light"><i class="fa fa-calendar"></i>Thursday, December 20, 9:00 AM</p>
+          <p class="meetup-location text-light"><i class="fa fa-map-marker"></i>Zone Tech Park, Gbagada, Lagos</p>
+        </div>
+      </a>
+      
+      <a href="meetup.html">
+        <div class="meetup shadow pb-2">
+          <div class="meetup-image" id="mocha"></div>
+          <p class="meetup-title">Mocha Akure</p>
+          <p class="meetup-date text-light"><i class="fa fa-calendar"></i>Thursday, December 20, 9:00 AM</p>
+          <p class="meetup-location text-light"><i class="fa fa-map-marker"></i>Zone Tech Park, Gbagada, Lagos</p>
+        </div>
+      </a>
+      <a href="meetup.html">
+        <div class="meetup shadow pb-2">
+          <div class="meetup-image" id="vue"></div>
+          <p class="meetup-title">Vue JS Lagos Meetup</p>
+          <p class="meetup-date text-light"><i class="fa fa-calendar"></i>Thursday, December 20, 9:00 AM</p>
+          <p class="meetup-location text-light"><i class="fa fa-map-marker"></i>Zone Tech Park, Gbagada, Lagos</p>
+        </div>
+      </a>
     </div>
 
     <div class="view-more">
@@ -115,25 +141,25 @@
         <div class="footer-group-title">
         Questioner
         </div>
-        <p>About us</p>
-        <p>How it works</p>
-        <p>Contact us</p>
+        <a href="#"><p>About us</p></a>
+        <a href="#"><p>How it works</p></a>
+        <a href="#"><p>Contact us</p></a>
       </div>
       <div class="footer-groups flex flex-column">
         <div class="footer-group-title">
         Account
         </div>
-        <p>Sign up</p>
-        <p>Sign in</p>
-        <p>Password reset</p>
+        <a href="register.html"><p>Sign up</p></a>
+        <a href="login.html"><p>Sign in</p></a>
+        <a href="password-reset.html"><p>Password reset</p></a>
       </div>
       <div class="footer-groups flex flex-column">
         <div class="footer-group-title">
         Quick Links
         </div>
-        <p>All meetups</p>
-        <p>Upcoming</p>
-        <p>Latest</p>
+        <a href="meetups.html"><p>All meetups</p>
+        <a href="#"><p>Upcoming</p>
+        <a href="#"><p>Latest</p>
       </div>
       <!-- <div class="footer-groups flex flex-column">
         <div class="footer-group-title">
@@ -145,6 +171,6 @@
       </div> -->
     </footer>
   </div>
-<script src="../assets/js/app.js"></script>
+<script src="assets/js/app.js"></script>
 </body>
 </html>

@@ -73,7 +73,7 @@ table {
 }
 .nav-links > ul{
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: space-between;
 }
 nav h3, nav a, nav h2 {
 	color: white;
@@ -165,8 +165,6 @@ nav h3, nav a, nav h2 {
 }
 
 .meetup-stats {
-	/*padding: 50px 30px;*/
-	display: inline-block;
 	height: inherit;
 	margin:auto;
 }
@@ -316,7 +314,7 @@ i{
 }
 
 .view-more div{
-	padding: 10px;
+	padding: 16px;
 	width: 200px;
 	margin: 10px auto;
 }

@@ -6,7 +6,7 @@ const pool = new Pool({
 });
 
 class QueryBuilder {
-	run(statement, parameters){
+	run(statement, parameters = ''){
 		return new Promise((resolve, reject) => {
 			pool.query(statement)
 			.then(response => {

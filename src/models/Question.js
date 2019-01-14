@@ -1,60 +1,103 @@
-import path from 'path';
 import moment from 'moment';
-import questions from '../database/questions.json';
-import helper from '../helpers/helper';
+import QueryBuilder from '../database/queryBuilder';
+const table = 'questions';
 
-const filename = path.resolve(__dirname, '../database/questions.json');
 
 class Question {
   static all() {
-    return questions;
+    const statement = `SELECT * FROM ${table}`;
+    return new Promise((resolve, reject) => {
+      QueryBuilder.run(statement)
+      .then(response => resolve(response))
+      .catch(error => reject(error))
+    })
   }
 
   static find(id) {
-    return helper.exists(questions, id);
+    const statement = `SELECT * FROM ${table} WHERE id = $1`;
+    return new Promise((resolve, reject) => {
+      QueryBuilder.run(statement, [id])
+      .then(response => resolve(response))
+      .catch(error => reject(error))
+    })
   }
 
-  static create(request) {
-    if (request) {
-      const id = helper.getNewId(questions);
-      const newQuestion = {
-        id,
-        createdOn: moment(),
-        createdBy: parseInt(request.createdBy),
-        meetup: parseInt(request.meetup),
-        title: request.title,
-        body: request.body,
-        votes: 0,
-      };
-      questions.push(newQuestion);
-      helper.writeToFile(filename, questions);
-      return newQuestion;
-    }
-    return false;
+  static create(payload,meetupId) {
+    const question = {
+      title: payload.title,
+      body: payload.body,
+      meetupId,
+      userId: payload.userId,
+      createdAt: moment(new Date())
+    };
+    const statement = `INSERT INTO ${table}(title, body, meetupId, user, createdAt) VALUES($1, $2, $3, $4, $5) returning *`;
+    return new Promise((resolve, reject) => {
+      QueryBuilder.run(statement,[...question])
+      .then(response => resolve(response))
+      .catch(error => reject(error))
+    })
+  }
+  
+  static deleteAll() {
+    const statement = `DELETE * FROM ${table}`;
+    return new Promise((resolve, reject) => {
+      QueryBuilder.run(statement)
+      .then(response => resolve(response))
+      .catch(error => reject(error))
+    })
   }
 
-  static upvote(id) {
-    const currentQuestion = helper.exists(questions, id);
-    if (currentQuestion.votes >= 0 && currentQuestion) {
-      currentQuestion.votes += 1;
-      const index = helper.getIndex(questions, currentQuestion.id);
-      questions[index] = currentQuestion;
-      helper.writeToFile(filename, questions);
-      return currentQuestion;
-    }
-    return currentQuestion;
+
+  static update(questionId, request) {
+    const {
+      title,
+      body
+    } = request;
+    const statement = `UPDATE ${table} SET title=$1,body=$2 WHERE id=$3 returning *`;
+    return new Promise((resolve, reject) => { 
+      QueryBuilder.run(statement,[
+        title, body, questionId
+      ])
+      .then(response => resolve(response))
+      .catch(error => reject(error))
+    })
   }
 
-  static downvote(id) {
-    const currentQuestion = helper.exists(questions, id);
-    if (currentQuestion.votes > 0 && currentQuestion) {
-      currentQuestion.votes -= 1;
-      const index = helper.getIndex(questions, currentQuestion.id);
-      questions[index] = currentQuestion;
-      helper.writeToFile(filename, questions);
-      return currentQuestion;
-    }
-    return currentQuestion;
+  static delete(id) {
+    const statement = `DELETE * FROM ${table} WHERE id=$1`;
+    return new Promise((resolve, reject) => { 
+      QueryBuilder.run(statement,[id])
+      .then(response => resolve(response))
+      .catch(error => reject(error))
+    })
+  }
+
+  static upvote(questionId) {
+    static.find(questionId)
+    .then(result => result)
+    .then(result => {
+      return new Promise((resolve, reject) => {
+       const upvotes = result.rows[0].upvotes += 1;
+        const statement = 'UPDATE QUESTIONS SET upvotes = $1 WHERE id=$2';
+        queryBuilder(statement,[upvotes, questionId])
+        .then(response => resolve(response))
+      })
+    })
+    .catch(error => reject(error))
+  }
+
+  static downvote(questionId) {
+    static.find(questionId)
+    .then(result => result)
+    .then(result => {
+      return new Promise((resolve, reject) => {
+       const downvotes = result.rows[0].downvotes += 1;
+        const statement = 'UPDATE QUESTIONS SET downvotes = $1 WHERE id=$2';
+        queryBuilder(statement,[downvotes, questionId])
+        .then(response => resolve(response))
+      })
+    })
+    .catch(error => reject(error))
   }
 }
 

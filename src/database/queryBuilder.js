@@ -11,6 +11,10 @@ const pool = new Pool({
 	port: process.env.PGPORT
 });
 
+// pool.on('connect', () => {
+//   console.log('connected to the db');
+// });
+
 class QueryBuilder {
 	static run(statement, parameters = ''){
 		return new Promise((resolve, reject) => {

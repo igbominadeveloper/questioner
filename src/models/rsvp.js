@@ -1,12 +1,13 @@
-import path from 'path';
-import rsvps from '../data/rsvp.json';
-import helper from '../helpers/helper';
-
-const filename = path.resolve(__dirname, '../../src/data/rsvp.json');
+import QueryBuilder from '../database/queryBuilder';
 
 class Rsvp {
-  static all(id) {
-    return rsvps.filter(rsvp => rsvp.meetup == parseInt(id));
+  static all(meetupId) {
+    const statement = `SELECT * FROM rsvps WHERE meetupId = $1`;
+    return new Promise((resolve, reject) => {
+	    QueryBuilder.run(statement,[meetupId])
+	    .then(response => resolve(response))
+	    .catch(error => reject(error))
+    })
   }
 
   static create(rsvp) {

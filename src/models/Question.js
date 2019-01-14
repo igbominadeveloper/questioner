@@ -73,7 +73,7 @@ class Question {
   }
 
   static upvote(questionId) {
-    static.find(questionId)
+    self.find(questionId)
     .then(result => result)
     .then(result => {
       return new Promise((resolve, reject) => {
@@ -87,7 +87,7 @@ class Question {
   }
 
   static downvote(questionId) {
-    static.find(questionId)
+    self.find(questionId)
     .then(result => result)
     .then(result => {
       return new Promise((resolve, reject) => {

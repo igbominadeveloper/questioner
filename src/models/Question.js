@@ -1,9 +1,9 @@
 import path from 'path';
 import moment from 'moment';
-import questions from '../data/questions.json';
+import questions from '../database/questions.json';
 import helper from '../helpers/helper';
 
-const filename = path.resolve(__dirname, '../data/questions.json');
+const filename = path.resolve(__dirname, '../database/questions.json');
 
 class Question {
   static all() {

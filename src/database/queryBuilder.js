@@ -1,12 +1,18 @@
 import { Pool } from 'pg';
 import dotenv from 'dotenv';
 
+dotenv.config();
+
 const pool = new Pool({
-	connectionString: process.env.DATABASE_URL || 'postgres://favour@127.0.0.1:5432/questioner'
+	user: process.env.PGUSER,
+	host: process.env.PGHOST,
+	database: process.env.PGDATABASE,
+	password: process.env.PGPASSWORD,
+	port: process.env.PGPORT
 });
 
 class QueryBuilder {
-	run(statement, parameters = ''){
+	static run(statement, parameters = ''){
 		return new Promise((resolve, reject) => {
 			pool.query(statement)
 			.then(response => {

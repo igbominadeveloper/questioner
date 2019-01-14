@@ -1,5 +1,5 @@
 import rsvp from '../models/rsvp';
-import rsvps from '../data/rsvp.json';
+import rsvps from '../database/rsvp.json';
 import meetup from '../models/Meetup';
 import helper from '../helpers/helper';
 

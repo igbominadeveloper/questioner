@@ -6,8 +6,10 @@
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "lint": "node_modules/.bin/eslint src/\"**/*.js\" src/tests/**.spec.js",
-    "test": "nyc --require babel-register mocha src/tests/meetups.spec.js --exit",
-    "test:watch": "nyc --require babel-register mocha src/tests/**.spec.js -w",
+    "test": "NODE_ENV=test nyc --require babel-register mocha src/tests/**.spec.js --exit",
+    "test:watch": "NODE_ENV=test nyc --require babel-register mocha src/tests/**.spec.js -w",
+    "migrate": "babel-node src/database/runMigrations.js up",
+    "migrate:refresh": "babel-node src/database/runMigrations.js down",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {

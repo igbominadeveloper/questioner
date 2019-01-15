@@ -1,57 +1,25 @@
-const { Pool } = require('pg');
-const dotenv  = require('dotenv');
-dotenv.config();
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL
-});
-
-pool.on('connect', () => {
-  console.log('connected to the db');
-});
-
-const createCommentsTable = () => {
-  const statement =
+const createCommentsQuery = {
+  query:
     `CREATE TABLE IF NOT EXISTS
       comments(
         id SERIAL PRIMARY KEY,
-        userId INT NOT NULL,
-        questionId INT NOT NULL,
+        user_id INT NOT NULL,
+        question_id INT NOT NULL,
         title VARCHAR(128) NOT NULL,
         body VARCHAR(128) NOT NULL,
         comments VARCHAR(128) DEFAULT 0,
         createdAt TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         updatedAt TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (userId) REFERENCES users (id) ON DELETE CASCADE,
-        FOREIGN KEY (questionId) REFERENCES questions (id) ON DELETE CASCADE
-      )`;
-      pool.query(statement)
-      .then((res) => {
-        console.log(res);
-        pool.end();
-      })
-      .catch((err) => {
-        console.log(err);
-        pool.end();
-      });
+        FOREIGN KEY (question_id) REFERENCES questions (id) ON DELETE CASCADE,
+        FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+      )`
 }
 
-const dropCommentsTable = () => {
-  const statement = `DROP TABLE IF EXISTS comments`;
-  pool.query(statement)
-  .then((res) => {
-    console.log(res);
-    pool.end();
-  })
-  .catch((err) => {
-    console.log(err);
-    pool.end();
-  });
+const dropCommentsQuery = {
+  query: `DROP TABLE IF EXISTS comments`
 }
 
-module.exports = {
-  createCommentsTable,
-  dropCommentsTable
+export default {
+  createCommentsQuery,
+  dropCommentsQuery
 }
-
-require('make-runnable');

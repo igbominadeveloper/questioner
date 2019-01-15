@@ -1,35 +1,34 @@
-const usersTable = require('./migrations/usersTable.js');
-const commentsTable = require('./migrations/commentsTable.js');
-const questionsTable = require('./migrations/questionsTable.js');
-const meetupsTable = require('./migrations/meetupsTable.js');
-const rsvpsTable = require('./migrations/rsvpsTable.js');
+import usersTable from './migrations/usersTable.js';
+import commentsTable from './migrations/commentsTable.js';
+import questionsTable from './migrations/questionsTable.js';
+import meetupsTable from './migrations/meetupsTable.js';
+import rsvpsTable from './migrations/rsvpsTable.js';
+import QueryBuilder from './queryBuilder';
 
-const { Pool } = require('pg');
-const dotenv = require('dotenv');
-dotenv.config();
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL
-});
-
-pool.on('connect', () => {
-  console.log('connected to the db');
-});
-
-const up = () => {
-	usersTable.createUsersTable();
-	meetupsTable.createMeetupsTable();
-	questionsTable.createQuestionsTable();
-	commentsTable.createCommentsTable();
-	rsvpsTable.createRsvpsTable();
+const up = async () => {
+	try {	
+		await QueryBuilder.run(usersTable.createUsersQuery.query)
+		await QueryBuilder.run(meetupsTable.createMeetupsQuery.query)
+		await QueryBuilder.run(rsvpsTable.createRsvpsQuery.query)
+		await QueryBuilder.run(questionsTable.createQuestionsQuery.query)
+		await QueryBuilder.run(commentsTable.createCommentsQuery.query)
+	}
+	catch (error){
+		console.log(error)
+	}
 }
 
-const down = () => {
-	rsvpsTable.dropRsvpsTable();
-	commentsTable.dropCommentsTable();
-	questionsTable.dropQuestionsTable();
-	meetupsTable.dropMeetupsTable();
-	usersTable.dropUsersTable();
+const down = async () => {
+	try {
+		await QueryBuilder.run(commentsTable.dropCommentsQuery.query);
+		await QueryBuilder.run(questionsTable.dropQuestionsQuery.query);
+		await QueryBuilder.run(rsvpsTable.dropRsvpsQuery.query);
+		await QueryBuilder.run(meetupsTable.dropMeetupsQuery.query);
+		await QueryBuilder.run(usersTable.dropUsersQuery.query);
+	}
+	catch(error){
+		console.log(error)
+	}
 }
 
 module.exports = {

@@ -2,38 +2,54 @@ import meetup from '../models/Meetup';
 
 class meetupController {
   static index(request, response) {
-    const allMeetups = meetup.all();
-    if (allMeetups.length > 0) {
+    meetup.all()
+    .then(result => {
+      if(result.rowCount > 0) {
       return response.status(200).json({
         status: 200,
-        data: allMeetups,
-      });
-    }
-    return response.status(404).json({
-      status: 404,
-      error: 'No Meetups available right now',
-    });
+        data: rows
+      })
+      }
+      return response.status(404).json({
+        status: 404,
+        error: 'No Meetups available right now',
+      });    
+    })
+  .catch(error => {
+    return response.status(400).json({
+      status: 400,
+      error: error.message
+    })
+    })
   }
 
   static show(request, response) {
-    const returnedMeetup = meetup.find(request.params.id);
-    if (returnedMeetup !== false) {
-      return response.status(200).json({
-        status: 200,
-        data: returnedMeetup
+    meetup.find(request.params.id)
+    .then(result => {
+      if(result.rowCount > 0) {
+        return response.status(200).json({
+          status: 199,
+          data: result
+        })
+      }
+      return response.status(404).json({
+        status: 404,
+        error: `Meetup doesn't exist`,
       });
-    }
-    return response.status(404).json({
-      status: 404,
-      error: `Meetup doesn't exist`,
-    });
+    })
+    .catch(error => {
+      return response.status(400).json({
+        status: 400,
+        error: error.message
+      })
+    })
   }
 
   static create(request, response) {
-    const payload = request.body;
-    const newMeetup = meetup.create(payload);
-      if (newMeetup) {
-        const data = Object.assign({}, newMeetup);
+    meetup.create(request.body)
+    .then(result => {
+      if(result.rowCount > 0){
+        const data = Object.assign({}, result);
         return response.status(201).json({
           status: 201,
           data,
@@ -42,74 +58,103 @@ class meetupController {
       return response.status(500).json({
         status: 500,
         error: 'Meetup creation failed',
-      });
+      })
+    })
+    .catch(error => {
+      return response.status(400).json({
+        status: 400,
+        error: error.message,
+      })
+    })
   }
 
   static destroyAll(request, response) {
-    if (meetup.deleteAll()) {
+    meetup.deleteAll()
+    .then(result => {
       return response.status(204).json({
         status: 204,
         message: 'Meetups Deleted',
-      });
-    }
-  }
-
-  static recreateAll(request, response) {
-    if (meetup.recreateAll()) {
-      return response.status(200).json({
-        status: 200,
-        message: 'Meetups Recreated',
-      });
-    }
-    return response.status(500).json({
-      status: 500,
-      error: 'Meetups Recreation Failed',
-    });
+      })      
+    })
+    .catch(error => {
+      return response.status(400).json({
+        status: 400,
+        error: error.message,
+      })
+    })
   }
 
   static upcoming(request, response) {
-    const result = meetup.upcoming();
-    if (result.length > 0) {
-      return response.status(200).json({
-        status: 200,
-        data: result,
-      });
-    }
-    return response.status(404).json({
-      status: 404,
-      error: 'No Meetups available right now',
-    });
+    meetup.upcoming()
+    .then(result => {
+      if (result.length > 0) {
+        return response.status(200).json({
+          status: 200,
+          data: result,
+        })      
+      }
+      return response.status(404).json({
+        status: 404,
+        data: `No upcoming meetups, kindly check back later`
+      })     
+    })
+    .catch(error => {
+      return response.status(400).json({
+        status: 400,
+        error: error.message,
+      })
+    })
   }
 
   static update(request, response) {
-      const fetchedMeetup = meetup.find(request.params.id);
-      const requestBody = request.body;
-      if (fetchedMeetup instanceof Object) {
-        const updatedMeetup = meetup.update(fetchedMeetup, requestBody);
-        return response.status(200).json({
-          status: 200,
-          data: updatedMeetup,
-        });
+    const requestBody = request.body;
+    meetup.find(request.params.id)
+    .then(result => {
+      if(result.rowCount > 0) {
+        meetup.update(result, requestBody)
+        .then(updated => {
+          return response.status(202).json({
+            status: 202,
+            data: updated
+          });
+        })
       }
       return response.status(404).json({
         status: 404,
         error: `Meetup doesn't exist`,
-      });
-    }
+      })
+    })
+    .catch(error => {
+      return response.status(400).json({
+        status: 400,
+        error: error.message,
+      })
+    })
+  }
 
   static destroy(request, response) {
-    const onDeathRow = meetup.find(request.params.id);
-    if (onDeathRow instanceof Object) {
-      meetup.delete(onDeathRow.id);
+    meetup.find(request.params.id)
+    .then(result => {
+      if(result.rowCount > 0) {
+        return meetup.delete(result.id)
+      }
+      return response.status(404).json({
+        status: 404,
+        error: `Meetup doesn't exist`,
+      })     
+    })
+    .then(deleted => {
       return response.status(204).json({
         status: 204,
-        data: onDeathRow,
-      });
-    }
-    return response.status(404).json({
-      status: 404,
-      error: `Meetup doesn't exist`,
-    });
+        message: `Meetup deleted successfully` 
+      })        
+    })
+    .catch(error => {
+     return response.status(400).json({
+       status: 400,
+       error: error.message,
+     })
+    })
   }
 }
 

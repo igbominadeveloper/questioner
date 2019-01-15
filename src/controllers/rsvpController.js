@@ -1,5 +1,6 @@
 import rsvp from '../models/rsvp';
 import meetup from '../models/Meetup';
+import helper from '../helpers/helper';
 
 class RsvpController {
   static index(request, response){
@@ -34,29 +35,7 @@ class RsvpController {
       })      
     })
     .catch(error => {
-      switch (error.status) {
-        case 404: return response.status(404).json({
-          status: 404,
-          error: error.message
-        });
-        break; 
-        case 400: return response.status(400).json({
-          status: 400,
-          error: error.message
-        });
-        break; 
-        case 403: return response.status(403).json({
-          status: 403,
-          error: error.message
-        });
-        break;
-        case 401: return response.status(401).json({
-          status: 401,
-          error: error.message
-        });
-        break;
-        default (400);
-        break;
+        return helper.checkErrorCode(error);
       }
     })
   }

@@ -9,8 +9,8 @@ const createQuestionsQuery = {
         body VARCHAR(128) NOT NULL,
         upvotes INT DEFAULT 0,
         downvotes INT DEFAULT 0,
-        createdAt TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-        updatedAt TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
         FOREIGN KEY (meetup_id) REFERENCES meetups (id) ON DELETE CASCADE
       )`

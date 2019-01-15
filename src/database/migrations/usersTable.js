@@ -11,8 +11,8 @@ const createUsersQuery = {
         phoneNumber VARCHAR(128),
         isAdmin INT NOT NULL DEFAULT 0,
         password VARCHAR(128) NOT NULL,
-        created_date TIMESTAMP,
-        modified_date TIMESTAMP
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
       )`
 }
 

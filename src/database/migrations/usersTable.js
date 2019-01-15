@@ -1,6 +1,6 @@
 const { Pool } = require('pg');
 const dotenv  = require('dotenv');
-const dotenv.config();
+dotenv.config();
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL
@@ -10,7 +10,7 @@ pool.on('connect', () => {
   console.log('connected to the db');
 });
 
-const up = () => {
+const createUsersTable = () => {
   const statement =
     `CREATE TABLE IF NOT EXISTS
       users(
@@ -21,16 +21,25 @@ const up = () => {
         username VARCHAR(128) NOT NULL,
         email VARCHAR(128) UNIQUE NOT NULL,
         phoneNumber VARCHAR(128),
-        isAdmin BOOLEAN NOT NULL DEFAULT ,
+        isAdmin INT NOT NULL DEFAULT 0,
         password VARCHAR(128) NOT NULL,
         created_date TIMESTAMP,
         modified_date TIMESTAMP
       )`;
+      pool.query(statement)
+      .then((res) => {
+        console.log(res);
+        pool.end();
+      })
+      .catch((err) => {
+        console.log(err);
+        pool.end();
+      });
 }
 
-const down () => {
-  const statement = `DROP TABLE IF EXISTS users returning *`;
-  pool.run(statement)
+const dropUsersTable = () => {
+  const statement = `DROP TABLE IF EXISTS users`;
+  pool.query(statement)
   .then((res) => {
     console.log(res);
     pool.end();
@@ -41,7 +50,9 @@ const down () => {
   });
 }
 
-export default {
-  up,
-  down
+module.exports = {
+  createUsersTable,
+  dropUsersTable
 }
+
+require('make-runnable');

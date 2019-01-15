@@ -34,10 +34,7 @@ class RsvpController {
         data: response.body
       })      
     })
-    .catch(error => {
-        return helper.checkErrorCode(error);
-      }
-    })
+    .catch(error => helper.checkErrorCode(error))
   }
 }
 

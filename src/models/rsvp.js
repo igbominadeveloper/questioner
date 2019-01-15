@@ -17,7 +17,7 @@ class Rsvp {
    		meetupId,
    		status,
    		topic
-   	};
+   	} = rsvp;
    const statement = `INSERT INTO ${table}(userId,meetupId,topic,status) VALUES($1, $2, $3, $4)`;
    return new Promise((resolve, reject) => {
 	    QueryBuilder.run(statement,[userId,meetupId,topic,status])

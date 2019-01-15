@@ -2,23 +2,18 @@ import expect from 'expect';
 import request from 'supertest';
 import moment from 'moment';
 import app from '../../app.js';
-import Joi from 'joi';
 
 const meetupsApi = '/api/v1/meetups';
 
 // eslint-disable-next-line no-undef
 describe('Meetups', () => {
   // eslint-disable-next-line no-undef
-  it('returns all created meetups', () => {
+  it.only('returns all created meetups', () => {
     request(app)
-      .post(`${meetupsApi}/recreate`)
-      .then(() => {
-        request(app)
-          .get(meetupsApi)
-          .then((response) => {
-            expect(response.status).toBe(200);
-            expect(response.body).toBeInstanceOf(Object);
-          });
+      .get(meetupsApi)
+      .then((response) => {
+        expect(response.status).toBe(200);
+        expect(response.body).toBeInstanceOf(Object);
       })
       .catch((error) => {
         expect(error).toBeInstanceOf(Object);

@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
     "lint": "node_modules/.bin/eslint src/\"**/*.js\" src/tests/**.spec.js",
-    "test": "nyc --require babel-register mocha src/tests/**.spec.js --exit",
+    "test": "nyc --require babel-register mocha src/tests/meetups.spec.js --exit",
     "test:watch": "nyc --require babel-register mocha src/tests/**.spec.js -w",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
@@ -32,6 +33,7 @@
     "eslint-plugin-import": "^2.14.0",
     "expect": "^23.6.0",
     "express-validator": "^5.3.1",
+    "make-runnable": "^1.3.6",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.9",
     "nyc": "^13.1.0",

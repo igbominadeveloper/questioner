@@ -1,8 +1,4 @@
 import path from 'path';
-import rsvps from '../data/rsvp.json';
-import helper from '../helpers/helper';
-
-const filename = path.resolve(__dirname, '../../src/data/rsvp.json');
 
 class Rsvp {
   static all(id) {

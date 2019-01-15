@@ -1,18 +1,29 @@
-import path from 'path';
-import rsvps from '../data/rsvp.json';
-import helper from '../helpers/helper';
-
-const filename = path.resolve(__dirname, '../../src/data/rsvp.json');
+import QueryBuilder from '../database/queryBuilder';
+const table = 'rsvps';
 
 class Rsvp {
-  static all(id) {
-    return rsvps.filter(rsvp => rsvp.meetup == parseInt(id));
+  static all(meetupId) {
+    const statement = `SELECT * FROM ${table} WHERE meetupId = $1`;
+    return new Promise((resolve, reject) => {
+	    QueryBuilder.run(statement,[meetupId])
+	    .then(response => resolve(response))
+	    .catch(error => reject(error))
+    })
   }
 
   static create(rsvp) {
-    rsvps.push(rsvp);
-    helper.writeToFile(filename, rsvps);
-    return rsvps[rsvps.length - 1];
+   	const {
+   		userId,
+   		meetupId,
+   		status,
+   		topic
+   	} = rsvp;
+   const statement = `INSERT INTO ${table}(userId,meetupId,topic,status) VALUES($1, $2, $3, $4)`;
+   return new Promise((resolve, reject) => {
+	    QueryBuilder.run(statement,[userId,meetupId,topic,status])
+	    .then(response => resolve(response))
+	    .catch(error => reject(error))
+   })
   }
 }
 

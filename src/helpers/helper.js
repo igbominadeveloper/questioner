@@ -31,12 +31,17 @@ const checkErrorCode = (response, error) => {
 
 const now = () => new Date().toLocaleString();
 
-const hashPassword(password) => {
+const hashPassword (password) => {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+}
+
+const comparePassword (hashPassword, password) => {
+  return bcrypt.compareSync(hashPassword, password);
 }
 
 export default {
   checkErrorCode,
   now,
-  hashPassword
+  hashPassword,
+  comparePassword
 };

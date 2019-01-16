@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import QueryBuilder from '../database/queryBuilder';
 dotenv.config();
 
 const checkErrorCode = (response, error) => {
@@ -50,10 +51,26 @@ const generateToken = (user_id) => {
   return token;
 }
 
+const checkEmailDuplication = async (request, response, next) => {
+  const email = request.body.email;
+    QueryBuilder.run(`SELECT * FROM users WHERE email=$1`,[email])
+    .then(result => {
+      if(result.rowCount > 0) {
+      return response.status(400).json({
+          status: 400,
+          error: `Email is registered already`
+        })
+      }
+      next();
+    })
+    .catch(error => console.log(error))
+}
+
 export default {
   checkErrorCode,
   now,
   hashPassword,
   comparePassword,
+  checkEmailDuplication,
   generateToken
 };

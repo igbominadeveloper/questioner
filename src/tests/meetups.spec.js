@@ -10,13 +10,13 @@ describe('Meetups', () => {
   // eslint-disable-next-line no-undef
   it('returns all created meetups', (done) => {
     request(app)
-      .get(meetupsApi)
-      .expect(400)
-      .end((err, res) => {
-        if (err) return done(err);
-        expect(res.body.data);
-        done()
-      })
+    .get(meetupsApi)
+    .expect(400)
+    .end((err, res) => {
+      if (err) return done(err);
+      expect(res.body.data);
+      done()
+    })
     });
 
   // eslint-disable-next-line no-undef
@@ -46,7 +46,7 @@ describe('Meetups', () => {
 });
 
   // eslint-disable-next-line no-undef
-  it.only('returns a newly created meetup', (done) => {
+  it('returns a newly created meetup', (done) => {
     const payload = {
       topic: 'New title Again',
       location: 'Lagos, Nigeria',

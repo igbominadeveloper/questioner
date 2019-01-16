@@ -4,6 +4,7 @@ import questionsController from '../controllers/questionsController';
 import rsvpController from '../controllers/rsvpController';
 import userController from '../controllers/userController';
 import Validator from '../helpers/validator';
+import helper from '../helpers/helper';
 
 const router = express.Router();
 
@@ -24,6 +25,6 @@ router.get('/api/v1/questions', questionsController.index);
 router.get('/api/v1/questions/:id', Validator.validateId, questionsController.show);
 router.patch('/api/v1/questions/:id/upvote', Validator.validateId, questionsController.vote);
 router.patch('/api/v1/questions/:id/downvote',Validator.validateId, questionsController.vote);
-// router.post('/api/v1/auth/signup', Validator.validateNewUser);
+router.post('/api/v1/auth/signup', Validator.validateNewUser, helper.checkEmailDuplication, userController.register);
 router.post('/api/v1/auth/login', Validator.validateOldUser, userController.login);
 export default router;

@@ -75,13 +75,14 @@ class Validate {
      } else next();
    });
  }
+
  static validateNewUser(request, response, next) {
    const {
-     firstname,lastname,othername,username,email,isAdmin,password
+     firstname,lastname,othername,username,email,password
    } = request.body;
 
    const validateObject = {
-    firstname,lastname,othername,username,email,isAdmin,password
+    firstname,lastname,othername,username,email,password
    };
 
    Joi.validate(validateObject, schema.newUser, (err) => {
@@ -91,12 +92,7 @@ class Validate {
          error: err.details[0].message,
        });
      }
-     if (isNaN(isAdmin) || isAdmin > 1) {
-       response.status(400).json({
-         status: 400,
-         error: 'Admin status can only be 1 or 0',
-       });
-     } else next();
+     next();
    });
  } 
 

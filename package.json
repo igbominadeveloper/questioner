@@ -5,9 +5,10 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
+    "build": "babel-node src/ dist/",
     "lint": "node_modules/.bin/eslint src/\"**/*.js\" src/tests/**.spec.js",
     "test": "cross-env NODE_ENV=test nyc --require babel-register mocha src/tests/**.spec.js --exit",
-    "test:watch": "cross-env NODE_ENV=test nyc --require babel-register mocha src/tests/**.spec.js -w",
+    "test:watch": "cross-env NODE_ENV=test nyc --require babel-register mocha src/tests/user.spec.js -w",
     "migrate": "babel-node src/database/runMigrations.js up",
     "test-migrate": "cross-env NODE_ENV=test babel-node src/database/runMigrations.js up",
     "test-migrate:refresh": "cross-env NODE_ENV=test babel-node src/database/runMigrations.js down && babel-node src/database/runMigrations.js up",
@@ -32,6 +33,7 @@
     "pg": "^7.8.0"
   },
   "devDependencies": {
+    "babel-plugin-transform-runtime": "^6.23.0",
     "body-parser": "^1.18.3",
     "coveralls": "^3.0.2",
     "cross-env": "^5.2.0",
@@ -45,7 +47,8 @@
     "mocha": "^5.2.0",
     "nodemon": "^1.18.9",
     "nyc": "^13.1.0",
-    "supertest": "^3.3.0"
+    "supertest": "^3.3.0",
+    "webpack": "^4.28.4"
   },
   "engines": {
     "node": "10.15.0",

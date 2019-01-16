@@ -2,6 +2,7 @@ import { Pool } from 'pg';
 import dotenv from 'dotenv';
 dotenv.config();
 let pool = null;
+
 if (process.env.NODE_ENV == 'test'){
 	pool = new Pool({
 		connectionString: process.env.TEST_DATABASE_URL
@@ -21,12 +22,8 @@ class QueryBuilder {
 	static run(statement, parameters = ''){
 		return new Promise((resolve, reject) => {
 			pool.query(statement,parameters)
-			.then(response => {
-				resolve(response)
-			})
-			.catch(error => {
-				reject(error)
-			})
+			.then(response => resolve(response))
+			.catch(error => reject(error))
 		})
 	}
 }

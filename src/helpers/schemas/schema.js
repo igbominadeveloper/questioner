@@ -29,7 +29,6 @@ const newUser =
       othername: Joi.string().trim().min(3).required(),
       username: Joi.string().trim().min(3).required(),
       email: Joi.string().email().required(),
-      isAdmin: Joi.number().integer().positive().min(1),
       password: Joi.string().trim().min(5).required()
    });
 

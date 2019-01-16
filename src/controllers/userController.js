@@ -12,7 +12,7 @@ class userController {
 					user: result.rows[0],
 					token: '673678387873873hhjhjheyyfgdhyg'
 				}
-			});
+			})
 		}
 		return response.status(404).json({
 			status: 404,
@@ -23,6 +23,23 @@ class userController {
 			return response.status(404).json({
 				status: 404,
 				error: error.message
+			})
+		})
+	}
+
+	static register(request, response){
+		user.register(request.body)
+		.then(result => {
+			const {token,user} = result;
+			delete user.isadmin;
+      delete user.othername;
+      delete user.phonenumber;
+      delete user.password;
+      delete user.created_at;
+      delete user.updated_at;
+			return response.status(201).json({
+				status: 201,
+				data: [result]
 			})
 		})
 	}

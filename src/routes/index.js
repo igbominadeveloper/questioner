@@ -12,6 +12,7 @@ router.get('/', (request, response) => {
 router.get('/api/v1/meetups', meetupController.index);
 router.get('/api/v1/meetups/upcoming', meetupController.upcoming);
 router.post('/api/v1/meetups', Validator.validateMeetup, meetupController.create);
+router.get('/api/v1/meetups/:question', Validator.validateId, meetupController.show);
 router.get('/api/v1/meetups/:id', Validator.validateId, meetupController.show);
 router.patch('/api/v1/meetups/:id',  Validator.validateId, meetupController.update);
 router.delete('/api/v1/meetups/:id',  Validator.validateId, meetupController.destroy);

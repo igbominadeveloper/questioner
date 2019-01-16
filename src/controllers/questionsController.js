@@ -55,11 +55,15 @@ class QuestionsController {
     }
 
     static create(request, response) {
+      const { meetup_id, user_id } = request.body;
       question.create(request.body)
       .then(result => {
         if(result.rowCount > 0){
           const data = Object.assign({}, result.rows[0]);
           delete data.updated_at;
+          delete data.created_at;
+          delete data.user_id;
+          delete data.meetup_id;
           return response.status(201).json({
             status: 201,
             data,

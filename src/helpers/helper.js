@@ -1,3 +1,5 @@
+import bcrypt from 'bcryptjs';
+
 const checkErrorCode = (response, error) => {
   switch (error.status) {
     case 404: return response.status(404).json({
@@ -29,7 +31,12 @@ const checkErrorCode = (response, error) => {
 
 const now = () => new Date().toLocaleString();
 
+const hashPassword(password) => {
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+}
+
 export default {
   checkErrorCode,
-  now
+  now,
+  hashPassword
 };

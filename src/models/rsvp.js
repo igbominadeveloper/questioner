@@ -18,9 +18,9 @@ class Rsvp {
       topic,
    		status
    	} = rsvp;
-   const statement = `INSERT INTO ${table}(user_id,meetup_id,status,topic) VALUES($1, $2, $3, $4)`;
+   const statement = `INSERT INTO ${table}(user_id,meetup_id,status,topic) VALUES($1, $2, $3, $4) returning *`;
    return new Promise((resolve, reject) => {
-	    QueryBuilder.run(statement,[user_id,meetup_id,topic,status])
+	    QueryBuilder.run(statement,[user_id,meetup_id,status,topic])
 	    .then(response => resolve(response))
 	    .catch(error => reject(error))
    })

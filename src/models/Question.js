@@ -63,7 +63,7 @@ class Question {
   }
 
   static delete(id) {
-    const statement = `DELETE * FROM ${table} WHERE id=$1`;
+    const statement = `DELETE FROM ${table} WHERE id=$1`;
     return new Promise((resolve, reject) => { 
       QueryBuilder.run(statement,[id])
       .then(response => resolve(response))

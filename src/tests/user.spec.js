@@ -41,11 +41,12 @@ describe('POST /api/v1/auth/login', () => {
 });
 
 describe('POST /api/v1/auth/login', () => {
-	it('returns 200 response when a unregistered user logs in with right credentials', (done) => {
+	it.only('returns 200 response when a registered user logs in with right credentials', (done) => {
 		request(app)
 		.post(loginUrl)
-		.send({email:"favourafolayan@gmail.com",password:"password1"})
+		.send({email:"favour@prunedge.com",password:"password1"})
 		.end((response, error) => {
+			console.log(error);
 			expect(response.status).toBe(200)
 		})
 		done();
@@ -167,7 +168,7 @@ describe('POST /api/v1/auth/signup', () => {
 			firstname: "Favour",
 			lastname: "Afolayan",
 			othername: "Ajide",
-			email: "favour@agrdd.com",
+			email: "favour@dd.com",
 			username: "igbominadeveloper",
 			password: "password1"
 		}

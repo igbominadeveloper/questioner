@@ -22,7 +22,7 @@ const comment =
       comment: Joi.string().trim().required()
    });
 
-const user = 
+const newUser = 
    Joi.object().keys({
       firstname: Joi.string().trim().min(3).required(),
       lastname: Joi.string().trim().min(3).required(),
@@ -31,6 +31,12 @@ const user =
       email: Joi.string().email().required(),
       isAdmin: Joi.number().integer().positive().min(1),
       password: Joi.string().trim().min(5).required()
+   });
+
+const oldUser = 
+   Joi.object().keys({
+      email: Joi.string().email().required(),
+      password: Joi.string().trim().required()
    });
 
 const rsvps = 
@@ -45,6 +51,7 @@ export default {
 	meetup,
 	question,
    comment,
-   user,
+   oldUser,
+   newUser,
    rsvps
 }

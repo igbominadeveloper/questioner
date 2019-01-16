@@ -75,7 +75,7 @@ class Validate {
      } else next();
    });
  }
- static validateUser(request, response, next) {
+ static validateNewUser(request, response, next) {
    const {
      firstname,lastname,othername,username,email,isAdmin,password
    } = request.body;
@@ -84,7 +84,7 @@ class Validate {
     firstname,lastname,othername,username,email,isAdmin,password
    };
 
-   Joi.validate(validateObject, schema.question, (err) => {
+   Joi.validate(validateObject, schema.newUser, (err) => {
      if (err) {
        return response.status(400).json({
          status: 400,
@@ -95,6 +95,25 @@ class Validate {
        response.status(400).json({
          status: 400,
          error: 'Admin status can only be 1 or 0',
+       });
+     } else next();
+   });
+ } 
+
+ static validateOldUser(request, response, next) {
+   const {
+     email, password
+   } = request.body;
+
+   const validateObject = {
+    email, password
+   };
+
+   Joi.validate(validateObject, schema.oldUser, (err) => {
+     if (err) {
+       return response.status(400).json({
+         status: 400,
+         error: err.details[0].message,
        });
      } else next();
    });
@@ -109,7 +128,7 @@ class Validate {
      user_id, question_id, comment
    };
 
-   Joi.validate(validateObject, schema.question, (err) => {
+   Joi.validate(validateObject, schema.comment, (err) => {
      if (err) {
        return response.status(400).json({
          status: 400,

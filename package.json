@@ -9,6 +9,8 @@
     "test": "cross-env NODE_ENV=test nyc --require babel-register mocha src/tests/**.spec.js --exit",
     "test:watch": "cross-env NODE_ENV=test nyc --require babel-register mocha src/tests/**.spec.js -w",
     "migrate": "babel-node src/database/runMigrations.js up",
+    "test-migrate": "cross-env NODE_ENV=test babel-node src/database/runMigrations.js up",
+    "test-migrate:refresh": "cross-env NODE_ENV=test babel-node src/database/runMigrations.js down && babel-node src/database/runMigrations.js up",
     "migrate:refresh": "babel-node src/database/runMigrations.js down && babel-node src/database/runMigrations.js up",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },

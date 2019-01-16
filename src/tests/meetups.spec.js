@@ -8,22 +8,16 @@ const meetupsApi = '/api/v1/meetups';
 // eslint-disable-next-line no-undef
 describe('Meetups', () => {
   // eslint-disable-next-line no-undef
-  it('returns all created meetups', () => {
-    const payload = {
-      topic: "New Topic",
-      location: "Lagos, Nigeria",
-      date: "2019-01-16T00:02:49.546Z"
-    }
+  it('returns all created meetups', (done) => {
     request(app)
       .get(meetupsApi)
-      .then((response) => {
-        expect(response.status).toBe(404);
-        // expect(response.body).toBe(2);
+      .expect(400)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body.data);
+        done()
       })
-      .catch((error) => {
-        expect(error.status).toBe()
-      });
-  });
+    });
 
   // eslint-disable-next-line no-undef
   it('returns 404 when invalid meetup id is supplied', () => {
@@ -52,22 +46,21 @@ describe('Meetups', () => {
 });
 
   // eslint-disable-next-line no-undef
-  it.only('returns a newly created meetup', () => {
+  it.only('returns a newly created meetup', (done) => {
     const payload = {
-      title: 'New title Again',
+      topic: 'New title Again',
       location: 'Lagos, Nigeria',
-      images: [],
-      date: moment(new Date()).add(2, 'months'),
-      tags: [],
+      date: moment(new Date()).add(2, 'months')
     };
     request(app)
       .post(meetupsApi)
       .send(payload)
-      .then(response => {
-        expect(response.status).toBe(201);
-        expect(response.body.data.title).toBe('New title Again');
-      })
-      .catch(error => console.log(error))
+      .expect(201,done)
+      // .then(response => {
+      //   expect(response.status).toBe(201);
+      //   expect(response.body.data.title).toBe('New title Again');
+      // })
+      // .catch(error => console.log(error))
   });
 
   it('returns a 400 error when user tries to create a new meetup without request payload', () => {

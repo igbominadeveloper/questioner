@@ -34,19 +34,19 @@ const checkErrorCode = (response, error) => {
 
 const now = () => new Date().toLocaleString();
 
-const hashPassword (password) => {
+const hashPassword = (password) => {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 }
 
-const comparePassword (hashPassword, password) => {
+const comparePassword = (hashPassword, password) => {
   return bcrypt.compareSync(hashPassword, password);
 }
 
-const generateToken (user_id) {
+const generateToken = (user_id) => {
   const token = jwt.sign({
     user_id
   },
-  process.env.SECRET_KEY, { expires_in: '5d' });
+  process.env.SECRET_KEY, { expiresIn: '5d' });
   return token;
 }
 
@@ -54,5 +54,6 @@ export default {
   checkErrorCode,
   now,
   hashPassword,
-  comparePassword
+  comparePassword,
+  generateToken
 };

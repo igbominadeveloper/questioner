@@ -20,10 +20,9 @@ class RsvpController {
   }
 
   static create(request, response) {
-    const userId = request.user.id;
     const payload = {
-      userId,
-      meetupId: request.params.id,
+      user_id: request.body.user_id,
+      meetup_id: request.params.id,
       topic: request.body.topic,
       status: request.body.status
     }
@@ -34,7 +33,7 @@ class RsvpController {
         data: response.body
       })      
     })
-    .catch(error => helper.checkErrorCode(error))
+    .catch(error => helper.checkErrorCode(response,error))
   }
 }
 

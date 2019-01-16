@@ -17,11 +17,11 @@ class Validate {
 
  static validateMeetup(request, response, next) {
    const {
-     title, location, date,
+     topic, location, date,
    } = request.body;
 
    const validateObject = {
-     title, location, date,
+     topic, location, date,
    };
 
    Joi.validate(validateObject, schema.meetup, (err) => {
@@ -31,10 +31,10 @@ class Validate {
          error: err.details[0].message,
        });
      }
-     if (!isNaN(title)) {
+     if (!isNaN(topic)) {
        response.status(400).json({
          status: 400,
-         error: 'title should not be a number',
+         error: 'topic should not be a number',
        });
      } else if (!isNaN(location)) {
        response.status(400).json({
@@ -122,14 +122,14 @@ class Validate {
 
  static validateRsvps(request, response, next) {
    const {
-     user_id, question_id, status
+     user_id, status, meetup_id, topic
    } = request.body;
 
    const validateObject = {
-     user_id, question_id, status
+     user_id, status, meetup_id, topic
    };
 
-   Joi.validate(validateObject, schema.question, (err) => {
+   Joi.validate(validateObject, schema.rsvps, (err) => {
      if (err) {
        return response.status(400).json({
          status: 400,

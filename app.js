@@ -1,7 +1,7 @@
 import createError from 'http-errors';
 import express from 'express';
 import path from 'path';
-import cookieParser from 'cookie-parser';
+// import bodyparser from 'body-parser';
 import logger from 'morgan';
 
 import router from './src/routes/index.js';
@@ -14,9 +14,8 @@ app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, 'public')));
+// app.use(bodyparser);
+
 const port = process.env.PORT || 3000;
 app.use(router);
 

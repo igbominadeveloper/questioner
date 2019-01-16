@@ -1,8 +1,8 @@
-const checkErrorCode = (error) => {
+const checkErrorCode = (response, error) => {
   switch (error.status) {
     case 404: return response.status(404).json({
       status: 404,
-      error: error.message
+      error: "Model doesn't exist"
     });
     break; 
     case 400: return response.status(400).json({

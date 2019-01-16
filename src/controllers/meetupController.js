@@ -5,9 +5,15 @@ class meetupController {
     meetup.all()
     .then(result => {
       if(result.rowCount > 0) {
+        result.rows.map(row => {
+          delete row.created_at;
+          delete row.updated_at;
+          delete row.id;
+          delete row.images;
+        })
       return response.status(200).json({
         status: 200,
-        data: result.rows[0]
+        data: result.rows
       })
       }
       return response.status(404).json({
@@ -27,6 +33,11 @@ class meetupController {
     meetup.find(request.params.id)
     .then(result => {
       if(result.rowCount > 0) {
+        result.rows.map(row => {
+          delete row.created_at;
+          delete row.updated_at;
+          delete row.images;
+        })
         return response.status(200).json({
           status: 200,
           data: result.rows[0]
@@ -49,7 +60,10 @@ class meetupController {
     meetup.create(request.body)
     .then(result => {
       if(result.rowCount > 0){
-        const data = Object.assign({}, result);
+        const data = Object.assign({}, result.rows[0]);
+        delete data.created_at;
+        delete data.updated_at;
+        delete data.images;
         return response.status(201).json({
           status: 201,
           data,
@@ -111,18 +125,24 @@ class meetupController {
     meetup.find(request.params.id)
     .then(result => {
       if(result.rowCount > 0) {
-        meetup.update(result, requestBody)
-        .then(updated => {
-          return response.status(202).json({
-            status: 202,
-            data: updated
-          });
-        })
+        return result
       }
       return response.status(404).json({
         status: 404,
         error: `Meetup doesn't exist`,
       })
+    })
+    .then(result => meetup.update(result, requestBody))
+    .then(updated => {
+      updated.rows.map(row => {
+        delete row.created_at;
+        delete row.images;
+        delete row.tags;
+      });
+      return response.status(202).json({
+        status: 202,
+        data: updated.rows[0]
+      });
     })
     .catch(error => {
       return response.status(400).json({
@@ -136,17 +156,20 @@ class meetupController {
     meetup.find(request.params.id)
     .then(result => {
       if(result.rowCount > 0) {
-        return meetup.delete(result.id)
+        return result
       }
       return response.status(404).json({
         status: 404,
         error: `Meetup doesn't exist`,
       })     
     })
-    .then(deleted => {
-      return response.status(204).json({
-        status: 204,
-        message: `Meetup deleted successfully` 
+    .then(onDeathRow => {
+      meetup.delete(onDeathRow)
+      .then(deleted => {
+        return response.status(200).json({
+          status: 200,
+          message: `Meetup deleted successfully` 
+        })
       })        
     })
     .catch(error => {

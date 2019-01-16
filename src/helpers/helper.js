@@ -1,4 +1,7 @@
 import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const checkErrorCode = (response, error) => {
   switch (error.status) {
@@ -37,6 +40,14 @@ const hashPassword (password) => {
 
 const comparePassword (hashPassword, password) => {
   return bcrypt.compareSync(hashPassword, password);
+}
+
+const generateToken (user_id) {
+  const token = jwt.sign({
+    user_id
+  },
+  process.env.SECRET_KEY, { expires_in: '5d' });
+  return token;
 }
 
 export default {

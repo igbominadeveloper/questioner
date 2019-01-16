@@ -7,7 +7,7 @@ class meetupController {
       if(result.rowCount > 0) {
       return response.status(200).json({
         status: 200,
-        data: rows
+        data: result.rows[0]
       })
       }
       return response.status(404).json({
@@ -28,8 +28,8 @@ class meetupController {
     .then(result => {
       if(result.rowCount > 0) {
         return response.status(200).json({
-          status: 199,
-          data: result
+          status: 200,
+          data: result.rows[0]
         })
       }
       return response.status(404).json({

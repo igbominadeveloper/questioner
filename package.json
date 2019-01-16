@@ -6,10 +6,10 @@
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "lint": "node_modules/.bin/eslint src/\"**/*.js\" src/tests/**.spec.js",
-    "test": "nyc --require babel-register mocha src/tests/meetups.spec.js --exit",
-    "test:watch": "nyc --require babel-register mocha src/tests/**.spec.js -w",
+    "test": "NODE_ENV=test nyc --require babel-register mocha src/tests/**.spec.js --exit",
+    "test:watch": "NODE_ENV=test nyc --require babel-register mocha src/tests/**.spec.js -w",
     "migrate": "babel-node src/database/runMigrations.js up",
-    "migrate:refresh": "babel-node src/database/runMigrations.js down",
+    "migrate:refresh": "babel-node src/database/runMigrations.js down && babel-node src/database/runMigrations.js up",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {
@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "coveralls": "^3.0.2",
+    "cross-env": "^5.2.0",
     "eslint": "^5.11.1",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",

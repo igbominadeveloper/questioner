@@ -8,7 +8,7 @@ const meetupsApi = '/api/v1/meetups';
 // eslint-disable-next-line no-undef
 describe('Meetups', () => {
   // eslint-disable-next-line no-undef
-  it.only('returns all created meetups', () => {
+  it('returns all created meetups', () => {
     request(app)
       .get(meetupsApi)
       .then((response) => {

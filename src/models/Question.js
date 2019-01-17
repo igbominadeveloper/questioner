@@ -72,7 +72,7 @@ class Question {
         .catch(error => reject(error));
     });
   }
- 
+
   static async createComment (payload) {
     const { user_id, question_id, topic, comment } = payload;
     const statement = `INSERT INTO comments(user_id,question_id,topic,comment) VALUES($1,$2,$3,$4) returning *`;

@@ -15,7 +15,7 @@ router.get('/', (request, response) => {
 router.get('/api/v1/meetups', Auth.verifyToken, meetupController.index);
 router.get('/api/v1/meetups/upcoming', Auth.verifyToken, meetupController.upcoming);
 router.post('/api/v1/meetups', [Auth.verifyToken, Validator.validateMeetup], meetupController.create);
-router.get('/api/v1/meetups/:question', [Auth.verifyToken, Validator.validateId], meetupController.show);
+router.get('/api/v1/meetups/:id', [Auth.verifyToken, Validator.validateId], meetupController.show);
 router.get('/api/v1/meetups/:id', [Auth.verifyToken, Validator.validateId], meetupController.show);
 router.patch('/api/v1/meetups/:id', [Auth.verifyToken, Validator.validateId], meetupController.update);
 router.delete('/api/v1/meetups/:id', [Auth.verifyToken, Validator.validateId], meetupController.destroy);

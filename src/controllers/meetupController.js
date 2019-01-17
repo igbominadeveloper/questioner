@@ -1,4 +1,5 @@
 import meetup from '../models/Meetup';
+import helper from '../helpers/helper';
 
 class meetupController {
   static async index(request, response) {
@@ -54,6 +55,7 @@ class meetupController {
   }
 
   static create(request, response) {
+    if(request.user.isadmin == 1){
     meetup.create(request.body)
       .then((result) => {
         if (result.rowCount > 0) {
@@ -71,11 +73,19 @@ class meetupController {
           error: 'Meetup creation failed',
         });
       })
-      .catch(error => response.status(400).json({
+      .catch(error => {
+        return response.status(400).json({
         status: 400,
         error: error.message,
-      }));
+      })
+        return;
+    })
+    }
+    else{
+    return helper.checkErrorCode(response, { status:401, message: `You are not authorized to perform this action` })
   }
+}
+
 
   static destroyAll(request, response) {
     meetup.deleteAll()
@@ -110,6 +120,7 @@ class meetupController {
   }
 
   static update(request, response) {
+    if(request.user.isadmin){
     const requestBody = request.body;
     meetup.find(request.params.id)
       .then((result) => {
@@ -137,9 +148,13 @@ class meetupController {
         status: 400,
         error: error.message,
       }));
+    } else{
+      return helper.checkErrorCode(response, { status:401, message: `You are not authorized to perform this action` })
+    }
   }
 
   static destroy(request, response) {
+    if(request.user.isadmin){
     meetup.find(request.params.id)
       .then((result) => {
         if (result.rowCount > 0) {
@@ -161,6 +176,9 @@ class meetupController {
         status: 400,
         error: error.message,
       }));
+    }else{
+      return helper.checkErrorCode(response, { status:401, message: `You are not authorized to perform this action` })
+    }
   }
 }
 

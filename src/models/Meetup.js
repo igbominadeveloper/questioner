@@ -1,6 +1,7 @@
 import moment from 'moment';
 import helper from '../helpers/helper';
 import QueryBuilder from '../database/queryBuilder';
+
 const table = 'meetups';
 
 
@@ -9,9 +10,9 @@ class Meetup {
     const statement = `SELECT * FROM ${table}`;
     return new Promise((resolve, reject) => {
       QueryBuilder.run(statement)
-      .then(response => resolve(response))
-      .catch(error => reject(error))
-    })
+        .then(response => resolve(response))
+        .catch(error => reject(error));
+    });
   }
 
   static upcoming() {
@@ -24,9 +25,9 @@ class Meetup {
     const statement = `SELECT * FROM ${table} WHERE id = $1`;
     return new Promise((resolve, reject) => {
       QueryBuilder.run(statement, [id])
-      .then(response => resolve(response))
-      .catch(error => reject(error))
-    })
+        .then(response => resolve(response))
+        .catch(error => reject(error));
+    });
   }
 
   static create(payload) {
@@ -38,12 +39,12 @@ class Meetup {
       tags: payload.tags ? payload.tags : {},
     };
     const statement = `INSERT INTO ${table}(topic,location,date,images,tags) VALUES($1, $2, $3, $4, $5) returning *`;
-    
+
     return new Promise((resolve, reject) => {
-      QueryBuilder.run(statement,Object.values(meetup))
-      .then(response => resolve(response))
-      .catch(error => reject(error))
-    })
+      QueryBuilder.run(statement, Object.values(meetup))
+        .then(response => resolve(response))
+        .catch(error => reject(error));
+    });
   }
 
   static update(meetup, request) {
@@ -58,22 +59,22 @@ class Meetup {
       location || meetup.rows[0].location,
       date || meetup.rows[0].date,
       new Date().toLocaleString(),
-      meetup.rows[0].id
-    ]
-    return new Promise((resolve, reject) => { 
-      QueryBuilder.run(statement,data)
-      .then(response => resolve(response))
-      .catch(error => reject(error))
-    })
+      meetup.rows[0].id,
+    ];
+    return new Promise((resolve, reject) => {
+      QueryBuilder.run(statement, data)
+        .then(response => resolve(response))
+        .catch(error => reject(error));
+    });
   }
 
   static delete(meetup) {
     const statement = `DELETE FROM ${table} WHERE id=$1`;
-    return new Promise((resolve, reject) => { 
-      QueryBuilder.run(statement,[meetup.rows[0].id])
-      .then(response => resolve(response))
-      .catch(error => reject(error))
-    })
+    return new Promise((resolve, reject) => {
+      QueryBuilder.run(statement, [meetup.rows[0].id])
+        .then(response => resolve(response))
+        .catch(error => reject(error));
+    });
   }
 }
 

@@ -13,14 +13,14 @@ const createUsersQuery = {
         password VARCHAR(128) NOT NULL,
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-      )`
-}
+      )`,
+};
 
 const dropUsersQuery = {
-  query: `DROP TABLE IF EXISTS users`
-}
+  query: 'DROP TABLE IF EXISTS users',
+};
 
 export default {
   createUsersQuery,
-  dropUsersQuery
-}
+  dropUsersQuery,
+};

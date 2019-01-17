@@ -6,34 +6,32 @@ import rsvpsTable from './migrations/rsvpsTable.js';
 import QueryBuilder from './queryBuilder';
 
 const up = async () => {
-	try {	
-		await QueryBuilder.run(usersTable.createUsersQuery.query)
-		await QueryBuilder.run(meetupsTable.createMeetupsQuery.query)
-		await QueryBuilder.run(rsvpsTable.createRsvpsQuery.query)
-		await QueryBuilder.run(questionsTable.createQuestionsQuery.query)
-		await QueryBuilder.run(commentsTable.createCommentsQuery.query)
-	}
-	catch (error){
-		console.log(error)
-	}
-}
+  try {
+    await QueryBuilder.run(usersTable.createUsersQuery.query);
+    await QueryBuilder.run(meetupsTable.createMeetupsQuery.query);
+    await QueryBuilder.run(rsvpsTable.createRsvpsQuery.query);
+    await QueryBuilder.run(questionsTable.createQuestionsQuery.query);
+    await QueryBuilder.run(commentsTable.createCommentsQuery.query);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const down = async () => {
-	try {
-		await QueryBuilder.run(commentsTable.dropCommentsQuery.query);
-		await QueryBuilder.run(questionsTable.dropQuestionsQuery.query);
-		await QueryBuilder.run(rsvpsTable.dropRsvpsQuery.query);
-		await QueryBuilder.run(meetupsTable.dropMeetupsQuery.query);
-		await QueryBuilder.run(usersTable.dropUsersQuery.query);
-	}
-	catch(error){
-		console.log(error)
-	}
-}
+  try {
+    await QueryBuilder.run(commentsTable.dropCommentsQuery.query);
+    await QueryBuilder.run(questionsTable.dropQuestionsQuery.query);
+    await QueryBuilder.run(rsvpsTable.dropRsvpsQuery.query);
+    await QueryBuilder.run(meetupsTable.dropMeetupsQuery.query);
+    await QueryBuilder.run(usersTable.dropUsersQuery.query);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 module.exports = {
-	up,
-	down
-}
+  up,
+  down,
+};
 
 require('make-runnable');

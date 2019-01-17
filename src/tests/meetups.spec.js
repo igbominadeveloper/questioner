@@ -10,14 +10,14 @@ describe('Meetups', () => {
   // eslint-disable-next-line no-undef
   it('returns all created meetups', (done) => {
     request(app)
-    .get(meetupsApi)
-    .expect(400)
-    .end((err, res) => {
-      if (err) return done(err);
-      expect(res.body.data);
-      done()
-    })
-    });
+      .get(meetupsApi)
+      .expect(400)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body.data);
+        done();
+      });
+  });
 
   // eslint-disable-next-line no-undef
   it('returns 404 when invalid meetup id is supplied', () => {
@@ -35,32 +35,32 @@ describe('Meetups', () => {
   // eslint-disable-next-line no-undef
   it('can return a specific meetup', () => {
     request(app)
-    .get(`${meetupsApi}/1`)
-    .then(response => {
-      expect(response.status).toBe(200);
-      expect(response.body.data.id).toBe(1);
-    })
-  .catch((error) => {
-    expect(error).toBeInstanceOf(Object);
+      .get(`${meetupsApi}/1`)
+      .then((response) => {
+        expect(response.status).toBe(200);
+        expect(response.body.data.id).toBe(1);
+      })
+      .catch((error) => {
+        expect(error).toBeInstanceOf(Object);
+      });
   });
-});
 
   // eslint-disable-next-line no-undef
   it('returns a newly created meetup', (done) => {
     const payload = {
       topic: 'New title Again',
       location: 'Lagos, Nigeria',
-      date: moment(new Date()).add(2, 'months')
+      date: moment(new Date()).add(2, 'months'),
     };
     request(app)
       .post(meetupsApi)
       .send(payload)
-      .expect(201,done)
-      // .then(response => {
-      //   expect(response.status).toBe(201);
-      //   expect(response.body.data.title).toBe('New title Again');
-      // })
-      // .catch(error => console.log(error))
+      .expect(201, done);
+    // .then(response => {
+    //   expect(response.status).toBe(201);
+    //   expect(response.body.data.title).toBe('New title Again');
+    // })
+    // .catch(error => console.log(error))
   });
 
   it('returns a 400 error when user tries to create a new meetup without request payload', () => {
@@ -121,7 +121,7 @@ describe('Meetups', () => {
         const payload = {
           title: 'Get this in there',
           happeningOn: new Date(),
-          location: "Tanke, Ilorin",
+          location: 'Tanke, Ilorin',
           tags: 'new tag',
           images: 'new image url',
         };

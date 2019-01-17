@@ -13,14 +13,14 @@ const createQuestionsQuery = {
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
         FOREIGN KEY (meetup_id) REFERENCES meetups (id) ON DELETE CASCADE
-      )`
-}
+      )`,
+};
 
 const dropQuestionsQuery = {
-  query: `DROP TABLE IF EXISTS questions`
-}
+  query: 'DROP TABLE IF EXISTS questions',
+};
 
 export default {
   createQuestionsQuery,
-  dropQuestionsQuery
-}
+  dropQuestionsQuery,
+};

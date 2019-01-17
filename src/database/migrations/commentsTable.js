@@ -10,14 +10,14 @@ const createCommentsQuery = {
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (question_id) REFERENCES questions (id) ON DELETE CASCADE,
         FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
-      )`
-}
+      )`,
+};
 
 const dropCommentsQuery = {
-  query: `DROP TABLE IF EXISTS comments`
-}
+  query: 'DROP TABLE IF EXISTS comments',
+};
 
 export default {
   createCommentsQuery,
-  dropCommentsQuery
-}
+  dropCommentsQuery,
+};

@@ -168,7 +168,7 @@ describe('POST /api/v1/auth/signup', () => {
 			firstname: "Favour",
 			lastname: "Afolayan",
 			othername: "Ajide",
-			email: "favour@dd.com",
+			email: "favour@dind.com",
 			username: "igbominadeveloper",
 			password: "password1"
 		}

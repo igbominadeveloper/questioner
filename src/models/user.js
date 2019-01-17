@@ -19,7 +19,6 @@ class User {
 			.then(result => {
 				const user = result.rows[0];
 				const token = helper.generateToken(user.id,user.isadmin);
-
 				resolve({token,user})
 			})
 			.catch(error => reject(error))

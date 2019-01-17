@@ -36,6 +36,7 @@ const checkErrorCode = (response, error) => {
 
 const now = () => new Date().toLocaleString();
 
+
 const hashPassword = password => bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
 const decodePassword = (hashPassword, password) => bcrypt.compareSync(password, hashPassword);

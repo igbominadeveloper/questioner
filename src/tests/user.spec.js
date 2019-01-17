@@ -7,6 +7,7 @@ const loginUrl = '/api/v1/auth/login';
 const registrationUrl = '/api/v1/auth/signup';
 
 describe('POST /api/v1/auth/login', () => {
+
   it('returns 400 response when user tries to login without any credentials', (done) => {
     request(app)
       .post(loginUrl)
@@ -183,3 +184,4 @@ describe('POST /api/v1/auth/signup', () => {
     done();
   });
 });
+

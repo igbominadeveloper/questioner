@@ -44,6 +44,7 @@ describe('Meetups', () => {
         expect(error).toBeInstanceOf(Object);
       });
   });
+});
 
   // eslint-disable-next-line no-undef
   it('returns a newly created meetup', (done) => {
@@ -56,11 +57,6 @@ describe('Meetups', () => {
       .post(meetupsApi)
       .send(payload)
       .expect(201, done);
-    // .then(response => {
-    //   expect(response.status).toBe(201);
-    //   expect(response.body.data.title).toBe('New title Again');
-    // })
-    // .catch(error => console.log(error))
   });
 
   it('returns a 400 error when user tries to create a new meetup without request payload', () => {

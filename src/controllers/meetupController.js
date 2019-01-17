@@ -57,6 +57,7 @@ class meetupController {
   static create(request, response) {
     if(request.user.isadmin){
     meetup.create(request.body)
+
       .then((result) => {
         if (result.rowCount > 0) {
           const data = Object.assign({}, result.rows[0]);
@@ -179,6 +180,7 @@ class meetupController {
     }else{
       return helper.checkErrorCode(response, { status:401, message: `You are not authorized to perform this action` })
     }
+
   }
 }
 

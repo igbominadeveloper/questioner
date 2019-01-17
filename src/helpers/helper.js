@@ -39,13 +39,13 @@ const hashPassword = (password) => {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 }
 
-const comparePassword = (hashPassword, password) => {
-  return bcrypt.compareSync(hashPassword, password);
+const decodePassword = (hashPassword, password) => {
+  return bcrypt.compareSync(password, hashPassword);
 }
 
-const generateToken = (user_id) => {
+const generateToken = (user_id,isadmin) => {
   const token = jwt.sign({
-    user_id
+    user_id,isadmin
   },
   process.env.SECRET_KEY, { expiresIn: '5d' });
   return token;
@@ -70,7 +70,7 @@ export default {
   checkErrorCode,
   now,
   hashPassword,
-  comparePassword,
+  decodePassword,
   checkEmailDuplication,
   generateToken
 };

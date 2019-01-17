@@ -18,7 +18,8 @@ class User {
 			QueryBuilder.run(statement,[credentials.firstname,credentials.lastname,credentials.othername,credentials.username,credentials.email,passwordHash])
 			.then(result => {
 				const user = result.rows[0];
-				const token = helper.generateToken(user.id);
+				const token = helper.generateToken(user.id,user.isadmin);
+
 				resolve({token,user})
 			})
 			.catch(error => reject(error))

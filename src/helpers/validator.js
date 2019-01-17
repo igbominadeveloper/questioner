@@ -223,5 +223,86 @@ class Validate {
 
 
 
+ static validateNewUser(request, response, next) {
+   const {
+     firstname,lastname,othername,username,email,password
+   } = request.body;
+
+   const validateObject = {
+    firstname,lastname,othername,username,email,password
+   };
+
+   Joi.validate(validateObject, schema.newUser, (err) => {
+     if (err) {
+       return response.status(400).json({
+         status: 400,
+         error: err.details[0].message,
+       });
+     }
+     next();
+   });
+ } 
+
+ static validateOldUser(request, response, next) {
+   const {
+     email, password
+   } = request.body;
+
+   const validateObject = {
+    email, password
+   };
+
+   Joi.validate(validateObject, schema.oldUser, (err) => {
+     if (err) {
+       return response.status(400).json({
+         status: 400,
+         error: err.details[0].message,
+       });
+     } else next();
+   });
+ }
+
+ static validateComment(request, response, next) {
+   const {
+     user_id, question_id, comment
+   } = request.body;
+
+   const validateObject = {
+     user_id, question_id, comment
+   };
+
+   Joi.validate(validateObject, schema.comment, (err) => {
+     if (err) {
+       return response.status(400).json({
+         status: 400,
+         error: err.details[0].message,
+       });
+     } 
+     else next();
+   });
+ } 
+
+ static validateRsvps(request, response, next) {
+   const {
+     user_id, status, meetup_id, topic
+   } = request.body;
+
+   const validateObject = {
+     user_id, status, meetup_id, topic
+   };
+
+   Joi.validate(validateObject, schema.rsvps, (err) => {
+     if (err) {
+       return response.status(400).json({
+         status: 400,
+         error: err.details[0].message,
+       });
+     } 
+     else next();
+   });
+ }
+
+
+
 }
 export default Validate;

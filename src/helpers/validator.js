@@ -115,11 +115,11 @@ class Validate {
 
   static validateComment(request, response, next) {
     const {
-      user_id, question_id, comment,
+      user_id, question_id, topic, comment, 
     } = request.body;
 
     const validateObject = {
-      user_id, question_id, comment,
+      user_id, question_id, topic, comment,
     };
 
     Joi.validate(validateObject, schema.comment, (err) => {

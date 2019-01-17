@@ -100,24 +100,26 @@ class meetupController {
       }));
   }
 
-  static upcoming(request, response) {
-    meetup.upcoming()
-      .then((result) => {
-        if (result.length > 0) {
-          return response.status(200).json({
-            status: 200,
-            data: result,
-          });
-        }
-        return response.status(404).json({
-          status: 404,
-          data: 'No upcoming meetups, kindly check back later',
-        });
-      })
-      .catch(error => response.status(400).json({
-        status: 400,
-        error: error.message,
-      }));
+
+  static async upcoming(request, response) {
+    try{
+      const { rows } = await meetup.upcoming();
+      if(rows.length > 0){
+        const data = Object.assign({}, rows);
+        data.map(row => {
+          delete row.images;
+          delete row.created_at;
+          delete row.updated_at;
+        })
+        return response.status(200).json({
+          status: 200,
+          data: [data]
+        })
+      }
+        return helper.checkErrorCode(response, { status: 404, message: `No Upcoming meetups` })
+    } catch(error) {
+        return helper.checkErrorCode(response, { status: 400, message: `Error occured` })
+      }
   }
 
   static update(request, response) {

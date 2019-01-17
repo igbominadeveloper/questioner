@@ -73,28 +73,6 @@ class Question {
     });
   }
 
-  static async upvote(user,question_id) {
-    const statement = `SELECT * FROM questions WHERE id=$1`;
-    try {
-    const { rows } = await QueryBuilder.run(statement,[question_id]);
-    return rows;
-  } catch (error) {
-    return error
-  }
-}
-
-  static downvote(questionId) {
-    self.find(questionId)
-      .then(result => result)
-      .then(result => new Promise((resolve, reject) => {
-        const downvotes = result.rows[0].downvotes += 1;
-        const statement = 'UPDATE QUESTIONS SET downvotes = $1 WHERE id=$2';
-        queryBuilder(statement, [downvotes, questionId])
-          .then(response => resolve(response));
-      }))
-      .catch(error => reject(error));
-  }
-
   static async createComment (payload) {
     const { user_id, question_id, topic, comment } = payload;
     const statement = `INSERT INTO comments(user_id,question_id,topic,comment) VALUES($1,$2,$3,$4) returning *`;

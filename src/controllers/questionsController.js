@@ -104,8 +104,9 @@ class QuestionsController {
   }
 
   static destroy(request, response) {
-    question.find(request.params.id)
-      .then((result) => {
+    if(request.user.isadmin){
+      question.find(request.params.id)
+      .then(result => {
         if (result.rowCount > 0) {
           return result;
         }
@@ -114,8 +115,8 @@ class QuestionsController {
           error: 'Meetup doesn\'t exist',
         });
       })
-      .then((onDeathRow) => {
-        question.delete(onDeathRow)
+      .then(onDeathRow => {
+        question.delete(onDeathRow.rows[0].id)
           .then(deleted => response.status(200).json({
             status: 200,
             message: 'Question deleted successfully',
@@ -125,7 +126,13 @@ class QuestionsController {
         status: 400,
         error: error.message,
       }));
+    }
+    return helper.checkErrorCode(response, { 
+      status: 401, 
+      message: `You are not authorized to perform this action` 
+    })
   }
+
 
   static async createComment(request, response) {
     try {

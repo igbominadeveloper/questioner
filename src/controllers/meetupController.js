@@ -55,37 +55,33 @@ class meetupController {
   }
 
   static create(request, response) {
-    if(request.user.isadmin){
-    meetup.create(request.body)
+    if (request.user.isadmin) {
+      meetup.create(request.body)
 
-      .then((result) => {
-        if (result.rowCount > 0) {
-          const data = Object.assign({}, result.rows[0]);
-          delete data.created_at;
-          delete data.updated_at;
-          delete data.images;
-          return response.status(201).json({
-            status: 201,
-            data,
+        .then((result) => {
+          if (result.rowCount > 0) {
+            const data = Object.assign({}, result.rows[0]);
+            delete data.created_at;
+            delete data.updated_at;
+            delete data.images;
+            return response.status(201).json({
+              status: 201,
+              data,
+            });
+          }
+          return response.status(500).json({
+            status: 500,
+            error: 'Meetup creation failed',
           });
-        }
-        return response.status(500).json({
-          status: 500,
-          error: 'Meetup creation failed',
-        });
-      })
-      .catch(error => {
-        return response.status(400).json({
-        status: 400,
-        error: error.message,
-      })
-        return;
-    })
+        })
+        .catch(error => response.status(400).json({
+          status: 400,
+          error: error.message,
+        }));
+    } else {
+      return helper.checkErrorCode(response, { status: 401, message: 'You are not authorized to perform this action' });
     }
-    else{
-    return helper.checkErrorCode(response, { status:401, message: `You are not authorized to perform this action` })
   }
-}
 
 
   static destroyAll(request, response) {
@@ -100,89 +96,87 @@ class meetupController {
       }));
   }
 
-
   static async upcoming(request, response) {
-    try{
+    try {
       const { rows } = await meetup.upcoming();
-      if(rows.length > 0){
+      if (rows.length > 0) {
         const data = Object.assign({}, rows);
-        data.map(row => {
+        data.map((row) => {
           delete row.images;
           delete row.created_at;
           delete row.updated_at;
-        })
+        });
         return response.status(200).json({
           status: 200,
-          data: [data]
-        })
+          data: [data],
+        });
       }
-        return helper.checkErrorCode(response, { status: 404, message: `No Upcoming meetups` })
-    } catch(error) {
-        return helper.checkErrorCode(response, { status: 400, message: `Error occured` })
-      }
+      return helper.checkErrorCode(response, { status: 404, message: 'No Upcoming meetups' });
+    } catch (error) {
+      return helper.checkErrorCode(response, { status: 400, message: 'Error occured' });
+    }
   }
 
   static update(request, response) {
-    if(request.user.isadmin){
-    const requestBody = request.body;
-    meetup.find(request.params.id)
-      .then((result) => {
-        if (result.rowCount > 0) {
-          return result;
-        }
-        return response.status(404).json({
-          status: 404,
-          error: 'Meetup doesn\'t exist',
-        });
-      })
-      .then(result => meetup.update(result, requestBody))
-      .then((updated) => {
-        updated.rows.map((row) => {
-          delete row.created_at;
-          delete row.images;
-          delete row.tags;
-        });
-        return response.status(202).json({
-          status: 202,
-          data: updated.rows[0],
-        });
-      })
-      .catch(error => response.status(400).json({
-        status: 400,
-        error: error.message,
-      }));
-    } else{
-      return helper.checkErrorCode(response, { status:401, message: `You are not authorized to perform this action` })
+    if (request.user.isadmin) {
+      const requestBody = request.body;
+      meetup.find(request.params.id)
+        .then((result) => {
+          if (result.rowCount > 0) {
+            return result;
+          }
+          return response.status(404).json({
+            status: 404,
+            error: 'Meetup doesn\'t exist',
+          });
+        })
+        .then(result => meetup.update(result, requestBody))
+        .then((updated) => {
+          updated.rows.map((row) => {
+            delete row.created_at;
+            delete row.images;
+            delete row.tags;
+          });
+          return response.status(202).json({
+            status: 202,
+            data: updated.rows[0],
+          });
+        })
+        .catch(error => response.status(400).json({
+          status: 400,
+          error: error.message,
+        }));
+    } else {
+      return helper.checkErrorCode(response, { status: 401, message: 'You are not authorized to perform this action' });
     }
   }
 
   static destroy(request, response) {
-    if(request.user.isadmin){
-    meetup.find(request.params.id)
-      .then((result) => {
-        if (result.rowCount > 0) {
-          return result;
-        }
-        return response.status(404).json({
-          status: 404,
-          error: 'Meetup doesn\'t exist',
-        });
-      })
-      .then((onDeathRow) => {
-        meetup.delete(onDeathRow)
-          .then(deleted => response.status(200).json({
-            status: 200,
-            message: 'Meetup deleted successfully',
-          }));
-      })
-      .catch(error => response.status(400).json({
-        status: 400,
-        error: error.message,
-      }));
-    }else{
-      return helper.checkErrorCode(response, { status:401, message: `You are not authorized to perform this action` })
+    if (request.user.isadmin) {
+      meetup.find(request.params.id)
+        .then((result) => {
+          if (result.rowCount > 0) {
+            return result;
+          }
+          return response.status(404).json({
+            status: 404,
+            error: 'Meetup doesn\'t exist',
+          });
+        })
+        .then((onDeathRow) => {
+          meetup.delete(onDeathRow)
+            .then(deleted => response.status(200).json({
+              status: 200,
+              message: 'Meetup deleted successfully',
+            }));
+        })
+        .catch(error => response.status(400).json({
+          status: 400,
+          error: error.message,
+        }));
+    } else {
+      return helper.checkErrorCode(response, { status: 401, message: 'You are not authorized to perform this action' });
     }
-
   }
 }
 

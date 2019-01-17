@@ -170,4 +170,3 @@ describe('Meetups', () => {
         expect(new Date(response.body.data[0].happeningOn).getTime() > new Date().getTime()).toBe(true);
       });
   });
-});

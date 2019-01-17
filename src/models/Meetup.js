@@ -17,19 +17,15 @@ class Meetup {
 
   static async upcoming() {
     const statement = `SELECT * FROM ${table} WHERE date > NOW()`;
-    try{
+    try {
       const { rows } = await QueryBuilder.run(statement);
-      if (rows.length > 0 ){
-        rows.sort((row1,row2) => {
-          return Date.parse(row1.date) - Date.parse(row2.date);
-        })
+      if (rows.length > 0) {
+        rows.sort((row1, row2) => Date.parse(row1.date) - Date.parse(row2.date));
         return Promise.resolve(rows);
       }
-      else{
-        return Promise.reject({message: `No meetup exists`});
-      }
-    } catch(error){
-      return Promise.reject(error)
+      return Promise.reject({ message: 'No meetup exists' });
+    } catch (error) {
+      return Promise.reject(error);
     }
   }
 

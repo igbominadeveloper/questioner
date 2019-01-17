@@ -27,4 +27,5 @@ router.get('/api/v1/questions/:id', [Auth.verifyToken, Validator.validateId], qu
 // router.patch('/api/v1/questions/:id/downvote', [Auth.verifyToken, Validator.validateId], questionsController.vote);
 router.post('/api/v1/auth/signup', Validator.validateNewUser, helper.checkEmailDuplication, userController.register);
 router.post('/api/v1/auth/login', Validator.validateOldUser, userController.login);
+router.post('/api/v1/comments', Validator.validateComment, questionsController.createComment);
 export default router;

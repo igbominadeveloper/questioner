@@ -1,5 +1,6 @@
 import moment from 'moment';
 import QueryBuilder from '../database/queryBuilder';
+import helper from '../helpers/helper';
 
 const table = 'questions';
 
@@ -94,6 +95,16 @@ class Question {
           .then(response => resolve(response));
       }))
       .catch(error => reject(error));
+  }
+
+  static async createComment (payload) {
+    const { user_id, question_id, comment } = payload;
+    const statement = `INSERT INTO comments(user_id,question_id,comment) VALUES($1,$2,$3) returning *`;
+    return new Promise((resolve,reject) => {
+      QueryBuilder.run(statement,[user_id, question_id, comment])
+      .then(response => resolve(response))
+      .catch(error => reject(error))
+    });
   }
 }
 

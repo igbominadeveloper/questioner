@@ -1,4 +1,6 @@
 import question from '../models/Question';
+import helper from '../helpers/helper';
+import QueryBuilder from '../database/queryBuilder';
 
 class QuestionsController {
   static index(request, response) {
@@ -127,6 +129,35 @@ class QuestionsController {
         error: error.message,
       }));
   }
+
+  static async createComment(request, response) {
+    try {
+        const result = await question.find(request.body.question_id);
+        if(result.rowCount > 0){ 
+          const { rows }  = await question.createComment(request.body);
+          if (rows[0]){
+            return response.status(201).json({
+              status: 201,
+              data: rows
+            })
+          }
+          return helper.checkErrorCode(response, { 
+            error: 400, 
+            message: `Error occured! Comment couldn't be created` 
+          })
+        }
+        return helper.checkErrorCode(response, {
+         error: 404, 
+         message: `Cannot comment on a non-existing question` 
+       })
+      }
+      catch (errors){
+         return helper.checkErrorCode(response, {
+          error: 404, 
+          message: errors 
+        })
+      }
+    }
 }
 
 export default QuestionsController;

@@ -39,6 +39,7 @@ class userController {
 			})
 		})
 }
+
 	static register(request, response){
 		user.register(request.body)
 		.then(result => {

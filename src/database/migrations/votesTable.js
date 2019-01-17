@@ -1,12 +1,12 @@
-const createCommentsQuery = {
+const createVotesQuery = {
   query:
     `CREATE TABLE IF NOT EXISTS
-      comments(
+      votes(
         id SERIAL PRIMARY KEY,
         user_id INT NOT NULL,
         question_id INT NOT NULL,
-        topic VARCHAR(128) NOT NULL,
-        comment VARCHAR(128) NOT NULL,
+        upvote INT NOT NULL,
+        downvote INT NOT NULL,
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (question_id) REFERENCES questions (id) ON DELETE CASCADE,
@@ -14,11 +14,11 @@ const createCommentsQuery = {
       )`,
 };
 
-const dropCommentsQuery = {
-  query: 'DROP TABLE IF EXISTS comments',
+const dropVotesQuery = {
+  query: 'DROP TABLE IF EXISTS votes',
 };
 
 export default {
-  createCommentsQuery,
-  dropCommentsQuery,
+  createVotesQuery,
+  dropVotesQuery,
 };

@@ -23,4 +23,4 @@ const dropQuestionsQuery = {
 export default {
   createQuestionsQuery,
   dropQuestionsQuery,
-}
+};

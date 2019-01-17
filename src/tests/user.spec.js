@@ -7,7 +7,6 @@ const loginUrl = '/api/v1/auth/login';
 const registrationUrl = '/api/v1/auth/signup';
 
 describe('POST /api/v1/auth/login', () => {
-
   it('returns 400 response when user tries to login without any credentials', (done) => {
     request(app)
       .post(loginUrl)
@@ -46,9 +45,10 @@ describe('POST /api/v1/auth/login', () => {
     request(app)
       .post(loginUrl)
       .send({ email: 'favour@prunedge.com', password: 'password1' })
-      .end((response, error) => {
-        console.log(error);
-        expect(response.status).toBe(200);
+      .end((error,response) => {
+        expect(response.body.status).toBe(200);
+        expect(response.body.data[0].user.email).toBe('favour@prunedge.com');
+        expect(response.body.data[0].user.firstname).toBe('Favour');
       });
     done();
   });
@@ -184,4 +184,3 @@ describe('POST /api/v1/auth/signup', () => {
     done();
   });
 });
-

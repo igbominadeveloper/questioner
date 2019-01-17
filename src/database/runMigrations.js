@@ -6,7 +6,6 @@ import rsvpsTable from './migrations/rsvpsTable.js';
 import QueryBuilder from './queryBuilder';
 
 const up = async () => {
-
   try {
     await QueryBuilder.run(usersTable.createUsersQuery.query);
     await QueryBuilder.run(meetupsTable.createMeetupsQuery.query);

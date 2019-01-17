@@ -9,7 +9,7 @@ const checkErrorCode = (response, error) => {
   switch (error.status) {
     case 404: return response.status(404).json({
       status: 404,
-      error: "Model doesn't exist",
+      error: error.message ? error.message: 'Model Not Found',
     });
       break;
     case 400: return response.status(400).json({
@@ -19,12 +19,12 @@ const checkErrorCode = (response, error) => {
       break;
     case 403: return response.status(403).json({
       status: 403,
-      error: error.message,
+      error: error.message || `Forbidden`,
     });
       break;
     case 401: return response.status(401).json({
       status: 401,
-      error: error.message,
+      error: error.message || `Unauthorized`,
     });
       break;
     default: return response.status(400).json({

@@ -55,7 +55,7 @@ class meetupController {
   }
 
   static create(request, response) {
-    if(request.user.isadmin == 1){
+    if(request.user.isadmin){
     meetup.create(request.body)
       .then((result) => {
         if (result.rowCount > 0) {

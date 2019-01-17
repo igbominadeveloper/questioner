@@ -15,10 +15,22 @@ class Meetup {
     });
   }
 
-  static upcoming() {
-    // return meetups.sort((meetup1, meetup2) => {
-    //   return new Date(meetup2.happeningOn).getTime() - new Date(meetup1.happeningOn).getTime();
-    // });
+  static async upcoming() {
+    const statement = `SELECT * FROM ${table} WHERE date > NOW()`;
+    try{
+      const { rows } = await QueryBuilder.run(statement);
+      if (rows.length > 0 ){
+        rows.sort((row1,row2) => {
+          return Date.parse(row1.date) - Date.parse(row2.date);
+        })
+        return Promise.resolve(rows);
+      }
+      else{
+        return Promise.reject({message: `No meetup exists`});
+      }
+    } catch(error){
+      return Promise.reject(error)
+    }
   }
 
   static find(id) {

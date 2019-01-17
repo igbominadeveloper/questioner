@@ -9,14 +9,14 @@ const createMeetupsQuery = {
         tags TEXT [],
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
-      )`
-}
+      )`,
+};
 
 const dropMeetupsQuery = {
-  query: `DROP TABLE IF EXISTS meetups`
-}
+  query: 'DROP TABLE IF EXISTS meetups',
+};
 
 export default {
   createMeetupsQuery,
-  dropMeetupsQuery
-}
+  dropMeetupsQuery,
+};

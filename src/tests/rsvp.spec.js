@@ -1,7 +1,7 @@
 import expect from 'expect';
 import request from 'supertest';
-import app from '../../app.js';
 import Joi from 'joi';
+import app from '../../app.js';
 
 
 const meetupsApi = '/api/v1/meetups';
@@ -10,11 +10,11 @@ const meetupsApi = '/api/v1/meetups';
 describe('Rsvp', () => {
   it('returns all rsvps for a meetup', () => {
     request(app)
-    .get(`${meetupsApi}/1/rsvps`)
-    .then(response => {
-      expect(response.status).toBe(200);
-      expect(response.body.data.length > 0).toBe(true);
-    })
+      .get(`${meetupsApi}/1/rsvps`)
+      .then((response) => {
+        expect(response.status).toBe(200);
+        expect(response.body.data.length > 0).toBe(true);
+      });
   });
 
   it('returns an error message when meetup ID is invalid', () => {

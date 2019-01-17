@@ -8,71 +8,72 @@ Questioner is an API driven application that crowd-sources questions and comment
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
-```
-Node  
-```
+Node and Npm must be installed on your machine.
 
 ### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
+Clone the Repository
 ```
-Give the example
+run git clone github/igbominadeveloper/questioner
 ```
 
-And repeat
+CD into the questioner project directory you just cloned
 
 ```
-until finished
+run cd path/to/questioner 
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+Install project dependencies
+```
+run npm install
+```
+
+- Create a .env file following the example stated in the .env.example file in the project directory
+- Start any Database of your choice and put the connection string into the .env file you created
+
+Run Migrations
+```
+In your terminal, npm run migrate
+
+```
+
+Now start the development server
+```
+run npm start and the Application is running on localhost:3000
+```
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
 
 ```
-Give an example
+Open your terminal and run the command - npm run test
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
 
 ```
-Give an example
+Authentication test
 ```
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+```
+Run npm-heroku-deploy
+```
+## Testing Tools
+
+* [Mocha](https://mochajs.org/) - Test framework
+* [Expect](https://github.com/Automattic/expect.js/) - Assertion Library
+
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Node](http://nodejs.org/) - Javascript runtime environment used
+* [Express](https://expressjs.com/) - Web Framework
+* [Eslint](https://eslint.org/): [Airbnb](https://www.npmjs.com/package/eslint-config-airbnb) - Style Guide
 
-## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+## Author
 
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Favour Afolayan** 
 
 ## License
 
@@ -80,6 +81,5 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Adewale Aladeusi
+* Jeffrey Way

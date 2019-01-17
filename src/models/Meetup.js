@@ -31,31 +31,20 @@ class Meetup {
 
   static create(payload) {
     const meetup = {
-      topic: payload.title,
+      topic: payload.topic,
       location: payload.location,
-      images: payload.images ? payload.images : [],
-      createdOn: moment(new Date()),
       date: payload.date,
-      tags: payload.tags ? payload.tags : [],
+      images: payload.images ? payload.images : {},
+      tags: payload.tags ? payload.tags : {},
     };
-    const statement = `INSERT INTO ${table}(topic,location,images,createdOn,date,tags) VALUES($1, $2, $3, $4, $5, $6) returning *`;
+    const statement = `INSERT INTO ${table}(topic,location,date,images,tags) VALUES($1, $2, $3, $4, $5) returning *`;
     
     return new Promise((resolve, reject) => {
-      QueryBuilder.run(statement,[...meetup])
+      QueryBuilder.run(statement,Object.values(meetup))
       .then(response => resolve(response))
       .catch(error => reject(error))
     })
   }
-  
-  static deleteAll() {
-    const statement = `DELETE * FROM ${table}`;
-    return new Promise((resolve, reject) => {
-      QueryBuilder.run(statement)
-      .then(response => resolve(response))
-      .catch(error => reject(error))
-    })
-  }
-
 
   static update(meetup, request) {
     const {
@@ -63,21 +52,25 @@ class Meetup {
       location,
       date,
     } = request;
-    const statement = `UPDATE ${table} SET topic=$1,location=$2,date=$3 WHERE id=$4 returning *`;
+    const statement = `UPDATE ${table} SET topic=$1,location=$2,date=$3,updated_at=$4 WHERE id=$5 returning *`;
+    const data = [
+      topic || meetup.rows[0].topic,
+      location || meetup.rows[0].location,
+      date || meetup.rows[0].date,
+      new Date().toLocaleString(),
+      meetup.rows[0].id
+    ]
     return new Promise((resolve, reject) => { 
-      QueryBuilder.run(statement,[
-        topic, location, date, meetup.id
-      ])
+      QueryBuilder.run(statement,data)
       .then(response => resolve(response))
       .catch(error => reject(error))
     })
-
   }
 
-  static delete(id) {
-    const statement = `DELETE * FROM ${table} WHERE id=$1`;
+  static delete(meetup) {
+    const statement = `DELETE FROM ${table} WHERE id=$1`;
     return new Promise((resolve, reject) => { 
-      QueryBuilder.run(statement,[id])
+      QueryBuilder.run(statement,[meetup.rows[0].id])
       .then(response => resolve(response))
       .catch(error => reject(error))
     })

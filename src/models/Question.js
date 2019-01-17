@@ -22,17 +22,16 @@ class Question {
     })
   }
 
-  static create(payload,meetupId) {
+  static create(payload) {
     const question = {
       title: payload.title,
       body: payload.body,
-      meetupId,
-      userId: payload.userId,
-      createdAt: moment(new Date())
+      meetup_id: payload.meetup_id,
+      user_id: payload.user_id,
     };
-    const statement = `INSERT INTO ${table}(title, body, meetupId, user, createdAt) VALUES($1, $2, $3, $4, $5) returning *`;
+    const statement = `INSERT INTO ${table}(title, body, meetup_id, user_id) VALUES($1, $2, $3, $4) returning *`;
     return new Promise((resolve, reject) => {
-      QueryBuilder.run(statement,[...question])
+      QueryBuilder.run(statement,Object.values(question))
       .then(response => resolve(response))
       .catch(error => reject(error))
     })
@@ -64,7 +63,7 @@ class Question {
   }
 
   static delete(id) {
-    const statement = `DELETE * FROM ${table} WHERE id=$1`;
+    const statement = `DELETE FROM ${table} WHERE id=$1`;
     return new Promise((resolve, reject) => { 
       QueryBuilder.run(statement,[id])
       .then(response => resolve(response))

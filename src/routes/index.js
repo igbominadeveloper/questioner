@@ -2,7 +2,9 @@ import express from 'express';
 import meetupController from '../controllers/meetupController';
 import questionsController from '../controllers/questionsController';
 import rsvpController from '../controllers/rsvpController';
+import userController from '../controllers/userController';
 import Validator from '../helpers/validator';
+import helper from '../helpers/helper';
 
 const router = express.Router();
 
@@ -12,6 +14,7 @@ router.get('/', (request, response) => {
 router.get('/api/v1/meetups', meetupController.index);
 router.get('/api/v1/meetups/upcoming', meetupController.upcoming);
 router.post('/api/v1/meetups', Validator.validateMeetup, meetupController.create);
+router.get('/api/v1/meetups/:question', Validator.validateId, meetupController.show);
 router.get('/api/v1/meetups/:id', Validator.validateId, meetupController.show);
 router.patch('/api/v1/meetups/:id',  Validator.validateId, meetupController.update);
 router.delete('/api/v1/meetups/:id',  Validator.validateId, meetupController.destroy);
@@ -22,5 +25,6 @@ router.get('/api/v1/questions', questionsController.index);
 router.get('/api/v1/questions/:id', Validator.validateId, questionsController.show);
 router.patch('/api/v1/questions/:id/upvote', Validator.validateId, questionsController.vote);
 router.patch('/api/v1/questions/:id/downvote',Validator.validateId, questionsController.vote);
-
+router.post('/api/v1/auth/signup', Validator.validateNewUser, helper.checkEmailDuplication, userController.register);
+router.post('/api/v1/auth/login', Validator.validateOldUser, userController.login);
 export default router;

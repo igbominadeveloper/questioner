@@ -5,10 +5,16 @@ import helper from '../helpers/helper';
 class RsvpController {
   static index(request, response){
     rsvp.all(request.params.id)
-    .then(response => {
+    .then(result => {
+      result.rows.map(row => {
+        delete row.created_at;
+        delete row.updated_at;
+        delete row.id;
+        delete row.meetup_id;
+      })
       return response.status(200).json({
         status: 200,
-        data: response.body
+        data: result.rows
       })      
     })
     .catch(error => {
@@ -20,21 +26,25 @@ class RsvpController {
   }
 
   static create(request, response) {
-    const userId = request.user.id;
     const payload = {
-      userId,
-      meetupId: request.params.id,
+      user_id: request.body.user_id,
+      meetup_id: request.params.id,
       topic: request.body.topic,
       status: request.body.status
     }
     rsvp.create(payload)
-    .then(response => {
+    .then(result => {
+      result.rows.map(row => {
+        delete row.created_at;
+        delete row.updated_at;
+        delete row.meetup_id;
+      })
       return response.status(201).json({
         status: 201,
-        data: response.body
+        data: result.rows[0]
       })      
     })
-    .catch(error => helper.checkErrorCode(error))
+    .catch(error => console.log(error))
   }
 }
 

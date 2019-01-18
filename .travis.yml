@@ -5,12 +5,19 @@ cache:
     - "node_modules"
 services:
  - postgresql
+ addons:
+  postgresql: "10"
+  apt:
+    packages:
+    - postgresql-10
+    - postgresql-client-10
   yarn: true
 before_install:
 - npm update
 before_script:
- - psql -c 'create database questioner_test_db;' -U postgres
- - npm run test-migrate:refresh
+- psql -c 'create database testdb;' -U postgres
+before_script:
+- npm run test-migrate:refresh
 install:
 - npm install
 script:

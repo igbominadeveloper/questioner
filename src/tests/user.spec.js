@@ -2,6 +2,7 @@ import expect from 'expect';
 import request from 'supertest';
 import moment from 'moment';
 import app from '../../app.js';
+import { describe } from '../../../../../AppData/Local/Microsoft/TypeScript/2.6/node_modules/@types/joi';
 
 const loginUrl = '/api/v1/auth/login';
 const registrationUrl = '/api/v1/auth/signup';

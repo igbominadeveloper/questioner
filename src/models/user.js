@@ -12,10 +12,10 @@ class User {
   }
 
   static register(credentials) {
-    const statement = 'INSERT INTO users(firstname,lastname,othername,username,email,password) VALUES($1,$2,$3,$4,$5,$6) returning *';
+    const statement = 'INSERT INTO users(firstname,lastname,email,password) VALUES($1,$2,$3,$4) returning *';
     const passwordHash = helper.hashPassword(credentials.password);
     return new Promise((resolve, reject) => {
-      QueryBuilder.run(statement, [credentials.firstname, credentials.lastname, credentials.othername, credentials.username, credentials.email, passwordHash])
+      QueryBuilder.run(statement, [credentials.firstname, credentials.lastname, credentials.email, passwordHash])
         .then((result) => {
           const user = result.rows[0];
           const token = helper.generateToken(user.id, user.isadmin);

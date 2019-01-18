@@ -45,6 +45,7 @@ class userController {
         delete user.isadmin;
         delete user.othername;
         delete user.phonenumber;
+        delete user.username;
         delete user.password;
         delete user.created_at;
         delete user.updated_at;

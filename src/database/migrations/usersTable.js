@@ -6,7 +6,7 @@ const createUsersQuery = {
         firstname VARCHAR(128) NOT NULL,
         lastname VARCHAR(128) NOT NULL,
         othername VARCHAR(128),
-        username VARCHAR(128) NOT NULL,
+        username VARCHAR(128),
         email VARCHAR(128) UNIQUE NOT NULL,
         phoneNumber VARCHAR(128),
         isAdmin INT NOT NULL DEFAULT 0,

@@ -12,6 +12,12 @@ const checkErrorCode = (response, error) => {
       error: error.message ? error.message: 'Model Not Found',
     });
       break;
+
+      case 422: return response.status(422).json({
+      status: 422,
+      error: error.message ? error.message: 'Unproccessable Entity',
+    });
+      break;
     case 400: return response.status(400).json({
       status: 400,
       error: error.message,

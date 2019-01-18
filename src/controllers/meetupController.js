@@ -33,14 +33,14 @@ class meetupController {
     meetup.find(request.params.id)
       .then((result) => {
         if (result.rowCount > 0) {
-          result.rows.map((row) => {
+          result.rows.map(row => {
             delete row.created_at;
             delete row.updated_at;
             delete row.images;
           });
           return response.status(200).json({
             status: 200,
-            data: result.rows[0],
+            data: [result.rows[0]],
           });
         }
         return response.status(404).json({

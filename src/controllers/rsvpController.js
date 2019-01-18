@@ -6,17 +6,20 @@ class RsvpController {
   static index(request, response) {
     rsvp.all(request.params.id)
       .then((result) => {
-        result.rows.map((row) => {
-          delete row.created_at;
-          delete row.updated_at;
-          delete row.id;
-          delete row.meetup_id;
-        });
+        if(result.rowCount > 0){
+          result.rows.map((row) => {
+            delete row.created_at;
+            delete row.updated_at;
+            delete row.id;
+            delete row.meetup_id;
+          });
         return response.status(200).json({
           status: 200,
           data: result.rows,
         });
-      })
+      }
+      return helper.checkErrorCode(response,{status:404, message:`No rsvp yet for this meetup`})
+    })
       .catch(error => response.status(404).json({
         status: 404,
         error: error.message,
@@ -42,7 +45,7 @@ class RsvpController {
           data: result.rows[0],
         });
       })
-      .catch(error => console.log(error));
+      .catch(error => helper.checkErrorCode(response,error));
   }
 }
 

@@ -140,9 +140,13 @@ class QuestionsController {
         if(result.rowCount > 0){ 
           const { rows }  = await question.createComment(request.body);
           if (rows[0]){
+            const newComment = Object.assign({},rows[0]);
+            delete newComment.id;
+            delete newComment.created_at;
+            delete newComment.updated_at;
             return response.status(201).json({
               status: 201,
-              data: rows
+              data: newComment
             })
           }
           return helper.checkErrorCode(response, { 
@@ -156,10 +160,7 @@ class QuestionsController {
        })
       }
       catch (errors){
-         return helper.checkErrorCode(response, {
-          error: 404, 
-          message: errors 
-        })
+         return helper.checkErrorCode(response,errors)
       }
     }
 

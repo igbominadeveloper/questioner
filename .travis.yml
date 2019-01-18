@@ -3,22 +3,12 @@ node_js: "10.15.0"
 cache:
   directories:
     - "node_modules"
-services:
- - postgresql
- addons:
-  postgresql: "10"
-  apt:
-    packages:
-    - postgresql-10
-    - postgresql-client-10
   yarn: true
 before_install:
 - npm update
-- psql -c 'create database testdb;' -U postgres
-before_script:
-- npm run test-migrate:refresh
 install:
 - npm install
 script:
 - npm test
+after_success:
 - npm run coverage

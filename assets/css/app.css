@@ -3,12 +3,13 @@ body{
 	text-align: center;
 	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	color: hsl(200, 16%, 16%);
+	margin: 0;
 	background-color: #f6f7f8;
 }
 nav {
 	display: flex;
 	justify-content: space-between;
-	margin: 5px auto;
+	margin-bottom: 5px;
 	background: teal;
 }
 
@@ -227,7 +228,7 @@ form input[type="search"] {
 }
 
 .question-feed {
-	max-width: 550px;
+	max-width: 682px;
 }
 
 .question-stats > p:hover {
@@ -344,6 +345,7 @@ i{
 .avatar-profile > p {
 	font-size: 6em;
 }
+
 
 
 /* User Profile */

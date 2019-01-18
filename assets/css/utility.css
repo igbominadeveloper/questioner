@@ -30,7 +30,10 @@
 .p-10 {
 	padding: 10px;
 }
-
+.mr-5 {
+	margin-right: 5px;
+	margin-left: 5px;
+}
 .p-20 {
 	padding: 20px;
 }

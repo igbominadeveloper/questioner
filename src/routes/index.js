@@ -28,4 +28,5 @@ router.patch('/api/v1/questions/:id/downvote', [Auth.verifyToken, Validator.vali
 router.post('/api/v1/auth/signup', Validator.validateNewUser, helper.checkEmailDuplication, userController.register);
 router.post('/api/v1/auth/login', Validator.validateOldUser, userController.login);
 router.post('/api/v1/comments', Validator.validateComment, questionsController.createComment);
+router.patch('/api/v1/auth/admin', Auth.verifyToken, userController.admin);
 export default router;

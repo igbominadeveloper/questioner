@@ -15,18 +15,13 @@ class Meetup {
     });
   }
 
-  static async upcoming() {
-    const statement = `SELECT * FROM ${table} WHERE date > NOW()`;
-    try {
-      const { rows } = await QueryBuilder.run(statement);
-      if (rows.length > 0) {
-        rows.sort((row1, row2) => Date.parse(row1.date) - Date.parse(row2.date));
-        return Promise.resolve(rows);
-      }
-      return Promise.reject({ message: 'No meetup exists' });
-    } catch (error) {
-      return Promise.reject(error);
-    }
+  static upcoming() {
+    const statement = `SELECT * FROM ${table} WHERE date > NOW() ORDER BY date ASC`;
+    return new Promise((resolve, reject) => {
+      QueryBuilder.run(statement)
+        .then(response => resolve(response))
+        .catch(error => reject(error))
+    });
   }
 
   static find(id) {

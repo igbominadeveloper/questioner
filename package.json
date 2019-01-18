@@ -7,7 +7,7 @@
     "dev": "nodemon src/index.js",
     "build": "babel-node src/ dist/",
     "lint": "node_modules/.bin/eslint src/\"**/*.js\" src/tests/**.spec.js",
-    "test": "cross-env NODE_ENV=test nyc --require babel-register mocha src/tests/**.spec.js --exit",
+    "test": "set NODE_ENV=test npm run test-migrate:refresh && nyc --require babel-register mocha src/tests/user.spec.js --exit",
     "test:watch": "cross-env NODE_ENV=test nyc --require babel-register mocha src/tests/user.spec.js -w",
     "migrate": "babel-node src/database/runMigrations.js up",
     "heroku-postbuild": "cross-env babel-node src/database/runMigrations.js up",

@@ -9,8 +9,8 @@ services:
 before_install:
 - npm update
 before_script:
- - psql -c 'create database questioner_test_db;' -U postgres
- - npm run test-migrate:refresh
+- psql -c 'create database questioner_test_db;' -U postgres
+- npm run test-migrate:refresh
 install:
 - npm install
 script:

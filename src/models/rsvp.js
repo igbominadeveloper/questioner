@@ -1,5 +1,5 @@
 import QueryBuilder from '../database/queryBuilder';
-
+import meetup from './Meetup';
 const table = 'rsvps';
 
 class Rsvp {
@@ -16,7 +16,6 @@ class Rsvp {
    	const {
    		user_id,
    		meetup_id,
-      topic,
    		status,
    	} = rsvp;
 
@@ -25,6 +24,9 @@ class Rsvp {
     if(rows[0]) {
       return Promise.reject({ status: 422, message: `You have submitted your rsvp already`});
     }
+    const rsvpMeetup = await meetup.find(meetup_id);
+    const topic = rsvpMeetup.rows[0].topic;
+    
     return new Promise((resolve, reject) => {
 	    QueryBuilder.run(statement, [user_id, meetup_id, status, topic])
 	    .then(response => resolve(response))

@@ -76,11 +76,11 @@ class Validate {
 
   static validateNewUser(request, response, next) {
     const {
-      firstname, lastname, othername, username, email, password,
+      firstname, lastname, email, password,
     } = request.body;
 
     const validateObject = {
-      firstname, lastname, othername, username, email, password,
+      firstname, lastname, email, password,
     };
 
     Joi.validate(validateObject, schema.newUser, (err) => {
@@ -135,11 +135,11 @@ class Validate {
 
   static validateRsvps(request, response, next) {
     const {
-      user_id, status, meetup_id, topic,
+     status
     } = request.body;
 
     const validateObject = {
-      user_id, status, meetup_id, topic,
+      status
     };
 
     Joi.validate(validateObject, schema.rsvps, (err) => {

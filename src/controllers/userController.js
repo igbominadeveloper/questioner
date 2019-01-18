@@ -11,9 +11,9 @@ class userController {
           if (helper.decodePassword(user.password, request.body.password)) {
             const token = helper.generateToken(user.id, user.isadmin);
             const data = { token, user };
-            delete user.isadmin;
 		      delete user.othername;
-		      delete user.phonenumber;
+          delete user.phonenumber;
+		      delete user.username;
 		      delete user.password;
 		      delete user.created_at;
 		      delete user.updated_at;
@@ -45,6 +45,7 @@ class userController {
         delete user.isadmin;
         delete user.othername;
         delete user.phonenumber;
+        delete user.username;
         delete user.password;
         delete user.created_at;
         delete user.updated_at;
@@ -54,6 +55,20 @@ class userController {
         });
       });
   }
+
+  static async admin(request, response) {
+    try{
+      const result = await user.giveAdmin(request.user.id);
+    if(result){
+      return response.status(200).json({
+        status: 200,
+        data: [result]
+      })
+    }
+  } catch (error){
+    return helper.checkErrorCode(response,error)
+  }
+}
 }
 
 export default userController;

@@ -9,7 +9,6 @@ class meetupController {
         rows.map((row) => {
           delete row.created_at;
           delete row.updated_at;
-          delete row.id;
           delete row.images;
         });
         return response.status(200).json({
@@ -132,8 +131,8 @@ class meetupController {
             delete row.images;
             delete row.tags;
           });
-          return response.status(202).json({
-            status: 202,
+          return response.status(200).json({
+            status: 200,
             data: updated.rows[0],
           });
         })

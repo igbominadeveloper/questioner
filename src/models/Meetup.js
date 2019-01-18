@@ -60,13 +60,13 @@ class Meetup {
       location,
       date,
     } = request;
-    const statement = `UPDATE ${table} SET topic=$1,location=$2,date=$3 WHERE id=$5 returning *`;
+    const statement = `UPDATE ${table} SET topic=$1,location=$2,date=$3 WHERE id=$4 returning *`;
 
     const data = [
       topic || meetup.rows[0].topic,
       location || meetup.rows[0].location,
       date || meetup.rows[0].date,
-      meetup.rows[0].id,
+      meetup.rows[0].id
     ];
     return new Promise((resolve, reject) => {
       QueryBuilder.run(statement, data)

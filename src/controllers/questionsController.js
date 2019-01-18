@@ -10,7 +10,6 @@ class QuestionsController {
           result.rows.map((row) => {
             delete row.created_at;
             delete row.updated_at;
-            delete row.id;
           });
           return response.status(200).json({
             status: 200,
@@ -35,7 +34,6 @@ class QuestionsController {
         const data = Object.assign({}, rows[0]);
         delete data.updated_at;
         delete data.created_at;
-        delete data.id;
         delete data.downvotes;
         delete data.upvotes;
         return response.status(200).json({
@@ -56,7 +54,6 @@ class QuestionsController {
           const data = Object.assign({}, result.rows[0]);
           delete data.updated_at;
           delete data.created_at;
-          delete data.id;
           delete data.downvotes;
           delete data.upvotes;
           return response.status(201).json({
@@ -141,7 +138,6 @@ class QuestionsController {
           const { rows }  = await question.createComment(request.body);
           if (rows[0]){
             const newComment = Object.assign({},rows[0]);
-            delete newComment.id;
             delete newComment.created_at;
             delete newComment.updated_at;
             return response.status(201).json({
@@ -176,10 +172,9 @@ class QuestionsController {
             const upvoteResult = Object.assign({}, upvoted.rows[0]);
             delete upvoteResult.created_at;
             delete upvoteResult.updated_at;
-            delete upvoteResult.id;
             delete upvoteResult.user_id;
             return response.status(201).json({
-              data: upvotedResult
+              data: upvoteResult
             })        
           }
           else if(result.rows[0].downvote==0){
@@ -189,7 +184,6 @@ class QuestionsController {
           const downvotedResult = Object.assign({}, downvoted.rows[0]);
           delete downvotedResult.created_at;
           delete downvotedResult.updated_at;
-          delete downvotedResult.id;
           delete downvotedResult.user_id;
           return response.status(201).json({
             status:201,
@@ -200,7 +194,6 @@ class QuestionsController {
           const questionResult = Object.assign({}, questionRow.rows[0]);
           delete questionResult.created_at;
           delete questionResult.updated_at;
-          delete questionResult.id;
           delete questionResult.user_id;
           return response.status(200).json({
             status:200,

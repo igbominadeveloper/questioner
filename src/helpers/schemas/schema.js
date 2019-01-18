@@ -20,7 +20,7 @@ const comment = Joi.object().keys({
   comment: Joi.string().trim().required(),
 });
 
-const newUser = Joi.object().keys({]
+const newUser = Joi.object().keys({
   firstname: Joi.string().trim().min(3).required(),
   lastname: Joi.string().trim().min(3).required(),
   email: Joi.string().email({ minDomainAtoms: 2 }).required(),

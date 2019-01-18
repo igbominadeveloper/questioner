@@ -135,11 +135,11 @@ class Validate {
 
   static validateRsvps(request, response, next) {
     const {
-      user_id, status, meetup_id, topic,
+     status
     } = request.body;
 
     const validateObject = {
-      user_id, status, meetup_id, topic,
+      status
     };
 
     Joi.validate(validateObject, schema.rsvps, (err) => {

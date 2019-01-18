@@ -61,6 +61,7 @@ class Meetup {
       date,
     } = request;
     const statement = `UPDATE ${table} SET topic=$1,location=$2,date=$3 WHERE id=$5 returning *`;
+
     const data = [
       topic || meetup.rows[0].topic,
       location || meetup.rows[0].location,

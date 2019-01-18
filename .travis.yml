@@ -14,7 +14,6 @@ services:
   yarn: true
 before_install:
 - npm update
-before_script:
 - psql -c 'create database testdb;' -U postgres
 before_script:
 - npm run test-migrate:refresh

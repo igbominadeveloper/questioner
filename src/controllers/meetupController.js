@@ -45,7 +45,7 @@ class meetupController {
         }
         return response.status(404).json({
           status: 404,
-          error: 'Meetup doesn\'t exist',
+          error: `Meetup doesn't exist`,
         });
       })
       .catch(error => response.status(400).json({
@@ -57,7 +57,6 @@ class meetupController {
   static create(request, response) {
     if (request.user.isadmin) {
       meetup.create(request.body)
-
         .then((result) => {
           if (result.rowCount > 0) {
             const data = Object.assign({}, result.rows[0]);
@@ -79,41 +78,37 @@ class meetupController {
           error: error.message,
         }));
     } else {
-      return helper.checkErrorCode(response, { status: 401, message: 'You are not authorized to perform this action' });
+      return helper.checkErrorCode(response, { 
+        status: 401, 
+        message: 'You are not authorized to perform this action' 
+      });
     }
   }
 
-
-  static destroyAll(request, response) {
-    meetup.deleteAll()
-      .then(result => response.status(204).json({
-        status: 204,
-        message: 'Meetups Deleted',
-      }))
-      .catch(error => response.status(400).json({
-        status: 400,
-        error: error.message,
-      }));
-  }
 
   static async upcoming(request, response) {
     try {
       const { rows } = await meetup.upcoming();
       if (rows.length > 0) {
-        const data = Object.assign({}, rows);
-        data.map((row) => {
+        rows.map(row => {
           delete row.images;
           delete row.created_at;
           delete row.updated_at;
         });
         return response.status(200).json({
           status: 200,
-          data: [data],
+          data: rows
         });
       }
-      return helper.checkErrorCode(response, { status: 404, message: 'No Upcoming meetups' });
+      return helper.checkErrorCode(response, { 
+        status: 404, 
+        message: 'No Upcoming meetups' 
+      });
     } catch (error) {
-      return helper.checkErrorCode(response, { status: 400, message: 'Error occured' });
+      return helper.checkErrorCode(response, { 
+        status: 400, 
+        message: 'Error occured' 
+      });
     }
   }
 
@@ -127,7 +122,7 @@ class meetupController {
           }
           return response.status(404).json({
             status: 404,
-            error: 'Meetup doesn\'t exist',
+            error: `Meetup doesn't exist`,
           });
         })
         .then(result => meetup.update(result, requestBody))

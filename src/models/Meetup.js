@@ -33,7 +33,7 @@ class Meetup {
     });
   }
 
-  static create(payload) {
+  static async create(payload) {
     const meetup = {
       topic: payload.topic,
       location: payload.location,
@@ -41,8 +41,12 @@ class Meetup {
       images: payload.images ? payload.images : {},
       tags: payload.tags ? payload.tags : {},
     };
-    const statement = `INSERT INTO ${table}(topic,location,date,images,tags) VALUES($1, $2, $3, $4, $5) returning *`;
+    const { rows } = await QueryBuilder.run(`SELECT topic FROM ${table} WHERE topic = $1 OR date = $2`,[meetup.topic,meetup.date]);
+    if(rows[0]) {
+      return Promise.reject({ status: 422, message: `Similar meetup exists already`});
+    }
 
+    const statement = `INSERT INTO ${table}(topic,location,date,images,tags) VALUES($1, $2, $3, $4, $5) returning *`;
     return new Promise((resolve, reject) => {
       QueryBuilder.run(statement, Object.values(meetup))
         .then(response => resolve(response))
@@ -56,12 +60,12 @@ class Meetup {
       location,
       date,
     } = request;
-    const statement = `UPDATE ${table} SET topic=$1,location=$2,date=$3,updated_at=$4 WHERE id=$5 returning *`;
+    const statement = `UPDATE ${table} SET topic=$1,location=$2,date=$3 WHERE id=$5 returning *`;
+
     const data = [
       topic || meetup.rows[0].topic,
       location || meetup.rows[0].location,
       date || meetup.rows[0].date,
-      new Date().toLocaleString(),
       meetup.rows[0].id,
     ];
     return new Promise((resolve, reject) => {

@@ -24,41 +24,20 @@ class Question {
     });
   }
 
-  static create(payload) {
+  static async create(payload) {
     const question = {
       title: payload.title,
       body: payload.body,
       meetup_id: payload.meetup_id,
       user_id: payload.user_id,
     };
+    const { rows } = await QueryBuilder.run(`SELECT title FROM ${table} WHERE title = $1 OR body = $2`,[question.title,question.body]);
+    if(rows[0]) {
+      return Promise.reject({ status: 422, message: `Question exists already`});
+    }
     const statement = `INSERT INTO ${table}(title, body, meetup_id, user_id) VALUES($1, $2, $3, $4) returning *`;
     return new Promise((resolve, reject) => {
       QueryBuilder.run(statement, Object.values(question))
-        .then(response => resolve(response))
-        .catch(error => reject(error));
-    });
-  }
-
-  static deleteAll() {
-    const statement = `DELETE * FROM ${table}`;
-    return new Promise((resolve, reject) => {
-      QueryBuilder.run(statement)
-        .then(response => resolve(response))
-        .catch(error => reject(error));
-    });
-  }
-
-
-  static update(questionId, request) {
-    const {
-      title,
-      body,
-    } = request;
-    const statement = `UPDATE ${table} SET title=$1,body=$2 WHERE id=$3 returning *`;
-    return new Promise((resolve, reject) => {
-      QueryBuilder.run(statement, [
-        title, body, questionId,
-      ])
         .then(response => resolve(response))
         .catch(error => reject(error));
     });
@@ -76,6 +55,12 @@ class Question {
   static async createComment (payload) {
     const { user_id, question_id, topic, comment } = payload;
     const statement = `INSERT INTO comments(user_id,question_id,topic,comment) VALUES($1,$2,$3,$4) returning *`;
+
+    const { rows } = await QueryBuilder.run(`SELECT * FROM comments WHERE user_id = $1 AND comment = $2`,[user_id,comment]);
+    if(rows[0]) {
+      return Promise.reject({ status: 422, message: `You have submitted this comment already`});
+    }
+
     return new Promise((resolve,reject) => {
       QueryBuilder.run(statement,[user_id, question_id,topic, comment])
       .then(response => resolve(response))

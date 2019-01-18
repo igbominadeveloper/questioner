@@ -28,9 +28,8 @@ class RsvpController {
 
   static create(request, response) {
     const payload = {
-      user_id: request.body.user_id,
+      user_id: request.user.id,
       meetup_id: request.params.id,
-      topic: request.body.topic,
       status: request.body.status,
     };
     rsvp.create(payload)

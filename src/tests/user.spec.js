@@ -24,8 +24,8 @@ describe('POST /api/v1/auth/login', () => {
         if (err) return done(err);
 		 		expect(res.body.data);
       });
-    done();      
-    });
+    done();
+  });
 });
 
 describe('POST /api/v1/auth/login', () => {
@@ -34,10 +34,10 @@ describe('POST /api/v1/auth/login', () => {
       .post(loginUrl)
       .send({ email: 'favourafolayan@gmail.com', password: 'password1' })
       .end((response, error) => {
-        expect(error.body.error).toBe("User not found");
+        expect(error.body.error).toBe('User not found');
         expect(error.body.status).toBe(404);
       });
-    done();      
+    done();
   });
 });
 
@@ -45,19 +45,19 @@ let registeredUser = '';
 
 before((done) => {
   const userData = {
-    firstname:"Freeze",
-    lastname:"Test User",
-    email:"afolayan@tech4dev.com",
-    password:"password1"
-  }
+    firstname: 'Freeze',
+    lastname: 'Test User',
+    email: 'afolayan@tech4dev.com',
+    password: 'password1',
+  };
   request(app)
-  .post(registrationUrl)
-  .send(userData)
-  .end((error,response) => {
-    registeredUser = response.body.data.user;
-    console.log(`Registered User is - ${registeredUser}`);   
-  })
-  done()
+    .post(registrationUrl)
+    .send(userData)
+    .end((error, response) => {
+      registeredUser = response.body.data.user;
+      console.log(`Registered User is - ${registeredUser}`);
+    });
+  done();
 });
 
 describe('POST /api/v1/auth/login', () => {
@@ -65,7 +65,7 @@ describe('POST /api/v1/auth/login', () => {
     request(app)
       .post(loginUrl)
       .send({ email: 'afolayan@tech4dev.com', password: 'password1' })
-      .end((error,response) => {
+      .end((error, response) => {
         expect(response.body.status).toBe(200);
         expect(response.body.data[0].user.email).toBe('afolayan@tech4dev.com');
         expect(response.body.data[0].user.firstname).toBe('Freeze');
@@ -139,9 +139,9 @@ describe('POST /api/v1/auth/signup', () => {
       .send(payload)
       .end((error, response) => {
         expect(response.body.status).toBe(400);
-        expect(response.body.error).toBe('\"email\" is not allowed to be empty');      
+        expect(response.body.error).toBe('\"email\" is not allowed to be empty');
       });
-    done();      
+    done();
   });
 });
 
@@ -162,7 +162,7 @@ describe('POST /api/v1/auth/signup', () => {
         expect(response.body.status).toBe(400);
         expect(response.body.error).toBe('\"email\" must be a valid email');
       });
-    done();            
+    done();
   });
 });
 
@@ -182,8 +182,8 @@ describe('POST /api/v1/auth/signup', () => {
         expect(response.body.status).toBe(400);
         expect(response.body.error).toBe('\"password\" is not allowed to be empty');
       });
-    done();      
-    });
+    done();
+  });
 });
 
 describe('POST /api/v1/auth/signup', () => {
@@ -200,11 +200,11 @@ describe('POST /api/v1/auth/signup', () => {
       .send(payload)
       .end((error, response) => {
         console.log(response.body);
-        expect(response.body.data[0].user.firstname).toBe('Faour');        
+        expect(response.body.data[0].user.firstname).toBe('Favour');
         expect(response.status).toBe(201);
         expect(response.body.data).toContainKey('token');
         expect(response.body.data[0].user.username).toBe('igbominadeveloper');
       });
-    done();      
+    done();
   });
 });

@@ -115,7 +115,7 @@ class Validate {
 
   static validateComment(request, response, next) {
     const {
-      user_id, question_id, topic, comment, 
+      user_id, question_id, topic, comment,
     } = request.body;
 
     const validateObject = {
@@ -135,11 +135,11 @@ class Validate {
 
   static validateRsvps(request, response, next) {
     const {
-     status
+      status,
     } = request.body;
 
     const validateObject = {
-      status
+      status,
     };
 
     Joi.validate(validateObject, schema.rsvps, (err) => {

@@ -1,9 +1,10 @@
-import usersTable from './migrations/usersTable.js';
-import commentsTable from './migrations/commentsTable.js';
-import questionsTable from './migrations/questionsTable.js';
-import meetupsTable from './migrations/meetupsTable.js';
-import rsvpsTable from './migrations/rsvpsTable.js';
-import votesTable from './migrations/votesTable.js';
+import usersTable from './migrations/usersTable';
+import commentsTable from './migrations/commentsTable';
+import questionsTable from './migrations/questionsTable';
+import meetupsTable from './migrations/meetupsTable';
+import rsvpsTable from './migrations/rsvpsTable';
+import votesTable from './migrations/votesTable';
+import seeders from './seeder';
 import QueryBuilder from './queryBuilder';
 
 const up = async () => {
@@ -32,9 +33,18 @@ const down = async () => {
   }
 };
 
+const seed = async () => {
+  try {
+    await QueryBuilder.run(seeders.users);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   up,
   down,
+  seed,
 };
 
 require('make-runnable');

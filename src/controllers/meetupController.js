@@ -33,7 +33,7 @@ class meetupController {
     meetup.find(request.params.id)
       .then((result) => {
         if (result.rowCount > 0) {
-          result.rows.map(row => {
+          result.rows.map((row) => {
             delete row.created_at;
             delete row.updated_at;
             delete row.images;
@@ -45,7 +45,7 @@ class meetupController {
         }
         return response.status(404).json({
           status: 404,
-          error: `Meetup doesn't exist`,
+          error: 'Meetup doesn\'t exist',
         });
       })
       .catch(error => response.status(400).json({
@@ -78,9 +78,9 @@ class meetupController {
           error: error.message,
         }));
     } else {
-      return helper.checkErrorCode(response, { 
-        status: 401, 
-        message: 'You are not authorized to perform this action' 
+      return helper.checkErrorCode(response, {
+        status: 401,
+        message: 'You are not authorized to perform this action',
       });
     }
   }
@@ -90,24 +90,24 @@ class meetupController {
     try {
       const { rows } = await meetup.upcoming();
       if (rows.length > 0) {
-        rows.map(row => {
+        rows.map((row) => {
           delete row.images;
           delete row.created_at;
           delete row.updated_at;
         });
         return response.status(200).json({
           status: 200,
-          data: rows
+          data: [rows],
         });
       }
-      return helper.checkErrorCode(response, { 
-        status: 404, 
-        message: 'No Upcoming meetups' 
+      return helper.checkErrorCode(response, {
+        status: 404,
+        message: 'No Upcoming meetups',
       });
     } catch (error) {
-      return helper.checkErrorCode(response, { 
-        status: 400, 
-        message: 'Error occured' 
+      return helper.checkErrorCode(response, {
+        status: 400,
+        message: 'Error occured',
       });
     }
   }
@@ -122,7 +122,7 @@ class meetupController {
           }
           return response.status(404).json({
             status: 404,
-            error: `Meetup doesn't exist`,
+            error: 'Meetup doesn\'t exist',
           });
         })
         .then(result => meetup.update(result, requestBody))
@@ -160,7 +160,7 @@ class meetupController {
         })
         .then((onDeathRow) => {
           meetup.delete(onDeathRow)
-            .then(deleted => response.status(200).json({
+            .then(() => response.status(200).json({
               status: 200,
               message: 'Meetup deleted successfully',
             }));

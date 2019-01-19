@@ -25,22 +25,22 @@ class User {
     });
   }
 
-  static async giveAdmin(user_id){
+  static async giveAdmin(user_id) {
     try {
-    const { rows } = await QueryBuilder.run(`UPDATE users SET isadmin = 1 WHERE id =$1 returning *`,[user_id]);
-    if (rows[0]){
-      const user = Object.assign({},rows[0]);
-      delete user.othername;
-      delete user.username;
-      delete user.password;
-      delete user.created_at;
-      delete user.updated_at;
-      delete user.phonenumber;
-      return user;
-    }
-    return Promise.reject({status:404, message: `User doesn't exist`});
+      const { rows } = await QueryBuilder.run('UPDATE users SET isadmin = 1 WHERE id =$1 returning *', [user_id]);
+      if (rows[0]) {
+        const user = Object.assign({}, rows[0]);
+        delete user.othername;
+        delete user.username;
+        delete user.password;
+        delete user.created_at;
+        delete user.updated_at;
+        delete user.phonenumber;
+        return user;
+      }
+      return Promise.reject({ status: 404, message: 'User doesn\'t exist' });
     } catch (error) {
-      return error
+      return error;
     }
   }
 }

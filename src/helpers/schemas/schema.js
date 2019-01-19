@@ -24,16 +24,16 @@ const newUser = Joi.object().keys({
   firstname: Joi.string().trim().min(3).required(),
   lastname: Joi.string().trim().min(3).required(),
   email: Joi.string().email({ minDomainAtoms: 2 }).required(),
-  password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required()
+  password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
 });
 
 const oldUser = Joi.object().keys({
   email: Joi.string().email({ minDomainAtoms: 2 }).required(),
-  password: Joi.string().trim().required()
+  password: Joi.string().trim().required(),
 });
 
 const rsvps = Joi.object().keys({
-  status: Joi.string().trim().valid(['yes', 'no', 'maybe']).required()
+  status: Joi.string().trim().valid(['yes', 'no', 'maybe']).required(),
 });
 
 export default {

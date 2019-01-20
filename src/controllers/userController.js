@@ -12,7 +12,7 @@ class userController {
             const token = helper.generateToken(user.id, user.isadmin);
             const data = { token, user };
 		      delete user.othername;
-          delete user.phonenumber;
+            delete user.phonenumber;
 		      delete user.username;
 		      delete user.password;
 		      delete user.created_at;
@@ -57,18 +57,18 @@ class userController {
   }
 
   static async admin(request, response) {
-    try{
+    try {
       const result = await user.giveAdmin(request.user.id);
-    if(result){
-      return response.status(200).json({
-        status: 200,
-        data: [result]
-      })
+      if (result) {
+        return response.status(200).json({
+          status: 200,
+          data: [result],
+        });
+      }
+    } catch (error) {
+      return helper.checkErrorCode(response, error);
     }
-  } catch (error){
-    return helper.checkErrorCode(response,error)
   }
-}
 }
 
 export default userController;

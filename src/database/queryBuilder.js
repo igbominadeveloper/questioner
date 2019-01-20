@@ -15,7 +15,7 @@ if (process.env.NODE_ENV == 'test') {
 }
 
 pool.on('connect', () => {
-  console.log('connected to the db');
+  // console.log('connected to the db');
 });
 
 class QueryBuilder {

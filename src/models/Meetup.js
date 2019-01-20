@@ -20,7 +20,7 @@ class Meetup {
     return new Promise((resolve, reject) => {
       QueryBuilder.run(statement)
         .then(response => resolve(response))
-        .catch(error => reject(error))
+        .catch(error => reject(error));
     });
   }
 
@@ -41,9 +41,9 @@ class Meetup {
       images: payload.images ? payload.images : {},
       tags: payload.tags ? payload.tags : {},
     };
-    const { rows } = await QueryBuilder.run(`SELECT topic FROM ${table} WHERE topic = $1 OR date = $2`,[meetup.topic,meetup.date]);
-    if(rows[0]) {
-      return Promise.reject({ status: 422, message: `Similar meetup exists already`});
+    const { rows } = await QueryBuilder.run(`SELECT topic FROM ${table} WHERE topic = $1 OR date = $2`, [meetup.topic, meetup.date]);
+    if (rows[0]) {
+      return Promise.reject({ status: 422, error: 'Similar meetup exists already' });
     }
 
     const statement = `INSERT INTO ${table}(topic,location,date,images,tags) VALUES($1, $2, $3, $4, $5) returning *`;

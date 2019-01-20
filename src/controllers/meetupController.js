@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import meetup from '../models/Meetup';
 import helper from '../helpers/helper';
 
@@ -32,7 +33,7 @@ class meetupController {
     meetup.find(request.params.id)
       .then((result) => {
         if (result.rowCount > 0) {
-          result.rows.map(row => {
+          result.rows.map((row) => {
             delete row.created_at;
             delete row.updated_at;
             delete row.images;
@@ -44,7 +45,7 @@ class meetupController {
         }
         return response.status(404).json({
           status: 404,
-          error: `Meetup doesn't exist`,
+          error: 'Meetup doesn\'t exist',
         });
       })
       .catch(error => response.status(400).json({
@@ -72,14 +73,14 @@ class meetupController {
             error: 'Meetup creation failed',
           });
         })
-        .catch(error => response.status(400).json({
-          status: 400,
-          error: error.message,
+        .catch(error => response.status(422).json({
+          status: 422,
+          error: error.error,
         }));
     } else {
-      return helper.checkErrorCode(response, { 
-        status: 401, 
-        message: 'You are not authorized to perform this action' 
+      return helper.checkErrorCode(response, {
+        status: 401,
+        message: 'You are not authorized to perform this action',
       });
     }
   }
@@ -89,24 +90,24 @@ class meetupController {
     try {
       const { rows } = await meetup.upcoming();
       if (rows.length > 0) {
-        rows.map(row => {
+        rows.map((row) => {
           delete row.images;
           delete row.created_at;
           delete row.updated_at;
         });
         return response.status(200).json({
           status: 200,
-          data: rows
+          data: [rows],
         });
       }
-      return helper.checkErrorCode(response, { 
-        status: 404, 
-        message: 'No Upcoming meetups' 
+      return helper.checkErrorCode(response, {
+        status: 404,
+        message: 'No Upcoming meetups',
       });
     } catch (error) {
-      return helper.checkErrorCode(response, { 
-        status: 400, 
-        message: 'Error occured' 
+      return helper.checkErrorCode(response, {
+        status: 400,
+        message: 'Error occured',
       });
     }
   }
@@ -115,15 +116,6 @@ class meetupController {
     if (request.user.isadmin) {
       const requestBody = request.body;
       meetup.find(request.params.id)
-        .then((result) => {
-          if (result.rowCount > 0) {
-            return result;
-          }
-          return response.status(404).json({
-            status: 404,
-            error: `Meetup doesn't exist`,
-          });
-        })
         .then(result => meetup.update(result, requestBody))
         .then((updated) => {
           updated.rows.map((row) => {
@@ -136,9 +128,9 @@ class meetupController {
             data: updated.rows[0],
           });
         })
-        .catch(error => response.status(400).json({
-          status: 400,
-          error: error.message,
+        .catch(error => response.status(404).json({
+          status: 404,
+          error: 'Meetup not found' || error,
         }));
     } else {
       return helper.checkErrorCode(response, { status: 401, message: 'You are not authorized to perform this action' });
@@ -148,23 +140,18 @@ class meetupController {
   static destroy(request, response) {
     if (request.user.isadmin) {
       meetup.find(request.params.id)
-        .then((result) => {
-          if (result.rowCount > 0) {
-            return result;
-          }
-          return response.status(404).json({
-            status: 404,
-            error: 'Meetup doesn\'t exist',
-          });
-        })
         .then((onDeathRow) => {
           meetup.delete(onDeathRow)
-            .then(deleted => response.status(200).json({
+            .then(() => response.status(200).json({
               status: 200,
               message: 'Meetup deleted successfully',
+            }))
+            .catch(error => response.status(400).json({
+              status: 400,
+              error: error.message,
             }));
         })
-        .catch(error => response.status(400).json({
+        .catch(error => response.status(404).json({
           status: 400,
           error: error.message,
         }));

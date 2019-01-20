@@ -3,16 +3,19 @@ node_js: "10.15.0"
 cache:
   directories:
     - "node_modules"
-services:
- - postgresql
   yarn: true
+services:
+  - postgresql
 before_install:
 - npm update
-before_script:
- - psql -c 'create database questioner_test_db;' -U postgres
- - npm run test-migrate:refresh
 install:
 - npm install
+before_script:
+  - psql -c "CREATE USER favour WITH PASSWORD 'password1';"
+  - psql -c 'create database testdb;'
+  - npm run test-migrate:refresh
+  - npm run test:seed
 script:
 - npm test
+after_success:
 - npm run coverage

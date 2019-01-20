@@ -90,6 +90,7 @@ describe('Meetups', () => {
   });
 
   describe('POST /api/v1/meetups', () => {
+    describe('response', () => {
     it('returns 403 when no user token is set', (done) => {
       request(app)
         .get(meetupsApi)
@@ -176,6 +177,7 @@ describe('Meetups', () => {
           expect(response.body.error).toMatch(/meetup exists/);
           done();
         });
+    });
     });
   });
 
@@ -277,13 +279,13 @@ describe('Meetups', () => {
         });
     });
 
-    it('returns a 404 error when invalid meetup id is supplied', (done) => {
+    it('returns a 400 error when invalid meetup id is supplied', (done) => {
       request(app)
-        .get(`${meetupsApi}/${invalidId}`)
+        .patch(`${meetupsApi}/uijkjkjkj`)
         .set('x-access-token', adminToken)
         .send(meetupUpdate)
         .end(() => {
-          expect(404);
+          expect(400);
           done();
         });
     });
@@ -310,12 +312,12 @@ describe('Meetups', () => {
         });
     });
 
-    it('throws a 404 response when the meetup specified is non-existent', (done) => {
+    it('throws a 400 response when the meetup specified is non-existent', (done) => {
       request(app)
         .delete(`${meetupsApi}/${invalidId}`)
         .set('x-access-token', adminToken)
         .end(() => {
-          expect(404);
+          expect(400);
           done();
         });
     });

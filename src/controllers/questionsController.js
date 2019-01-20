@@ -178,7 +178,7 @@ class QuestionsController {
           delete upvoteResult.id;
           delete upvoteResult.user_id;
           return response.status(201).json({
-            data: upvotedResult,
+            data: upvoteResult,
           });
         }
         if (result.rows[0].downvote == 0) {

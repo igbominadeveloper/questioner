@@ -10,18 +10,12 @@ before_install:
 - npm update
 install:
 - npm install
-addons:
-  postgresql: "10"
-  apt:
-    packages:
-    - postgresql-10
-    - postgresql-client-10
 env:
   global:
     - PGPORT=5433
 before_script:
-  - psql -c "CREATE USER favour WITH PASSWORD 'password1';" -U postgres
-  - psql -c 'create database testdb;' -U postgres
+  - psql -c "CREATE USER favour WITH PASSWORD 'password1';"
+  - psql -c 'create database testdb;' -U favour
   - npm run test-migrate:refresh
   - npm run test:seed
 script:

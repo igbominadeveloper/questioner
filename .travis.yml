@@ -20,8 +20,8 @@ env:
   global:
     - PGPORT=5433
 before_script:
-  - psql -c 'create database testdb;' -U postgres
   - psql -c "CREATE USER favour WITH PASSWORD 'password1';" -U postgres
+  - psql -c 'create database testdb;' -U postgres
   - npm run test-migrate:refresh
   - npm run test:seed
 script:

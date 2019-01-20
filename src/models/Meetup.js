@@ -66,7 +66,7 @@ class Meetup {
       topic || meetup.rows[0].topic,
       location || meetup.rows[0].location,
       date || meetup.rows[0].date,
-      meetup.rows[0].id
+      meetup.rows[0].id,
     ];
     return new Promise((resolve, reject) => {
       QueryBuilder.run(statement, data)

@@ -17,7 +17,7 @@ class Auth {
       const statement = 'SELECT * FROM users WHERE id = $1';
       const { rows } = await QueryBuilder.run(statement, [decodedToken.user_id]);
       if (!rows[0]) {
-	      return helper.checkErrorCode(response, { status: 400, message: 'Invalid Token provided' });
+        return helper.checkErrorCode(response, { status: 422, message: 'Invalid Token provided' });
       }
       request.user = { id: decodedToken.user_id, isadmin: decodedToken.isadmin };
       next();

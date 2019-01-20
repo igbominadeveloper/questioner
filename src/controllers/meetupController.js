@@ -3,6 +3,13 @@ import meetup from '../models/Meetup';
 import helper from '../helpers/helper';
 
 class meetupController {
+  
+  /**
+   * Fetches all available meetups
+   * @params {object} request
+   * @params {object} response
+   * @return {Array} meetups
+   */
   static async index(request, response) {
     try {
       const { rows } = await meetup.all();

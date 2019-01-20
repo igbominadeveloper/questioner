@@ -1,7 +1,6 @@
 import expect from 'expect';
 import request from 'supertest';
-import moment from 'moment';
-import app from '../../app.js';
+import app from '../../app';
 
 const loginUrl = '/api/v1/auth/login';
 const registrationUrl = '/api/v1/auth/signup';
@@ -22,7 +21,7 @@ describe('POST /api/v1/auth/login', () => {
       .expect(400)
       .end((err, res) => {
         if (err) return done(err);
-		 		expect(res.body.data);
+        expect(res.body.data);
       });
     done();
   });

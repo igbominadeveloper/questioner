@@ -117,7 +117,7 @@ class QuestionsController {
         })
         .then((onDeathRow) => {
           question.delete(onDeathRow.rows[0].id)
-            .then(deleted => response.status(200).json({
+            .then(() => response.status(200).json({
               status: 200,
               message: 'Question deleted successfully',
             }));
@@ -168,7 +168,7 @@ class QuestionsController {
       const { rows } = await question.find(request.params.id);
       if (rows.length > 0) {
         const result = await QueryBuilder.run('SELECT * FROM votes WHERE user_id=$1 AND question_id=$2', [request.user.id, rows[0].id]);
-        if (result.rowCount == 0) {
+        if (result.rowCount === 0) {
           await QueryBuilder.run('UPDATE questions SET upvotes = $1 WHERE id=$2', [parseInt(rows[0].upvotes + 1), rows[0].id]);
           await QueryBuilder.run('INSERT INTO votes(user_id,question_id,upvote,downvote) VALUES($1,$2,$3,$4)', [request.user.id, rows[0].id, 1, 0]);
           const upvoted = await question.find(request.params.id);
@@ -181,7 +181,7 @@ class QuestionsController {
             data: upvoteResult,
           });
         }
-        if (result.rows[0].downvote == 0) {
+        if (result.rows[0].downvote === 0) {
           await QueryBuilder.run('UPDATE questions SET downvotes = $1 WHERE id=$2', [parseInt(rows[0].downvotes + 1), rows[0].id]);
           await QueryBuilder.run('UPDATE votes SET downvote = $1 WHERE user_id=$2 AND question_id=$3', [1, request.user.id, rows[0].id]);
           const downvoted = await question.find(request.params.id);

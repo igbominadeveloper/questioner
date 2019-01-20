@@ -12,7 +12,7 @@ install:
 - npm install
 before_script:
   - psql -c "CREATE USER favour WITH PASSWORD 'password1';"
-  - psql -c 'create database testdb;' -U favour
+  - psql -c 'create database testdb;'
   - npm run test-migrate:refresh
   - npm run test:seed
 script:

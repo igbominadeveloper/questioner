@@ -10,7 +10,6 @@ class QuestionsController {
           result.rows.map((row) => {
             delete row.created_at;
             delete row.updated_at;
-            delete row.id;
           });
           return response.status(200).json({
             status: 200,
@@ -35,7 +34,6 @@ class QuestionsController {
         const data = Object.assign({}, rows[0]);
         delete data.updated_at;
         delete data.created_at;
-        delete data.id;
         delete data.downvotes;
         delete data.upvotes;
         return response.status(200).json({
@@ -56,7 +54,6 @@ class QuestionsController {
           const data = Object.assign({}, result.rows[0]);
           delete data.updated_at;
           delete data.created_at;
-          delete data.id;
           delete data.downvotes;
           delete data.upvotes;
           return response.status(201).json({
@@ -188,12 +185,21 @@ class QuestionsController {
           const downvotedResult = Object.assign({}, downvoted.rows[0]);
           delete downvotedResult.created_at;
           delete downvotedResult.updated_at;
-          delete downvotedResult.id;
           delete downvotedResult.user_id;
           return response.status(201).json({
-            status: 201,
+            status:201,
             data: downvotedResult,
-          });
+          })
+        }
+          const questionRow = await question.find(request.params.id);
+          const questionResult = Object.assign({}, questionRow.rows[0]);
+          delete questionResult.created_at;
+          delete questionResult.updated_at;
+          delete questionResult.user_id;
+          return response.status(200).json({
+            status:200,
+            data: questionResult
+          })
         }
         const questionRow = await question.find(request.params.id);
         const questionResult = Object.assign({}, questionRow.rows[0]);

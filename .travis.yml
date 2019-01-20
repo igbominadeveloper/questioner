@@ -10,9 +10,6 @@ before_install:
 - npm update
 install:
 - npm install
-env:
-  global:
-    - PGPORT=5433
 before_script:
   - psql -c "CREATE USER favour WITH PASSWORD 'password1';"
   - psql -c 'create database testdb;' -U favour

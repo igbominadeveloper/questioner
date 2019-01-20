@@ -1,3 +1,6 @@
+/* eslint-disable consistent-return */
+/* eslint-disable array-callback-return */
+/* eslint-disable no-param-reassign */
 import meetup from '../models/Meetup';
 import helper from '../helpers/helper';
 
@@ -6,6 +9,7 @@ class meetupController {
     try {
       const { rows } = await meetup.all();
       if (rows.length > 0) {
+        // eslint-disable-next-line array-callback-return
         rows.map((row) => {
           delete row.created_at;
           delete row.updated_at;

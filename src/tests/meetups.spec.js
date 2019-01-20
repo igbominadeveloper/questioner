@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 import expect from 'expect';
 import request from 'supertest';
-import { invalid } from 'moment';
 import app from '../../app';
 
 const meetupsApi = '/api/v1/meetups';
@@ -281,7 +280,7 @@ describe('Meetups', () => {
     it('returns a 404 error when invalid meetup id is supplied', (done) => {
       request(app)
         .get(`${meetupsApi}/${invalidId}`)
-        .set('x-access-token', userToken)
+        .set('x-access-token', adminToken)
         .send(meetupUpdate)
         .end(() => {
           expect(404);

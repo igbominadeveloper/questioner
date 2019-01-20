@@ -41,7 +41,7 @@ class Meetup {
     };
     const { rows } = await QueryBuilder.run(`SELECT topic FROM ${table} WHERE topic = $1 OR date = $2`, [meetup.topic, meetup.date]);
     if (rows[0]) {
-      return Promise.reject(new Error({ status: 422, error: 'Similar meetup exists already' }));
+      return Promise.reject({ status: 422, error: 'Similar meetup exists already' });
     }
 
     const statement = `INSERT INTO ${table}(topic,location,date,images,tags) VALUES($1, $2, $3, $4, $5) returning *`;

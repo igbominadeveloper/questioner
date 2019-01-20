@@ -1,5 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable array-callback-return */
 /* eslint-disable no-param-reassign */
 import meetup from '../models/Meetup';
 import helper from '../helpers/helper';
@@ -9,7 +7,6 @@ class meetupController {
     try {
       const { rows } = await meetup.all();
       if (rows.length > 0) {
-        // eslint-disable-next-line array-callback-return
         rows.map((row) => {
           delete row.created_at;
           delete row.updated_at;
@@ -77,9 +74,9 @@ class meetupController {
             error: 'Meetup creation failed',
           });
         })
-        .catch(error => response.status(400).json({
-          status: 400,
-          error: error.message,
+        .catch(error => response.status(422).json({
+          status: 422,
+          error: error.error,
         }));
     } else {
       return helper.checkErrorCode(response, {
@@ -120,15 +117,6 @@ class meetupController {
     if (request.user.isadmin) {
       const requestBody = request.body;
       meetup.find(request.params.id)
-        .then((result) => {
-          if (result.rowCount > 0) {
-            return result;
-          }
-          return response.status(404).json({
-            status: 404,
-            error: 'Meetup doesn\'t exist',
-          });
-        })
         .then(result => meetup.update(result, requestBody))
         .then((updated) => {
           updated.rows.map((row) => {
@@ -141,9 +129,9 @@ class meetupController {
             data: updated.rows[0],
           });
         })
-        .catch(error => response.status(400).json({
-          status: 400,
-          error: error.message,
+        .catch(error => response.status(404).json({
+          status: 404,
+          error: 'Meetup not found' || error,
         }));
     } else {
       return helper.checkErrorCode(response, { status: 401, message: 'You are not authorized to perform this action' });
@@ -153,23 +141,18 @@ class meetupController {
   static destroy(request, response) {
     if (request.user.isadmin) {
       meetup.find(request.params.id)
-        .then((result) => {
-          if (result.rowCount > 0) {
-            return result;
-          }
-          return response.status(404).json({
-            status: 404,
-            error: 'Meetup doesn\'t exist',
-          });
-        })
         .then((onDeathRow) => {
           meetup.delete(onDeathRow)
             .then(() => response.status(200).json({
               status: 200,
               message: 'Meetup deleted successfully',
+            }))
+            .catch(error => response.status(400).json({
+              status: 400,
+              error: error.message,
             }));
         })
-        .catch(error => response.status(400).json({
+        .catch(error => response.status(404).json({
           status: 400,
           error: error.message,
         }));

@@ -277,13 +277,13 @@ describe('Meetups', () => {
         });
     });
 
-    it('returns a 404 error when invalid meetup id is supplied', (done) => {
+    it('returns a 400 error when invalid meetup id is supplied', (done) => {
       request(app)
-        .get(`${meetupsApi}/${invalidId}`)
+        .patch(`${meetupsApi}/uijkjkjkj`)
         .set('x-access-token', adminToken)
         .send(meetupUpdate)
         .end(() => {
-          expect(404);
+          expect(400);
           done();
         });
     });

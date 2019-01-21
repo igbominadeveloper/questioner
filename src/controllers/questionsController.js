@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import question from '../models/Question';
 import helper from '../helpers/helper';
 import QueryBuilder from '../database/queryBuilder';
@@ -42,17 +43,18 @@ class QuestionsController {
           data,
         });
       }
-      return helper.checkErrorCode(response, { status: 404 });
+      return helper.errorResponse(response, { status: 404 });
     } catch (error) {
-      return helper.checkErrorCode(response, error);
+      return helper.errorResponse(response, error);
     }
   }
 
-  static create(request, response) {
+  static async create(request, response) {
     const { meetup_id, user_id } = request.body;
-    question.create(request.body)
-      .then((result) => {
-        if (result.rowCount > 0) {
+    const { rows } = await QueryBuilder.run('SELECT  * FROM meetups WHERE id = $1', [meetup_id]);
+    if (rows[0]) {
+      question.create(request.body)
+        .then((result) => {
           const data = Object.assign({}, result.rows[0]);
           delete data.updated_at;
           delete data.created_at;
@@ -63,16 +65,14 @@ class QuestionsController {
             status: 201,
             data,
           });
-        }
-        return response.status(500).json({
-          status: 500,
-          error: 'Question creation failed',
-        });
-      })
-      .catch(error => response.status(400).json({
-        status: 400,
-        error: error.message,
-      }));
+        })
+        .catch(error => response.status(400).json({
+          status: 400,
+          error: error.message,
+        }));
+    }
+    return helper.errorResponse(response, 
+      { status: 404, message: 'The meetup does not exist' });
   }
 
   static update(request, response) {
@@ -127,7 +127,7 @@ class QuestionsController {
           error: error.message,
         }));
     }
-    return helper.checkErrorCode(response, {
+    return helper.errorResponse(response, {
       status: 401,
       message: 'You are not authorized to perform this action',
     });
@@ -149,17 +149,17 @@ class QuestionsController {
             data: newComment,
           });
         }
-        return helper.checkErrorCode(response, {
+        return helper.errorResponse(response, {
           error: 400,
           message: 'Error occured! Comment couldn\'t be created',
         });
       }
-      return helper.checkErrorCode(response, {
+      return helper.errorResponse(response, {
         error: 404,
         message: 'Cannot comment on a non-existing question',
       });
     } catch (errors) {
-      return helper.checkErrorCode(response, errors);
+      return helper.errorResponse(response, errors);
     }
   }
 
@@ -206,9 +206,9 @@ class QuestionsController {
           data: questionResult,
         });
       }
-      return helper.checkErrorCode(response, { status: 404, message: 'Cannot vote on a non-existing question' });
+      return helper.errorResponse(response, { status: 404, message: 'Cannot vote on a non-existing question' });
     } catch (error) {
-      return helper.checkErrorCode(response, error);
+      return helper.errorResponse(response, error);
     }
   }
 }

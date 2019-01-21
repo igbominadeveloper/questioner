@@ -7,8 +7,17 @@ const questionApi = '/api/v1/questions';
 
 describe('Question', () => {
   let userToken;
+  let adminToken;
+  let user;
+  const id = 1000;
+
   const userCredentials = {
     email: 'user@questioner.com',
+    password: 'password1',
+  };
+
+  const adminCredentials = {
+    email: 'superadmin@questioner.com',
     password: 'password1',
   };
 
@@ -18,98 +27,232 @@ describe('Question', () => {
       .send(userCredentials)
       .end((error, response) => {
         expect(200);
-        const { token } = response.body.data[0];
-        userToken = token;
-        done();
+        const { data } = response.body;
+        userToken = data[0].token;
+        // eslint-disable-next-line prefer-destructuring
+        user = data[0].user;
       });
   });
 
   describe('GET /api/v1/questions', () => {
-
     it('returns 403 when token is not set', (done) => {
       request(app)
         .get(questionApi)
-        .then((response) => {
+        .end((_error, response) => {
+          expect(403);
           expect(response.status).toBe(403);
           done();
         });
     });
-    it('returns 403 when a wrong token is set', (done) => {
+    it('returns 403 response when a wrong token is set', (done) => {
       request(app)
         .get(questionApi)
         .set('x-access-token', 'jhjdhjhdjhjhjhjdhdvh')
-        .then((response) => {
-          expect(400)
+        .end((_error, response) => {
+          expect(422);
           done();
         });
     });
-    it('returns 404 and an empty array of questions', (done) => {
+    it('returns 404 response and an empty array of questions', (done) => {
       request(app)
         .get(questionApi)
         .set('x-access-token', userToken)
-        .then((response) => {
+        .end((_error, response) => {
+          expect(response.status).toBe(404);
+          done();
+        });
+    });
+
+    it('returns 404 response and user tries to fetch a non-existing question', (done) => {
+      request(app)
+        .get(`${questionApi}/${id}`)
+        .set('x-access-token', userToken)
+        .end((_error, response) => {
           expect(response.status).toBe(404);
           done();
         });
     });
   });
-  // it.only('returns all created questions', (done) => {
-  //   request(app)
-  //     .get(questionApi)
-  //     .set('x-access-token', userToken)
-  //     .then((response) => {
-  //       expect(response.status).toBe(200);
-  //       done();
-  //     })
-  // });
 
-  // it('returns a custom message when payload is not included in the request', () => {
-  //   request(app)
-  //     .post(questionApi)
-  //     .then((response) => {
-  //       expect(response.status).toBe(400);
-  //       expect(response.body.error).toBe('Request missing complete payload. Confirm it includes - meetup, createdBy, title and the body of the question');
-  //     });
-  // });
+  describe('POST /api/v1/questions', () => {
+    it('returns a 403 error when user token is not set', (done) => {
+      request(app)
+        .post(questionApi)
+        .end((_error, response) => {
+          expect(response.status).toBe(403);
+          done();
+        });
+    });
 
-  // it('returns 201 and a question resource after creation', () => {
-  //   const payload = {
-  //     meetup: 2,
-  //     createdBy: 4,
-  //     title: 'My Question title',
-  //     body: 'Question body',
-  // 	};
-  //   request(app)
-  //     .post(questionApi)
-  //     .send(payload)
-  //     .then((response) => {
-  //       expect(response.status).toBe(201);
-  //       expect(response.body.data.title).toBe(payload.title);
-  //       expect(response.body.data.body).toBe(payload.body);
-  //       expect(response.body.data.meetup).toBe(payload.meetup);
-  //     })
-  //     .catch(error => console.log(error));
-  // });
+    it('returns a 400 error when user tries to ask question on a non-exisiting meetup', (done) => {
+      const invalidQuestion = {
+        meetup_id: 20,
+        user_id: 1,
+        title: 'My Question title',
+        body: 'My Question Body',
+      };
 
-  // it('should return a specific question when id is specified', () => {
-  //   request(app)
-  //     .get(`${questionApi}/1`)
-  //     .then((response) => {
-  //       expect(response.status).toBe(200);
-  //       expect(response.body.data.id).toBe(1);
-  //     })
-  //     .catch(error => console.log(error));
-  // });
+      request(app)
+        .post(questionApi)
+        .send(invalidQuestion)
+        .set('x-access-token', userToken)
+        .end((_error, response) => {
+          expect(404);
+          expect(response.body.status).toBe(404);
+          done();
+        });
+    });
+  });
 
-  // it('should return 404 when question ID specified is invalid', () => {
-  //   request(app)
-  //     .get(`${questionApi}/2000`)
-  //     .then((response) => {
-  //       expect(response.status).toBe(404);
-  //       expect(response.body.error).toBe('Model Not Found');
-  //     });
-  // });
+  describe('POST /api/v1/questions', () => {
+    let newMeetup = '';
 
+    before((done) => {
+      const meetupOne = {
+        topic: 'Meetup for questions',
+        location: 'Akure, Nigeria',
+        date: '2019-04-19T11:36:38.380Z',
+      };
+      request(app)
+        .post('/api/v1/meetups')
+        .set('x-access-token', adminToken)
+        .send(meetupOne)
+        .end((_error, response) => {
+          expect(201);
+          const { data } = response.body;
+          newMeetup = data;
+          done();
+        });
+    });
+
+    const invalidQuestionOne = {
+      user_id: user.id,
+      title: 'My Question title',
+      body: 'Question body',
+    };
+    const invalidQuestionTwo = {
+      meetup_id: newMeetup.id,
+      title: 'My Question title',
+      body: 'Question body',
+    };
+    const invalidQuestionThree = {
+      meetup_id: newMeetup.id,
+      user_id: user.id,
+      body: 'Question body',
+    };
+
+    const invalidQuestionFour = {
+      meetup_id: newMeetup.id,
+      user_id: user.id,
+      title: 'My Question title',
+    };
+
+    const validQuestionOne = {
+      meetup_id: newMeetup.id,
+      user_id: user.id,
+      title: 'My Question title',
+      body: 'My Question body',
+    };
+
+    it('returns a 400 error when user does not put any body in the POST request', (done) => {
+      request(app)
+        .post(questionApi)
+        .set('x-access-token', userToken)
+        .end((_error, response) => {
+          expect(400);
+          expect(response.status).toBe(400);
+          done();
+        });
+    });
+
+    it('returns a 400 error when request body is missing a meetupId', (done) => {
+      request(app)
+        .post(questionApi)
+        .set('x-access-token', userToken)
+        .send(invalidQuestionOne)
+        .end((_error, response) => {
+          expect(400);
+          expect(response.body.status).toBe(400);
+          expect(response.body.error).toMatch(/meetup_id/);
+          done();
+        });
+    });
+
+    it('returns a 400 error when request body is missing a userId', (done) => {
+      request(app)
+        .post(questionApi)
+        .set('x-access-token', userToken)
+        .send(invalidQuestionTwo)
+        .end((_error, response) => {
+          expect(400);
+          expect(response.body.status).toBe(400);
+          expect(response.body.error).toMatch(/user_id/);
+          done();
+        });
+    });
+
+    it('returns a 400 error when request body is missing a question title', (done) => {
+      request(app)
+        .post(questionApi)
+        .set('x-access-token', userToken)
+        .send(invalidQuestionThree)
+        .end((_error, response) => {
+          expect(400);
+          expect(response.body.status).toBe(400);
+          expect(response.body.error).toMatch(/title/);
+          done();
+        });
+    });
+
+    it('returns a 400 error when request body is missing a question body', (done) => {
+      request(app)
+        .post(questionApi)
+        .set('x-access-token', userToken)
+        .send(invalidQuestionFour)
+        .end((_error, response) => {
+          expect(400);
+          expect(response.body.status).toBe(400);
+          expect(response.body.error).toMatch(/body/);
+          done();
+        });
+    });
+
+    it('returns a 201 response when question is created successfully', (done) => {
+      request(app)
+        .post(questionApi)
+        .set('x-access-token', userToken)
+        .send(validQuestionOne)
+        .end((_error, response) => {
+          expect(201);
+          expect(response.body.status).toBe(201);
+          done();
+        });
+    });
+
+    it('returns a 422 error when user tries to create an existing question again', (done) => {
+      request(app)
+        .post(questionApi)
+        .set('x-access-token', userToken)
+        .send(validQuestionOne)
+        .end((_error, response) => {
+          expect(422);
+          expect(response.body.status).toBe(422);
+          done();
+        });
+    });
+
+    it('returns an array of created questions', (done) => {
+      request(app)
+        .get(questionApi)
+        .set('x-access-token', userToken)
+        .end((response) => {
+          expect(200);
+          console.log(response.body);
+          expect(response.body[0].status).toBe(200);
+          done();
+        });
+    });
+  });
   // it('upvotes a question successfully', () => {
   //   request(app)
   //     .patch(`${questionApi}/1/upvote`)

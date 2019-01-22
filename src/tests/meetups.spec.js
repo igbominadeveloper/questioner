@@ -109,10 +109,8 @@ describe('Meetups', () => {
           .post(meetupsApi)
           .set('x-access-token', userToken)
           .send(validMeetupOne)
-          .end((_error, response) => {
+          .end(() => {
             expect(401);
-            const { error } = response.body;
-            expect(error).toMatch(/unauthorized/);
             done();
           });
       });

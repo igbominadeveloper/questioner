@@ -112,7 +112,7 @@ describe('Meetups', () => {
           .end((_error, response) => {
             expect(401);
             const { error } = response.body;
-            expect(error).toBe('You are not authorized to perform this action');
+            expect(error).toMatch('unauthorized');
             done();
           });
       });

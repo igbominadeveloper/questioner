@@ -5,37 +5,36 @@ import QueryBuilder from '../database/queryBuilder';
 
 dotenv.config();
 
-const checkErrorCode = (response, error) => {
+const errorResponse = (response, error) => {
   switch (error.status) {
     case 404: return response.status(404).json({
       status: 404,
-      error: error.message ? error.message : 'Model Not Found',
+      error: error.error ? error.error : 'Model Not Found',
     });
-      break;
 
     case 422: return response.status(422).json({
       status: 422,
-      error: error.message ? error.message : 'Unproccessable Entity',
+      error: error.error ? error.error : 'Unproccessable Entity',
     });
-      break;
     case 400: return response.status(400).json({
       status: 400,
-      error: error.message,
+      error: error.error,
     });
-      break;
     case 403: return response.status(403).json({
       status: 403,
-      error: error.message || 'Forbidden',
+      error: error.error || 'Forbidden',
     });
-      break;
     case 401: return response.status(401).json({
       status: 401,
-      error: error.message || 'Unauthorized',
+      error: error.error || 'Unauthorized',
     });
-      break;
+    case 409: return response.status(409).json({
+      status: 409,
+      error: error.error || 'Conflict',
+    });
     default: return response.status(400).json({
       status: 400,
-      error: error.message,
+      error: error.error,
     });
   }
 };
@@ -45,18 +44,18 @@ const now = () => new Date().toLocaleString();
 
 const hashPassword = password => bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
-const decodePassword = (hashPassword, password) => bcrypt.compareSync(password, hashPassword);
+const decodePassword = (passwordHash, password) => bcrypt.compareSync(password, passwordHash);
 
 const generateToken = (user_id, isadmin) => {
   const token = jwt.sign({
     user_id, isadmin,
   },
-  process.env.SECRET_KEY, { expiresIn: '5d' });
+  process.env.SECRET_KEY, { expiresIn: '30d' });
   return token;
 };
 
 const checkEmailDuplication = async (request, response, next) => {
-  const email = request.body.email;
+  const { email } = request.body;
   QueryBuilder.run('SELECT * FROM users WHERE email=$1', [email])
     .then((result) => {
       if (result.rowCount > 0) {
@@ -67,11 +66,11 @@ const checkEmailDuplication = async (request, response, next) => {
       }
       next();
     })
-    .catch(error => console.log(error));
+    .catch(error => errorResponse(response, { status: error.status, message: error.error }));
 };
 
 export default {
-  checkErrorCode,
+  errorResponse,
   now,
   hashPassword,
   decodePassword,

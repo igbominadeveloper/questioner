@@ -18,11 +18,11 @@ class RsvpController {
             data: result.rows,
           });
         }
-        return helper.checkErrorCode(response, { status: 404, message: 'No rsvp yet for this meetup' });
+        return helper.errorResponse(response, { status: 404, message: 'No rsvp yet for this meetup' });
       })
       .catch(error => response.status(404).json({
         status: 404,
-        error: error.message,
+        error: error.error,
       }));
   }
 
@@ -44,7 +44,7 @@ class RsvpController {
           data: result.rows[0],
         });
       })
-      .catch(error => helper.checkErrorCode(response, error));
+      .catch(error => helper.errorResponse(response, error));
   }
 }
 

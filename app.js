@@ -6,9 +6,11 @@ const app = express();
 
 app.use(logger('dev'));
 app.use(express.json());
-const port = process.env.PORT || 3000;
+const port = 3000 || process.env.PORT;
 app.use(router);
-app.listen(port, () => {
-  console.log('Express server listening on port %d in %s mode', port, app.settings.env);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, () => {
+    console.log('Express server listening on port %d in %s mode', port, app.settings.env);
+  });
+}
 export default app;

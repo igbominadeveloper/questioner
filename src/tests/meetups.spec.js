@@ -91,93 +91,91 @@ describe('Meetups', () => {
 
   describe('POST /api/v1/meetups', () => {
     describe('response', () => {
-    it('returns 403 when no user token is set', (done) => {
-      request(app)
-        .get(meetupsApi)
-        .set('x-access-token', '')
-        .end((_error, response) => {
-          expect(403);
-          const { error } = response.body;
-          expect(error).toBe('Forbidden! Token not set');
-          done();
-        });
-    });
+      it('returns 401 when no user token is set', (done) => {
+        request(app)
+          .get(meetupsApi)
+          .set('x-access-token', '')
+          .end((_error, response) => {
+            expect(401);
+            const { error } = response.body;
+            expect(error).toMatch(/Token not set/);
+            done();
+          });
+      });
 
 
-    it('returns a 401 error when user is unauthorized to create a meetup', (done) => {
-      request(app)
-        .post(meetupsApi)
-        .set('x-access-token', userToken)
-        .send(validMeetupOne)
-        .end((_error, response) => {
-          expect(401);
-          const { error } = response.body;
-          expect(error).toBe('You are not authorized to perform this action');
-          done();
-        });
-    });
+      it('returns a 401 error when user is unauthorized to create a meetup', (done) => {
+        request(app)
+          .post(meetupsApi)
+          .set('x-access-token', userToken)
+          .send(validMeetupOne)
+          .end(() => {
+            expect(401);
+            done();
+          });
+      });
 
-    it('returns 400 error if meetup topic is not set', (done) => {
-      request(app)
-        .post(meetupsApi)
-        .set('x-access-token', adminToken)
-        .send(firstInvalidMeetup)
-        .end((_error, response) => {
-          expect(400);
-          expect(response.body.error).toMatch(/topic/);
-          done();
-        });
-    });
+      it('returns 400 error if meetup topic is not set', (done) => {
+        request(app)
+          .post(meetupsApi)
+          .set('x-access-token', adminToken)
+          .send(firstInvalidMeetup)
+          .end((_error, response) => {
+            expect(400);
+            expect(response.body.error).toMatch(/topic/);
+            done();
+          });
+      });
 
-    it('returns 400 error if meetup location is not set', (done) => {
-      request(app)
-        .post(meetupsApi)
-        .set('x-access-token', adminToken)
-        .send(secondInvalidMeetup)
-        .end((_error, response) => {
-          expect(400);
-          expect(response.body.error).toMatch(/location/);
-          done();
-        });
-    });
+      it('returns 400 error if meetup location is not set', (done) => {
+        request(app)
+          .post(meetupsApi)
+          .set('x-access-token', adminToken)
+          .send(secondInvalidMeetup)
+          .end((_error, response) => {
+            expect(400);
+            expect(response.body.error).toMatch(/location/);
+            done();
+          });
+      });
 
-    it('returns 400 error if meetup date is not set', (done) => {
-      request(app)
-        .post(meetupsApi)
-        .set('x-access-token', adminToken)
-        .send(thirdInvalidMeetup)
-        .end((_error, response) => {
-          expect(400);
-          expect(response.body.error).toMatch(/date/);
-          done();
-        });
-    });
+      it('returns 400 error if meetup date is not set', (done) => {
+        request(app)
+          .post(meetupsApi)
+          .set('x-access-token', adminToken)
+          .send(thirdInvalidMeetup)
+          .end((_error, response) => {
+            expect(400);
+            expect(response.body.error).toMatch(/date/);
+            done();
+          });
+      });
 
 
-    it('returns 200 response if meetup is created successfully', (done) => {
-      request(app)
-        .post(meetupsApi)
-        .set('x-access-token', adminToken)
-        .send(validMeetupOne)
-        .end((_error, response) => {
-          expect(400);
-          expect(response.body.data.topic).toBe(validMeetupOne.topic);
-          expect(response.body.data.location).toBe(validMeetupOne.location);
-          done();
-        });
-    });
+      it('returns 200 response if meetup is created successfully', (done) => {
+        request(app)
+          .post(meetupsApi)
+          .set('x-access-token', adminToken)
+          .send(validMeetupOne)
+          .end((_error, response) => {
+            expect(400);
+            expect(response.body.data.topic).toBe(validMeetupOne.topic);
+            expect(response.body.data.location).toBe(validMeetupOne.location);
+            done();
+          });
+      });
 
-    it('returns 400 error if similar meetup exists already', (done) => {
-      request(app)
-        .post(meetupsApi)
-        .set('x-access-token', adminToken)
-        .send(validMeetupOne)
-        .end((_error, response) => {
-          expect(400);
-          expect(response.body.error).toMatch(/meetup exists/);
-          done();
-        });
-    });
+      it('returns 400 error if similar meetup exists already', (done) => {
+        request(app)
+          .post(meetupsApi)
+          .set('x-access-token', adminToken)
+          .send(validMeetupOne)
+          .end((_error, response) => {
+            expect(400);
+            expect(response.body.error).toMatch(/meetup exists/);
+            done();
+          });
+      });
     });
   });
 
@@ -303,11 +301,11 @@ describe('Meetups', () => {
   });
 
   describe('DELETE /api/v1/meetups/:id', () => {
-    it('throws a 403 response when token is not set', (done) => {
+    it('throws a 401 response when token is not set', (done) => {
       request(app)
         .delete(`${meetupsApi}/${id}`)
         .end(() => {
-          expect(403);
+          expect(401);
           done();
         });
     });

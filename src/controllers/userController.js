@@ -33,8 +33,8 @@ class userController {
         });
       })
       .catch(error => response.status(400).json({
-        status: 403,
-        error: error.message,
+        status: 401,
+        error: error.error,
       }));
   }
 
@@ -66,7 +66,7 @@ class userController {
         });
       }
     } catch (error) {
-      return helper.checkErrorCode(response, error);
+      return helper.errorResponse(response, error);
     }
   }
 }

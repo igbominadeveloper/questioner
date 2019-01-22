@@ -3,6 +3,13 @@ import meetup from '../models/Meetup';
 import helper from '../helpers/helper';
 
 class meetupController {
+  
+  /**
+   * Fetches all available meetups
+   * @params {object} request
+   * @params {object} response
+   * @return {Array} meetups
+   */
   static async index(request, response) {
     try {
       const { rows } = await meetup.all();
@@ -24,7 +31,7 @@ class meetupController {
     } catch (error) {
       return response.status(400).json({
         status: 400,
-        error: error.message,
+        error: error.error,
       });
     }
   }
@@ -50,7 +57,7 @@ class meetupController {
       })
       .catch(error => response.status(400).json({
         status: 400,
-        error: error.message,
+        error: error.error,
       }));
   }
 
@@ -78,7 +85,7 @@ class meetupController {
           error: error.error,
         }));
     } else {
-      return helper.checkErrorCode(response, {
+      return helper.errorResponse(response, {
         status: 401,
         message: 'You are not authorized to perform this action',
       });
@@ -100,12 +107,12 @@ class meetupController {
           data: [rows],
         });
       }
-      return helper.checkErrorCode(response, {
+      return helper.errorResponse(response, {
         status: 404,
         message: 'No Upcoming meetups',
       });
     } catch (error) {
-      return helper.checkErrorCode(response, {
+      return helper.errorResponse(response, {
         status: 400,
         message: 'Error occured',
       });
@@ -133,7 +140,7 @@ class meetupController {
           error: 'Meetup not found' || error,
         }));
     } else {
-      return helper.checkErrorCode(response, { status: 401, message: 'You are not authorized to perform this action' });
+      return helper.errorResponse(response, { status: 401, message: 'You are not authorized to perform this action' });
     }
   }
 
@@ -148,15 +155,15 @@ class meetupController {
             }))
             .catch(error => response.status(400).json({
               status: 400,
-              error: error.message,
+              error: error.error,
             }));
         })
         .catch(error => response.status(404).json({
           status: 400,
-          error: error.message,
+          error: error.error,
         }));
     } else {
-      return helper.checkErrorCode(response, { status: 401, message: 'You are not authorized to perform this action' });
+      return helper.errorResponse(response, { status: 401, message: 'You are not authorized to perform this action' });
     }
   }
 }

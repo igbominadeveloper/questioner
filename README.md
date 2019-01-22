@@ -1,9 +1,9 @@
 # Questioner
-Crowd-sourcing questions for meetups
 [![Build Status](https://travis-ci.com/igbominadeveloper/questioner.svg?branch=develop)](https://travis-ci.com/igbominadeveloper/questioner) [![Coverage Status](https://coveralls.io/repos/github/igbominadeveloper/questioner/badge.svg?branch=develop)](https://coveralls.io/github/igbominadeveloper/questioner?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/0a984e88b9b0677d4301/maintainability)](https://codeclimate.com/github/igbominadeveloper/questioner/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/0a984e88b9b0677d4301/test_coverage)](https://codeclimate.com/github/igbominadeveloper/questioner/test_coverage)
 
+Crowd-sourcing questions for meetups
 Questioner is an API driven application that crowd-sources questions and comments for meetups. It uses a voting algorithm that calculates the importance of a question asked under a meetup so the organizers can attend to them in order of importance and factor it into the planning of the event
 ## Getting Started
 

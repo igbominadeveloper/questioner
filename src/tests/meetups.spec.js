@@ -91,14 +91,14 @@ describe('Meetups', () => {
 
   describe('POST /api/v1/meetups', () => {
     describe('response', () => {
-      it('returns 403 when no user token is set', (done) => {
+      it('returns 401 when no user token is set', (done) => {
         request(app)
           .get(meetupsApi)
           .set('x-access-token', '')
           .end((_error, response) => {
-            expect(403);
+            expect(401);
             const { error } = response.body;
-            expect(error).toBe('Forbidden! Token not set');
+            expect(error).toMatch(/Token not set/);
             done();
           });
       });
@@ -303,11 +303,11 @@ describe('Meetups', () => {
   });
 
   describe('DELETE /api/v1/meetups/:id', () => {
-    it('throws a 403 response when token is not set', (done) => {
+    it('throws a 401 response when token is not set', (done) => {
       request(app)
         .delete(`${meetupsApi}/${id}`)
         .end(() => {
-          expect(403);
+          expect(401);
           done();
         });
     });

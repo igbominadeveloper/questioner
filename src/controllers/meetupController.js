@@ -31,7 +31,7 @@ class meetupController {
     } catch (error) {
       return response.status(400).json({
         status: 400,
-        error: error.message,
+        error: error.error,
       });
     }
   }
@@ -57,7 +57,7 @@ class meetupController {
       })
       .catch(error => response.status(400).json({
         status: 400,
-        error: error.message,
+        error: error.error,
       }));
   }
 
@@ -155,12 +155,12 @@ class meetupController {
             }))
             .catch(error => response.status(400).json({
               status: 400,
-              error: error.message,
+              error: error.error,
             }));
         })
         .catch(error => response.status(404).json({
           status: 400,
-          error: error.message,
+          error: error.error,
         }));
     } else {
       return helper.errorResponse(response, { status: 401, message: 'You are not authorized to perform this action' });

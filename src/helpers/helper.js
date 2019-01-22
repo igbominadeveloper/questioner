@@ -9,28 +9,32 @@ const errorResponse = (response, error) => {
   switch (error.status) {
     case 404: return response.status(404).json({
       status: 404,
-      error: error.message ? error.message : 'Model Not Found',
+      error: error.error ? error.error : 'Model Not Found',
     });
 
     case 422: return response.status(422).json({
       status: 422,
-      error: error.message ? error.message : 'Unproccessable Entity',
+      error: error.error ? error.error : 'Unproccessable Entity',
     });
     case 400: return response.status(400).json({
       status: 400,
-      error: error.message,
+      error: error.error,
     });
     case 403: return response.status(403).json({
       status: 403,
-      error: error.message || 'Forbidden',
+      error: error.error || 'Forbidden',
     });
     case 401: return response.status(401).json({
       status: 401,
-      error: error.message || 'Unauthorized',
+      error: error.error || 'Unauthorized',
+    });
+    case 409: return response.status(409).json({
+      status: 409,
+      error: error.error || 'Conflict',
     });
     default: return response.status(400).json({
       status: 400,
-      error: error.message,
+      error: error.error,
     });
   }
 };
@@ -62,7 +66,7 @@ const checkEmailDuplication = async (request, response, next) => {
       }
       next();
     })
-    .catch(error => errorResponse(response, { status: error.status, message: error.message }));
+    .catch(error => errorResponse(response, { status: error.status, message: error.error }));
 };
 
 export default {

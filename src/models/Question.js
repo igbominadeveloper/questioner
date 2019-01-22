@@ -1,6 +1,7 @@
-import moment from 'moment';
+/* eslint-disable no-empty */
+/* eslint-disable camelcase */
+/* eslint-disable prefer-promise-reject-errors */
 import QueryBuilder from '../database/queryBuilder';
-import helper from '../helpers/helper';
 
 const table = 'questions';
 
@@ -23,21 +24,20 @@ class Question {
         .catch(error => reject(error));
     });
   }
+  /** Create a new question
+   * @param {object} payload
+   * @returns {Object} DB row
+  */
 
   static async create(payload) {
-    const question = {
-      title: payload.title,
-      body: payload.body,
-      meetup_id: payload.meetup_id,
-      user_id: payload.user_id,
-    };
-    const { rows } = await QueryBuilder.run(`SELECT title FROM ${table} WHERE title = $1 OR body = $2`, [question.title, question.body]);
-    if (rows[0]) {
-      return Promise.reject({ status: 422, message: 'Question exists already' });
-    }
-    const statement = `INSERT INTO ${table}(title, body, meetup_id, user_id) VALUES($1, $2, $3, $4) returning *`;
+    const {
+      title, body, meetup_id, user_id,
+    } = payload;
+
+    const insertQuery = `INSERT INTO ${table}(title, body, meetup_id, user_id) 
+                          VALUES($1, $2, $3, $4) returning *`;
     return new Promise((resolve, reject) => {
-      QueryBuilder.run(statement, Object.values(question))
+      QueryBuilder.run(insertQuery, [title, body, meetup_id, user_id])
         .then(response => resolve(response))
         .catch(error => reject(error));
     });

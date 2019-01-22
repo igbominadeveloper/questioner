@@ -9,6 +9,7 @@ describe('Question', () => {
   let userToken;
   let adminToken;
   let user;
+  let admin;
   const id = 1000;
 
   const userCredentials = {
@@ -32,19 +33,31 @@ describe('Question', () => {
         // eslint-disable-next-line prefer-destructuring
         user = data[0].user;
       });
+
+    request(app)
+      .post('/api/v1/auth/login')
+      .send(adminCredentials)
+      .end((error, response) => {
+        expect(200);
+        const { data } = response.body;
+        adminToken = data[0].token;
+        // eslint-disable-next-line prefer-destructuring
+        admin = data[0].user;
+        done();
+      });
   });
 
   describe('GET /api/v1/questions', () => {
-    it('returns 403 when token is not set', (done) => {
+    it('returns 401 when token is not set', (done) => {
       request(app)
         .get(questionApi)
         .end((_error, response) => {
-          expect(403);
-          expect(response.status).toBe(403);
+          expect(401);
+          expect(response.status).toBe(401);
           done();
         });
     });
-    it('returns 403 response when a wrong token is set', (done) => {
+    it('returns 401 response when a wrong token is set', (done) => {
       request(app)
         .get(questionApi)
         .set('x-access-token', 'jhjdhjhdjhjhjhjdhdvh')
@@ -75,26 +88,26 @@ describe('Question', () => {
   });
 
   describe('POST /api/v1/questions', () => {
-    it('returns a 403 error when user token is not set', (done) => {
+    it('returns a 401 error when user token is not set', (done) => {
       request(app)
         .post(questionApi)
         .end((_error, response) => {
-          expect(response.status).toBe(403);
+          expect(response.status).toBe(401);
           done();
         });
     });
 
     it('returns a 400 error when user tries to ask question on a non-exisiting meetup', (done) => {
-      const invalidQuestion = {
+      const randomQuestion = {
         meetup_id: 20,
-        user_id: 1,
+        user_id: user.id,
         title: 'My Question title',
         body: 'My Question Body',
       };
 
       request(app)
         .post(questionApi)
-        .send(invalidQuestion)
+        .send(randomQuestion)
         .set('x-access-token', userToken)
         .end((_error, response) => {
           expect(404);
@@ -125,34 +138,6 @@ describe('Question', () => {
         });
     });
 
-    const invalidQuestionOne = {
-      user_id: user.id,
-      title: 'My Question title',
-      body: 'Question body',
-    };
-    const invalidQuestionTwo = {
-      meetup_id: newMeetup.id,
-      title: 'My Question title',
-      body: 'Question body',
-    };
-    const invalidQuestionThree = {
-      meetup_id: newMeetup.id,
-      user_id: user.id,
-      body: 'Question body',
-    };
-
-    const invalidQuestionFour = {
-      meetup_id: newMeetup.id,
-      user_id: user.id,
-      title: 'My Question title',
-    };
-
-    const validQuestionOne = {
-      meetup_id: newMeetup.id,
-      user_id: user.id,
-      title: 'My Question title',
-      body: 'My Question body',
-    };
 
     it('returns a 400 error when user does not put any body in the POST request', (done) => {
       request(app)
@@ -166,6 +151,11 @@ describe('Question', () => {
     });
 
     it('returns a 400 error when request body is missing a meetupId', (done) => {
+      const invalidQuestionOne = {
+        user_id: user.id,
+        title: 'My Question title',
+        body: 'Question body',
+      };
       request(app)
         .post(questionApi)
         .set('x-access-token', userToken)
@@ -179,6 +169,12 @@ describe('Question', () => {
     });
 
     it('returns a 400 error when request body is missing a userId', (done) => {
+      const invalidQuestionTwo = {
+        meetup_id: newMeetup.id,
+        title: 'My Question title',
+        body: 'Question body',
+      };
+
       request(app)
         .post(questionApi)
         .set('x-access-token', userToken)
@@ -192,6 +188,11 @@ describe('Question', () => {
     });
 
     it('returns a 400 error when request body is missing a question title', (done) => {
+      const invalidQuestionThree = {
+        meetup_id: newMeetup.id,
+        user_id: user.id,
+        body: 'Question body',
+      };
       request(app)
         .post(questionApi)
         .set('x-access-token', userToken)
@@ -205,6 +206,11 @@ describe('Question', () => {
     });
 
     it('returns a 400 error when request body is missing a question body', (done) => {
+      const invalidQuestionFour = {
+        meetup_id: newMeetup.id,
+        user_id: user.id,
+        title: 'My Question title',
+      };
       request(app)
         .post(questionApi)
         .set('x-access-token', userToken)
@@ -218,6 +224,12 @@ describe('Question', () => {
     });
 
     it('returns a 201 response when question is created successfully', (done) => {
+      const validQuestionOne = {
+        meetup_id: newMeetup.id,
+        user_id: user.id,
+        title: 'My Question title',
+        body: 'My Question body',
+      };
       request(app)
         .post(questionApi)
         .set('x-access-token', userToken)
@@ -225,47 +237,72 @@ describe('Question', () => {
         .end((_error, response) => {
           expect(201);
           expect(response.body.status).toBe(201);
+          expect(response.body.data.title).toBe(validQuestionOne.title);
+          expect(response.body.data.body).toBe(validQuestionOne.body);
+          expect(response.body.data.meetup_id).toBe(validQuestionOne.meetup_id);
           done();
         });
     });
 
-    it('returns a 422 error when user tries to create an existing question again', (done) => {
+    it('returns a 409 error when user tries to create an existing question again', (done) => {
+      const validQuestionOne = {
+        meetup_id: newMeetup.id,
+        user_id: user.id,
+        title: 'My Question title',
+        body: 'My Question body',
+      };
       request(app)
         .post(questionApi)
         .set('x-access-token', userToken)
         .send(validQuestionOne)
         .end((_error, response) => {
-          expect(422);
-          expect(response.body.status).toBe(422);
-          done();
-        });
-    });
-
-    it('returns an array of created questions', (done) => {
-      request(app)
-        .get(questionApi)
-        .set('x-access-token', userToken)
-        .end((response) => {
-          expect(200);
-          console.log(response.body);
-          expect(response.body[0].status).toBe(200);
+          expect(409);
+          expect(response.body.status).toBe(409);
           done();
         });
     });
   });
-  // it('upvotes a question successfully', () => {
-  //   request(app)
-  //     .patch(`${questionApi}/1/upvote`)
-  //     .then((response) => {
-  //       expect(response.body.status).toBe(201);
-  //     });
-  // });
 
-  // it('doesn\'t downvote past 0 marker', () => {
-  //   request(app)
-  //     .patch(`${questionApi}/1/downvote`)
-  //     .then((response) => {
-  //       expect(response.body.data.votes >= 0).toBe(true);
-  //     });
+  describe('GET /api/v1/questions', () => {
+    it('returns an array of created questions', (done) => {
+      request(app)
+        .get(questionApi)
+        .set('x-access-token', userToken)
+        .end((_error, response) => {
+          expect(200);
+          expect(response.body.status).toBe(200);
+          expect(response.body.data[0].length).toBeGreaterThan(0);
+          done();
+        });
+    });
+  });
+
+  // describe('GET /api/v1/questions', () => {
+  //   let question;
+  //   before((done) => {
+  //     request(app)
+  //       .get(questionApi)
+  //       .set('x-access-token', userToken)
+  //       .end((error, response) => {
+  //         expect(200);
+  //         response.body
+  //         done();
+  //       });
+  //   });
+  //   it('upvotes a question successfully', (done) => {
+  //     request(app)
+  //       .patch(`${questionApi}//upvote`)
+  //       .end((response) => {
+  //         expect(response.body.status).toBe(201);
+  //       });
+  //   });
+
+  //   it('doesn\'t downvote past 0 marker', () => {
+  //     request(app)
+  //       .patch(`${questionApi}/1/downvote`)
+  //       .then((response) => {
+  //         expect(response.body.data.votes >= 0).toBe(true);
+  //       });
+  //   });
   // });
 });

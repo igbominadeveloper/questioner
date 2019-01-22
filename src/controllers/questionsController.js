@@ -2,6 +2,7 @@
 import question from '../models/Question';
 import helper from '../helpers/helper';
 import QueryBuilder from '../database/queryBuilder';
+import meetup from '../models/Meetup';
 
 class QuestionsController {
   static index(request, response) {
@@ -15,7 +16,7 @@ class QuestionsController {
           });
           return response.status(200).json({
             status: 200,
-            data: result.rows,
+            data: [result.rows],
           });
         }
         return response.status(404).json({
@@ -25,7 +26,7 @@ class QuestionsController {
       })
       .catch(error => response.status(400).json({
         status: 400,
-        error: error.message,
+        error: error.error,
       }));
   }
 
@@ -50,43 +51,40 @@ class QuestionsController {
   }
 
   static async create(request, response) {
-    const { meetup_id, user_id } = request.body;
-    const { rows } = await QueryBuilder.run('SELECT  * FROM meetups WHERE id = $1', [meetup_id]);
-    if (rows[0]) {
-      question.create(request.body)
-        .then((result) => {
-          const data = Object.assign({}, result.rows[0]);
-          delete data.updated_at;
-          delete data.created_at;
-          delete data.id;
-          delete data.downvotes;
-          delete data.upvotes;
-          return response.status(201).json({
-            status: 201,
-            data,
-          });
-        })
-        .catch(error => response.status(400).json({
-          status: 400,
-          error: error.message,
-        }));
+    const newQuestion = request.body;
+    newQuestion.user_id = request.user.id;
+    const questionMeetup = await meetup.find(newQuestion.meetup_id);
+    if (questionMeetup.rowCount === 0) {
+      return helper.errorResponse(response,
+        { status: 404, error: 'You cannot ask question on a non-existent meetup' });
     }
-    return helper.errorResponse(response, 
-      { status: 404, message: 'The meetup does not exist' });
+    const questionResult = await QueryBuilder.run('SELECT * FROM questions WHERE meetup_id = $1 AND title = $2 OR body = $3', [newQuestion.meetup_id, newQuestion.title, newQuestion.body]);
+    if (questionResult.rowCount > 0) {
+      return helper.errorResponse(response,
+        { status: 409, error: `Your question has been asked already: see http://${request.hostname}${request.url}/${questionResult.rows[0].id}` });
+    }
+
+    try {
+      const { rows } = await question.create(newQuestion);
+      const data = Object.assign({}, rows[0]);
+      delete data.updated_at;
+      delete data.user_id;
+      delete data.created_at;
+      delete data.downvotes;
+      delete data.upvotes;
+      return response.status(201).json({
+        status: 201,
+        data,
+      });
+    } catch (error) {
+      return helper.errorResponse(response, error);
+    }
   }
 
   static update(request, response) {
     const requestBody = request.body;
     question.find(request.params.id)
-      .then((result) => {
-        if (result.rowCount > 0) {
-          return result;
-        }
-        return response.status(404).json({
-          status: 404,
-          error: 'Meetup doesn\'t exist',
-        });
-      })
+      .then(result => result)
       .then(result => question.update(result, requestBody))
       .then((updated) => {
         updated.rows.map((row) => {
@@ -99,7 +97,7 @@ class QuestionsController {
       })
       .catch(error => response.status(400).json({
         status: 400,
-        error: error.message,
+        error: error.error,
       }));
   }
 
@@ -124,7 +122,7 @@ class QuestionsController {
         })
         .catch(error => response.status(400).json({
           status: 400,
-          error: error.message,
+          error: error.error,
         }));
     }
     return helper.errorResponse(response, {

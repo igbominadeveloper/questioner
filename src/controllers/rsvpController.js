@@ -22,7 +22,7 @@ class RsvpController {
       })
       .catch(error => response.status(404).json({
         status: 404,
-        error: error.message,
+        error: error.error,
       }));
   }
 

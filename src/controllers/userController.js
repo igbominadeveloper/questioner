@@ -33,8 +33,8 @@ class userController {
         });
       })
       .catch(error => response.status(400).json({
-        status: 403,
-        error: error.message,
+        status: 401,
+        error: error.error,
       }));
   }
 

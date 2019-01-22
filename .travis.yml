@@ -1,5 +1,8 @@
 language: node_js
 node_js: "10.15.0"
+env:
+  global:
+    - CC_TEST_REPORTER_ID=c560bd54d67c159300a5b47efcb94068f3e7ba16d48961831c3c445def457636
 cache:
   directories:
     - "node_modules"
@@ -15,7 +18,11 @@ before_script:
   - psql -c 'create database testdb;'
   - npm run test-migrate:refresh
   - npm run test:seed
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 script:
 - npm test
 after_success:
 - npm run coverage
+- ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

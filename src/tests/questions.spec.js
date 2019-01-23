@@ -118,7 +118,8 @@ describe('Question', () => {
   });
 
   describe('POST /api/v1/questions', () => {
-    let newMeetup = '';
+    let newMeetup;
+    let returnedQuestion;
 
     before((done) => {
       const meetupOne = {
@@ -240,6 +241,7 @@ describe('Question', () => {
           expect(response.body.data.title).toBe(validQuestionOne.title);
           expect(response.body.data.body).toBe(validQuestionOne.body);
           expect(response.body.data.meetup_id).toBe(validQuestionOne.meetup_id);
+          returnedQuestion = response.body.data;
           done();
         });
     });
@@ -261,6 +263,30 @@ describe('Question', () => {
           done();
         });
     });
+
+    describe('PATCH /api/v1/questions/:id', () => {
+      it('upvotes a question successfully', (done) => {
+        request(app)
+          .patch(`${questionApi}/${returnedQuestion.id}/upvote`)
+          .set('x-access-token', userToken)
+          .end((_error, response) => {
+            expect(response.body.status).toBe(200);
+            expect(response.body.data.upvotes).toBeGreaterThan(0);
+            done();
+          });
+      });
+
+      it('doesn\'t downvote past 0 marker', () => {
+        request(app)
+          .patch(`${questionApi}/${returnedQuestion.id}/downvote`)
+          .set('x-access-token', userToken)
+          .then((_error, response) => {
+            expect(200);
+            expect(response.body.data.downvotes).toBeGreaterThanOrEqualTo(0);
+            expect(response.body.data.upvotes).toBeGreaterThanOrEqualTo(0);
+          });
+      });
+    });
   });
 
   describe('GET /api/v1/questions', () => {
@@ -276,33 +302,4 @@ describe('Question', () => {
         });
     });
   });
-
-  // describe('GET /api/v1/questions', () => {
-  //   let question;
-  //   before((done) => {
-  //     request(app)
-  //       .get(questionApi)
-  //       .set('x-access-token', userToken)
-  //       .end((error, response) => {
-  //         expect(200);
-  //         response.body
-  //         done();
-  //       });
-  //   });
-  //   it('upvotes a question successfully', (done) => {
-  //     request(app)
-  //       .patch(`${questionApi}//upvote`)
-  //       .end((response) => {
-  //         expect(response.body.status).toBe(201);
-  //       });
-  //   });
-
-  //   it('doesn\'t downvote past 0 marker', () => {
-  //     request(app)
-  //       .patch(`${questionApi}/1/downvote`)
-  //       .then((response) => {
-  //         expect(response.body.data.votes >= 0).toBe(true);
-  //       });
-  //   });
-  // });
 });

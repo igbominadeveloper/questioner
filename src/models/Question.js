@@ -43,6 +43,15 @@ class Question {
     });
   }
 
+  static async update(tableRow, value) {
+    const statement = `UPDATE ${table} SET ${tableRow} = $1 returning *`;
+    return new Promise((resolve, reject) => {
+      QueryBuilder.run(statement, [value])
+        .then(response => resolve(response))
+        .catch(error => reject(error));
+    });
+  }
+
   static delete(id) {
     const statement = `DELETE FROM ${table} WHERE id=$1`;
     return new Promise((resolve, reject) => {

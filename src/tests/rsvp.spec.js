@@ -11,14 +11,23 @@ const loginApi = '/api/v1/auth/login';
 describe('Rsvp', () => {
   let meetup;
   let loggedInUser = '';
+  let loggedInAdmin = '';
   before((done) => {
+    request(app)
+      .post(loginApi)
+      .send({ email: 'user@questioner.com', password: 'password1' })
+      .end((_error, response) => {
+        expect(200);
+        const { token, user } = response.body.data[0];
+        loggedInUser = { token, user };
+      });
     request(app)
       .post(loginApi)
       .send({ email: 'superadmin@questioner.com', password: 'password1' })
       .end((_error, response) => {
         expect(200);
         const { token, user } = response.body.data[0];
-        loggedInUser = { token, user };
+        loggedInAdmin = { token, user };
         done();
       });
   });
@@ -43,7 +52,7 @@ describe('Rsvp', () => {
     before((done) => {
       request(app)
         .post(meetupsApi)
-        .set('x-access-token', loggedInUser.token)
+        .set('x-access-token', loggedInAdmin.token)
         .send(validMeetup)
         .end((_error, response) => {
           expect(201);
@@ -55,7 +64,7 @@ describe('Rsvp', () => {
     it('returns 404 response when there are no rsvps for a meetup', (done) => {
       request(app)
         .get(`${meetupsApi}/${meetup.id}/rsvps`)
-        .set('x-access-token', loggedInUser.token)
+        .set('x-access-token', loggedInAdmin.token)
         .end((_error, response) => {
           expect(404);
           expect(response.body).toHaveProperty('error');
@@ -127,35 +136,74 @@ describe('Rsvp', () => {
             done();
           });
       });
-      // it('returns a 404 response when the meetup ID specified does not exist', (done) => {
-      //   request(app)
-      //     .post(`${meetupsApi}/90000/rsvps`)
-      //     .set('x-access-token', loggedInUser.token)
-      //     .send({ status: 'no' })
-      //     .end((_error, response) => {
-      //       expect(404);
-      //       expect(response.body).toHaveProperty('error');
-      //       expect(response.body.error).toMatch(/exist/);
-      //       done();
-      //     });
-      // });
+
+      it('returns 201 response when user rsvp is received', (done) => {
+        const status = 'no';
+        request(app)
+          .post(`${meetupsApi}/${meetup.id}/rsvps`)
+          .set('x-access-token', loggedInUser.token)
+          .send({ status })
+          .end((_error, response) => {
+            expect(201);
+            expect(response.body.data.status).toBe(status);
+            done();
+          });
+      });
+
+      it('returns 201 response and returns maybe rsvp when a user changes status to maybe', (done) => {
+        const status = 'maybe';
+        request(app)
+          .post(`${meetupsApi}/${meetup.id}/rsvps`)
+          .set('x-access-token', loggedInUser.token)
+          .send({ status })
+          .end((_error, response) => {
+            expect(201);
+            expect(response.body.data.status).toBe(status);
+            done();
+          });
+      });
+
+      it('returns 201 response and return yes when a user changes status to yes', (done) => {
+        const status = 'yes';
+        request(app)
+          .post(`${meetupsApi}/${meetup.id}/rsvps`)
+          .set('x-access-token', loggedInUser.token)
+          .send({ status })
+          .end((_error, response) => {
+            expect(201);
+            expect(response.body.data.status).toBe(status);
+            done();
+          });
+      });
+    });
+
+    describe('GET /api/v1/meetups:id/rsvps', () => {
+      it('returns 401 response when a non-admin tries to fetch rsvps for a meetup', (done) => {
+        request(app)
+          .get(`${meetupsApi}/${meetup.id}/rsvps`)
+          .set('x-access-token', loggedInUser.token)
+          .end((_error, response) => {
+            expect(401);
+            expect(response.body).toHaveProperty('error');
+            done();
+          });
+      });
+
+      it('returns 200 response and an array of rsvps for a specified meetup', (done) => {
+        request(app)
+          .get(`${meetupsApi}/${meetup.id}/rsvps`)
+          .set('x-access-token', loggedInAdmin.token)
+          .end((_error, response) => {
+            expect(200);
+            console.log(response.body);
+            done();
+          });
+      });
     });
   });
 
-  // it('returns 200 when it finds the valid meetup model', () => {
-  //   request(app)
-  //     .get(`${meetupsApi}/1`)
-  //     .then((response) => {
-  //       expect(response.body.data.id).toBe(1);
-  //       expect(response.status).toBe(200);
-  //       expect(response.body.data).toBeInstanceOf(Object);
-  //     })
-  //     .catch((error) => {
-  //       expect(error).toBeInstanceOf(Object);
-  //     });
-  // });
 
-  // 
+  //
   //   it('return 400 and a custom error message when request is missing valid payload', () => {
   //     request(app)
   //       .post(`${meetupsApi}/1/rsvps`)

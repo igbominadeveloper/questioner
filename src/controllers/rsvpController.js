@@ -4,27 +4,25 @@ import meetup from '../models/Meetup';
 import helper from '../helpers/helper';
 
 class RsvpController {
-  static index(request, response) {
-    rsvp.all(request.params.id)
-      .then((result) => {
-        if (result.rowCount > 0) {
-          result.rows.map((row) => {
-            delete row.created_at;
-            delete row.updated_at;
-            delete row.id;
-            delete row.meetup_id;
-          });
-          return response.status(200).json({
-            status: 200,
-            data: result.rows,
-          });
-        }
-        return helper.errorResponse(response, { status: 404, error: 'No rsvp yet for this meetup' });
-      })
-      .catch(error => response.status(404).json({
-        status: 404,
-        error: error.error,
-      }));
+  static async index(request, response) {
+    if (request.user.isadmin === 1) {
+      try {
+        const { rows } = await rsvp.all(request.params.id);
+        rows.map((row) => {
+          delete row.created_at;
+          delete row.id;
+          delete row.updated_at;
+          delete row.meetup_id;
+        });
+        return response.status(200).json({
+          status: 200,
+          data: rows,
+        });
+      } catch (error) {
+        return helper.errorResponse(response, { status: 404, error: error.message });
+      }
+    }
+    return helper.errorResponse(response, { status: 401, error: 'This action is restricted to admin only' });
   }
 
   static async create(request, response) {

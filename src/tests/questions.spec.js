@@ -276,14 +276,15 @@ describe('Question', () => {
           });
       });
 
-      it('doesn\'t downvote past 0 marker', () => {
+      it('doesn\'t downvote past 0 marker', (done) => {
         request(app)
           .patch(`${questionApi}/${returnedQuestion.id}/downvote`)
           .set('x-access-token', userToken)
-          .then((_error, response) => {
+          .end((_error, response) => {
             expect(200);
-            expect(response.body.data.downvotes).toBeGreaterThanOrEqualTo(0);
-            expect(response.body.data.upvotes).toBeGreaterThanOrEqualTo(0);
+            expect(response.body.data.downvotes).toBe(0);
+            expect(response.body.data.upvotes).toBe(0);
+            done();
           });
       });
     });

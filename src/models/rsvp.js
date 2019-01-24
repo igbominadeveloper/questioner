@@ -22,10 +22,10 @@ class Rsvp {
     } = rsvp;
 
     let statement = `INSERT INTO ${table}(user_id,meetup_id,status,topic) VALUES($1, $2, $3, $4) returning *`;
-    const { rows } = await QueryBuilder.run(`SELECT meetup_id,user_id FROM ${table} WHERE meetup_id = $1 AND user_id = $2`, [meetup_id, user_id]);
 
+    const { rows } = await QueryBuilder.run(`SELECT meetup_id,user_id FROM ${table} WHERE meetup_id = $1 AND user_id = $2`, [meetup_id, user_id]);
     if (rows.length > 0) {
-      statement = `UPDATE ${table} SET user_id=$1, meetup_id=$2, status=$3, topic=$4 returning *`;
+      statement = `UPDATE ${table} SET status=$3,topic=$4 WHERE user_id=$1 AND meetup_id=$2 returning *`;
     }
     const rsvpMeetup = await meetup.find(meetup_id);
     const { topic } = rsvpMeetup.rows[0];

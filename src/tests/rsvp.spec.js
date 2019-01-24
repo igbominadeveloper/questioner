@@ -195,7 +195,7 @@ describe('Rsvp', () => {
           .set('x-access-token', loggedInAdmin.token)
           .end((_error, response) => {
             expect(200);
-            console.log(response.body);
+            expect(response.body.data.length).toBeGreaterThan(0);
             done();
           });
       });

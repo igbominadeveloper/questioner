@@ -340,4 +340,17 @@ describe('Meetups', () => {
         });
     });
   });
+
+  describe('POST /meetups/:id/tags', () => {
+    it.only('returns a 401 response when token is missing from the request header', (done) => {
+      request(app)
+        .post(`${meetupsApi}/${id}/tags`)
+        .end((_error, response) => {
+          expect(401);
+          expect(response.body).toHaveProperty('error');
+          expect(response.body.error).toMatch(/Token/);
+          done();
+        });
+    });
+  });
 });

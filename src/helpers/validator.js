@@ -1,5 +1,7 @@
+/* eslint-disable camelcase */
 import Joi from 'joi';
-import schema from './schemas/schema.js';
+import schema from './schemas/schema';
+import helper from "./helper";
 
 class Validate {
   static validateId(request, response, next) {
@@ -147,6 +149,21 @@ class Validate {
         return response.status(400).json({
           status: 400,
           error: err.details[0].message,
+        });
+      }
+      next();
+    });
+  }
+
+  static validateMeetupTag(request, response, next) {
+    const { tags } = request.body;
+    const validateObject = { tags };
+
+    Joi.validate(validateObject, schema.meetupTag, (error) => {
+      if (error) {
+        return helper.errorResponse(response, {
+          status: 400,
+          error: error.details[0].message,
         });
       }
       next();

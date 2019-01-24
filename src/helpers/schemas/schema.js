@@ -6,6 +6,10 @@ const meetup = 	Joi.object().keys({
   date: Joi.date().iso().required(),
 });
 
+const meetupTag = Joi.object().keys({
+  tags: Joi.string().trim().min(2).required(),
+});
+
 const question = 	Joi.object().keys({
   user_id: Joi.number().integer().positive().required(),
   meetup_id: Joi.number().integer().positive().required(),
@@ -43,4 +47,5 @@ export default {
   oldUser,
   newUser,
   rsvps,
+  meetupTag,
 };

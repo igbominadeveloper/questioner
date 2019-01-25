@@ -61,7 +61,7 @@ class Meetup {
 
     const statement = `UPDATE ${table} SET topic=$1, location=$2, date=$3, tags=$4, images=$5 WHERE id=$6 returning *`;
     let tags;
-
+    let images;
     if (request.tags instanceof Array) {
       request.tags.forEach((tag) => {
         meetup[0].tags.find(existingTag => existingTag === tag.trim()) ? '' : meetup[0].tags.push(tag.trim());
@@ -72,6 +72,17 @@ class Meetup {
       meetup[0].tags.find(existingTag => existingTag === request.tags.trim()) ? '' : meetup[0].tags.push(request.tags.trim());
     }
     tags = meetup[0].tags;
+
+    if (request.images instanceof Array) {
+      request.images.forEach((url) => {
+        meetup[0].images.find(existingUrl => existingUrl === url.trim()) ? '' : meetup[0].images.push(url.trim());
+      });
+    } else if (request.images === undefined) {
+      meetup[0].images = meetup[0].images;
+    } else {
+      meetup[0].images.find(existingUrl => existingUrl === request.images.trim()) ? '' : meetup[0].images.push(request.images.trim());
+    }
+    images = meetup[0].images;
 
     const data = [
       topic || meetup[0].topic,

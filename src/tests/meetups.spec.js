@@ -429,21 +429,114 @@ describe('Meetups', () => {
           done();
         });
     });
+  });
 
-    it.only('returns a 200 response when image is added successfully', (done) => {
+  describe('POST /api/v1/meetups/:id/images', () => {
+    const anotherNewMeetup = {
+      topic: 'ReactJS Meetup',
+      location: 'Styled in Lagos, Nigeria',
+      date: '2019-07-02T11:36:38.380Z',
+    };
+    let meetupToGetImages;
+
+    before((done) => {
+      request(app)
+        .post(meetupsApi)
+        .set('x-access-token', adminToken)
+        .send(anotherNewMeetup)
+        .end((error, response) => {
+          meetupToGetImages = response.body.data;
+          done();
+        });
+    });
+    it('returns a 400 response when user is unauthorized to add images', (done) => {
       const images = {
         images: 'https://my_image_url',
       };
       request(app)
-        .post(`${meetupsApi}/${meetupToBeUpdated.id}/images`)
+        .post(`${meetupsApi}/${meetupToGetImages.id}/images`)
+        .set('x-access-token', userToken)
+        .send(images)
+        .end((_error, response) => {
+          expect(401);
+          expect(response.body).toHaveProperty('error');
+          expect(response.body.status).toBe(401);
+          done();
+        });
+    });
+    it('returns a 400 response when image passed to request body is empty string', (done) => {
+      const images = {
+        images: '',
+      };
+      request(app)
+        .post(`${meetupsApi}/${meetupToGetImages.id}/images`)
         .set('x-access-token', adminToken)
         .send(images)
         .end((_error, response) => {
-          // console.log(response.body);
+          expect(400);
+          expect(response.body).toHaveProperty('error');
+          expect(response.body.error).toMatch(/empty/);
+          done();
+        });
+    });
+    it('returns a 400 response when request body is missing images', (done) => {
+      request(app)
+        .post(`${meetupsApi}/${meetupToGetImages.id}/images`)
+        .set('x-access-token', adminToken)
+        .end((_error, response) => {
+          expect(400);
+          expect(response.body).toHaveProperty('error');
+          expect(response.body.error).toMatch(/images/);
+          done();
+        });
+    });
+    it('returns a 200 response when image is added successfully', (done) => {
+      const images = {
+        images: 'https://my_image_url',
+      };
+      request(app)
+        .post(`${meetupsApi}/${meetupToGetImages.id}/images`)
+        .set('x-access-token', adminToken)
+        .send(images)
+        .end((_error, response) => {
           expect(200);
           expect(response.body.status).toBe(200);
           expect(response.body.data).toHaveProperty('images');
           expect(response.body.data.images.length).toBeGreaterThan(0);
+          done();
+        });
+    });
+
+    it('does not re-add image url if it is already existing', (done) => {
+      const images = {
+        images: 'https://my_image_url',
+      };
+      request(app)
+        .post(`${meetupsApi}/${meetupToGetImages.id}/images`)
+        .set('x-access-token', adminToken)
+        .send(images)
+        .end((_error, response) => {
+          expect(200);
+          expect(response.body.status).toBe(200);
+          expect(response.body.data).toHaveProperty('images');
+          expect(response.body.data.images[0]).toBe(images.images);
+          done();
+        });
+    });
+
+    it('returns a 200 response and appends new image url to existing array', (done) => {
+      const images = {
+        images: 'https://my_new_image_urkkkl',
+      };
+      request(app)
+        .post(`${meetupsApi}/${meetupToGetImages.id}/images`)
+        .set('x-access-token', adminToken)
+        .send(images)
+        .end((_error, response) => {
+          expect(200);
+          expect(response.body.status).toBe(200);
+          expect(response.body.data).toHaveProperty('images');
+          expect(response.body.data.images).toContain(images.images);
           done();
         });
     });

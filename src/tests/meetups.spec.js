@@ -413,19 +413,18 @@ describe('Meetups', () => {
           done();
         });
     });
-    it.only('returns a 400 response when user is unauthorized to add tags', (done) => {
+    it('returns a 400 response when user is unauthorized to add tags', (done) => {
       const tags = {
-        tags: 'no',
+        tags: 'My new tag is here',
       };
       request(app)
         .post(`${meetupsApi}/${meetupToBeUpdated.id}/tags`)
         .set('x-access-token', adminToken)
         .send(tags)
         .end((_error, response) => {
-          console.log(response.body);
-          // expect(200);
-          // expect(response.body.status).toBe(200);
-          // expect(response.body.data).toHaveProperty('tags');
+          expect(200);
+          expect(response.body.status).toBe(200);
+          expect(response.body.data).toHaveProperty('tags');
           done();
         });
     });

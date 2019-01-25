@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-const meetup = 	Joi.object().keys({
+const meetup = Joi.object().keys({
   topic: Joi.string().trim().min(3).required(),
   location: Joi.string().trim().min(3).required(),
   date: Joi.date().iso().required(),
@@ -10,7 +10,11 @@ const meetupTag = Joi.object().keys({
   tags: Joi.string().trim().min(2).required(),
 });
 
-const question = 	Joi.object().keys({
+const meetupImage = Joi.object().keys({
+  images: Joi.string().trim().min(2).required(),
+});
+
+const question = Joi.object().keys({
   user_id: Joi.number().integer().positive().required(),
   meetup_id: Joi.number().integer().positive().required(),
   title: Joi.string().trim().min(3).required(),
@@ -48,4 +52,5 @@ export default {
   newUser,
   rsvps,
   meetupTag,
+  meetupImage,
 };

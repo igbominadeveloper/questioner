@@ -199,7 +199,7 @@ describe('Meetups', () => {
       request(app)
         .get(`${meetupsApi}/${id}`)
         .set('x-access-token', userToken)
-        .end((error, response) => {
+        .end((_error, response) => {
           expect(200);
           expect(response.body.data[0].id).toBe(id);
           done();
@@ -238,7 +238,7 @@ describe('Meetups', () => {
       request(app)
         .get(`${meetupsApi}/upcoming`)
         .set('x-access-token', userToken)
-        .end((error, response) => {
+        .end((_error, response) => {
           expect(200);
           expect(Date.parse(response.body.data[0][0].date))
             .toBeLessThan(Date.parse(response.body.data[0][1].date));
@@ -269,8 +269,8 @@ describe('Meetups', () => {
         .patch(`${meetupsApi}/${id}`)
         .set('x-access-token', adminToken)
         .send(meetupUpdate)
-        .end((error, response) => {
-          expect(202);
+        .end((_error, response) => {
+          expect(200);
           expect(response.body.data.topic).toBe(meetupUpdate.topic);
           expect(response.body.data.location).toBe(meetupUpdate.location);
           done();
@@ -413,7 +413,7 @@ describe('Meetups', () => {
           done();
         });
     });
-    it('returns a 400 response when user is unauthorized to add tags', (done) => {
+    it('returns a 200 response when tag is added successfully', (done) => {
       const tags = {
         tags: 'My new tag is here',
       };
@@ -425,6 +425,25 @@ describe('Meetups', () => {
           expect(200);
           expect(response.body.status).toBe(200);
           expect(response.body.data).toHaveProperty('tags');
+          expect(response.body.data.tags.length).toBeGreaterThan(0);
+          done();
+        });
+    });
+
+    it.only('returns a 200 response when image is added successfully', (done) => {
+      const images = {
+        images: 'https://my_image_url',
+      };
+      request(app)
+        .post(`${meetupsApi}/${meetupToBeUpdated.id}/images`)
+        .set('x-access-token', adminToken)
+        .send(images)
+        .end((_error, response) => {
+          console.log(response.body);
+          expect(200);
+          expect(response.body.status).toBe(200);
+          expect(response.body.data).toHaveProperty('images');
+          expect(response.body.data.images.length).toBeGreaterThan(0);
           done();
         });
     });

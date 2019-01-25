@@ -65,10 +65,10 @@ class Meetup {
 
     if (request.tags instanceof Array) {
       request.tags.forEach((tag) => {
-        meetup[0].tags.find(existingTag => existingTag === tag) ? '' : meetup[0].tags.push(tag);
+        meetup[0].tags.find(existingTag => existingTag === tag.trim()) ? '' : meetup[0].tags.push(tag.trim());
       });
     } else {
-      meetup[0].tags.find(existingTag => existingTag === request.tags) ? '' : meetup[0].tags.push(request.tags);
+      meetup[0].tags.find(existingTag => existingTag === request.tags.trim()) ? '' : meetup[0].tags.push(request.tags.trim());
     }
     tags = meetup[0].tags;
 

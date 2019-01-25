@@ -1,5 +1,3 @@
-import moment from 'moment';
-import helper from '../helpers/helper';
 import QueryBuilder from '../database/queryBuilder';
 
 const table = 'meetups';
@@ -60,16 +58,30 @@ class Meetup {
       location,
       date,
     } = request;
-    const statement = `UPDATE ${table} SET topic=$1,location=$2,date=$3 WHERE id=$4 returning *`;
+
+    const statement = `UPDATE ${table} SET topic=$1, location=$2, date=$3, tags=$4 WHERE id=$5 returning *`;
+    let images;
+    let tags;
+
+    if (request.tags instanceof Array) {
+      request.tags.forEach((tag) => {
+        meetup[0].tags.find(existingTag => existingTag === tag) ? '' : meetup[0].tags.push(tag);
+      });
+    } else {
+      meetup[0].tags.find(existingTag => existingTag === request.tags) ? '' : meetup[0].tags.push(request.tags);
+    }
+    tags = meetup[0].tags;
 
     const data = [
-      topic || meetup.rows[0].topic,
-      location || meetup.rows[0].location,
-      date || meetup.rows[0].date,
-      meetup.rows[0].id,
+      topic || meetup[0].topic,
+      location || meetup[0].location,
+      date || meetup[0].date,
+      tags = request.tags ? tags : meetup[0].tags,
+      meetup[0].id,
     ];
+
     return new Promise((resolve, reject) => {
-      QueryBuilder.run(statement, data)
+      QueryBuilder.run(statement, [...data])
         .then(response => resolve(response))
         .catch(error => reject(error));
     });

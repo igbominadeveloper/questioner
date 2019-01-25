@@ -3,7 +3,6 @@ import meetup from '../models/Meetup';
 import helper from '../helpers/helper';
 
 class meetupController {
-  
   /**
    * Fetches all available meetups
    * @params {object} request
@@ -119,28 +118,23 @@ class meetupController {
     }
   }
 
-  static update(request, response) {
+  static async update(request, response) {
     if (request.user.isadmin) {
-      const requestBody = request.body;
-      meetup.find(request.params.id)
-        .then(result => meetup.update(result, requestBody))
-        .then((updated) => {
-          updated.rows.map((row) => {
-            delete row.created_at;
-            delete row.images;
-            delete row.tags;
-          });
+      try {
+        const { rows } = await meetup.find(request.params.id);
+        if (rows.length > 0) {
+          const result = await meetup.update(rows, request.body);
           return response.status(200).json({
             status: 200,
-            data: updated.rows[0],
+            data: result,
           });
-        })
-        .catch(error => response.status(404).json({
-          status: 404,
-          error: 'Meetup not found' || error,
-        }));
+        }
+        return helper.errorResponse(response, { status: 404, error: 'Meetup not found' });
+      } catch (error) {
+        return helper.errorResponse(response, { status: error.status, error: error.message });
+      }
     } else {
-      return helper.errorResponse(response, { status: 401, message: 'You are not authorized to perform this action' });
+      return helper.errorResponse(response, { status: 401, error: 'You are not authorized to perform this action' });
     }
   }
 

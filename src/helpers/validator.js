@@ -169,5 +169,20 @@ class Validate {
       next();
     });
   }
+
+  static validateMeetupImage(request, response, next) {
+    const { images } = request.body;
+    const validateObject = { images };
+
+    Joi.validate(validateObject, schema.meetupImage, (error) => {
+      if (error) {
+        return helper.errorResponse(response, {
+          status: 400,
+          error: error.details[0].message,
+        });
+      }
+      next();
+    });
+  }
 }
 export default Validate;

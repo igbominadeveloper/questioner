@@ -59,7 +59,7 @@ class Meetup {
       date,
     } = request;
 
-    const statement = `UPDATE ${table} SET topic=$1, location=$2, date=$3, tags=$4 WHERE id=$5 returning *`;
+    const statement = `UPDATE ${table} SET topic=$1, location=$2, date=$3, tags=$4, images=$5 WHERE id=$6 returning *`;
     let tags;
 
     if (request.tags instanceof Array) {
@@ -78,6 +78,7 @@ class Meetup {
       location || meetup[0].location,
       date || meetup[0].date,
       tags = request.tags ? tags : meetup[0].tags,
+      images = request.images ? images : meetup[0].images,
       meetup[0].id,
     ];
 

@@ -439,7 +439,7 @@ describe('Meetups', () => {
         .set('x-access-token', adminToken)
         .send(images)
         .end((_error, response) => {
-          console.log(response.body);
+          // console.log(response.body);
           expect(200);
           expect(response.body.status).toBe(200);
           expect(response.body.data).toHaveProperty('images');

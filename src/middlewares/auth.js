@@ -22,7 +22,7 @@ class Auth {
       request.user = { id: decodedToken.user_id, isadmin: decodedToken.isadmin };
       next();
     } catch (error) {
-      return helper.errorResponse(response, { status: 400, error: error });
+      return helper.errorResponse(response, { status: 400, error });
     }
   }
 }

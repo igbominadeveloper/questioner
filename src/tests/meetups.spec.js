@@ -340,4 +340,93 @@ describe('Meetups', () => {
         });
     });
   });
+
+  describe('POST /meetups/:id/tags', () => {
+    let meetupToBeUpdated;
+    const newMeetup = {
+      topic: Math.random().toString(36).substring(2, 15)
+      + Math.random().toString(36).substring(2, 15),
+      location: Math.random().toString(36).substring(2, 15)
+      + Math.random().toString(36).substring(2, 15),
+      date: new Date().toISOString(),
+    };
+    before((done) => {
+      request(app)
+        .post(meetupsApi)
+        .send(newMeetup)
+        .set('x-access-token', adminToken)
+        .end((_error, response) => {
+          expect(200);
+          meetupToBeUpdated = response.body.data;
+          done();
+        });
+    });
+
+    it('returns a 401 response when token is missing from the request header', (done) => {
+      request(app)
+        .post(`${meetupsApi}/${id}/tags`)
+        .end((_error, response) => {
+          expect(401);
+          expect(response.body).toHaveProperty('error');
+          expect(response.body.error).toMatch(/Token/);
+          done();
+        });
+    });
+    it('returns a 400 response when user is unauthorized to add tags', (done) => {
+      const tags = {
+        tags: 'no',
+      };
+      request(app)
+        .post(`${meetupsApi}/${id}/tags`)
+        .set('x-access-token', userToken)
+        .send(tags)
+        .end((_error, response) => {
+          expect(401);
+          expect(response.body).toHaveProperty('error');
+          expect(response.body.status).toBe(401);
+          done();
+        });
+    });
+    it('returns a 400 response when tags passed to request body is empty string', (done) => {
+      const tags = {
+        tags: '',
+      };
+      request(app)
+        .post(`${meetupsApi}/${id}/tags`)
+        .set('x-access-token', adminToken)
+        .send(tags)
+        .end((_error, response) => {
+          expect(400);
+          expect(response.body).toHaveProperty('error');
+          expect(response.body.error).toMatch(/empty/);
+          done();
+        });
+    });
+    it('returns a 400 response when request body is missing tags', (done) => {
+      request(app)
+        .post(`${meetupsApi}/${id}/tags`)
+        .set('x-access-token', adminToken)
+        .end((_error, response) => {
+          expect(400);
+          expect(response.body).toHaveProperty('error');
+          expect(response.body.error).toMatch(/tags/);
+          done();
+        });
+    });
+    it('returns a 400 response when user is unauthorized to add tags', (done) => {
+      const tags = {
+        tags: 'My new tag is here',
+      };
+      request(app)
+        .post(`${meetupsApi}/${meetupToBeUpdated.id}/tags`)
+        .set('x-access-token', adminToken)
+        .send(tags)
+        .end((_error, response) => {
+          expect(200);
+          expect(response.body.status).toBe(200);
+          expect(response.body.data).toHaveProperty('tags');
+          done();
+        });
+    });
+  });
 });

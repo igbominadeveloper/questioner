@@ -17,6 +17,7 @@ router.get('/api/v1/meetups/upcoming', Auth.verifyToken, meetupController.upcomi
 router.post('/api/v1/meetups', [Auth.verifyToken, Validator.validateMeetup], meetupController.create);
 router.get('/api/v1/meetups/:id', [Auth.verifyToken, Validator.validateId], meetupController.show);
 router.patch('/api/v1/meetups/:id', [Auth.verifyToken, Validator.validateId], meetupController.update);
+router.post('/api/v1/meetups/:id/tags', [Auth.verifyToken, Validator.validateId, Validator.validateMeetupTag], meetupController.update);
 router.delete('/api/v1/meetups/:id', [Auth.verifyToken, Validator.validateId], meetupController.destroy);
 router.get('/api/v1/meetups/:id/rsvps', [Auth.verifyToken, Validator.validateId], rsvpController.index);
 router.post('/api/v1/meetups/:id/rsvps', [Auth.verifyToken, Validator.validateId, Validator.validateRsvps], rsvpController.create);

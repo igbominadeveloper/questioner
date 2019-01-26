@@ -10,7 +10,7 @@
     "test": "cross-env NODE_ENV=test nyc --require babel-register mocha src/tests/**.spec.js --exit",
     "test:watch": "cross-env NODE_ENV=test nyc --require babel-register mocha src/tests/**.spec.js -w",
     "migrate": "babel-node src/database/runMigrations.js up",
-    "heroku-postbuild": "cross-env babel-node src/database/runMigrations.js up",
+    "heroku-postbuild": "npm run migrate:refresh",
     "test-migrate": "cross-env NODE_ENV=test babel-node src/database/runMigrations.js up",
     "test-migrate:refresh": "cross-env NODE_ENV=test babel-node src/database/runMigrations.js down && npm run test-migrate && npm run test:seed",
     "seed": "babel-node src/database/runMigrations.js seed",

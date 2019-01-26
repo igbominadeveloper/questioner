@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "build": "babel-node src/ dist/",
+    "build": "rimraf build/ && babel ./ --out-dir build/ --ignore ./node_modules,./coverage,./.babelrc,./package.json,./package-lock.json,./npm-debug.log,./.travis.yml,./.eslintrc.js,./ui,./README.md --copy-files",
     "lint": "node_modules/.bin/eslint src/\"**/*.js\" src/tests/**.spec.js",
     "test": "cross-env NODE_ENV=test nyc --require babel-register mocha src/tests/**.spec.js --exit",
     "test:watch": "cross-env NODE_ENV=test nyc --require babel-register mocha src/tests/**.spec.js -w",

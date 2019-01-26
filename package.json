@@ -15,7 +15,7 @@
     "test-migrate:refresh": "cross-env NODE_ENV=test babel-node src/database/runMigrations.js down && npm run test-migrate && npm run test:seed",
     "seed": "babel-node src/database/runMigrations.js seed",
     "test:seed": "cross-env NODE_ENV=test babel-node src/database/runMigrations.js seed",
-    "migrate:refresh": "babel-node src/database/runMigrations.js down && babel-node src/database/runMigrations.js up",
+    "migrate:refresh": "babel-node src/database/runMigrations.js down && babel-node src/database/runMigrations.js up && npm run seed",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {

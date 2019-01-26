@@ -5,3 +5,6 @@
 .idea/
 .vs/
 build/
+src/
+ui/
+./app.js

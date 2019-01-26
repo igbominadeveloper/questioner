@@ -4,7 +4,6 @@
 .env
 .idea/
 .vs/
-build/
-src/
-ui/
+.ui/
+.src/
 ./app.js

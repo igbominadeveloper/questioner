@@ -16,7 +16,8 @@ if (process.env.NODE_ENV == 'test') {
 }
 
 pool.on('connect', (response, error) => {
-  console.table(response.connectionParameters);
+  let config = response.connectionParameters;
+  console.log(`Connected to ${config.database} at ${config.host} in ${process.env.NODE_ENV} mode`);
 });
 
 class QueryFactory {

@@ -4,7 +4,12 @@
 .env
 .idea/
 .vs/
+<<<<<<< HEAD
 build/
 src/
 ui/
+=======
+.ui/
+.src/
+>>>>>>> c8ab99fed03859af3fc94d2577c496aa4ef33071
 ./app.js

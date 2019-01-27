@@ -3,14 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node build/app.js",
-    "dev": "nodemon app.js",
-    "build": "rimraf build/ && babel ./ --out-dir build/ --ignore ./node_modules,./coverage,./.babelrc,./package.json,./package-lock.json,./src/index.js,./npm-debug.log,./.travis.yml,./.eslintrc.json,./.eslintignore,./ui,./README.md, --copy-files",
-   "test": "cross-env NODE_ENV=test nyc mocha --require babel-register src/v1/tests/**.spec.js --exit",
-   "travis-test": "cross-env NODE_ENV=test nyc mocha build/src/v1/tests/**.spec.js --exit",
-    "heroku-postbuild": "npm run migrate:refresh",
-    "migrate:refresh": "babel-node build/src/database/runMigrations.js down && babel-node build/src/database/runMigrations.js up && babel-node build/src/database/runMigrations.js seed",
-    "test-migrate:refresh": "cross-env NODE_ENV=test babel-node src/database/runMigrations.js down && cross-env NODE_ENV=test babel-node src/database/runMigrations.js up && cross-env NODE_ENV=test babel-node src/database/runMigrations.js seed",
+    "start": "babel-node app.js",
+    "dev": "nodemon npm start",
+    "lint": "node_modules/.bin/eslint src/v1/\"**/*.js\" src/tests/**.spec.js",
+    "test": "cross-env NODE_ENV=test nyc mocha babel-node src/v1/tests/**.spec.js --exit",
+    "migrate:refresh": "cross-env NODE_ENV=test babel-node src/database/runMigrations.js down && cross-env NODE_ENV=test babel-node src/database/runMigrations.js up && cross-env NODE_ENV=test babel-node src/database/runMigrations.js seed",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "dependencies": {

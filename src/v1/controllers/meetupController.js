@@ -86,7 +86,7 @@ class meetupController {
     } else {
       return helper.errorResponse(response, {
         status: 401,
-        message: 'You are not authorized to perform this action',
+        error: 'You are not authorized to perform this action',
       });
     }
   }
@@ -108,12 +108,12 @@ class meetupController {
       }
       return helper.errorResponse(response, {
         status: 404,
-        message: 'No Upcoming meetups',
+        error: 'No Upcoming meetups',
       });
     } catch (error) {
       return helper.errorResponse(response, {
         status: 400,
-        message: 'Error occured',
+        error: 'Error occured',
       });
     }
   }
@@ -131,7 +131,7 @@ class meetupController {
         }
         return helper.errorResponse(response, { status: 404, error: 'Meetup not found' });
       } catch (error) {
-        return helper.errorResponse(response, { status: error.status, error: error.message });
+        return helper.errorResponse(response, { status: error.status, error: error.error });
       }
     } else {
       return helper.errorResponse(response, { status: 401, error: 'You are not authorized to perform this action' });
@@ -157,7 +157,7 @@ class meetupController {
           error: error.error,
         }));
     } else {
-      return helper.errorResponse(response, { status: 401, message: 'You are not authorized to perform this action' });
+      return helper.errorResponse(response, { status: 401, error: 'You are not authorized to perform this action' });
     }
   }
 }

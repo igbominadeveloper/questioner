@@ -127,7 +127,7 @@ class QuestionsController {
     }
     return helper.errorResponse(response, {
       status: 401,
-      message: 'You are not authorized to perform this action',
+      error: 'You are not authorized to perform this action',
     });
   }
 
@@ -149,12 +149,12 @@ class QuestionsController {
         }
         return helper.errorResponse(response, {
           error: 400,
-          message: 'Error occured! Comment couldn\'t be created',
+          error: 'Error occured! Comment couldn\'t be created',
         });
       }
       return helper.errorResponse(response, {
         error: 404,
-        message: 'Cannot comment on a non-existing question',
+        error: 'Cannot comment on a non-existing question',
       });
     } catch (errors) {
       return helper.errorResponse(response, errors);

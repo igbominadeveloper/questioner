@@ -5,16 +5,16 @@ import meetupsTable from './migrations/meetupsTable';
 import rsvpsTable from './migrations/rsvpsTable';
 import votesTable from './migrations/votesTable';
 import seeders from './seeder';
-import QueryBuilder from './queryBuilder';
+import queryFactory from './queryFactory';
 
 const up = async () => {
   try {
-    await QueryBuilder.run(usersTable.createUsersQuery.query);
-    await QueryBuilder.run(meetupsTable.createMeetupsQuery.query);
-    await QueryBuilder.run(rsvpsTable.createRsvpsQuery.query);
-    await QueryBuilder.run(questionsTable.createQuestionsQuery.query);
-    await QueryBuilder.run(commentsTable.createCommentsQuery.query);
-    await QueryBuilder.run(votesTable.createVotesQuery.query);
+    await queryFactory.run(usersTable.createUsersQuery.query);
+    await queryFactory.run(meetupsTable.createMeetupsQuery.query);
+    await queryFactory.run(rsvpsTable.createRsvpsQuery.query);
+    await queryFactory.run(questionsTable.createQuestionsQuery.query);
+    await queryFactory.run(commentsTable.createCommentsQuery.query);
+    await queryFactory.run(votesTable.createVotesQuery.query);
   } catch (error) {
     console.log(error);
   }
@@ -22,12 +22,12 @@ const up = async () => {
 
 const down = async () => {
   try {
-    await QueryBuilder.run(votesTable.dropVotesQuery.query);
-    await QueryBuilder.run(commentsTable.dropCommentsQuery.query);
-    await QueryBuilder.run(questionsTable.dropQuestionsQuery.query);
-    await QueryBuilder.run(rsvpsTable.dropRsvpsQuery.query);
-    await QueryBuilder.run(meetupsTable.dropMeetupsQuery.query);
-    await QueryBuilder.run(usersTable.dropUsersQuery.query);
+    await queryFactory.run(votesTable.dropVotesQuery.query);
+    await queryFactory.run(commentsTable.dropCommentsQuery.query);
+    await queryFactory.run(questionsTable.dropQuestionsQuery.query);
+    await queryFactory.run(rsvpsTable.dropRsvpsQuery.query);
+    await queryFactory.run(meetupsTable.dropMeetupsQuery.query);
+    await queryFactory.run(usersTable.dropUsersQuery.query);
   } catch (error) {
     console.log(error);
   }
@@ -35,7 +35,7 @@ const down = async () => {
 
 const seed = async () => {
   try {
-    await QueryBuilder.run(seeders.users);
+    await queryFactory.run(seeders.users);
   } catch (error) {
     console.log(error);
   }

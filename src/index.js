@@ -1,3 +1,3 @@
 require('babel-register');
 require('../app.js');
-require('./routes/index.js');
+require('./v1/routes');

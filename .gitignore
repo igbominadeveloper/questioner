@@ -4,3 +4,6 @@
 .env
 .idea/
 .vs/
+.ui/
+.src/
+./app.js

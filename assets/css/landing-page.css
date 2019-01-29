@@ -37,14 +37,15 @@ footer {
 	font-size: 20px;
 	align-items: center;
   justify-content: space-around;
+	text-align: left;
 }
 
 div.footer-groups p {
-	padding: 16px;
+	padding-top: 16px;
 }
 
 .footer-group-title {
-	padding: 10px; 
+	padding-top: 10px; 
 	color: black;
 }
 

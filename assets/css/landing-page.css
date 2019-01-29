@@ -56,3 +56,10 @@ div.footer-groups p {
 .footer-groups p {
 	font-size: 15px;
 }
+footer div.links {
+	width: 66%;
+}
+footer div.logo {
+	width: 34%;
+	text-align: center;
+}

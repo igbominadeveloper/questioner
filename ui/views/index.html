@@ -13,7 +13,6 @@
 </head>
 <body>
   <div class="container-fluid">
-    
     <nav class="navbar" id="navbar-desktop">
       <div class="page-title">
         <h3>Questioner</h3>
@@ -35,9 +34,6 @@
     <nav class="navbar-collapse" id="navbar-mobile">
       <div>
         <ul class="flex flex-column text-left p-1">
-          <!-- <li>
-            <a href="meetups-list-table.html">Dashboard</a>
-          </li> -->
           <li>
             <a href="meetups.html">Meetups</a>
           </li>
@@ -49,13 +45,21 @@
         </ul>
       </div>
     </nav>
-  <header class="banner mt-0 flex flex-row">
-    <div class="view-more flex flex-row banner-buttons center">
-      <a href="register.html"><div class="btn-primary shadow">Sign up</div></a>
-    </div>    
+  <header class="banner mt-0">
   </header>
+  <div class="banner-text flex flex-column">
+    <div class="view-more flex flex-column banner-buttons center mt-120">
+      <p class="text-heavy banner-title">Questioner</p>
+      <p class="banner-body">Crowd-sourcing questions for meetups</p>
+    </div>
+    <div class="view-more flex flex-row banner-buttons center">
+      <a href="register.html">
+        <div class="btn-primary shadow">Sign up</div>
+      </a>
+    </div>
+  </div>
     <div class="view-more">
-      <div class="shadow">Latest Meetups</div>
+      <div class="meetups-heading">Latest Meetups</div>
     </div>
     <div class="meetup-wrapper">
       <a href="meetup.html">
@@ -125,9 +129,27 @@
     </div>
     <div class="how-to flex-column text-white">
       <div class="how-to-title">How Questioner works</div>
-      <div class="how-to-details flex flex-row space-around">
-        <p>Find a meetup that catches your fancy</p>
-        <p>Sign up and book your place</p>
+      <div class="how-to-details flex flex-row center">
+        <article class="flex width-40 space-around">
+          <div class="icon">
+            <i class="fa fa-2x fa-question text-primary"></i>
+          </div>
+          <div class="content">
+            <p class="text-left">Find any interesting one?</p>
+            <p class="text-small text-left">Ask your pertinent questions and upvote any to catch the organizer's attention</p>
+            <p class="text-left text-primary text">Sign up</p>
+          </div>
+        </article>
+        <article class="flex width-40 space-around">
+          <div class="icon">
+            <i class="fa fa-2x fa-check text-primary"></i>
+          </div>
+          <div class="content">
+            <p class="text-left">Ready to book a place?</p>
+            <p class="text-small text-left">You can rsvp on any meetup, better you can change your decision anytime</p>
+            <p class="text-left text-primary text">Book a place</p>
+          </div>
+        </article>
       </div>
     </div>
     
@@ -136,39 +158,60 @@
         <div class="btn-primary shadow">Sign up</div>
       </div>    
     </div>
-    <footer class="flex text-white">
-      <div class="footer-groups flex flex-column">
-        <div class="footer-group-title">
-        Questioner
+    <footer>
+      <div class="footer-content flex text-white flex-row">
+        <div class="logo">
+          <div class="footer-groups flex flex-column">
+            <div class="footer-group-title">
+            Questioner Logo
+            </div>
+          </div>
         </div>
-        <a href="#"><p>About us</p></a>
-        <a href="#"><p>How it works</p></a>
-        <a href="#"><p>Contact us</p></a>
+        <div class="flex flex-row space-between links">
+          <div class="footer-groups flex flex-column">
+            <div class="footer-group-title">
+              Questioner
+            </div>
+            <a href="#">
+              <p>About us</p>
+            </a>
+            <a href="#">
+              <p>How it works</p>
+            </a>
+            <a href="#">
+              <p>Contact us</p>
+            </a>
+          </div>
+          <div class="footer-groups flex flex-column">
+            <div class="footer-group-title">
+              Account
+            </div>
+            <a href="register.html">
+              <p>Sign up</p>
+            </a>
+            <a href="login.html">
+              <p>Sign in</p>
+            </a>
+            <a href="password-reset.html">
+              <p>Password reset</p>
+            </a>
+          </div>
+          <div class="footer-groups flex flex-column">
+            <div class="footer-group-title">
+              Quick Links
+            </div>
+            <a href="meetups.html">
+              <p>All meetups</p>
+              <a href="#">
+                <p>Upcoming</p>
+                <a href="#">
+                  <p>Latest</p>
+          </div>
+        </div>
       </div>
-      <div class="footer-groups flex flex-column">
-        <div class="footer-group-title">
-        Account
-        </div>
-        <a href="register.html"><p>Sign up</p></a>
-        <a href="login.html"><p>Sign in</p></a>
-        <a href="password-reset.html"><p>Password reset</p></a>
+      <div class="copyright bg-white p-10">
+        <p class="text-center">Made with <i class="fa fa-heart text-danger"></i>by <a href="https://github.com/igbominadeveloper" class="github">igbominadeveloper</a></p>
       </div>
-      <div class="footer-groups flex flex-column">
-        <div class="footer-group-title">
-        Quick Links
-        </div>
-        <a href="meetups.html"><p>All meetups</p>
-        <a href="#"><p>Upcoming</p>
-        <a href="#"><p>Latest</p>
-      </div>
-      <!-- <div class="footer-groups flex flex-column">
-        <div class="footer-group-title">
-        Contact
-        </div>
-        <p>Contact us</p>
-        <p>How it works</p>
-        <p>Contact us</p>
-      </div> -->
     </footer>
   </div>
 <script src="assets/js/app.js"></script>

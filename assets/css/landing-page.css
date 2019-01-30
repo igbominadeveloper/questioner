@@ -38,3 +38,7 @@ header.banner {
 	height: 160px;
 	background: white;
 }
+
+.meetups-heading {
+	font-size: 25px;
+}

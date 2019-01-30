@@ -62,3 +62,10 @@ footer div.logo {
 	width: 34%;
 	text-align: center;
 }
+.footer-content {
+	padding: 30px 20px;
+}
+
+.copyright {
+	font-size: 17px;
+}

@@ -32,25 +32,43 @@ header.banner {
 }
 
 footer {
-	background: grey;
-	height: 250px;
+	background:rgb(240, 240, 240);
 	font-size: 20px;
 	align-items: center;
   justify-content: space-around;
+	text-align: left;
 }
 
 div.footer-groups p {
-	padding: 16px;
+	padding-top: 16px;
 }
 
 .footer-group-title {
-	padding: 10px; 
+	padding-top: 10px; 
+	color: black;
 }
 
 .footer-groups a {
-	color: white;
+	color: black
 }
 
 .footer-groups p {
 	font-size: 15px;
+}
+footer div.links {
+	width: 66%;
+}
+footer div.logo {
+	width: 34%;
+	text-align: center;
+}
+.footer-content {
+	padding: 30px 20px;
+}
+
+.copyright {
+	font-size: 17px;
+}
+.copyright p > a.github {
+	text-decoration-line: underline;
 }

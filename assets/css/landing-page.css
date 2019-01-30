@@ -69,3 +69,6 @@ footer div.logo {
 .copyright {
 	font-size: 17px;
 }
+.copyright p > a.github {
+	text-decoration-line: underline;
+}

@@ -42,6 +42,49 @@ textarea {
 table {
 	width: 100%;
 }
+footer {
+	background:rgb(240, 240, 240);
+	font-size: 20px;
+	align-items: center;
+  justify-content: space-around;
+	text-align: left;
+	margin-top:60px;
+}
+
+div.footer-groups p {
+	padding-top: 16px;
+}
+
+.footer-group-title {
+	padding-top: 10px; 
+	color: black;
+	font-weight: 500;
+}
+
+.footer-groups a {
+	color: black
+}
+
+.footer-groups p {
+	font-size: 15px;
+}
+footer div.links {
+	width: 66%;
+}
+footer div.logo {
+	width: 34%;
+	text-align: center;
+}
+.footer-content {
+	padding: 30px 20px;
+}
+
+.copyright {
+	font-size: 17px;
+}
+.copyright p > a.github {
+	text-decoration-line: underline;
+}
 
 .container {
 	max-width: 900px;

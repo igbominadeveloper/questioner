@@ -48,6 +48,7 @@ footer {
 	align-items: center;
   justify-content: space-around;
 	text-align: left;
+	margin-top:60px;
 }
 
 div.footer-groups p {

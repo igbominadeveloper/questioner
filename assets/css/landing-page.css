@@ -1,16 +1,20 @@
 header.banner {
 	height: 400px;
-	background: white;
 	margin-top: -8px;
 	background: url(../images/banner.jpeg);
 	background-repeat: no-repeat;
 	background-size: cover;
 	align-items: flex-end;
+	opacity: .3;
 }
 
 .banner-buttons {
 	height: 75px;
 	width: 598px;
+}
+
+.banner-title, .banner-body {
+	font-size: 2rem;
 }
 
 .how-to {

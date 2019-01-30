@@ -2,6 +2,13 @@
 .hide {
 	display: none !important;
 }
+.half-width {
+	width: 50%;
+}
+
+.width-40 {
+	width: 40%;
+}
 
 .show {
 	display: block !important;
@@ -30,7 +37,10 @@
 .p-10 {
 	padding: 10px;
 }
-
+.mr-5 {
+	margin-right: 5px;
+	margin-left: 5px;
+}
 .p-20 {
 	padding: 20px;
 }
@@ -128,6 +138,10 @@
 
 .text-small {
 	font-size: small;
+}
+
+.text-larger {
+	font-size: larger;
 }
 
 .fs-20 {

@@ -61,7 +61,7 @@
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 	font-size: 18px;
 }
-.form-header,.form-footer {
+.form-header {
 	font-weight: bold;
 }
 .form-header {
@@ -75,7 +75,6 @@
 }
 .form-footer a {
 	text-decoration: dashed;
-	color: black;
 }
 
 .form-footer a:hover {

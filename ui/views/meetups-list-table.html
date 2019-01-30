@@ -9,6 +9,8 @@
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/utility.css"/>
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/form.css"/>
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/media-queries.css"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 <body>
   <div class="container-fluid">
@@ -19,10 +21,13 @@
       <div class="nav-links">
         <ul>
           <li>
-            <a href="login.html">Sign in</a>
+            <a href="meetups.html"><span class="fa fa-meetup"></span>Meetups</a>
           </li>
           <li>
-            <a href="register.html">Register</a>
+            <a href="user-profile.html"><span class="fa fa-user"></span>Profile</a>
+          </li>
+          <li>
+            <a href="login.html"><span class="fa fa-sign-out"></span>Logout</a>
           </li>
         </ul>
       </div>
@@ -207,6 +212,62 @@
           </a>
       </section>
     </div>
+    <footer>
+      <div class="footer-content flex text-white flex-row">
+        <div class="logo">
+          <div class="footer-groups flex flex-column">
+            <div class="footer-group-title">
+              Questioner Logo
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-row space-between links">
+          <div class="footer-groups flex flex-column">
+            <div class="footer-group-title">
+              Questioner
+            </div>
+            <a href="#">
+              <p>About us</p>
+            </a>
+            <a href="#">
+              <p>How it works</p>
+            </a>
+            <a href="#">
+              <p>Contact us</p>
+            </a>
+          </div>
+          <div class="footer-groups flex flex-column">
+            <div class="footer-group-title">
+              Account
+            </div>
+            <a href="register.html">
+              <p>Sign up</p>
+            </a>
+            <a href="login.html">
+              <p>Sign in</p>
+            </a>
+            <a href="password-reset.html">
+              <p>Password reset</p>
+            </a>
+          </div>
+          <div class="footer-groups flex flex-column">
+            <div class="footer-group-title">
+              Quick Links
+            </div>
+            <a href="meetups.html">
+              <p>All meetups</p>
+              <a href="#">
+                <p>Upcoming</p>
+                <a href="#">
+                  <p>Latest</p>
+          </div>
+        </div>
+      </div>
+      <div class="copyright bg-white p-10">
+        <p class="text-center">Made with <i class="fa fa-heart text-danger"></i>by <a href="https://github.com/igbominadeveloper"
+            class="github">igbominadeveloper</a></p>
+      </div>
+    </footer>
   </div>
   <script src="assets/js/app.js"></script>  
 </body>

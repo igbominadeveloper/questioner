@@ -2,6 +2,9 @@
 .hide {
 	display: none !important;
 }
+.half-width {
+	width: 50%;
+}
 
 .show {
 	display: block !important;

@@ -11,8 +11,11 @@ header.banner {
 .banner-buttons {
 	height: 75px;
 	width: 598px;
+	z-index: 1;
 }
-
+.banner-text {
+	margin-top: -25rem;
+}
 .banner-title, .banner-body {
 	font-size: 2rem;
 }

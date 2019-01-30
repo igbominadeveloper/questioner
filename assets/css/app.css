@@ -58,6 +58,7 @@ div.footer-groups p {
 .footer-group-title {
 	padding-top: 10px; 
 	color: black;
+	font-weight: 500;
 }
 
 .footer-groups a {

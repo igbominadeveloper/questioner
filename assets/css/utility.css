@@ -6,6 +6,10 @@
 	width: 50%;
 }
 
+.width-40 {
+	width: 40%;
+}
+
 .show {
 	display: block !important;
 }

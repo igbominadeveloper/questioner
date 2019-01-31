@@ -421,15 +421,24 @@ i{
 	margin-top: 10px;
 	font-size: large;
 }
+.alert-wrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: rgba(0,0,0,.4);
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+}
 
 .alert {
-	  width: 363px;
-    margin: 20px auto;
-    padding: 50px 20px;
+	width: 400px;
+	overflow-y: auto;
+	padding: 70px 20px;
 }
 
 .alert-icon {
-	font-size: 3rem;
+	font-size: 3rem !important;
 }
 
 .alert-text {

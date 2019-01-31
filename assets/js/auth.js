@@ -44,13 +44,14 @@ class Authentication{
           }, 2000);
         }
         const user = response.data[0].user;
+        const token = response.data[0].token;
         const successTemplate = `
             <div class="alert card">
               <i class="alert-icon fa fa-check text-primary p-20"></i>
               <p class="alert-text text-primary">Welcome back ${ user.firstname} ${ user.lastname }</p>
             </div>
           `;
-          console.log(response);
+        this.setState(token, user);
         alertWrapper.classList.remove('hide');
           alertWrapper.innerHTML = successTemplate;
           setTimeout(() => {
@@ -58,5 +59,33 @@ class Authentication{
           }, 2000);
       })
       .catch(error => console.log(error))
+  }
+
+  static setState(token, user) {
+    if (this.getState() !== '') {
+      this.removeState();
+    }
+    localStorage.setItem('token', token);
+    localStorage.setItem('user', user);
+  }
+
+  static removeState() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  }
+
+  static getState() {
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    return { token, user };
+  }
+
+  static isLoggedIn() {
+    if(this.getState() === ''){
+      return false;
+    }
+    else if (this.getState().length > 0){
+      return true;
+    }
   }
 }

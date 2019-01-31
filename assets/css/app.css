@@ -421,3 +421,18 @@ i{
 	margin-top: 10px;
 	font-size: large;
 }
+
+.alert {
+	  width: 363px;
+    margin: 20px auto;
+    padding: 50px 20px;
+}
+
+.alert-icon {
+	font-size: 3rem;
+}
+
+.alert-text {
+	font-size: 1.4rem;
+	padding: 10px 15px;
+}

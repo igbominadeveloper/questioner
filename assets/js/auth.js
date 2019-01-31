@@ -1,4 +1,6 @@
 const apiDomain = 'https://questioner-api.herokuapp.com/api/v1';
+const errorAlert = document.querySelector('.bg-danger');
+let response;
 /**
  * Handle authentication and authorization
  * Login and register new accounts
@@ -25,8 +27,13 @@ class Authentication{
         "Accept": "application/json"
       }
     })
+    .then(response => response.json())
       .then(response => {
-       console.table(response.body);
+        if(response.status !=200){
+          errorAlert.classList.remove('hide');
+          errorAlert.classList.add('show');
+          errorAlert.textContent = response.error;
+        }
       })
       .catch(error => console.log(error))
   }

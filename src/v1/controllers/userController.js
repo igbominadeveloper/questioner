@@ -24,17 +24,17 @@ class userController {
           }
           return response.status(400).json({
             status: 400,
-            error: 'Incorrect password',
+            error: 'Incorrect credentials',
           });
         }
         return response.status(404).json({
           status: 404,
-          error: 'User not found',
+          error: 'Incorrect credentials',
         });
       })
       .catch(error => response.status(400).json({
-        status: 401,
-        error: error.error,
+        status: 400,
+        error,
       }));
   }
 

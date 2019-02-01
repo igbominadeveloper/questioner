@@ -34,7 +34,7 @@ describe('POST /api/v1/auth/login', () => {
     request(app)
       .post(loginUrl)
       .send({ email: 'favourafolayan@gmail.com', password: 'password1' })
-      .end((response, error) => {
+      .end((_response, error) => {
         expect(error.body.error).toBe('User not found');
         expect(error.body.status).toBe(404);
       });
@@ -42,7 +42,8 @@ describe('POST /api/v1/auth/login', () => {
   });
 });
 
-let registeredUser = '';
+let registeredUser;
+let token;
 
 before((done) => {
   const userData = {
@@ -54,8 +55,8 @@ before((done) => {
   request(app)
     .post(registrationUrl)
     .send(userData)
-    .end((error, response) => {
-      registeredUser = response.body.data.user;
+    .end((_error, response) => {
+      registeredUser = response.body.data[0].user;
       console.log(`Registered User is - ${registeredUser}`);
     });
   done();
@@ -66,7 +67,7 @@ describe('POST /api/v1/auth/login', () => {
     request(app)
       .post(loginUrl)
       .send({ email: 'afolayan@tech4dev.com', password: 'password1' })
-      .end((error, response) => {
+      .end((_error, response) => {
         expect(response.body.status).toBe(200);
         expect(response.body.data[0].user.email).toBe('afolayan@tech4dev.com');
         expect(response.body.data[0].user.firstname).toBe('Freeze');
@@ -79,7 +80,7 @@ describe('POST /api/v1/auth/signup', () => {
   it('returns 400 response when user tries to register with no data', (done) => {
     request(app)
       .post(registrationUrl)
-      .end((error, response) => {
+      .end((_error, response) => {
         expect(response.body.error).toBe('\"firstname\" is required');
         expect(response.body.status).toBe(400);
       });
@@ -99,7 +100,7 @@ describe('POST /api/v1/auth/signup', () => {
     request(app)
       .post(registrationUrl)
       .send(payload)
-      .end((error, response) => {
+      .end((_error, response) => {
         expect(response.body.error).toBe('\"firstname\" is required');
       });
     done();
@@ -118,7 +119,7 @@ describe('POST /api/v1/auth/signup', () => {
     request(app)
       .post(registrationUrl)
       .send(payload)
-      .end((error, response) => {
+      .end((_error, response) => {
         expect(response.body.error).toBe('\"lastname\" is required');
       });
     done();
@@ -138,7 +139,7 @@ describe('POST /api/v1/auth/signup', () => {
     request(app)
       .post(registrationUrl)
       .send(payload)
-      .end((error, response) => {
+      .end((_error, response) => {
         expect(response.body.status).toBe(400);
         expect(response.body.error).toBe('\"email\" is not allowed to be empty');
       });
@@ -159,7 +160,7 @@ describe('POST /api/v1/auth/signup', () => {
     request(app)
       .post(registrationUrl)
       .send(payload)
-      .end((error, response) => {
+      .end((_error, response) => {
         expect(response.body.status).toBe(400);
         expect(response.body.error).toBe('\"email\" must be a valid email');
       });
@@ -179,7 +180,7 @@ describe('POST /api/v1/auth/signup', () => {
     request(app)
       .post(registrationUrl)
       .send(payload)
-      .end((error, response) => {
+      .end((_error, response) => {
         expect(response.body.status).toBe(400);
         expect(response.body.error).toBe('\"password\" is not allowed to be empty');
       });
@@ -199,13 +200,30 @@ describe('POST /api/v1/auth/signup', () => {
     request(app)
       .post(registrationUrl)
       .send(payload)
-      .end((error, response) => {
-        console.log(response.body);
+      .end((_error, response) => {
         expect(response.body.data[0].user.firstname).toBe('Favour');
         expect(response.status).toBe(201);
         expect(response.body.data).toContainKey('token');
         expect(response.body.data[0].user.username).toBe('igbominadeveloper');
       });
     done();
+  });
+});
+
+
+describe('PATCH /api/v1/user/:id', () => {
+  before((done) => {
+    request(app)
+      .post(loginUrl)
+      .send({ email: 'user@questioner.com', password: 'password1' })
+      .end((_error, response) => {
+        expect(response.body.status).toBe(200);
+        expect(response.body.data[0].user.email).toBe('afolayan@tech4dev.com');
+        expect(response.body.data[0].user.firstname).toBe('Freeze');
+      });
+    done();
+  });
+  it.only('returns a 401 response when token is missing', (_done) => {
+
   });
 });

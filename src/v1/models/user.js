@@ -2,6 +2,7 @@ import queryFactory from '../../database/queryFactory';
 
 
 import helper from '../helpers/helper';
+import QueryFactory from '../../database/queryFactory';
 
 class User {
   static authenticate(credentials) {
@@ -44,6 +45,15 @@ class User {
     } catch (error) {
       return error;
     }
+  }
+
+  static find(user_id) {
+    const statement = 'SELECT * FROM users WHERE id=$1';
+    return new Promise((resolve, reject) => {
+      queryFactory.run(statement, [user_id])
+        .then(response => resolve(response))
+        .catch(error => resolve(error))
+    });
   }
 }
 

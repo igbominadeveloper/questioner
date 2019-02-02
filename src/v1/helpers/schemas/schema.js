@@ -40,6 +40,14 @@ const oldUser = Joi.object().keys({
   password: Joi.string().trim().required(),
 });
 
+const userUpdate = Joi.object().keys({
+  firstname: Joi.string().trim().min(3),
+  lastname: Joi.string().trim().min(3),
+  othername: Joi.string().trim().min(3),
+  username: Joi.string().trim().min(3),
+  phonenumber: Joi.number().integer().min(9),
+});
+
 const rsvps = Joi.object().keys({
   status: Joi.string().trim().valid(['yes', 'no', 'maybe']).required(),
 });
@@ -50,6 +58,7 @@ export default {
   comment,
   oldUser,
   newUser,
+  userUpdate,
   rsvps,
   meetupTag,
   meetupImage,

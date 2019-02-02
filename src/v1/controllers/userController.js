@@ -1,5 +1,6 @@
 import helper from '../helpers/helper';
 import user from '../models/user';
+import QueryFactory from '../../database/queryFactory';
 
 class userController {
   static login(request, response) {
@@ -72,9 +73,17 @@ class userController {
 
   static async update(request, response) {
     try {
-      const result = await user.find(request.params.id);
+      const { rows } = await user.find(request.params.id);
+      if (rows.length > 0) {
+        const updatedProfile = await user.update(rows[0].row, request.body);
+        return response.status(200).json({
+          status: 200,
+          data: updatedProfile
+        });
+      }
+      return helper.errorResponse(response, { status: 404, error:'User does not exist' });        
     } catch (error) {
-      return helper.errorResponse(response, error);
+        return helper.errorResponse(response, { status: error.status, error: error });
     }
   }
 }

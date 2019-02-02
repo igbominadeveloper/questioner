@@ -4,7 +4,7 @@ import app from '../../../app';
 
 const loginUrl = '/api/v1/auth/login';
 const registrationUrl = '/api/v1/auth/signup';
-const profileUrl = '/api/v1/user';
+const profileUrl = '/api/v1/users';
 
 describe('POST /api/v1/auth/login', () => {
   it('returns 400 response when user tries to login without any credentials', (done) => {
@@ -273,6 +273,7 @@ describe('PATCH /api/v1/user/:id', () => {
       .send(updatedRecord)
       .set('x-access-token', token)
       .end((_error, response) => {
+        console.log(response);
         expect(response.body.status).toBe(200);
         done();
         });

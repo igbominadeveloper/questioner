@@ -48,12 +48,40 @@ class User {
   }
 
   static find(user_id) {
-    const statement = 'SELECT * FROM users WHERE id=$1';
+    const statement = 'SELECT (id, firstname, lastname, othername, username, phonenumber) FROM users WHERE id=$1';
     return new Promise((resolve, reject) => {
       queryFactory.run(statement, [user_id])
         .then(response => resolve(response))
-        .catch(error => resolve(error))
+        .catch(error => reject(error))
     });
+  }
+
+
+  static update(currentProfile, request) {
+    const userArray = currentProfile.split(',');
+    const userProfile = {
+      id: userArray[0].replace('(',''),
+      firstname: userArray[1],
+      lastname: userArray[2],
+      othername: userArray[3],
+      username: userArray[4],
+      phonenumber: userArray[4].replace(')',''),
+    }
+    const statement = `UPDATE users SET firstname=$1, lastname=$2, othername=$3, username=$4, phonenumber=$5 WHERE id=$6 returning *`;
+    const updates = {
+      firstname: request.firstname || userProfile.firstname,
+      lastname: request.lastname || userProfile.lastname,
+      othername: request.othername || userProfile.othername,
+      phonenumber: request.phonenumber || userProfile.phonenumber,
+      username: request.username || userProfile.username,
+      id: request.id,
+    };
+    return updates ;
+    // return new Promise((resolve, reject) => {
+    //   queryFactory.run(statement, Object.values(updates))
+    //     .then(response => resolve(updates))
+    //     .catch(error => reject(error))
+    // });
   }
 }
 

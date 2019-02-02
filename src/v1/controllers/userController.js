@@ -69,6 +69,14 @@ class userController {
       return helper.errorResponse(response, error);
     }
   }
+
+  static async update(request, response) {
+    try {
+      const result = await user.find(request.params.id);
+    } catch (error) {
+      return helper.errorResponse(response, error);
+    }
+  }
 }
 
 export default userController;

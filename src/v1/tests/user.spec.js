@@ -235,17 +235,12 @@ describe('PATCH /api/v1/user/:id', () => {
       othername: 'My New othername',
     };
     request(app)
-      .patch(`${profileUrl}/user/${user.id}`)
+      .patch(`${profileUrl}/${user.id}`)
       .send(updatedRecord)
-      .end((error, response) => {
-        expect(200);
-        console.log(response.text);
-        expect(response.body.data.length).toBeGreaterThan(0);
-        // expect(response.body.data[0]).toHaveProperty('user');
-        // expect(response.body.data[0].user).toHaveProperty('firstname');
-        // expect(response.body.data[0].user.firstname).toBe(updatedRecord.firstname);
-        // expect(response.body.data[0].user.lastname).toBe(updatedRecord.lastname);
-        // expect(response.body.data[0].user.othername).toBe(updatedRecord.othername);
+      .end((_error, response) => {
+        expect(401);
+        expect(response.body).toHaveProperty('error');
+        expect(response.body.error).toMatch(/Token/);
         done();
         });
   })

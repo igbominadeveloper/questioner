@@ -228,7 +228,7 @@ describe('PATCH /api/v1/user/:id', () => {
       });
   });
 
-  it.only('returns a 401 response when token is missing', (done) => {
+  it('returns a 401 response when token is missing', (done) => {
     const updatedRecord = {
       firstname: 'My New firstname',
       lastname: 'My New lastname',
@@ -241,6 +241,39 @@ describe('PATCH /api/v1/user/:id', () => {
         expect(401);
         expect(response.body).toHaveProperty('error');
         expect(response.body.error).toMatch(/Token/);
+        done();
+        });
+  })
+
+  it('returns a 400 response when invalid token is suppliedk', (done) => {
+    const updatedRecord = {
+      firstname: 'My New firstname',
+      lastname: 'My New lastname',
+      othername: 'My New othername',
+    };
+    request(app)
+      .patch(`${profileUrl}/${user.id}`)
+      .send(updatedRecord)
+      .set('x-access-token','hggdu8489bnbh4')
+      .end((_error, response) => {
+        expect(400);
+        expect(response.body).toHaveProperty('error');
+        expect(response.body.error).tokMatch(/malformed/);
+        done();
+        });
+  })
+  it.only('returns a 200 response when profile update is successful', (done) => {
+    const updatedRecord = {
+      firstname: 'My New firstname',
+      lastname: 'My New lastname',
+      othername: 'My New othername',
+    };
+    request(app)
+      .patch(`${profileUrl}/${user.id}`)
+      .send(updatedRecord)
+      .set('x-access-token', token)
+      .end((_error, response) => {
+        expect(response.body.status).toBe(200);
         done();
         });
   })

@@ -214,9 +214,9 @@ describe('POST /api/v1/auth/signup', () => {
         expect(response.body.data[0]).toHaveProperty('token');
         expect(response.body.data[0]).toHaveProperty('user');
         expect(response.body.data[0].user).toHaveProperty('firstname');
-        expect(response.body.data[0].user).toHaveProperty('username');
+        expect(response.body.data[0].user).toHaveProperty('lastname');
         expect(response.body.data[0].user.firstname).toBe(payload.firstname);
-        expect(response.body.data[0].user.username).toBe(payload.username);
+        expect(response.body.data[0].user.lastname).toBe(payload.lastname);
         done();
       });
   });
@@ -256,7 +256,7 @@ describe('PATCH /api/v1/user/:id', () => {
         });
   })
 
-  it('returns a 400 response when invalid token is suppliedk', (done) => {
+  it('returns a 400 response when invalid token is supplied', (done) => {
     const updatedRecord = {
       firstname: 'My New firstname',
       lastname: 'My New lastname',
@@ -269,7 +269,7 @@ describe('PATCH /api/v1/user/:id', () => {
       .end((_error, response) => {
         expect(400);
         expect(response.body).toHaveProperty('error');
-        expect(response.body.error).tokMatch(/malformed/);
+        expect(response.body.error).toMatch(/malformed/);
         done();
         });
   })

@@ -1,4 +1,5 @@
-const apiDomain = 'https://questioner-api.herokuapp.com/api/v1';
+// const apiDomain = 'https://questioner-api.herokuapp.com/api/v1';
+const apiDomain = 'http://localhost:3000/api/v1';
 const alertWrapper = document.querySelector('.alert-wrapper');
 let response;
 /**

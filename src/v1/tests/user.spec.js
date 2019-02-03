@@ -25,8 +25,8 @@ describe('POST /api/v1/auth/login', () => {
       .end((err, res) => {
         if (err) return done(err);
         expect(res.body.data);
+        done();
       });
-    done();
   });
 });
 
@@ -38,8 +38,8 @@ describe('POST /api/v1/auth/login', () => {
       .end((_response, error) => {
         expect(error.body.error).toBe('User not found');
         expect(error.body.status).toBe(404);
+        done();
       });
-    done();
   });
 });
 
@@ -58,9 +58,8 @@ before((done) => {
     .send(userData)
     .end((_error, response) => {
       registeredUser = response.body.data[0].user;
-      console.log(`Registered User is - ${registeredUser}`);
+      done();
     });
-  done();
 });
 
 describe('POST /api/v1/auth/login', () => {
@@ -72,8 +71,8 @@ describe('POST /api/v1/auth/login', () => {
         expect(response.body.status).toBe(200);
         expect(response.body.data[0].user.email).toBe('afolayan@tech4dev.com');
         expect(response.body.data[0].user.firstname).toBe('Freeze');
+        done();
       });
-    done();
   });
 });
 
@@ -82,10 +81,10 @@ describe('POST /api/v1/auth/signup', () => {
     request(app)
       .post(registrationUrl)
       .end((_error, response) => {
-        expect(response.body.error).toBe('\"firstname\" is required');
         expect(response.body.status).toBe(400);
+        expect(response.body).toHaveProperty('error');
+        done();
       });
-    done();
   });
 });
 
@@ -102,9 +101,10 @@ describe('POST /api/v1/auth/signup', () => {
       .post(registrationUrl)
       .send(payload)
       .end((_error, response) => {
-        expect(response.body.error).toBe('\"firstname\" is required');
+        expect(400);
+        expect(response.body.error).toMatch(/firstname/);
+        done();
       });
-    done();
   });
 });
 
@@ -121,9 +121,11 @@ describe('POST /api/v1/auth/signup', () => {
       .post(registrationUrl)
       .send(payload)
       .end((_error, response) => {
-        expect(response.body.error).toBe('\"lastname\" is required');
+        expect(400);
+        expect(response.body).toHaveProperty('error');
+        expect(response.body.error).toMatch(/lastname/);
+        done();
       });
-    done();
   });
 });
 
@@ -141,10 +143,11 @@ describe('POST /api/v1/auth/signup', () => {
       .post(registrationUrl)
       .send(payload)
       .end((_error, response) => {
+        expect(400);
         expect(response.body.status).toBe(400);
-        expect(response.body.error).toBe('\"email\" is not allowed to be empty');
+        expect(response.body.error).toMatch(/email/);
+        done();
       });
-    done();
   });
 });
 
@@ -162,10 +165,12 @@ describe('POST /api/v1/auth/signup', () => {
       .post(registrationUrl)
       .send(payload)
       .end((_error, response) => {
+        expect(400);
         expect(response.body.status).toBe(400);
-        expect(response.body.error).toBe('\"email\" must be a valid email');
+        expect(response.body).toHaveProperty('error');
+        expect(response.body.error).toMatch(/valid email/);
+        done();
       });
-    done();
   });
 });
 
@@ -182,10 +187,12 @@ describe('POST /api/v1/auth/signup', () => {
       .post(registrationUrl)
       .send(payload)
       .end((_error, response) => {
+        expect(400);
         expect(response.body.status).toBe(400);
-        expect(response.body.error).toBe('\"password\" is not allowed to be empty');
+        expect(response.body).toHaveProperty('error');
+        expect(response.body.error).toMatch(/password/);
+        done();
       });
-    done();
   });
 });
 
@@ -202,12 +209,16 @@ describe('POST /api/v1/auth/signup', () => {
       .post(registrationUrl)
       .send(payload)
       .end((_error, response) => {
-        expect(response.body.data[0].user.firstname).toBe('Favour');
+        expect(201);
         expect(response.status).toBe(201);
         expect(response.body.data[0]).toHaveProperty('token');
-        expect(response.body.data[0].user.username).toBe('igbominadeveloper');
+        expect(response.body.data[0]).toHaveProperty('user');
+        expect(response.body.data[0].user).toHaveProperty('firstname');
+        expect(response.body.data[0].user).toHaveProperty('username');
+        expect(response.body.data[0].user.firstname).toBe(payload.firstname);
+        expect(response.body.data[0].user.username).toBe(payload.username);
+        done();
       });
-    done();
   });
 });
 

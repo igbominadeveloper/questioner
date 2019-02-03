@@ -113,6 +113,7 @@ class Authentication{
           setTimeout(() => {
             alertWrapper.classList.add('hide');
             form["password"].value = '';
+            form["password_confirmation"].value = '';
           }, 2000);
         }
         const user = response.data[0].user;

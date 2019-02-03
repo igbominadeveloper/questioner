@@ -46,22 +46,22 @@ describe('POST /api/v1/auth/login', () => {
 let registeredUser;
 let token;
 
-// before((done) => {
-//   const userData = {
-//     firstname: 'Freeze',
-//     lastname: 'Test User',
-//     email: 'afolayan@tech4dev.com',
-//     password: 'password1',
-//   };
-//   request(app)
-//     .post(registrationUrl)
-//     .send(userData)
-//     .end((_error, response) => {
-//       registeredUser = response.body.data[0].user;
-//       console.log(`Registered User is - ${registeredUser}`);
-//     });
-//   done();
-// });
+before((done) => {
+  const userData = {
+    firstname: 'Freeze',
+    lastname: 'Test User',
+    email: 'afolayan@tech4dev.com',
+    password: 'password1',
+  };
+  request(app)
+    .post(registrationUrl)
+    .send(userData)
+    .end((_error, response) => {
+      registeredUser = response.body.data[0].user;
+      console.log(`Registered User is - ${registeredUser}`);
+    });
+  done();
+});
 
 describe('POST /api/v1/auth/login', () => {
   it('returns 200 response when a registered user logs in with right credentials', (done) => {
@@ -204,7 +204,7 @@ describe('POST /api/v1/auth/signup', () => {
       .end((_error, response) => {
         expect(response.body.data[0].user.firstname).toBe('Favour');
         expect(response.status).toBe(201);
-        expect(response.body.data).toHaveProperty('token');
+        expect(response.body.data[0]).toHaveProperty('token');
         expect(response.body.data[0].user.username).toBe('igbominadeveloper');
       });
     done();

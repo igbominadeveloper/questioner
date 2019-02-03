@@ -67,7 +67,7 @@ class Authentication{
       this.removeState();
     }
     localStorage.setItem('token', token);
-    localStorage.setItem('user', user);
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
   static removeState() {

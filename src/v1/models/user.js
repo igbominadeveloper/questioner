@@ -1,8 +1,5 @@
 import queryFactory from '../../database/queryFactory';
-
-
 import helper from '../helpers/helper';
-import QueryFactory from '../../database/queryFactory';
 
 class User {
   static authenticate(credentials) {
@@ -48,7 +45,7 @@ class User {
   }
 
   static find(user_id) {
-    const statement = 'SELECT (id, firstname, lastname, othername, username, phonenumber) FROM users WHERE id=$1';
+    const statement = 'SELECT id, firstname, lastname, othername, username, phonenumber FROM users WHERE id=$1';
     return new Promise((resolve, reject) => {
       queryFactory.run(statement, [user_id])
         .then(response => resolve(response))
@@ -58,23 +55,14 @@ class User {
 
 
   static update(currentProfile, request) {
-    const userArray = currentProfile.split(',');
-    const userProfile = {
-      id: userArray[0].replace('(',''),
-      firstname: userArray[1] === "" ? null : userArray[1],
-      lastname: userArray[2] === "" ? null : userArray[2],
-      othername: userArray[3] === "" ? null : userArray[3],
-      username: userArray[4] === "" ? null : userArray[4],
-      phonenumber: userArray[5].replace(')', '') === "" ? null : userArray[5],
-    }
     const statement = `UPDATE users SET firstname=$1, lastname=$2, othername=$3, username=$4, phonenumber=$5 WHERE id=$6 returning *`;
     const updates = {
-      firstname: request.firstname || userProfile.firstname,
-      lastname: request.lastname || userProfile.lastname,
-      othername: request.othername || userProfile.othername,
-      username: request.username || userProfile.username,
-      phonenumber: request.phonenumber || userProfile.phonenumber,
-      id: parseInt(userProfile.id),
+      firstname: request.firstname || currentProfile.firstname,
+      lastname: request.lastname || currentProfile.lastname,
+      othername: request.othername || currentProfile.othername,
+      username: request.username || currentProfile.username,
+      phonenumber: request.phonenumber || currentProfile.phonenumber,
+      id: parseInt(currentProfile.id),
     };
     return new Promise((resolve, reject) => {
       queryFactory.run(statement, Object.values(updates))

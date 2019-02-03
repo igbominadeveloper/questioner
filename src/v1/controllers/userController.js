@@ -75,7 +75,7 @@ class userController {
     try {
       const { rows } = await user.find(request.params.id);
       if (rows.length > 0) {
-        const updatedProfile = await user.update(rows[0].row, request.body);
+        const updatedProfile = await user.update(rows[0], request.body);
         const result = Object.assign({}, updatedProfile.rows[0]);
         delete result.isadmin;
         delete result.password;

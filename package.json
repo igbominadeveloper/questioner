@@ -6,8 +6,8 @@
     "start": "babel-node app.js",
     "dev": "nodemon npm start",
     "lint": "node_modules/.bin/eslint src/v1/\"**/*.js\" src/tests/**.spec.js",
-    "test": "cross-env NODE_ENV=test nyc --require babel-register mocha src/v1/tests/user.spec.js --exit",
-    "test:watch": "cross-env NODE_ENV=test nyc --require babel-register mocha src/v1/tests/user.spec.js --watch",
+    "test": "cross-env NODE_ENV=test nyc --require babel-register mocha src/v1/tests/**.spec.js --exit",
+    "test:watch": "cross-env NODE_ENV=test nyc --require babel-register mocha src/v1/tests/**.spec.js --watch",
     "migrate:refresh": "cross-env NODE_ENV=test babel-node src/database/runMigrations.js down && cross-env NODE_ENV=test babel-node src/database/runMigrations.js up && cross-env NODE_ENV=test babel-node src/database/runMigrations.js seed",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },

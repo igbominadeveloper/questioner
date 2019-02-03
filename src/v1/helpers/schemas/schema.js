@@ -45,7 +45,7 @@ const userUpdate = Joi.object().keys({
   lastname: Joi.string().trim().min(3),
   othername: Joi.string().trim().min(3),
   username: Joi.string().trim().min(3),
-  phonenumber: Joi.number().integer().min(9),
+  phonenumber: Joi.number().integer().positive(),
 });
 
 const rsvps = Joi.object().keys({

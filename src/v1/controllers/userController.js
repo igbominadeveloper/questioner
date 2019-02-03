@@ -76,9 +76,13 @@ class userController {
       const { rows } = await user.find(request.params.id);
       if (rows.length > 0) {
         const updatedProfile = await user.update(rows[0].row, request.body);
+        const result = Object.assign({}, updatedProfile.rows[0]);
+        delete result.isadmin;
+        delete result.password;
+        delete result.created_at;
         return response.status(200).json({
           status: 200,
-          data: updatedProfile
+          data: result
         });
       }
       return helper.errorResponse(response, { status: 404, error:'User does not exist' });        

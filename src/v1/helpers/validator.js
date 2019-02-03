@@ -117,11 +117,11 @@ class Validate {
 
   static validateUserProfileUpdate(request, response, next) {
     const {
-      firstname, lastname, othername, phonenumber, username,
+      firstname, lastname, othername, username, phonenumber,
     } = request.body;
 
     const validateObject = {
-      firstname, lastname, othername, phonenumber, username,
+      firstname, lastname, othername, username, phonenumber,
     };
 
     Joi.validate(validateObject, schema.userUpdate, (err) => {

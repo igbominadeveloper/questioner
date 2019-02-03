@@ -204,7 +204,7 @@ describe('POST /api/v1/auth/signup', () => {
       .end((_error, response) => {
         expect(response.body.data[0].user.firstname).toBe('Favour');
         expect(response.status).toBe(201);
-        expect(response.body.data).toContainKey('token');
+        expect(response.body.data).toHaveProperty('token');
         expect(response.body.data[0].user.username).toBe('igbominadeveloper');
       });
     done();
@@ -262,7 +262,7 @@ describe('PATCH /api/v1/user/:id', () => {
         done();
         });
   })
-  it.only('returns a 200 response when profile update is successful', (done) => {
+  it('returns a 200 response when profile update is successful', (done) => {
     const updatedRecord = {
       firstname: 'My New firstname',
       lastname: 'My New lastname',
@@ -273,8 +273,14 @@ describe('PATCH /api/v1/user/:id', () => {
       .send(updatedRecord)
       .set('x-access-token', token)
       .end((_error, response) => {
-        console.log(response);
+        expect(200);
         expect(response.body.status).toBe(200);
+        expect(response.body.data).toHaveProperty('firstname');
+        expect(response.body.data).toHaveProperty('lastname');
+        expect(response.body.data).toHaveProperty('othername');
+        expect(response.body.data.firstname).toBe(updatedRecord.firstname);
+        expect(response.body.data.lastname).toBe(updatedRecord.lastname);
+        expect(response.body.data.othername).toBe(updatedRecord.othername);
         done();
         });
   })

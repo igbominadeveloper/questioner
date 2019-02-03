@@ -61,27 +61,26 @@ class User {
     const userArray = currentProfile.split(',');
     const userProfile = {
       id: userArray[0].replace('(',''),
-      firstname: userArray[1],
-      lastname: userArray[2],
-      othername: userArray[3],
-      username: userArray[4],
-      phonenumber: userArray[4].replace(')',''),
+      firstname: userArray[1] === "" ? null : userArray[1],
+      lastname: userArray[2] === "" ? null : userArray[2],
+      othername: userArray[3] === "" ? null : userArray[3],
+      username: userArray[4] === "" ? null : userArray[4],
+      phonenumber: userArray[5].replace(')', '') === "" ? null : userArray[5],
     }
     const statement = `UPDATE users SET firstname=$1, lastname=$2, othername=$3, username=$4, phonenumber=$5 WHERE id=$6 returning *`;
     const updates = {
       firstname: request.firstname || userProfile.firstname,
       lastname: request.lastname || userProfile.lastname,
       othername: request.othername || userProfile.othername,
-      phonenumber: request.phonenumber || userProfile.phonenumber,
       username: request.username || userProfile.username,
-      id: request.id,
+      phonenumber: request.phonenumber || userProfile.phonenumber,
+      id: parseInt(userProfile.id),
     };
-    return updates ;
-    // return new Promise((resolve, reject) => {
-    //   queryFactory.run(statement, Object.values(updates))
-    //     .then(response => resolve(updates))
-    //     .catch(error => reject(error))
-    // });
+    return new Promise((resolve, reject) => {
+      queryFactory.run(statement, Object.values(updates))
+        .then(response => resolve(response))
+        .catch(error => reject(error))
+    });
   }
 }
 

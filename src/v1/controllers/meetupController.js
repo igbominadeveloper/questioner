@@ -5,11 +5,11 @@ import helper from '../helpers/helper';
 /**
  * ------------------------------------------------------------------
  * meetController
+ * ------------------------------------------------------------------
  * 
  * This controller is responsible for handling all CRUD 
  * operations for meetups in the application with a
  * method for fetching upcoming meetups included 
- * ------------------------------------------------------------------
  */
 
 class meetupController {

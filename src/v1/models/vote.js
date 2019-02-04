@@ -2,10 +2,31 @@
 import queryFactory from '../../database/queryFactory';
 
 
+/**
+  * table to query except when specified
+  * @constant votes;
+  */
 
 const table = 'votes';
 
 class Vote {
+/**
+ * -------------------------------------------
+ * Vote Model
+ * -------------------------------------------
+ * 
+ * This Model is responsible for handling
+ * every database operations involving
+ * the votes table strictly
+ */
+  
+ /**
+  * select a record from table
+  * 
+  * @param {Object} newVote
+  * @return {Object} Promise 
+  */
+
   static find(newVote) {
     const { user_id, question_id } = newVote;
     const statement = `SELECT * FROM ${table} WHERE question_id= $1 AND user_id=$2`;
@@ -27,6 +48,13 @@ class Vote {
     });
   }
 
+  /**
+  * delete a record from table
+  * 
+  * @param {Object} newVote
+  * @return {Object} Promise 
+  */
+ 
   static remove(newVote) {
     const { user_id, question_id } = newVote;
     const statement = `DELETE FROM ${table} WHERE user_id=$1 AND question_id=$2 returning *`;

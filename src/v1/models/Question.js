@@ -4,9 +4,15 @@
 import queryFactory from '../../database/queryFactory';
 
 
+/**
+ * set table to query except specified
+ * 
+ * @constant table
+ */
 
 const table = 'questions';
 
+class Question {
 /**
  * ------------------------------------------------------
  * Question Model
@@ -17,7 +23,6 @@ const table = 'questions';
  * ------------------------------------------------------
  */
 
-class Question {
 
   /**
    * select all rows from questions table

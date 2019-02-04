@@ -2,6 +2,7 @@
 import meetup from '../models/Meetup';
 import helper from '../helpers/helper';
 
+class meetupController {
 /**
  * ------------------------------------------------------------------
  * meetController
@@ -12,7 +13,6 @@ import helper from '../helpers/helper';
  * method for fetching upcoming meetups included 
  */
 
-class meetupController {
   /**
    * Fetch all available meetups
    * 

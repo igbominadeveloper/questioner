@@ -4,6 +4,25 @@ import meetup from '../models/Meetup';
 import helper from '../helpers/helper';
 
 class RsvpController {
+/**
+ * -----------------------------------------------------------
+ * RsvpController
+ * -----------------------------------------------------------
+ * 
+ * This controller is responsible for 
+ * handling every request that goes 
+ * to any of the /rsvps routes 
+ */
+
+  /**
+   * 
+   * Fetch all rsvps for a single meetup
+   * 
+   * @param {Object} request
+   * @param {Object} response
+   * @return {Object} rsvps
+   */
+
   static async index(request, response) {
     if (request.user.isadmin === 1) {
       try {
@@ -27,6 +46,15 @@ class RsvpController {
     }
     return helper.errorResponse(response, { status: 401, error: 'This action is restricted to admin only' });
   }
+
+  /**
+   * 
+   * record a users's rsvp for a meetup
+   * 
+   * @param {Object} request
+   * @param {Object} response
+   * @return {Object} rsvps
+   */
 
   static async create(request, response) {
     const payload = {
@@ -58,5 +86,11 @@ class RsvpController {
     }
   }
 }
+
+/**
+ * export a default object
+ * 
+ * @exports RsvpController
+ */
 
 export default RsvpController;

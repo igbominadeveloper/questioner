@@ -4,9 +4,10 @@ import queryFactory from '../../database/queryFactory';
 
 /**
   * table to query except when specified
+  * 
   * @constant votes;
   */
-
+ 
 const table = 'votes';
 
 class Vote {

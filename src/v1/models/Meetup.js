@@ -1,7 +1,14 @@
 import queryFactory from '../../database/queryFactory';
 
+/**
+ * set table to query except when specified
+ * 
+ * @constant table 
+ */
+
 const table = 'meetups';
 
+class Meetup {
 /**
  * ---------------------------------------------------
  * Meetup Model
@@ -12,7 +19,6 @@ const table = 'meetups';
  * ---------------------------------------------------
  */
 
-class Meetup {
 
   /**
    * select all rows from meetups table

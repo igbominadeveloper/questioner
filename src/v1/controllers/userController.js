@@ -2,6 +2,7 @@ import helper from '../helpers/helper';
 import user from '../models/user';
 import QueryFactory from '../../database/queryFactory';
 
+class userController {
 /**
  * ---------------------------------------
  * userController 
@@ -12,7 +13,6 @@ import QueryFactory from '../../database/queryFactory';
  * requests to the /user route
  */
 
-class userController {
 
   /**
    * create new token for existing user

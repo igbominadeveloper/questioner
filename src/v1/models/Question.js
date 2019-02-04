@@ -16,11 +16,11 @@ class Question {
 /**
  * ------------------------------------------------------
  * Question Model
+ * ------------------------------------------------------
  * 
  * This Model is responsible for handling 
  * every database operations involving 
  * the questions table strictly 
- * ------------------------------------------------------
  */
 
 

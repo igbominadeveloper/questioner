@@ -12,11 +12,11 @@ class Meetup {
 /**
  * ---------------------------------------------------
  * Meetup Model
+ * ---------------------------------------------------
  * 
  * This Model is responsible for all 
  * database operations involving 
  * the meetups table  
- * ---------------------------------------------------
  */
 
 

@@ -1,6 +1,8 @@
 import queryFactory from '../../database/queryFactory';
 import helper from '../helpers/helper';
 
+
+class User {
 /**
  * ---------------------------------------
  * User Model
@@ -10,8 +12,6 @@ import helper from '../helpers/helper';
  * every database operations involving
  * the users table strictly
  */
-
-class User {
 
   /**
    * select a record from users table

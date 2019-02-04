@@ -3,10 +3,10 @@ import question from '../models/Question';
 import helper from '../helpers/helper';
 import queryFactory from '../../database/queryFactory';
 
-
 import meetup from '../models/Meetup';
 import vote from '../models/vote';
 
+class QuestionsController {
 /**
  * -----------------------------------------------------------
  * QuestionsController
@@ -17,7 +17,6 @@ import vote from '../models/vote';
  * to any of the /questions route 
  */
 
-class QuestionsController {
 
   /**
    * fetch all questions

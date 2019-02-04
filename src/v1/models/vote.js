@@ -38,6 +38,13 @@ class Vote {
     });
   }
 
+  /**
+  * insert a new record into table
+  * 
+  * @param {Object} newVote
+  * @param {Object} voteType
+  * @return {Object} Promise 
+  */
   static record(voteType, newVote) {
     const { user_id, question_id } = newVote;
     const weight = voteType === 'upvote' ? '1,0' : '0,1';

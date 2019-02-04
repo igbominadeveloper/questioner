@@ -1,11 +1,25 @@
 import queryFactory from '../../database/queryFactory';
 
-
-
 const table = 'meetups';
 
+/**
+ * ---------------------------------------------------
+ * Meetup Model
+ * 
+ * This Model is responsible for all 
+ * database operations involving 
+ * the meetups table  
+ * ---------------------------------------------------
+ */
 
 class Meetup {
+
+  /**
+   * select all rows from meetups table
+   * 
+   * @return {Object} Promise
+   */
+
   static all() {
     const statement = `SELECT * FROM ${table}`;
     return new Promise((resolve, reject) => {
@@ -14,6 +28,12 @@ class Meetup {
         .catch(error => reject(error));
     });
   }
+
+  /** 
+   * select all rows where column date > NOW()
+   * 
+   * @return {Object} Promise 
+  */
 
   static upcoming() {
     const statement = `SELECT * FROM ${table} WHERE date > NOW() ORDER BY date ASC`;
@@ -24,6 +44,13 @@ class Meetup {
     });
   }
 
+  /**
+   * select a single row
+   * 
+   * @param {Number} id 
+   * @return {Object} Promise
+   */
+
   static find(id) {
     const statement = `SELECT * FROM ${table} WHERE id = $1`;
     return new Promise((resolve, reject) => {
@@ -32,6 +59,13 @@ class Meetup {
         .catch(error => reject(error));
     });
   }
+
+  /**
+   * Insert a new row into meetups table
+   * 
+   * @param {Object} payload
+   * @return {Object} Promise
+   */
 
   static async create(payload) {
     const meetup = {
@@ -53,6 +87,14 @@ class Meetup {
         .catch(error => reject(error));
     });
   }
+
+  /**
+   * update a single row with request data
+   * 
+   * @param {Object} meetup 
+   * @param {Object} request 
+   * @return {Object} Promise
+   */
 
   static update(meetup, request) {
     const {
@@ -102,6 +144,13 @@ class Meetup {
     });
   }
 
+  /**
+   * delete a single row from table
+   * 
+   * @param {Array} meetup
+   * @return {Object} Promise 
+   */
+  
   static delete(meetup) {
     const statement = `DELETE FROM ${table} WHERE id=$1`;
     return new Promise((resolve, reject) => {

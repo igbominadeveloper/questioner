@@ -3,13 +3,25 @@ import meetup from '../models/Meetup';
 import helper from '../helpers/helper';
 
 class meetupController {
+/**
+ * ------------------------------------------------------------------
+ * meetController
+ * ------------------------------------------------------------------
+ * 
+ * This controller is responsible for handling all CRUD 
+ * operations for meetups in the application with a
+ * method for fetching upcoming meetups included 
+ */
+
   /**
-   * Fetches all available meetups
-   * @params {object} request
-   * @params {object} response
+   * Fetch all available meetups
+   * 
+   * @param {Object} request
+   * @param {Object} response
    * @return {Array} meetups
    */
-  static async index(request, response) {
+
+  static async index(_request, response) {
     try {
       const { rows } = await meetup.all();
       if (rows.length > 0) {
@@ -35,6 +47,14 @@ class meetupController {
     }
   }
 
+  /**
+   * Show a single meetup resource
+   * 
+   * @param {Object} request
+   * @param {Object} response
+   * @return {Array} meetup
+   */
+
   static show(request, response) {
     meetup.find(request.params.id)
       .then((result) => {
@@ -59,6 +79,14 @@ class meetupController {
         error: error.error,
       }));
   }
+
+  /**
+   * create a new meetup resource after successful validation
+   * 
+   * @param {object} request
+   * @param {object} response
+   * @return {Array} new meetup resource
+  */ 
 
   static create(request, response) {
     if (request.user.isadmin) {
@@ -91,8 +119,17 @@ class meetupController {
     }
   }
 
+  /** 
+   * fetch all upcoming meetups 
+   * i.e. meetups with date 
+   * ahead of Date.now()
+   * 
+   * @param {Object} request
+   * @param {Object} response
+   * @return {Array} upcoming meetups
+  */
 
-  static async upcoming(request, response) {
+  static async upcoming(_request, response) {
     try {
       const { rows } = await meetup.upcoming();
       if (rows.length > 0) {
@@ -118,6 +155,14 @@ class meetupController {
     }
   }
 
+  /**
+   * update a particular meetup resource
+   * 
+   * @param {Object} request 
+   * @param {Object} response
+   * @return {Array} updated meetup resource 
+   */
+
   static async update(request, response) {
     if (request.user.isadmin) {
       try {
@@ -137,6 +182,14 @@ class meetupController {
       return helper.errorResponse(response, { status: 401, error: 'You are not authorized to perform this action' });
     }
   }
+
+  /**
+   * delete a meetup resource
+   * 
+   * @param {Object} request 
+   * @param {Object} response 
+   * @return {Object} 200 JSON response
+   */
 
   static destroy(request, response) {
     if (request.user.isadmin) {

@@ -1,7 +1,25 @@
 import queryFactory from '../../database/queryFactory';
 import helper from '../helpers/helper';
 
+
 class User {
+/**
+ * ---------------------------------------
+ * User Model
+ * --------------------------------------- 
+ * 
+ * This Model is responsible for handling
+ * every database operations involving
+ * the users table strictly
+ */
+
+  /**
+   * select a record from users table
+   * 
+   * @param {Object} credentials
+   * @return {Object} Promise  
+   */
+
   static authenticate(credentials) {
     const statement = 'SELECT * FROM users where email = $1';
     return new Promise((resolve, reject) => {
@@ -10,6 +28,13 @@ class User {
         .catch(error => reject(error));
     });
   }
+
+  /**
+   * insert a new record into users table
+   * 
+   * @param {Object} credentials
+   * @return {Object} Promise  
+   */
 
   static register(credentials) {
     const statement = 'INSERT INTO users(firstname,lastname,email,password) VALUES($1,$2,$3,$4) returning *';
@@ -25,6 +50,14 @@ class User {
     });
   }
 
+
+   /**
+   * update the isadmin column of a record
+   * 
+   * @param {Object} user_id
+   * @return {Object} Promise  
+   */
+  
   static async giveAdmin(user_id) {
     try {
       const { rows } = await queryFactory.run('UPDATE users SET isadmin = 1 WHERE id =$1 returning *', [user_id]);

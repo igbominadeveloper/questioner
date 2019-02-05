@@ -4,11 +4,32 @@
 import queryFactory from '../../database/queryFactory';
 
 
+/**
+ * set table to query except specified
+ * 
+ * @constant table
+ */
 
 const table = 'questions';
 
-
 class Question {
+/**
+ * ------------------------------------------------------
+ * Question Model
+ * ------------------------------------------------------
+ * 
+ * This Model is responsible for handling 
+ * every database operations involving 
+ * the questions table strictly 
+ */
+
+
+  /**
+   * select all rows from questions table
+   * 
+   * @return {Object} Promise
+   */
+
   static all() {
     const statement = `SELECT * FROM ${table}`;
     return new Promise((resolve, reject) => {
@@ -18,6 +39,13 @@ class Question {
     });
   }
 
+  /**
+   * select a single row from table
+   * 
+   * @param {Number} id
+   * @return {Object} Promise  
+   */
+
   static find(id) {
     const statement = `SELECT * FROM ${table} WHERE id = $1`;
     return new Promise((resolve, reject) => {
@@ -26,9 +54,13 @@ class Question {
         .catch(error => reject(error));
     });
   }
-  /** Create a new question
+
+
+  /** 
+   * Insert a new row into table
+   * 
    * @param {object} payload
-   * @returns {Object} DB row
+   * @returns {Object} Promise
   */
 
   static async create(payload) {
@@ -45,6 +77,13 @@ class Question {
     });
   }
 
+   /**
+   * update a row in table
+   * 
+   * @param {Object} tableRow
+   * @return {Object} Promise  
+   */
+  
   static async update(tableRow, value) {
     const statement = `UPDATE ${table} SET ${tableRow} = $1 returning *`;
     return new Promise((resolve, reject) => {
@@ -53,6 +92,13 @@ class Question {
         .catch(error => reject(error));
     });
   }
+
+   /**
+   * delete a single row from table
+   * 
+   * @param {Number} id
+   * @return {Object} Promise  
+   */
 
   static delete(id) {
     const statement = `DELETE FROM ${table} WHERE id=$1`;
@@ -63,6 +109,13 @@ class Question {
     });
   }
 
+   /**
+   * insert a row into comments table
+   * 
+   * @param {Object} payload
+   * @return {Object} Promise  
+   */
+  
   static async createComment(payload) {
     const {
       user_id, question_id, topic, comment,

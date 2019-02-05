@@ -3,6 +3,25 @@ import user from '../models/user';
 import QueryFactory from '../../database/queryFactory';
 
 class userController {
+/**
+ * ---------------------------------------
+ * userController 
+ * ---------------------------------------
+ * 
+ * This controller is responsible for
+ * handling every auth request and
+ * requests to the /user route
+ */
+
+
+  /**
+   * create new token for existing user
+   * 
+   * @param {Object} request 
+   * @param {Object} response
+   * @return {Array} user and token
+   */
+
   static login(request, response) {
     user.authenticate(request.body)
       .then((result) => {
@@ -39,6 +58,14 @@ class userController {
       }));
   }
 
+  /**
+   * register a new user and assign token
+   * 
+   * @param {Object} request 
+   * @param {Object} response 
+   * @return {Array} user and token
+   */
+
   static register(request, response) {
     user.register(request.body)
       .then((result) => {
@@ -57,6 +84,14 @@ class userController {
       });
   }
 
+  /**
+   * Assign admin role to a user
+   * 
+   * @param {Object} request 
+   * @param {Object} response
+   * @return {Object} update resource 
+   */
+  
   static async admin(request, response) {
     try {
       const result = await user.giveAdmin(request.user.id);

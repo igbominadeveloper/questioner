@@ -5,10 +5,43 @@ import queryFactory from '../../database/queryFactory';
 
 import helper from '../helpers/helper';
 
+/**
+ * implement the dotenv interface and call the config method
+ * 
+ * @implements dotenv
+ * @method config
+*/
+
 dotenv.config();
+
+/**
+ * set jwt secret key
+ * 
+ * @constant process.env.SECRET_KEY
+ */
+
 const JWT_SECRET = process.env.SECRET_KEY;
 
 class Auth {
+/**
+ *----------------------------------
+ * Class Auth 
+ *----------------------------------
+ *
+ * This class is responsible handling 
+ * authentication and authorization
+ * throughout the application 
+*/
+
+  /**
+   * verify a user token 
+   * 
+   * @param {Object} request 
+   * @param {Object} response 
+   * @param {Object} next
+   * @return {Object} response if error exists
+  */
+
   static async verifyToken(request, response, next) {
     const token = request.headers['x-access-token'];
     if (!token) {

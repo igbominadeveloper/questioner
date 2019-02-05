@@ -4,8 +4,23 @@ import dotenv from 'dotenv';
 import queryFactory from '../../database/queryFactory';
 
 
+/**
+ * initialize dotenv config
+ *
+ * @instance dotenv.config
+ */
 
 dotenv.config();
+
+/**
+ * helper method for API error response
+ *
+ * @constant errorResponse
+ * 
+ * @param {Object} response
+ * @param {Object} error
+ * @return {JSON} response
+ */
 
 const errorResponse = (response, error) => {
   switch (error.status) {
@@ -41,12 +56,48 @@ const errorResponse = (response, error) => {
   }
 };
 
+/**
+ * helper method for Javascript current datetime
+ *
+ * @constant now
+ */
+
 const now = () => new Date().toLocaleString();
 
 
+/**
+ * helper method for hashing password
+ * 
+ * @constant hashPassword
+ * 
+ * @param {String} password
+ * @return md5 hash
+ */
+
 const hashPassword = password => bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
+
+/**
+ * helper method for decoding password
+ *
+ * @constant decodePassword
+ *
+ * @param {String} passwordHash
+ * @param {String} password
+ * @return {String} password
+ */
+
 const decodePassword = (passwordHash, password) => bcrypt.compareSync(password, passwordHash);
+
+/**
+ * helper method for generating a jwt 
+ *
+ * @constant generateToken
+ *
+ * @param {String} user_id
+ * @param {String} isadmin
+ * @return {String} token
+ */
 
 const generateToken = (user_id, isadmin) => {
   const token = jwt.sign({
@@ -55,6 +106,16 @@ const generateToken = (user_id, isadmin) => {
   process.env.SECRET_KEY, { expiresIn: '30d' });
   return token;
 };
+
+/**
+ * helper middleware for checking email existence
+ * 
+ * @async @constant checkEmailDuplication
+ * @param {Object} request
+ * @param {response} response
+ * @param {method} next
+ * @return {Object} next, response or error
+ */
 
 const checkEmailDuplication = async (request, response, next) => {
   const { email } = request.body;
@@ -70,6 +131,12 @@ const checkEmailDuplication = async (request, response, next) => {
     })
     .catch(error => errorResponse(response, { status: error.status, message: error.error }));
 };
+
+/**
+ * export a helper Object with various methods
+ * 
+ * @exports {Object} helper
+ */
 
 export default {
   errorResponse,

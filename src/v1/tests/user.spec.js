@@ -36,8 +36,9 @@ describe('POST /api/v1/auth/login', () => {
       .post(loginUrl)
       .send({ email: 'favourafolayan@gmail.com', password: 'password1' })
       .end((_response, error) => {
-        expect(error.body.error).toBe('User not found');
         expect(error.body.status).toBe(404);
+        expect(error.body).toHaveProperty('error');
+        expect(error.body.error).toMatch(/credentials/);
         done();
       });
   });

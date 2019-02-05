@@ -114,7 +114,11 @@
 }
 .center {
 	justify-content: center;
-} 
+}
+
+.items-center {
+	align-items: center;
+}
 
 .bg-black {
 	background: #4a4646;
@@ -183,6 +187,10 @@
 }
 
 .text-primary {
+	color: teal;
+}
+
+.text-success {
 	color: teal;
 }
 

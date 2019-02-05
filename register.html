@@ -53,19 +53,22 @@
             </div>
         </nav>
         <div id="registration-form" class="shadow">
-            <form action="user-profile.html" class="form">
+            <form class="form" onsubmit="Authentication.register(event, this)">
                 <p class="form-header">Welcome! Signup here</p>
                 <div class="form-group">
-                    <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Fullname" required>
+                    <input type="text" class="form-control" name="firstname" id="firstname" placeholder="Firstname">
                 </div>
                 <div class="form-group">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Email Address" required>
+                    <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Lastname">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Email Address">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password" required>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password">
                 </div>
                 <div class="form-group">
                     <button type="submit" class="form-control btn-primary shadow">Sign up</button>
@@ -132,6 +135,9 @@
             class="github">igbominadeveloper</a></p>
       </div>
     </footer>
+    <div class="alert-wrapper flex center items-center hide">
+    </div>
 <script src="assets/js/app.js"></script>
+<script src="assets/js/auth.js"></script>
 </body>
 </html>

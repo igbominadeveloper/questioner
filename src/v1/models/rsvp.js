@@ -30,7 +30,7 @@ class Rsvp {
  * @return {Object} Promise
 */
 
-  static meetupRsvp(meetupId) {
+  static all(meetupId) {
     const statement = `SELECT * FROM ${table} WHERE meetup_id = $1`;
     return new Promise((resolve, reject) => {
       queryFactory.run(statement, [meetupId])

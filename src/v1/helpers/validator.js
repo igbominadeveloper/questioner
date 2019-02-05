@@ -115,6 +115,25 @@ class Validate {
     });
   }
 
+  static validateUserProfileUpdate(request, response, next) {
+    const {
+      firstname, lastname, othername, username, phonenumber,
+    } = request.body;
+
+    const validateObject = {
+      firstname, lastname, othername, username, phonenumber,
+    };
+
+    Joi.validate(validateObject, schema.userUpdate, (err) => {
+      if (err) {
+        return response.status(400).json({
+          status: 400,
+          error: err.details[0].message,
+        });
+      } next();
+    });
+  }
+
   static validateComment(request, response, next) {
     const {
       user_id, question_id, topic, comment,

@@ -1,6 +1,4 @@
 import queryFactory from '../../database/queryFactory';
-
-
 import helper from '../helpers/helper';
 
 class User {
@@ -44,6 +42,33 @@ class User {
     } catch (error) {
       return error;
     }
+  }
+
+  static find(user_id) {
+    const statement = 'SELECT id, firstname, lastname, othername, username, phonenumber FROM users WHERE id=$1';
+    return new Promise((resolve, reject) => {
+      queryFactory.run(statement, [user_id])
+        .then(response => resolve(response))
+        .catch(error => reject(error))
+    });
+  }
+
+
+  static update(currentProfile, request) {
+    const statement = `UPDATE users SET firstname=$1, lastname=$2, othername=$3, username=$4, phonenumber=$5 WHERE id=$6 returning *`;
+    const updates = {
+      firstname: request.firstname || currentProfile.firstname,
+      lastname: request.lastname || currentProfile.lastname,
+      othername: request.othername || currentProfile.othername,
+      username: request.username || currentProfile.username,
+      phonenumber: request.phonenumber || currentProfile.phonenumber,
+      id: parseInt(currentProfile.id),
+    };
+    return new Promise((resolve, reject) => {
+      queryFactory.run(statement, Object.values(updates))
+        .then(response => resolve(response))
+        .catch(error => reject(error))
+    });
   }
 }
 

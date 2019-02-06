@@ -3,12 +3,30 @@ import question from '../models/Question';
 import helper from '../helpers/helper';
 import queryFactory from '../../database/queryFactory';
 
-
 import meetup from '../models/Meetup';
 import vote from '../models/vote';
 
 class QuestionsController {
-  static index(request, response) {
+/**
+ * -----------------------------------------------------------
+ * QuestionsController
+ * -----------------------------------------------------------
+ * 
+ * This controller is responsible for 
+ * handling every request that goes 
+ * to any of the /questions route 
+ */
+
+
+  /**
+   * fetch all questions
+   * 
+   * @param {Object} request 
+   * @param {Object} response
+   * @return {Array} questions 
+   */
+
+  static index(_request, response) {
     question.all()
       .then((result) => {
         if (result.rowCount > 0) {
@@ -31,6 +49,14 @@ class QuestionsController {
         error: error.error,
       }));
   }
+  
+  /**
+   * Show a single question
+   * 
+   * @param {Object} request 
+   * @param {Object} response 
+   * @return {Object} question
+   */
 
   static async show(request, response) {
     try {
@@ -49,6 +75,14 @@ class QuestionsController {
       return helper.errorResponse(response, error);
     }
   }
+
+  /**
+   * create a new question resource
+   * 
+   * @param {Object} request 
+   * @param {Object} response 
+   * @return {Object} new question
+   */
 
   static async create(request, response) {
     const newQuestion = request.body;
@@ -81,6 +115,13 @@ class QuestionsController {
     }
   }
 
+  /**
+   * update a question resource
+   * 
+   * @param {Object} request 
+   * @param {Object} response
+   * @return {Object} updated question 
+   */
   static update(request, response) {
     const requestBody = request.body;
     question.find(request.params.id)
@@ -100,6 +141,14 @@ class QuestionsController {
         error: error.error,
       }));
   }
+
+  /**
+   * delete a question resource
+   * 
+   * @param {Object} request 
+   * @param {Object} response
+   * @return {JSON} response 
+   */
 
   static destroy(request, response) {
     if (request.user.isadmin) {
@@ -132,6 +181,14 @@ class QuestionsController {
   }
 
 
+  /**
+   * create a new question comment
+   * 
+   * @param {Object} request 
+   * @param {Object} response
+   * @return {Object} new comment resource 
+   */
+
   static async createComment(request, response) {
     try {
       const result = await question.find(request.body.question_id);
@@ -161,6 +218,14 @@ class QuestionsController {
     }
   }
 
+  /**
+   * upvote or downvote a question
+   * 
+   * @param {Object} request 
+   * @param {Object} response 
+   * @return {Object} question
+   */
+  
   static async vote(request, response) {
     const newVote = {
       user_id: parseInt(request.user.id, 10),

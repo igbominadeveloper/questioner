@@ -1,7 +1,27 @@
 import helper from '../helpers/helper';
 import user from '../models/user';
+import QueryFactory from '../../database/queryFactory';
 
 class userController {
+/**
+ * ---------------------------------------
+ * userController 
+ * ---------------------------------------
+ * 
+ * This controller is responsible for
+ * handling every auth request and
+ * requests to the /user route
+ */
+
+
+  /**
+   * create new token for existing user
+   * 
+   * @param {Object} request 
+   * @param {Object} response
+   * @return {Array} user and token
+   */
+
   static login(request, response) {
     user.authenticate(request.body)
       .then((result) => {
@@ -24,19 +44,27 @@ class userController {
           }
           return response.status(400).json({
             status: 400,
-            error: 'Incorrect password',
+            error: 'Incorrect credentials',
           });
         }
         return response.status(404).json({
           status: 404,
-          error: 'User not found',
+          error: 'Incorrect credentials',
         });
       })
       .catch(error => response.status(400).json({
-        status: 401,
-        error: error.error,
+        status: 400,
+        error,
       }));
   }
+
+  /**
+   * register a new user and assign token
+   * 
+   * @param {Object} request 
+   * @param {Object} response 
+   * @return {Array} user and token
+   */
 
   static register(request, response) {
     user.register(request.body)
@@ -56,6 +84,14 @@ class userController {
       });
   }
 
+  /**
+   * Assign admin role to a user
+   * 
+   * @param {Object} request 
+   * @param {Object} response
+   * @return {Object} update resource 
+   */
+  
   static async admin(request, response) {
     try {
       const result = await user.giveAdmin(request.user.id);
@@ -67,6 +103,26 @@ class userController {
       }
     } catch (error) {
       return helper.errorResponse(response, error);
+    }
+  }
+
+  static async update(request, response) {
+    try {
+      const { rows } = await user.find(request.params.id);
+      if (rows.length > 0) {
+        const updatedProfile = await user.update(rows[0], request.body);
+        const result = Object.assign({}, updatedProfile.rows[0]);
+        delete result.isadmin;
+        delete result.password;
+        delete result.created_at;
+        return response.status(200).json({
+          status: 200,
+          data: result
+        });
+      }
+      return helper.errorResponse(response, { status: 404, error:'User does not exist' });        
+    } catch (error) {
+        return helper.errorResponse(response, { status: error.status, error: error });
     }
   }
 }

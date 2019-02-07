@@ -53,7 +53,7 @@
             </div>
         </nav>
         <div id="registration-form" class="shadow">
-            <form class="form" onsubmit="Authentication.register(event, this)">
+            <form class="form" method="POST" action="user-profile.html">
                 <p class="form-header">Welcome! Signup here</p>
                 <div class="form-group">
                     <input type="text" class="form-control" name="firstname" id="firstname" placeholder="Firstname">
@@ -138,6 +138,5 @@
     <div class="alert-wrapper flex center items-center hide">
     </div>
 <script src="assets/js/app.js"></script>
-<script src="assets/js/auth.js"></script>
 </body>
 </html>

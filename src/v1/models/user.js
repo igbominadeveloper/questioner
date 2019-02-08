@@ -77,6 +77,21 @@ class User {
     }
   }
 
+  /**
+   * select * records
+   * 
+   * @return {Array} response
+   */
+  
+  static all() {
+    const statement = 'SELECT id, firstname, lastname, othername, username, phonenumber FROM users';
+    return new Promise((resolve, reject) => {
+      queryFactory.run(statement)
+        .then(response => resolve(response))
+        .catch(error => reject(error))
+    });
+  }
+
   static find(user_id) {
     const statement = 'SELECT id, firstname, lastname, othername, username, phonenumber FROM users WHERE id=$1';
     return new Promise((resolve, reject) => {

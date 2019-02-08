@@ -389,19 +389,30 @@ describe('PATCH /api/v1/user/:id', () => {
     });
 
     describe('GET /api/v1/users', () => {
-      it.only('returns a 400 response if token is not set', (done) => {
+      it('returns a 401 response if token is not set', (done) => {
         request(app)
           .get(`/api/v1/users`)
           .end((_error, response) => {
-            console.log(response);
-            // expect(401);
-            // expect(response.body.status).toBe(401);
-            // expect(response.body).toHaveProperty('error');
+            expect(401);
+            expect(response.body.status).toBe(401);
+            expect(response.body).toHaveProperty('error');
             done();
           })
       });
 
-      it('returns an error if user role is user', (done) => {
+      it('returns a 400 response when invalid token is set', (done) => {
+        request(app)
+          .get(`/api/v1/users`)
+          .set('x-access-token', 'jjhfjh89irn88')
+          .end((_error, response) => {
+            expect(400);
+            expect(response.body.status).toBe(400);
+            expect(response.body).toHaveProperty('error');
+            done();
+          })
+      });
+
+      it.only('returns a 401 response when request user role is not admin', (done) => {
         request(app)
           .get(`/api/v1/users`)
           .set('x-access-token', userToken)

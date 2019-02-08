@@ -412,7 +412,7 @@ describe('PATCH /api/v1/user/:id', () => {
           })
       });
 
-      it.only('returns a 401 response when request user role is not admin', (done) => {
+      it('returns a 401 response when request user role is not admin', (done) => {
         request(app)
           .get(`/api/v1/users`)
           .set('x-access-token', userToken)
@@ -424,7 +424,7 @@ describe('PATCH /api/v1/user/:id', () => {
           })
       });
 
-      it.only('returns a 200 response when request user role is admin', (done) => {
+      it('returns a 200 response when request user role is admin', (done) => {
         request(app)
           .get(`/api/v1/users`)
           .set('x-access-token', adminToken)

@@ -30,8 +30,9 @@ class userController {
           data: [rows]
         })
       }
-    } catch (error) {
       return helper.errorResponse(response, { status: 404 });
+    } catch (error) {
+      return helper.errorResponse(response, { status: error.status, error: error.error });
     }
   }
 

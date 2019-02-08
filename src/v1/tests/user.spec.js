@@ -351,7 +351,7 @@ describe('PATCH /api/v1/user/:id', () => {
     it('returns a 404 response when user id does not exist', (done) => {
       request(app)
         .get('/api/v1/users/100')
-        .set('x-access-token', userToken)
+        .set('x-access-token', adminToken)
         .end((_error, response) => {
           expect(404);
           expect(response.body.status).toBe(404);
@@ -424,7 +424,7 @@ describe('PATCH /api/v1/user/:id', () => {
           })
       });
 
-      it('returns a 200 response when request user role is admin', (done) => {
+      it('returns a 200 response and an array of users when request user role is admin', (done) => {
         request(app)
           .get(`/api/v1/users`)
           .set('x-access-token', adminToken)
@@ -432,7 +432,7 @@ describe('PATCH /api/v1/user/:id', () => {
             expect(200);
             expect(response.body.status).toBe(200);
             expect(response.body).toHaveProperty('data');
-            expect(response.body.data[0].length).toBeGreaterThan(0);
+            expect(response.body.data.length).toBeGreaterThan(0);
             done();
           })
       });

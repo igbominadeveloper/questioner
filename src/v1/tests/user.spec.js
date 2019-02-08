@@ -360,16 +360,16 @@ describe('PATCH /api/v1/user/:id', () => {
         })
     });
 
-    it.only('returns a 200 response when user id exists', (done) => {
+    it('returns the request user profile always if role is user', (done) => {
       request(app)
-        .get(`/api/v1/users/${user.id}`)
+        .get(`/api/v1/users/2`)
         .set('x-access-token', userToken)
         .end((_error, response) => {
           expect(200);
           expect(response.body.status).toBe(200);
           expect(response.body).toHaveProperty('data');
-          expect(response.body.data).toHaveProperty('firstname');
-          expect(response.body.data.firstname).toBe(user.firstname);
+          expect(response.body.data).toHaveProperty('id');
+          expect(response.body.data.id).toBe(user.id);
         done();
         })
     });

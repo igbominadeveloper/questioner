@@ -113,8 +113,10 @@ class userController {
    */
 
   static async find(request, response) {
+    let id;
+    id = request.user.isadmin ? request.params.id : request.user.id;
     try {
-      const { rows } = await user.find(request.params.id);
+      const { rows } = await user.find(id);
       if (rows.length > 0) {
         const result = Object.assign({}, rows[0]);
         return response.status(200).json({

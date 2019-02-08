@@ -373,4 +373,18 @@ describe('PATCH /api/v1/user/:id', () => {
         done();
         })
     });
+
+    it.only('returns the queried profile if role is admin', (done) => {
+      request(app)
+        .get(`/api/v1/users/${user.id}`)
+        .set('x-access-token', adminToken)
+        .end((_error, response) => {
+          expect(200);
+          expect(response.body.status).toBe(200);
+          expect(response.body).toHaveProperty('data');
+          expect(response.body.data).toHaveProperty('id');
+          expect(response.body.data.id).toBe(user.id);
+          done();
+        })
+    });
   });

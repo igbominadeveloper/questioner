@@ -105,7 +105,36 @@ class userController {
       return helper.errorResponse(response, error);
     }
   }
+  
+  /**
+   * Find a user
+   * 
+   * @param {Object} request 
+   * @param {Objeect} response 
+   */
 
+  static async find(request, response) {
+    try {
+      const { rows } = await user.find(request.params.id);
+      if (rows.length > 0) {
+        const result = Object.assign({}, rows[0]);
+        return response.status(200).json({
+          status: 200,
+          data: result
+        });
+      }
+      return helper.errorResponse(response, { status: 404, error:'User does not exist' });        
+    } catch (error) {
+        return helper.errorResponse(response, { status: error.status, error: error });
+    }
+
+  /**
+   * 
+   * update the details of a user
+   * 
+   * @param {Object} request 
+   * @param {Object} response 
+   */  
   static async update(request, response) {
     try {
       const { rows } = await user.find(request.params.id);

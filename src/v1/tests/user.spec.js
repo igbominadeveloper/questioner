@@ -47,21 +47,21 @@ describe('POST /api/v1/auth/login', () => {
 let registeredUser;
 let token;
 
-before((done) => {
-  const userData = {
-    firstname: 'Freeze',
-    lastname: 'Test User',
-    email: 'afolayan@tech4dev.com',
-    password: 'password1',
-  };
-  request(app)
-    .post(registrationUrl)
-    .send(userData)
-    .end((_error, response) => {
-      registeredUser = response.body.data[0].user;
-      done();
-    });
-});
+// before((done) => {
+//   const userData = {
+//     firstname: 'Freeze',
+//     lastname: 'Test User',
+//     email: 'afolayan@tech4dev.com',
+//     password: 'password1',
+//   };
+//   request(app)
+//     .post(registrationUrl)
+//     .send(userData)
+//     .end((_error, response) => {
+//       registeredUser = response.body.data[0].user;
+//       done();
+//     });
+// });
 
 describe('POST /api/v1/auth/login', () => {
   it('returns 200 response when a registered user logs in with right credentials', (done) => {
@@ -297,3 +297,80 @@ describe('PATCH /api/v1/user/:id', () => {
         });
   })
 });
+
+  describe('GET /api/users/:id', () => {
+    let user;
+    let userToken;
+    let admin;
+    let adminToken;
+    before((done) => {
+      request(app)
+        .post(loginUrl)
+        .send({ email: 'user@questioner.com', password: 'password1' })
+        .end((_error, response) => {
+          expect(200);
+          user = response.body.data[0].user;
+          userToken = response.body.data[0].token;
+        });
+
+      request(app)
+        .post(loginUrl)
+        .send({ email: 'superadmin@questioner.com', password: 'password1' })
+        .end((_error, response) => {
+          expect(200);
+          admin = response.body.data[0].user;
+          adminToken = response.body.data[0].token;
+          done();
+        });
+    });
+
+    it('returns a 400 response when invalid token is set', (done) => {
+      request(app)
+        .get(`/api/v1/users/${user.id}`)
+        .set('x-access-token','hjjfhjhfjhjfh')
+        .end((_error, response) => {
+          expect(400);
+          expect(response.body.status).toBe(400);
+          expect(response.body).toHaveProperty('error');
+        done();
+        })
+    });
+
+    it('returns a 400 response when invalid user id is passed', (done) => {
+      request(app)
+        .get(`/api/v1/users/${user.firstname}`)
+        .set('x-access-token', userToken)
+        .end((_error, response) => {
+          expect(400);
+          expect(response.body.status).toBe(400);
+          expect(response.body).toHaveProperty('error');
+        done();
+        })
+    });
+
+    it('returns a 404 response when user id does not exist', (done) => {
+      request(app)
+        .get('/api/v1/users/100')
+        .set('x-access-token', userToken)
+        .end((_error, response) => {
+          expect(404);
+          expect(response.body.status).toBe(404);
+          expect(response.body).toHaveProperty('error');
+        done();
+        })
+    });
+
+    it.only('returns a 200 response when user id exists', (done) => {
+      request(app)
+        .get(`/api/v1/users/${user.id}`)
+        .set('x-access-token', userToken)
+        .end((_error, response) => {
+          expect(200);
+          expect(response.body.status).toBe(200);
+          expect(response.body).toHaveProperty('data');
+          expect(response.body.data).toHaveProperty('firstname');
+          expect(response.body.data.firstname).toBe(user.firstname);
+        done();
+        })
+    });
+  });

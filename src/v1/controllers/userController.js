@@ -1,6 +1,5 @@
 import helper from '../helpers/helper';
 import user from '../models/user';
-import QueryFactory from '../../database/queryFactory';
 
 class userController {
 /**
@@ -127,6 +126,7 @@ class userController {
     } catch (error) {
         return helper.errorResponse(response, { status: error.status, error: error });
     }
+  }
 
   /**
    * 
@@ -135,6 +135,7 @@ class userController {
    * @param {Object} request 
    * @param {Object} response 
    */  
+
   static async update(request, response) {
     try {
       const { rows } = await user.find(request.params.id);

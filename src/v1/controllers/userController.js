@@ -27,7 +27,7 @@ class userController {
       if(rows.length > 0) {
         return response.status(200).json({
           status: 200,
-          data: [rows]
+          data: rows
         })
       }
       return helper.errorResponse(response, { status: 404 });
@@ -141,13 +141,12 @@ class userController {
     try {
       const { rows } = await user.find(id);
       if (rows.length > 0) {
-        const result = Object.assign({}, rows[0]);
         return response.status(200).json({
           status: 200,
-          data: result
+          data: rows[0]
         });
       }
-      return helper.errorResponse(response, { status: 404, error:'User does not exist' });        
+      return helper.errorResponse(response, { status: 404 });        
     } catch (error) {
         return helper.errorResponse(response, { status: error.status, error: error });
     }

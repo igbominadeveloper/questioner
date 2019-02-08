@@ -374,7 +374,7 @@ describe('PATCH /api/v1/user/:id', () => {
         })
     });
 
-    it.only('returns the queried profile if role is admin', (done) => {
+    it('returns the queried profile if role is admin', (done) => {
       request(app)
         .get(`/api/v1/users/${user.id}`)
         .set('x-access-token', adminToken)
@@ -387,4 +387,29 @@ describe('PATCH /api/v1/user/:id', () => {
           done();
         })
     });
+
+    describe('GET /api/v1/users', () => {
+      it.only('returns a 400 response if token is not set', (done) => {
+        request(app)
+          .get(`/api/v1/users`)
+          .end((_error, response) => {
+            expect(401);
+            expect(response.body.status).toBe(401);
+            expect(response.body).toHaveProperty('error');
+            done();
+          })
+      });
+
+      it('returns an error if user role is user', (done) => {
+        request(app)
+          .get(`/api/v1/users`)
+          .set('x-access-token', userToken)
+          .end((_error, response) => {
+            expect(401);
+            expect(response.body.status).toBe(401);
+            expect(response.body).toHaveProperty('error');
+            done();
+          })
+      });
+    })
   });

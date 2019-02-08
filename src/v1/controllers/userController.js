@@ -12,6 +12,25 @@ class userController {
  * requests to the /user route
  */
 
+ /**
+  * fetch all users
+  * 
+  * @param {Object} request 
+  * @param {Object} response 
+  */
+  static async index(request, response) {
+    try {
+      const { rows } = await user.all();
+      if(rows.length > 0) {
+        return response.status(200).json({
+          status: 200,
+          data: [rows]
+        })
+      }
+    } catch (error) {
+      return helper.errorResponse(response, { status: 404 });
+    }
+  }
 
   /**
    * create new token for existing user

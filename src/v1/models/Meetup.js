@@ -78,6 +78,9 @@ class Meetup {
       topic: payload.topic,
       location: payload.location,
       date: payload.date,
+      organizerName: payload.organizerName,
+      organizerPhone: payload.organizerPhone,
+      organizerEmail: payload.organizerEmail,
       images: payload.images ? payload.images : {},
       tags: payload.tags ? payload.tags : {},
     };
@@ -86,7 +89,7 @@ class Meetup {
       return Promise.reject({ status: 422, error: 'Similar meetup exists already' });
     }
 
-    const statement = `INSERT INTO ${table}(topic,location,date,images,tags) VALUES($1, $2, $3, $4, $5) returning *`;
+    const statement = `INSERT INTO ${table}(topic, location, date, organizer_name, organizer_email, organizer_phone, images, tags) VALUES($1, $2, $3, $4, $5, $6, $7, $8) returning *`;
     return new Promise((resolve, reject) => {
       queryFactory.run(statement, Object.values(meetup))
         .then(response => resolve(response))

@@ -107,10 +107,13 @@ class meetupController {
             error: 'Meetup creation failed',
           });
         })
-        .catch(error => response.status(422).json({
-          status: 422,
-          error: error.error,
-        }));
+        .catch(error => {
+          console.log(error);
+          // retresponse.status(422).json({
+          // status: 422,
+          // error: error,
+        })
+      // });
     } else {
       return helper.errorResponse(response, {
         status: 401,
@@ -171,7 +174,7 @@ class meetupController {
           const result = await meetup.update(rows, request.body);
           return response.status(200).json({
             status: 200,
-            data: result.rows[0],
+            data: result,
           });
         }
         return helper.errorResponse(response, { status: 404, error: 'Meetup not found' });

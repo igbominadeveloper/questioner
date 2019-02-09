@@ -49,13 +49,15 @@ class Validate {
      * @constant {String} topic
      * @constant {String} location
      * @constant {String} date
+     * @constant {String} images
+     * @constant {String} tags
      * @constant {String} organizerName
      * @constant {String} organizerPhone
      * @constant {String} organizerEmail
      */
 
     const {
-      topic, location, date, organizerName, organizerPhone, organizerEmail
+      topic, location, date, tags, images, organizerName, organizerPhone, organizerEmail
     } = request.body;
 
      /**
@@ -67,7 +69,7 @@ class Validate {
      */
 
     const validateObject = {
-      topic, location, date, organizerName, organizerPhone, organizerEmail
+      topic, location, date, tags, images, organizerName, organizerPhone, organizerEmail
     };
 
      /**

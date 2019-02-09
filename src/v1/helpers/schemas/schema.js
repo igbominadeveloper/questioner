@@ -9,6 +9,8 @@ const meetup = Joi.object().keys({
   topic: Joi.string().trim().min(3).required(),
   location: Joi.string().trim().min(3).required(),
   date: Joi.date().iso().required(),
+  tags: Joi.string().min(3).required(),
+  images: Joi.string().min(3).required(),
   organizerName: Joi.string().trim().min(3).required(),
   organizerPhone: Joi.string().trim().min(3).required(),
   organizerEmail: Joi.string().email({ minDomainAtoms: 2 }).required(),

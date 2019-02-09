@@ -74,16 +74,34 @@ class Meetup {
    */
 
   static async create(payload) {
-    const meetup = {
-      topic: payload.topic,
-      location: payload.location,
-      date: payload.date,
-      organizerName: payload.organizerName,
-      organizerPhone: payload.organizerPhone,
-      organizerEmail: payload.organizerEmail,
-      images: payload.images ? payload.images : {},
-      tags: payload.tags ? payload.tags : {},
-    };
+    let tags = [];
+    let images = [];
+    if (payload.tags instanceof Array) {
+      payload.tags.forEach((tag) => {
+        tags.push(tag.trim());
+      });
+    } else { 
+      tags.push(payload.tags.trim());
+    }
+
+    if (payload.images instanceof Array) {
+      payload.images.forEach((url) => {
+        images.push(url.trim());
+      });
+    } else {
+      images.push(payload.images.trim());
+    }
+
+    const meetup = [
+      payload.topic,
+      payload.location,
+      payload.date,
+      payload.organizerName,
+      payload.organizerPhone,
+      payload.organizerEmail,
+      images,
+      tags,
+    ];
     const { rows } = await queryFactory.run(`SELECT topic FROM ${table} WHERE topic = $1 OR date = $2`, [meetup.topic, meetup.date]);
     if (rows[0]) {
       return Promise.reject({ status: 422, error: 'Similar meetup exists already' });
@@ -91,7 +109,7 @@ class Meetup {
 
     const statement = `INSERT INTO ${table}(topic, location, date, organizer_name, organizer_email, organizer_phone, images, tags) VALUES($1, $2, $3, $4, $5, $6, $7, $8) returning *`;
     return new Promise((resolve, reject) => {
-      queryFactory.run(statement, Object.values(meetup))
+      queryFactory.run(statement,[...meetup])
         .then(response => resolve(response))
         .catch(error => reject(error));
     });
@@ -115,16 +133,24 @@ class Meetup {
     const statement = `UPDATE ${table} SET topic=$1, location=$2, date=$3, tags=$4, images=$5 WHERE id=$6 returning *`;
     let tags;
     let images;
+    request.tags.replace('"','');
+    request.tags.replace('"','');
     if (request.tags instanceof Array) {
-      request.tags.forEach((tag) => {
-        meetup[0].tags.find(existingTag => existingTag === tag.trim()) ? '' : meetup[0].tags.push(tag.trim());
-      });
+      tags = request.tags
+      console.log('array');
+      // request.tags.forEach((tag) => {
+      //   meetup[0].tags.find(existingTag => existingTag === tag.trim()) ? '' : meetup[0].tags.push(tag.trim());
+      // });
     } else if (request.tags === undefined) {
       meetup[0].tags;
     } else {
-      meetup[0].tags.find(existingTag => existingTag === request.tags.trim()) ? '' : meetup[0].tags.push(request.tags.trim());
+      // meetup[0].tags.find(existingTag => existingTag === request.tags.trim()) ? '' : meetup[0].tags.push(request.tags.trim());
+      tags = request.tags;
+      console.log('string');
     }
-    tags = meetup[0].tags;
+    // tags = meetup[0].tags;
+    return tags;
+
 
     if (request.images instanceof Array) {
       request.images.forEach((url) => {

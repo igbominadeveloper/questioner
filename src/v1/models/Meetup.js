@@ -133,8 +133,6 @@ class Meetup {
     const statement = `UPDATE ${table} SET topic=$1, location=$2, date=$3, tags=$4, images=$5 WHERE id=$6 returning *`;
     let tags;
     let images;
-    request.tags.replace('"','');
-    request.tags.replace('"','');
     if (request.tags instanceof Array) {
       tags = request.tags
       console.log('array');

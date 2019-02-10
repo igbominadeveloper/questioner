@@ -109,8 +109,8 @@ class meetupController {
         })
         .catch(error => {
           return response.status(422).json({
-          status: 422,
-          error: error,
+          status: error.status,
+          error: error.error,
         })
       });
     } else {

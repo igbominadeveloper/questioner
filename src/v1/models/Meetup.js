@@ -74,6 +74,11 @@ class Meetup {
    */
 
   static async create(payload) {
+    const { rows } = await queryFactory.run(`SELECT topic FROM ${table} WHERE topic = $1 OR date = $2`, [payload.topic, payload.date]);
+    if (rows.length > 0) {
+      return Promise.reject({ status: 422, error: 'Similar meetup exists already' });
+    }
+
     let tags = [];
     let images = [];
     if (payload.tags instanceof Array) {
@@ -102,11 +107,6 @@ class Meetup {
       images,
       tags,
     ];
-
-    const { rows } = await queryFactory.run(`SELECT topic FROM ${table} WHERE topic = $1 OR date = $2`, [meetup.topic, meetup.date]);
-    if (rows[0]) {
-      return Promise.reject({ status: 422, error: 'Similar meetup exists already' });
-    }
 
     const statement = `INSERT INTO ${table}(topic, location, date, organizer_name, organizer_email, organizer_phone, images, tags) VALUES($1, $2, $3, $4, $5, $6, $7, $8) returning *`;
     return new Promise((resolve, reject) => {

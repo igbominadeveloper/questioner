@@ -102,6 +102,7 @@ class Meetup {
       images,
       tags,
     ];
+
     const { rows } = await queryFactory.run(`SELECT topic FROM ${table} WHERE topic = $1 OR date = $2`, [meetup.topic, meetup.date]);
     if (rows[0]) {
       return Promise.reject({ status: 422, error: 'Similar meetup exists already' });

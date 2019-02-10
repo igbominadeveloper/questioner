@@ -98,6 +98,16 @@ class Validate {
           status: 400,
           error: 'location should not be a number',
         });
+      } else if (!(tags)) {
+        response.status(400).json({
+          status: 400,
+          error: 'Tags is required',
+        });
+      } else if (!(images)) {
+        response.status(400).json({
+          status: 400,
+          error: 'Images is required',
+        });
       } else next();
     });
   }
@@ -445,6 +455,11 @@ class Validate {
           status: 400,
           error: error.details[0].message,
         });
+      } else if (!(tags)) {
+        response.status(400).json({
+          status: 400,
+          error: 'Tags is required',
+        });
       }
       next();
     });
@@ -489,6 +504,11 @@ class Validate {
         return helper.errorResponse(response, {
           status: 400,
           error: error.details[0].message,
+        });
+      } else if (!(images)) {
+        response.status(400).json({
+          status: 400,
+          error: 'Images is required',
         });
       }
       next();

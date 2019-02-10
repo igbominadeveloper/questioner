@@ -47,6 +47,11 @@ describe('Rsvp', () => {
       topic: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
       location: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
       date: new Date().toISOString(),
+      organizerName: 'Igbominadeveloper',
+      organizerEmail: 'favourafolayan@gmail.com',
+      organizerPhone: '08135586949',
+      tags: 'tag1',
+      images: 'image1'
     };
     before((done) => {
       request(app)

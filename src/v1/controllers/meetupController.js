@@ -35,10 +35,12 @@ class meetupController {
           data: rows,
         });
       }
-      return response.status(404).json({
-        status: 404,
-        error: 'No Meetups available right now',
-      });
+      else {
+        return response.status(404).json({
+          status: 404,
+          error: 'No Meetups available right now',
+        });
+      }
     } catch (error) {
       return response.status(400).json({
         status: 400,

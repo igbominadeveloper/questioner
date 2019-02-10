@@ -450,15 +450,15 @@ class Validate {
      */
 
     Joi.validate(validateObject, schema.meetupTag, (error) => {
-      if (error) {
+      if (!tags) {
+       return response.status(400).json({
+          status: 400,
+          error: 'Tags is required',
+        });
+      } else if (error) {
         return helper.errorResponse(response, {
           status: 400,
           error: error.details[0].message,
-        });
-      } else if (!(tags)) {
-        response.status(400).json({
-          status: 400,
-          error: 'Tags is required',
         });
       }
       next();
@@ -500,15 +500,15 @@ class Validate {
      */
 
     Joi.validate(validateObject, schema.meetupImage, (error) => {
-      if (error) {
+     if (!images) {
+     return response.status(400).json({
+        status: 400,
+        error: 'Images is required',
+      });
+    } else if (error) {
         return helper.errorResponse(response, {
           status: 400,
           error: error.details[0].message,
-        });
-      } else if (!(images)) {
-        response.status(400).json({
-          status: 400,
-          error: 'Images is required',
         });
       }
       next();

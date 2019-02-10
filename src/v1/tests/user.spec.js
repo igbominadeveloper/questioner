@@ -21,10 +21,9 @@ describe('POST /api/v1/auth/login', () => {
     request(app)
       .post(loginUrl)
       .send({ email: 'favourafolayan@gmail.com' })
-      .expect(400)
       .end((err, res) => {
-        if (err) return done(err);
-        expect(res.body.data);
+        expect(400);
+        expect(res.body).toHaveProperty('error');
         done();
       });
   });

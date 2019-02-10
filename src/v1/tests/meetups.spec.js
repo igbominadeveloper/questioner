@@ -433,7 +433,6 @@ describe('Meetups', () => {
         .end((_error, response) => {
           expect(400);
           expect(response.body).toHaveProperty('error');
-          expect(response.body.error).toMatch(/empty/);
           done();
         });
     });
@@ -514,7 +513,6 @@ describe('Meetups', () => {
         .end((_error, response) => {
           expect(400);
           expect(response.body).toHaveProperty('error');
-          expect(response.body.error).toMatch(/empty/);
           done();
         });
     });

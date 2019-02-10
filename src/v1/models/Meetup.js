@@ -143,7 +143,6 @@ class Meetup {
     } else {
       meetup[0].tags.find(existingTag => existingTag === request.tags.trim()) ? '' : meetup[0].tags.push(request.tags.trim());
       tags = request.tags;
-      console.log('string');
     }
     tags = meetup[0].tags;
 

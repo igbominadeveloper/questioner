@@ -174,7 +174,7 @@ class meetupController {
           const result = await meetup.update(rows, request.body);
           return response.status(200).json({
             status: 200,
-            data: result,
+            data: result.rows[0],
           });
         }
         return helper.errorResponse(response, { status: 404, error: 'Meetup not found' });

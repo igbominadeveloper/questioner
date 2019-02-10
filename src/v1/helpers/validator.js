@@ -417,7 +417,7 @@ class Validate {
   /**
    * use object destructuring to extract values
    *
-   * @constant {String} tags
+   * @constant {String/Array} tags
    */
   
    const { tags } = request.body;
@@ -425,7 +425,7 @@ class Validate {
     /**
      * convert values to a single object
      * 
-     * @key {String} tags
+     * @key {String/Array} tags
      */
 
     const validateObject = { tags };
@@ -463,7 +463,7 @@ class Validate {
     /**
      * use object destructuring to extract values
      * 
-     * @constant {String} images
+     * @constant {String/Array} images
      */
 
     const { images } = request.body;
@@ -471,7 +471,7 @@ class Validate {
      /**
      * convert values to a single object
      * 
-     * @key {String} images
+     * @key {String/Array} images
      */
     const validateObject = { images };
 

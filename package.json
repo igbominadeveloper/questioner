@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "babel-node app.js",
-    "dev": "nodemon npm start",
+    "dev": "cross-env NODE_ENV=test nodemon npm start",
     "lint": "node_modules/.bin/eslint src/v1/\"**/*.js\" src/tests/**.spec.js",
     "test": "cross-env NODE_ENV=test nyc --require babel-register mocha src/v1/tests/**.spec.js --exit",
     "test:watch": "cross-env NODE_ENV=test nyc --require babel-register mocha src/v1/tests/**.spec.js --watch",

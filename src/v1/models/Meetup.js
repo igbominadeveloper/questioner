@@ -27,7 +27,7 @@ class Meetup {
    */
 
   static all() {
-    const statement = `SELECT * FROM ${table}`;
+    const statement = `SELECT * FROM meetups`;
     return new Promise((resolve, reject) => {
       queryFactory.run(statement)
         .then(response => resolve(response))

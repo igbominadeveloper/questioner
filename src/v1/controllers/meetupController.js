@@ -35,10 +35,12 @@ class meetupController {
           data: rows,
         });
       }
-      return response.status(404).json({
-        status: 404,
-        error: 'No Meetups available right now',
-      });
+      else {
+        return response.status(404).json({
+          status: 404,
+          error: 'No Meetups available right now',
+        });
+      }
     } catch (error) {
       return response.status(400).json({
         status: 400,
@@ -107,10 +109,12 @@ class meetupController {
             error: 'Meetup creation failed',
           });
         })
-        .catch(error => response.status(422).json({
-          status: 422,
+        .catch(error => {
+          return response.status(422).json({
+          status: error.status,
           error: error.error,
-        }));
+        })
+      });
     } else {
       return helper.errorResponse(response, {
         status: 401,
@@ -164,22 +168,21 @@ class meetupController {
    */
 
   static async update(request, response) {
-    if (request.user.isadmin) {
-      try {
-        const { rows } = await meetup.find(request.params.id);
-        if (rows.length > 0) {
-          const result = await meetup.update(rows, request.body);
-          return response.status(200).json({
-            status: 200,
-            data: result.rows[0],
-          });
-        }
-        return helper.errorResponse(response, { status: 404, error: 'Meetup not found' });
-      } catch (error) {
-        return helper.errorResponse(response, { status: error.status, error: error.error });
+    if (!request.user.isadmin) {
+      return helper.errorResponse(response, { status: 401 });
+    }
+    try {
+      const { rows } = await meetup.find(request.params.id);
+      if (rows.length > 0) {
+        const result = await meetup.update(rows, request.body);
+        return response.status(200).json({
+          status: 200,
+          data: result.rows[0],
+        });
       }
-    } else {
-      return helper.errorResponse(response, { status: 401, error: 'You are not authorized to perform this action' });
+      return helper.errorResponse(response, { status: 404, error: 'Meetup not found' });
+    } catch (error) {
+      return helper.errorResponse(response, { status: error.status, error: error.error });
     }
   }
 

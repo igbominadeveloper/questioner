@@ -49,10 +49,15 @@ class Validate {
      * @constant {String} topic
      * @constant {String} location
      * @constant {String} date
+     * @constant {String} images
+     * @constant {String} tags
+     * @constant {String} organizerName
+     * @constant {String} organizerPhone
+     * @constant {String} organizerEmail
      */
 
     const {
-      topic, location, date,
+      topic, location, date, tags, images, organizerName, organizerPhone, organizerEmail
     } = request.body;
 
      /**
@@ -64,7 +69,7 @@ class Validate {
      */
 
     const validateObject = {
-      topic, location, date,
+      topic, location, date, tags, images, organizerName, organizerPhone, organizerEmail
     };
 
      /**
@@ -92,6 +97,16 @@ class Validate {
         response.status(400).json({
           status: 400,
           error: 'location should not be a number',
+        });
+      } else if (!(tags)) {
+        response.status(400).json({
+          status: 400,
+          error: 'Tags is required',
+        });
+      } else if (!(images)) {
+        response.status(400).json({
+          status: 400,
+          error: 'Images is required',
         });
       } else next();
     });
@@ -412,7 +427,7 @@ class Validate {
   /**
    * use object destructuring to extract values
    *
-   * @constant {String} tags
+   * @constant {String/Array} tags
    */
   
    const { tags } = request.body;
@@ -420,7 +435,7 @@ class Validate {
     /**
      * convert values to a single object
      * 
-     * @key {String} tags
+     * @key {String/Array} tags
      */
 
     const validateObject = { tags };
@@ -435,7 +450,12 @@ class Validate {
      */
 
     Joi.validate(validateObject, schema.meetupTag, (error) => {
-      if (error) {
+      if (!tags) {
+       return response.status(400).json({
+          status: 400,
+          error: 'Tags is required',
+        });
+      } else if (error) {
         return helper.errorResponse(response, {
           status: 400,
           error: error.details[0].message,
@@ -458,7 +478,7 @@ class Validate {
     /**
      * use object destructuring to extract values
      * 
-     * @constant {String} images
+     * @constant {String/Array} images
      */
 
     const { images } = request.body;
@@ -466,7 +486,7 @@ class Validate {
      /**
      * convert values to a single object
      * 
-     * @key {String} images
+     * @key {String/Array} images
      */
     const validateObject = { images };
 
@@ -480,7 +500,12 @@ class Validate {
      */
 
     Joi.validate(validateObject, schema.meetupImage, (error) => {
-      if (error) {
+     if (!images) {
+     return response.status(400).json({
+        status: 400,
+        error: 'Images is required',
+      });
+    } else if (error) {
         return helper.errorResponse(response, {
           status: 400,
           error: error.details[0].message,

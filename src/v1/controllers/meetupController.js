@@ -28,7 +28,6 @@ class meetupController {
         rows.map((row) => {
           delete row.created_at;
           delete row.updated_at;
-          delete row.images;
         });
         return response.status(200).json({
           status: 200,
@@ -44,7 +43,7 @@ class meetupController {
     } catch (error) {
       return response.status(400).json({
         status: 400,
-        error: error.error,
+        error: error,
       });
     }
   }
@@ -64,7 +63,6 @@ class meetupController {
           result.rows.map((row) => {
             delete row.created_at;
             delete row.updated_at;
-            delete row.images;
           });
           return response.status(200).json({
             status: 200,
@@ -98,7 +96,6 @@ class meetupController {
             const data = Object.assign({}, result.rows[0]);
             delete data.created_at;
             delete data.updated_at;
-            delete data.images;
             return response.status(201).json({
               status: 201,
               data,
@@ -138,7 +135,6 @@ class meetupController {
       const { rows } = await meetup.upcoming();
       if (rows.length > 0) {
         rows.map((row) => {
-          delete row.images;
           delete row.created_at;
           delete row.updated_at;
         });

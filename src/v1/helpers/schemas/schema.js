@@ -9,6 +9,11 @@ const meetup = Joi.object().keys({
   topic: Joi.string().trim().min(3).required(),
   location: Joi.string().trim().min(3).required(),
   date: Joi.date().iso().required(),
+  tags: [Joi.string().min(3).required(),Joi.array().required()],
+  images: [Joi.string().min(3).required(),Joi.array().required()],
+  organizerName: Joi.string().trim().min(3).required(),
+  organizerPhone: Joi.string().trim().min(3).required(),
+  organizerEmail: Joi.string().email({ minDomainAtoms: 2 }).required(),
 });
 
 /**
@@ -18,7 +23,7 @@ const meetup = Joi.object().keys({
  */
 
 const meetupTag = Joi.object().keys({
-  tags: Joi.string().trim().min(2).required(),
+  tags: [Joi.string().min(3).required(), Joi.array().required()],
 });
 
 /**
@@ -28,7 +33,7 @@ const meetupTag = Joi.object().keys({
  */
 
 const meetupImage = Joi.object().keys({
-  images: Joi.string().trim().min(2).required(),
+  images: [Joi.string().min(3).required(), Joi.array().required()],
 });
 
 /**

@@ -27,7 +27,7 @@ class Meetup {
    */
 
   static all() {
-    const statement = `SELECT * FROM ${table}`;
+    const statement = `SELECT * FROM meetups`;
     return new Promise((resolve, reject) => {
       queryFactory.run(statement)
         .then(response => resolve(response))
@@ -74,21 +74,43 @@ class Meetup {
    */
 
   static async create(payload) {
-    const meetup = {
-      topic: payload.topic,
-      location: payload.location,
-      date: payload.date,
-      images: payload.images ? payload.images : {},
-      tags: payload.tags ? payload.tags : {},
-    };
-    const { rows } = await queryFactory.run(`SELECT topic FROM ${table} WHERE topic = $1 OR date = $2`, [meetup.topic, meetup.date]);
-    if (rows[0]) {
+    const { rows } = await queryFactory.run(`SELECT topic FROM ${table} WHERE topic = $1 OR date = $2`, [payload.topic, payload.date]);
+    if (rows.length > 0) {
       return Promise.reject({ status: 422, error: 'Similar meetup exists already' });
     }
 
-    const statement = `INSERT INTO ${table}(topic,location,date,images,tags) VALUES($1, $2, $3, $4, $5) returning *`;
+    let tags = [];
+    let images = [];
+    if (payload.tags instanceof Array) {
+      payload.tags.forEach((tag) => {
+        tags.push(tag.trim());
+      });
+    } else { 
+      tags.push(payload.tags.trim());
+    }
+
+    if (payload.images instanceof Array) {
+      payload.images.forEach((url) => {
+        images.push(url.trim());
+      });
+    } else {
+      images.push(payload.images.trim());
+    }
+
+    const meetup = [
+      payload.topic,
+      payload.location,
+      payload.date,
+      payload.organizerName,
+      payload.organizerPhone,
+      payload.organizerEmail,
+      images,
+      tags,
+    ];
+
+    const statement = `INSERT INTO ${table}(topic, location, date, organizer_name, organizer_email, organizer_phone, images, tags) VALUES($1, $2, $3, $4, $5, $6, $7, $8) returning *`;
     return new Promise((resolve, reject) => {
-      queryFactory.run(statement, Object.values(meetup))
+      queryFactory.run(statement,[...meetup])
         .then(response => resolve(response))
         .catch(error => reject(error));
     });
@@ -120,6 +142,7 @@ class Meetup {
       meetup[0].tags;
     } else {
       meetup[0].tags.find(existingTag => existingTag === request.tags.trim()) ? '' : meetup[0].tags.push(request.tags.trim());
+      tags = request.tags;
     }
     tags = meetup[0].tags;
 
@@ -133,6 +156,7 @@ class Meetup {
       meetup[0].images.find(existingUrl => existingUrl === request.images.trim()) ? '' : meetup[0].images.push(request.images.trim());
     }
     images = meetup[0].images;
+
 
     const data = [
       topic || meetup[0].topic,

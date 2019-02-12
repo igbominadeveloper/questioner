@@ -124,8 +124,13 @@ describe('Question', () => {
     before((done) => {
       const meetupOne = {
         topic: 'Meetup for questions',
-        location: 'Akure, Nigeria',
-        date: '2019-04-19T11:36:38.380Z',
+        location: 'Akure, Oloyemekun, Nigeria',
+        date: '2019-10-19T11:36:38.380Z',
+        organizerName: 'Igbominadeveloper',
+        organizerEmail: 'favourafolayan@gmail.com',
+        organizerPhone: '08135586949',
+        tags: 'tag1',
+        images: 'image1'
       };
       request(app)
         .post('/api/v1/meetups')

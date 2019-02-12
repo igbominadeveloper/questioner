@@ -1,6 +1,5 @@
 import helper from '../helpers/helper';
 import user from '../models/user';
-import QueryFactory from '../../database/queryFactory';
 
 class userController {
 /**
@@ -13,6 +12,29 @@ class userController {
  * requests to the /user route
  */
 
+ /**
+  * fetch all users
+  * 
+  * @param {Object} request 
+  * @param {Object} response 
+  */
+  static async index(request, response) {
+    if(! request.user.isadmin) {
+      return helper.errorResponse(response, { status: 401 });
+    }
+    try {
+      const { rows } = await user.all();
+      if(rows.length > 0) {
+        return response.status(200).json({
+          status: 200,
+          data: rows
+        })
+      }
+      return helper.errorResponse(response, { status: 404 });
+    } catch (error) {
+      return helper.errorResponse(response, { status: error.status, error: error.error });
+    }
+  }
 
   /**
    * create new token for existing user
@@ -105,6 +127,38 @@ class userController {
       return helper.errorResponse(response, error);
     }
   }
+  
+  /**
+   * Find a user
+   * 
+   * @param {Object} request 
+   * @param {Objeect} response 
+   */
+
+  static async find(request, response) {
+    let id;
+    id = request.user.isadmin ? request.params.id : request.user.id;
+    try {
+      const { rows } = await user.find(id);
+      if (rows.length > 0) {
+        return response.status(200).json({
+          status: 200,
+          data: rows[0]
+        });
+      }
+      return helper.errorResponse(response, { status: 404 });        
+    } catch (error) {
+        return helper.errorResponse(response, { status: error.status, error: error });
+    }
+  }
+
+  /**
+   * 
+   * update the details of a user
+   * 
+   * @param {Object} request 
+   * @param {Object} response 
+   */  
 
   static async update(request, response) {
     try {

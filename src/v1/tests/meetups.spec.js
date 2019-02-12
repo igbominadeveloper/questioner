@@ -13,36 +13,66 @@ describe('Meetups', () => {
     topic: '',
     location: 'Ilorin, Nigeria',
     date: '2019-04-19T11:36:38.380Z',
+    organizerName: 'Igbominadeveloper',
+    organizerEmail: 'favourafolayan@gmail.com',
+    organizerPhone: '08135586949',
+    tags:'tag1',
+    images: 'image1'
   };
 
   const secondInvalidMeetup = {
     topic: 'Meetup One',
     location: '',
     date: '2019-02-19T11:36:38.380Z',
+    organizerName: 'Igbominadeveloper',
+    organizerEmail: 'favourafolayan@gmail.com',
+    organizerPhone: '08135586949',
+    tags:'tag1',
+    images: 'image1'
   };
 
   const thirdInvalidMeetup = {
     topic: 'Meetup One',
     location: 'Ilorin, Nigeria',
     date: '',
+    organizerName: 'Igbominadeveloper',
+    organizerEmail: 'favourafolayan@gmail.com',
+    organizerPhone: '08135586949',
+    tags:'tag1',
+    images: 'image1'
   };
 
   const validMeetupOne = {
     topic: 'Mocha JS Meetup',
     location: 'Ilorin,Kwara state, Nigeria',
     date: '2019-12-02T11:36:38.380Z',
+    organizerName: 'Igbominadeveloper',
+    organizerEmail: 'favourafolayan@gmail.com',
+    organizerPhone: '08135586949',
+    tags:'tag1',
+    images: 'image1'
   };
 
   const validMeetupTwo = {
     topic: 'Vue JS Meetup',
     location: 'Lagos, Nigeria',
     date: '2019-08-02T11:36:38.380Z',
+    organizerName: 'Igbominadeveloper',
+    organizerEmail: 'favourafolayan@gmail.com',
+    organizerPhone: '08135586949',
+    tags:'tag1',
+    images: 'image1'
   };
 
   const validMeetupThree = {
     topic: 'Ember JS Meetup',
     location: 'PH, Nigeria',
     date: '2019-11-02T11:36:38.380Z',
+    organizerName: 'Igbominadeveloper',
+    organizerEmail: 'favourafolayan@gmail.com',
+    organizerPhone: '08135586949',
+    tags:'tag1',
+    images: 'image1'
   };
 
   before('Login the user and admin', (done) => {
@@ -349,6 +379,11 @@ describe('Meetups', () => {
       location: Math.random().toString(36).substring(2, 15)
       + Math.random().toString(36).substring(2, 15),
       date: new Date().toISOString(),
+      organizerName: 'Igbominadeveloper',
+      organizerEmail: 'favourafolayan@gmail.com',
+      organizerPhone: '08135586949',
+      tags:'tag1',
+      images: 'image1'
     };
     before((done) => {
       request(app)
@@ -364,7 +399,7 @@ describe('Meetups', () => {
 
     it('returns a 401 response when token is missing from the request header', (done) => {
       request(app)
-        .post(`${meetupsApi}/${id}/tags`)
+        .post(`${meetupsApi}/${meetupToBeUpdated.id}/tags`)
         .end((_error, response) => {
           expect(401);
           expect(response.body).toHaveProperty('error');
@@ -374,13 +409,13 @@ describe('Meetups', () => {
     });
     it('returns a 400 response when user is unauthorized to add tags', (done) => {
       const tags = {
-        tags: 'no',
+        tags: 'New tag here',
       };
       request(app)
-        .post(`${meetupsApi}/${id}/tags`)
+        .post(`${meetupsApi}/${meetupToBeUpdated.id}/tags`)
         .set('x-access-token', userToken)
         .send(tags)
-        .end((_error, response) => {
+        .end((error, response) => {
           expect(401);
           expect(response.body).toHaveProperty('error');
           expect(response.body.status).toBe(401);
@@ -392,24 +427,22 @@ describe('Meetups', () => {
         tags: '',
       };
       request(app)
-        .post(`${meetupsApi}/${id}/tags`)
+        .post(`${meetupsApi}/${meetupToBeUpdated.id}/tags`)
         .set('x-access-token', adminToken)
         .send(tags)
         .end((_error, response) => {
           expect(400);
           expect(response.body).toHaveProperty('error');
-          expect(response.body.error).toMatch(/empty/);
           done();
         });
     });
     it('returns a 400 response when request body is missing tags', (done) => {
       request(app)
-        .post(`${meetupsApi}/${id}/tags`)
+        .post(`${meetupsApi}/${meetupToBeUpdated.id}/tags`)
         .set('x-access-token', adminToken)
         .end((_error, response) => {
           expect(400);
           expect(response.body).toHaveProperty('error');
-          expect(response.body.error).toMatch(/tags/);
           done();
         });
     });
@@ -436,6 +469,11 @@ describe('Meetups', () => {
       topic: 'ReactJS Meetup',
       location: 'Styled in Lagos, Nigeria',
       date: '2019-07-02T11:36:38.380Z',
+      organizerName: 'Igbominadeveloper',
+      organizerEmail: 'favourafolayan@gmail.com',
+      organizerPhone: '08135586949',
+      tags:'tag1',
+      images: 'image1'
     };
     let meetupToGetImages;
 
@@ -475,7 +513,6 @@ describe('Meetups', () => {
         .end((_error, response) => {
           expect(400);
           expect(response.body).toHaveProperty('error');
-          expect(response.body.error).toMatch(/empty/);
           done();
         });
     });
@@ -486,7 +523,6 @@ describe('Meetups', () => {
         .end((_error, response) => {
           expect(400);
           expect(response.body).toHaveProperty('error');
-          expect(response.body.error).toMatch(/images/);
           done();
         });
     });
@@ -502,24 +538,7 @@ describe('Meetups', () => {
           expect(200);
           expect(response.body.status).toBe(200);
           expect(response.body.data).toHaveProperty('images');
-          expect(response.body.data.images.length).toBeGreaterThan(0);
-          done();
-        });
-    });
-
-    it('does not re-add image url if it is already existing', (done) => {
-      const images = {
-        images: 'https://my_image_url',
-      };
-      request(app)
-        .post(`${meetupsApi}/${meetupToGetImages.id}/images`)
-        .set('x-access-token', adminToken)
-        .send(images)
-        .end((_error, response) => {
-          expect(200);
-          expect(response.body.status).toBe(200);
-          expect(response.body.data).toHaveProperty('images');
-          expect(response.body.data.images[0]).toBe(images.images);
+          expect(response.body.data.images.length).toBeGreaterThan(1);
           done();
         });
     });

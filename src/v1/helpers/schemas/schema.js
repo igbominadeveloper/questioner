@@ -56,7 +56,6 @@ const question = Joi.object().keys({
 
 const comment = Joi.object().keys({
   question_id: Joi.number().integer().positive().required(),
-  topic: Joi.string().trim().required(),
   comment: Joi.string().trim().required(),
 });
 

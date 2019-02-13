@@ -100,7 +100,6 @@ describe('Question', () => {
     it('returns a 400 error when user tries to ask question on a non-exisiting meetup', (done) => {
       const randomQuestion = {
         meetup_id: 20,
-        user_id: user.id,
         title: 'My Question title',
         body: 'My Question Body',
       };
@@ -158,7 +157,6 @@ describe('Question', () => {
 
     it('returns a 400 error when request body is missing a meetupId', (done) => {
       const invalidQuestionOne = {
-        user_id: user.id,
         title: 'My Question title',
         body: 'Question body',
       };
@@ -174,29 +172,11 @@ describe('Question', () => {
         });
     });
 
-    it('returns a 400 error when request body is missing a userId', (done) => {
-      const invalidQuestionTwo = {
-        meetup_id: newMeetup.id,
-        title: 'My Question title',
-        body: 'Question body',
-      };
-
-      request(app)
-        .post(questionApi)
-        .set('x-access-token', userToken)
-        .send(invalidQuestionTwo)
-        .end((_error, response) => {
-          expect(400);
-          expect(response.body.status).toBe(400);
-          expect(response.body.error).toMatch(/user_id/);
-          done();
-        });
-    });
+    
 
     it('returns a 400 error when request body is missing a question title', (done) => {
       const invalidQuestionThree = {
         meetup_id: newMeetup.id,
-        user_id: user.id,
         body: 'Question body',
       };
       request(app)
@@ -214,7 +194,6 @@ describe('Question', () => {
     it('returns a 400 error when request body is missing a question body', (done) => {
       const invalidQuestionFour = {
         meetup_id: newMeetup.id,
-        user_id: user.id,
         title: 'My Question title',
       };
       request(app)
@@ -232,7 +211,6 @@ describe('Question', () => {
     it('returns a 201 response when question is created successfully', (done) => {
       const validQuestionOne = {
         meetup_id: newMeetup.id,
-        user_id: user.id,
         title: 'My Question title',
         body: 'My Question body',
       };
@@ -254,7 +232,6 @@ describe('Question', () => {
     it('returns a 409 error when user tries to create an existing question again', (done) => {
       const validQuestionOne = {
         meetup_id: newMeetup.id,
-        user_id: user.id,
         title: 'My Question title',
         body: 'My Question body',
       };

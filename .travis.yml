@@ -17,6 +17,7 @@ before_script:
   - psql -c "CREATE USER favour WITH PASSWORD 'password1';"
   - psql -c 'create database testdb;'
   - npm run test-migrate:refresh
+  - npm run build
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build

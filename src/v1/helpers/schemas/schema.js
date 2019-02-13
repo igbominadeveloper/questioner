@@ -43,7 +43,6 @@ const meetupImage = Joi.object().keys({
  */
 
 const question = Joi.object().keys({
-  user_id: Joi.number().integer().positive().required(),
   meetup_id: Joi.number().integer().positive().required(),
   title: Joi.string().trim().min(3).required(),
   body: Joi.string().trim().min(3).required(),
@@ -56,7 +55,6 @@ const question = Joi.object().keys({
  */
 
 const comment = Joi.object().keys({
-  user_id: Joi.number().integer().positive().required(),
   question_id: Joi.number().integer().positive().required(),
   topic: Joi.string().trim().required(),
   comment: Joi.string().trim().required(),

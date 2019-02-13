@@ -134,7 +134,7 @@ class Validate {
      */
 
     const {
-      title, body, user_id, meetup_id,
+      title, body, meetup_id,
     } = request.body;
 
     /**
@@ -142,11 +142,9 @@ class Validate {
      * 
      * @key {String} title
      * @key {String} body
-     * @key {String} user_id
-     */
-
+    */
     const validateObject = {
-      title, body, user_id, meetup_id,
+      title, body, meetup_id,
     };
 
     /**

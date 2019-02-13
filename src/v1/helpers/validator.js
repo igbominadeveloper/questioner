@@ -4,14 +4,14 @@ import schema from './schemas/schema';
 import helper from "./helper";
 
 class Validate {
-/**
- *---------------------------------------------
- * Validate 
- *---------------------------------------------
- *
- * This class is responsible for handling
- * input validation using Joi package
- */
+  /**
+   *---------------------------------------------
+   * Validate 
+   *---------------------------------------------
+   *
+   * This class is responsible for handling
+   * input validation using Joi package
+   */
 
   /**
    * validate route id parameter 
@@ -33,15 +33,15 @@ class Validate {
     }
   }
 
-   /**
-   * validate new meetup inputs 
-   * 
-   * @param {Object} request 
-   * @param {Object} response 
-   * @param {Object} next
-   * @return {Object} response if error exists
-   */
-  
+  /**
+  * validate new meetup inputs 
+  * 
+  * @param {Object} request 
+  * @param {Object} response 
+  * @param {Object} next
+  * @return {Object} response if error exists
+  */
+
   static validateMeetup(request, response, next) {
     /**
      * use object destructuring to extract values
@@ -60,32 +60,33 @@ class Validate {
       topic, location, date, tags, images, organizerName, organizerPhone, organizerEmail
     } = request.body;
 
-     /**
-     * convert values to a single object
-     * 
-     * @key {String} topic
-     * @key {String} location
-     * @key {String} date
-     */
+    /**
+    * convert values to a single object
+    * 
+    * @key {String} topic
+    * @key {String} location
+    * @key {String} date
+    */
 
     const validateObject = {
       topic, location, date, tags, images, organizerName, organizerPhone, organizerEmail
     };
 
-     /**
-     * Use Joi to validate each key in the object
-     * 
-     * @param {Object} validateObject
-     * @param {Object} schema.meetup
-     * @param {Object} err
-     * @return {Object} error if any exists
-     */
+    /**
+    * Use Joi to validate each key in the object
+    * 
+    * @param {Object} validateObject
+    * @param {Object} schema.meetup
+    * @param {Object} err
+    * @return {Object} error if any exists
+    */
 
     Joi.validate(validateObject, schema.meetup, (err) => {
       if (err) {
+        var error = err.details[0].message.replace('"', '');
         return response.status(400).json({
           status: 400,
-          error: err.details[0].message,
+          error: error.replace('"', ''),
         });
       }
       if (!isNaN(topic)) {
@@ -159,9 +160,10 @@ class Validate {
 
     Joi.validate(validateObject, schema.question, (err) => {
       if (err) {
+        var error = err.details[0].message.replace('"', '');
         return response.status(400).json({
           status: 400,
-          error: err.details[0].message,
+          error: error.replace('"', ''),
         });
       }
       if (!isNaN(title)) {
@@ -227,9 +229,10 @@ class Validate {
 
     Joi.validate(validateObject, schema.newUser, (err) => {
       if (err) {
+        var error = err.details[0].message.replace('"', '');
         return response.status(400).json({
           status: 400,
-          error: err.details[0].message,
+          error: error.replace('"', ''),
         });
       }
       next();
@@ -247,23 +250,23 @@ class Validate {
 
   static validateOldUser(request, response, next) {
 
-     /**
-     * use object destructuring to extract values
-     * 
-     * @constant {String} email
-     * @constant {String} password
-     */
+    /**
+    * use object destructuring to extract values
+    * 
+    * @constant {String} email
+    * @constant {String} password
+    */
 
     const {
       email, password,
     } = request.body;
 
-     /**
-     * convert values to a single object
-     * 
-     * @key {String} email
-     * @key {String} password
-     */
+    /**
+    * convert values to a single object
+    * 
+    * @key {String} email
+    * @key {String} password
+    */
 
     const validateObject = {
       email, password,
@@ -280,9 +283,10 @@ class Validate {
 
     Joi.validate(validateObject, schema.oldUser, (err) => {
       if (err) {
+        var error = err.details[0].message.replace('"', '');
         return response.status(400).json({
           status: 400,
-          error: err.details[0].message,
+          error: error.replace('"', ''),
         });
       } next();
     });
@@ -299,22 +303,23 @@ class Validate {
 
     Joi.validate(validateObject, schema.userUpdate, (err) => {
       if (err) {
+        var error = err.details[0].message.replace('"', '');
         return response.status(400).json({
           status: 400,
-          error: err.details[0].message,
+          error: error.replace('"', ''),
         });
       } next();
     });
   }
 
-   /**
-   * validate new comment inputs 
-   * 
-   * @param {Object} request 
-   * @param {Object} response 
-   * @param {Object} next
-   * @return {Object} response if error exists
-   */
+  /**
+  * validate new comment inputs 
+  * 
+  * @param {Object} request 
+  * @param {Object} response 
+  * @param {Object} next
+  * @return {Object} response if error exists
+  */
 
   static validateComment(request, response, next) {
 
@@ -355,9 +360,10 @@ class Validate {
 
     Joi.validate(validateObject, schema.comment, (err) => {
       if (err) {
+        var error = err.details[0].message.replace('"', '');
         return response.status(400).json({
           status: 400,
-          error: err.details[0].message,
+          error: error.replace('"', ''),
         });
       }
       next();
@@ -405,9 +411,10 @@ class Validate {
 
     Joi.validate(validateObject, schema.rsvps, (err) => {
       if (err) {
+        var error = err.details[0].message.replace('"', '');
         return response.status(400).json({
           status: 400,
-          error: err.details[0].message,
+          error: error.replace('"', ''),
         });
       }
       next();
@@ -424,14 +431,14 @@ class Validate {
    */
 
   static validateMeetupTag(request, response, next) {
-  /**
-   * use object destructuring to extract values
-   *
-   * @constant {String/Array} tags
-   */
-  
-   const { tags } = request.body;
-    
+    /**
+     * use object destructuring to extract values
+     *
+     * @constant {String/Array} tags
+     */
+
+    const { tags } = request.body;
+
     /**
      * convert values to a single object
      * 
@@ -451,7 +458,7 @@ class Validate {
 
     Joi.validate(validateObject, schema.meetupTag, (error) => {
       if (!tags) {
-       return response.status(400).json({
+        return response.status(400).json({
           status: 400,
           error: 'Tags is required',
         });
@@ -483,11 +490,11 @@ class Validate {
 
     const { images } = request.body;
 
-     /**
-     * convert values to a single object
-     * 
-     * @key {String/Array} images
-     */
+    /**
+    * convert values to a single object
+    * 
+    * @key {String/Array} images
+    */
     const validateObject = { images };
 
     /**
@@ -500,12 +507,12 @@ class Validate {
      */
 
     Joi.validate(validateObject, schema.meetupImage, (error) => {
-     if (!images) {
-     return response.status(400).json({
-        status: 400,
-        error: 'Images is required',
-      });
-    } else if (error) {
+      if (!images) {
+        return response.status(400).json({
+          status: 400,
+          error: 'Images is required',
+        });
+      } else if (error) {
         return helper.errorResponse(response, {
           status: 400,
           error: error.details[0].message,

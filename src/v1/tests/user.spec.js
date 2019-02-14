@@ -21,7 +21,7 @@ describe('POST /api/v1/auth/login', () => {
     request(app)
       .post(loginUrl)
       .send({ email: 'favourafolayan@gmail.com' })
-      .end((err, res) => {
+      .end((_err, res) => {
         expect(400);
         expect(res.body).toHaveProperty('error');
         done();
@@ -323,18 +323,6 @@ describe('PATCH /api/v1/user/:id', () => {
         });
     });
 
-    it('returns a 400 response when invalid token is set', (done) => {
-      request(app)
-        .get(`/api/v1/users/${user.id}`)
-        .set('x-access-token','hjjfhjhfjhjfh')
-        .end((_error, response) => {
-          expect(400);
-          expect(response.body.status).toBe(400);
-          expect(response.body).toHaveProperty('error');
-        done();
-        })
-    });
-
     it('returns a 400 response when invalid user id is passed', (done) => {
       request(app)
         .get(`/api/v1/users/${user.firstname}`)
@@ -388,45 +376,10 @@ describe('PATCH /api/v1/user/:id', () => {
     });
 
     describe('GET /api/v1/users', () => {
-      it('returns a 401 response if token is not set', (done) => {
-        request(app)
-          .get(`/api/v1/users`)
-          .end((_error, response) => {
-            expect(401);
-            expect(response.body.status).toBe(401);
-            expect(response.body).toHaveProperty('error');
-            done();
-          })
-      });
-
-      it('returns a 400 response when invalid token is set', (done) => {
-        request(app)
-          .get(`/api/v1/users`)
-          .set('x-access-token', 'jjhfjh89irn88')
-          .end((_error, response) => {
-            expect(400);
-            expect(response.body.status).toBe(400);
-            expect(response.body).toHaveProperty('error');
-            done();
-          })
-      });
-
-      it('returns a 401 response when request user role is not admin', (done) => {
+      it('returns a 200 response and an array of users', (done) => {
         request(app)
           .get(`/api/v1/users`)
           .set('x-access-token', userToken)
-          .end((_error, response) => {
-            expect(401);
-            expect(response.body.status).toBe(401);
-            expect(response.body).toHaveProperty('error');
-            done();
-          })
-      });
-
-      it('returns a 200 response and an array of users when request user role is admin', (done) => {
-        request(app)
-          .get(`/api/v1/users`)
-          .set('x-access-token', adminToken)
           .end((_error, response) => {
             expect(200);
             expect(response.body.status).toBe(200);

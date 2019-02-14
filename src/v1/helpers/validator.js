@@ -134,7 +134,7 @@ class Validate {
      */
 
     const {
-      title, body, user_id, meetup_id,
+      title, body, meetup_id,
     } = request.body;
 
     /**
@@ -142,11 +142,9 @@ class Validate {
      * 
      * @key {String} title
      * @key {String} body
-     * @key {String} user_id
-     */
-
+    */
     const validateObject = {
-      title, body, user_id, meetup_id,
+      title, body, meetup_id,
     };
 
     /**
@@ -326,27 +324,23 @@ class Validate {
     /**
      * use object destructuring to extract values
      * 
-     * @constant {String} user_id
      * @constant {String} question_id
-     * @constant {String} topic
      * @constant {String} comment
      */
 
     const {
-      user_id, question_id, topic, comment,
+      question_id, comment,
     } = request.body;
 
     /**
      * convert values to a single object
      * 
-     * @key {String} user_id
      * @key {String} question_id
-     * @key {String} topic
      * @key {String} comment
      */
 
     const validateObject = {
-      user_id, question_id, topic, comment,
+      question_id, comment,
     };
 
     /**

@@ -193,7 +193,7 @@ class QuestionsController {
     try {
       const result = await question.find(request.body.question_id);
       if (result.rowCount > 0) {
-        const { rows } = await question.createComment(request.body);
+        const { rows } = await question.createComment(request.body, request.user.id);
         if (rows[0]) {
           const newComment = Object.assign({}, rows[0]);
           delete newComment.id;

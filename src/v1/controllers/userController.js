@@ -18,10 +18,7 @@ class userController {
   * @param {Object} request 
   * @param {Object} response 
   */
-  static async index(request, response) {
-    if(! request.user.isadmin) {
-      return helper.errorResponse(response, { status: 401 });
-    }
+  static async index(_request, response) {
     try {
       const { rows } = await user.all();
       if(rows.length > 0) {

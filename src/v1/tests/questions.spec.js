@@ -26,7 +26,7 @@ describe('Question', () => {
     request(app)
       .post('/api/v1/auth/login')
       .send(userCredentials)
-      .end((error, response) => {
+      .end((_error, response) => {
         expect(200);
         const { data } = response.body;
         userToken = data[0].token;
@@ -37,7 +37,7 @@ describe('Question', () => {
     request(app)
       .post('/api/v1/auth/login')
       .send(adminCredentials)
-      .end((error, response) => {
+      .end((_error, response) => {
         expect(200);
         const { data } = response.body;
         adminToken = data[0].token;
@@ -48,28 +48,9 @@ describe('Question', () => {
   });
 
   describe('GET /api/v1/questions', () => {
-    it('returns 401 when token is not set', (done) => {
-      request(app)
-        .get(questionApi)
-        .end((_error, response) => {
-          expect(401);
-          expect(response.status).toBe(401);
-          done();
-        });
-    });
-    it('returns 401 response when a wrong token is set', (done) => {
-      request(app)
-        .get(questionApi)
-        .set('x-access-token', 'jhjdhjhdjhjhjhjdhdvh')
-        .end((_error, response) => {
-          expect(422);
-          done();
-        });
-    });
     it('returns 404 response and an empty array of questions', (done) => {
       request(app)
         .get(questionApi)
-        .set('x-access-token', userToken)
         .end((_error, response) => {
           expect(response.status).toBe(404);
           done();
@@ -79,7 +60,6 @@ describe('Question', () => {
     it('returns 404 response and user tries to fetch a non-existing question', (done) => {
       request(app)
         .get(`${questionApi}/${id}`)
-        .set('x-access-token', userToken)
         .end((_error, response) => {
           expect(response.status).toBe(404);
           done();
@@ -276,7 +256,6 @@ describe('Question', () => {
     it('returns an array of created questions', (done) => {
       request(app)
         .get(questionApi)
-        .set('x-access-token', userToken)
         .end((_error, response) => {
           expect(200);
           expect(response.body.status).toBe(200);

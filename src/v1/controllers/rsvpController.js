@@ -24,27 +24,24 @@ class RsvpController {
    */
 
   static async index(request, response) {
-    if (request.user.isadmin === 1) {
-      try {
-        const { rows } = await rsvp.all(request.params.id);
-        if (rows.length > 0) {
-          rows.map((row) => {
-            delete row.created_at;
-            delete row.id;
-            delete row.updated_at;
-            delete row.meetup_id;
-          });
-          return response.status(200).json({
-            status: 200,
-            data: rows,
-          });
-        }
-        return helper.errorResponse(response, { status: 404, error: 'No RSVPS yet for this meetup' });
-      } catch (error) {
-        return helper.errorResponse(response, { status: 404 });
+    try {
+      const { rows } = await rsvp.all(request.params.id);
+      if (rows.length > 0) {
+        rows.map((row) => {
+          delete row.created_at;
+          delete row.id;
+          delete row.updated_at;
+          delete row.meetup_id;
+        });
+        return response.status(200).json({
+          status: 200,
+          data: rows,
+        });
       }
+      return helper.errorResponse(response, { status: 404, error: 'No RSVPS yet for this meetup' });
+    } catch (error) {
+      return helper.errorResponse(response, { status: 404 });
     }
-    return helper.errorResponse(response, { status: 401, error: 'This action is restricted to admin only' });
   }
 
   /**

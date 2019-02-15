@@ -30,17 +30,6 @@ describe('Rsvp', () => {
         done();
       });
   });
-  describe('Token issue', () => {
-    it('returns a 401 error when user token is not set', (done) => {
-      request(app)
-        .get(`${meetupsApi}/1/rsvps`)
-        .end((_error, response) => {
-          expect(401);
-          expect(response.body).toHaveProperty('error');
-          done();
-        });
-    });
-  });
 
   describe('GET /meetups/:id/rsvps', () => {
     const validMeetup = {
@@ -68,7 +57,6 @@ describe('Rsvp', () => {
     it('returns 404 response when there are no rsvps for a meetup', (done) => {
       request(app)
         .get(`${meetupsApi}/${meetup.id}/rsvps`)
-        .set('x-access-token', loggedInAdmin.token)
         .end((_error, response) => {
           expect(404);
           expect(response.body).toHaveProperty('error');
@@ -182,17 +170,6 @@ describe('Rsvp', () => {
     });
 
     describe('GET /api/v1/meetups:id/rsvps', () => {
-      it('returns 401 response when a non-admin tries to fetch rsvps for a meetup', (done) => {
-        request(app)
-          .get(`${meetupsApi}/${meetup.id}/rsvps`)
-          .set('x-access-token', loggedInUser.token)
-          .end((_error, response) => {
-            expect(401);
-            expect(response.body).toHaveProperty('error');
-            done();
-          });
-      });
-
       it('returns 200 response and an array of rsvps for a specified meetup', (done) => {
         request(app)
           .get(`${meetupsApi}/${meetup.id}/rsvps`)
@@ -205,26 +182,4 @@ describe('Rsvp', () => {
       });
     });
   });
-
-
-  //
-  //   it('return 400 and a custom error message when request is missing valid payload', () => {
-  //     request(app)
-  //       .post(`${meetupsApi}/1/rsvps`)
-  //       .then((response) => {
-  //         expect(response.body.error).toBe('Request must contain valid user and a status - Yes, No or Maybe');
-  //         expect(response.body.status).toBe(400);
-  //       });
-  //   });
-  //   it('returns exact rsvp status a user sends to the server', () => {
-  //     const payload = { user: 4, status: 'Maybe' };
-  //     request(app)
-  //       .post(`${meetupsApi}/1/rsvps`)
-  //       .send(payload)
-  //       .then((response) => {
-  //         expect(response.body.status).toBe(201);
-  //         expect(response.body.data.status).toBe('Maybe');
-  //       });
-  //   });
-  // });
 });

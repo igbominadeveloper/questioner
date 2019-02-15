@@ -123,7 +123,7 @@ describe('Meetups', () => {
     describe('response', () => {
       it('returns 401 when no user token is set', (done) => {
         request(app)
-          .get(meetupsApi)
+          .post(meetupsApi)
           .set('x-access-token', '')
           .end((_error, response) => {
             expect(401);

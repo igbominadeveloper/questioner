@@ -213,8 +213,8 @@ class QuestionsController {
         error: 404,
         error: 'Cannot comment on a non-existing question',
       });
-    } catch (errors) {
-      return helper.errorResponse(response, errors);
+    } catch (error) {
+      return helper.errorResponse(response, { status: 400, error: error.detail });
     }
   }
 

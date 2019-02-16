@@ -118,17 +118,17 @@ class Question {
   
   static async createComment(payload, userId) {
     const {
-      question_id, topic, comment,
+      question_id, comment,
     } = payload;
-    const statement = 'INSERT INTO comments(user_id,question_id,topic,comment) VALUES($1,$2,$3,$4) returning *';
+    const statement = 'INSERT INTO comments(user_id,question_id,comment) VALUES($1,$2,$3) returning *';
 
     const { rows } = await queryFactory.run('SELECT * FROM comments WHERE user_id = $1 AND comment = $2', [userId, comment]);
     if (rows[0]) {
-      return Promise.reject({ status: 422, message: 'You have submitted this comment already' });
+      return Promise.reject({ status: 422, error: 'You have submitted this comment already' });
     }
 
     return new Promise((resolve, reject) => {
-      queryFactory.run(statement, [userId, question_id, topic, comment])
+      queryFactory.run(statement, [userId, question_id, comment])
         .then(response => resolve(response))
         .catch(error => reject(error));
     });

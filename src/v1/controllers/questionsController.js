@@ -205,12 +205,12 @@ class QuestionsController {
           });
         }
         return helper.errorResponse(response, {
-          error: 400,
+          status: 400,
           error: 'Error occured! Comment couldn\'t be created',
         });
       }
       return helper.errorResponse(response, {
-        error: 404,
+        status: 404,
         error: 'Cannot comment on a non-existing question',
       });
     } catch (error) {

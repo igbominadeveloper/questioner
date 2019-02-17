@@ -89,7 +89,7 @@ describe('Meetups', () => {
     request(app)
       .post('/api/v1/auth/login')
       .send(userCredentials)
-      .end((error, response) => {
+      .end((_error, response) => {
         expect(200);
         const { token } = response.body.data[0];
         userToken = token;
@@ -98,7 +98,7 @@ describe('Meetups', () => {
     request(app)
       .post('/api/v1/auth/login')
       .send(adminCredentials)
-      .end((error, response) => {
+      .end((_error, response) => {
         expect(200);
         const { token } = response.body.data[0];
         adminToken = token;
@@ -110,8 +110,7 @@ describe('Meetups', () => {
     it('returns 404 response code when meetups record is empty', (done) => {
       request(app)
         .get(meetupsApi)
-        .set('x-access-token', userToken)
-        .end((error, response) => {
+        .end((_error, response) => {
           expect(404);
           expect(response.body.error).toMatch(/available right now/);
           done();
@@ -213,7 +212,6 @@ describe('Meetups', () => {
     it('returns 200 response code when meetups record is not empty', (done) => {
       request(app)
         .get(meetupsApi)
-        .set('x-access-token', userToken)
         .end((error, response) => {
           expect(200);
           expect(response.body.data.length).toBeGreaterThan(0);
@@ -228,7 +226,6 @@ describe('Meetups', () => {
     it('returns 200 response and a meetup record', (done) => {
       request(app)
         .get(`${meetupsApi}/${id}`)
-        .set('x-access-token', userToken)
         .end((_error, response) => {
           expect(200);
           expect(response.body.data[0].id).toBe(id);
@@ -242,7 +239,6 @@ describe('Meetups', () => {
     before((done) => {
       request(app)
         .post(meetupsApi)
-        .set('x-access-token', adminToken)
         .send(validMeetupOne)
         .end(() => {
           expect(201);
@@ -267,7 +263,6 @@ describe('Meetups', () => {
     it('returns a sorted array of upcoming meetups', (done) => {
       request(app)
         .get(`${meetupsApi}/upcoming`)
-        .set('x-access-token', userToken)
         .end((_error, response) => {
           expect(200);
           expect(Date.parse(response.body.data[0][0].date))

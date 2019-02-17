@@ -32,6 +32,6 @@ router.post('/api/v1/auth/login', Validator.validateOldUser, userController.logi
 router.get('/api/v1/users', userController.index);
 router.get('/api/v1/users/:id', [Auth.verifyToken, Validator.validateId], userController.find);
 router.patch('/api/v1/users/:id', [Auth.verifyToken, Validator.validateId, Validator.validateUserProfileUpdate], userController.update);
-router.post('/api/v1/comments', Validator.validateComment, questionsController.createComment);
+router.post('/api/v1/comments', [Auth.verifyToken, Validator.validateComment], questionsController.createComment);
 router.patch('/api/v1/auth/admin', Auth.verifyToken, userController.admin);
 export default router;

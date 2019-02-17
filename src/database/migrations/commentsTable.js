@@ -5,10 +5,9 @@ const createCommentsQuery = {
         id SERIAL PRIMARY KEY,
         user_id INT NOT NULL,
         question_id INT NOT NULL,
-        topic VARCHAR(128) NOT NULL,
         comment VARCHAR(128) NOT NULL,
-        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (question_id) REFERENCES questions (id) ON DELETE CASCADE,
         FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
       )`,

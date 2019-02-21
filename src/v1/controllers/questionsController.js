@@ -26,8 +26,9 @@ class QuestionsController {
    * @return {Array} questions 
    */
 
-  static index(_request, response) {
-    question.all()
+  static index(request, response) {
+    const {id} = request.params;
+    question.withUsers(id)
       .then((result) => {
         if (result.rowCount > 0) {
           result.rows.map((row) => {
@@ -36,7 +37,7 @@ class QuestionsController {
           });
           return response.status(200).json({
             status: 200,
-            data: [result.rows],
+            data: result.rows,
           });
         }
         return response.status(404).json({

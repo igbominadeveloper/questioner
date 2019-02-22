@@ -4,12 +4,11 @@ import request from 'supertest';
 import app from '../../../app';
 
 const questionApi = '/api/v1/questions';
+const meetupWithQuestions = '/api/v1/meetups/2/questions';
 
 describe('Question', () => {
   let userToken;
   let adminToken;
-  let user;
-  let admin;
   const id = 1000;
 
   const userCredentials = {
@@ -31,7 +30,6 @@ describe('Question', () => {
         const { data } = response.body;
         userToken = data[0].token;
         // eslint-disable-next-line prefer-destructuring
-        user = data[0].user;
       });
 
     request(app)
@@ -42,7 +40,6 @@ describe('Question', () => {
         const { data } = response.body;
         adminToken = data[0].token;
         // eslint-disable-next-line prefer-destructuring
-        admin = data[0].user;
         done();
       });
   });
@@ -50,7 +47,7 @@ describe('Question', () => {
   describe('GET /api/v1/questions', () => {
     it('returns 404 response and an empty array of questions', (done) => {
       request(app)
-        .get(questionApi)
+        .get(meetupWithQuestions)
         .end((_error, response) => {
           expect(response.status).toBe(404);
           done();
@@ -253,13 +250,23 @@ describe('Question', () => {
   });
 
   describe('GET /api/v1/questions', () => {
+    let meetup;
+    before((done) => {
+      request(app)
+        .get('/api/v1/meetups')
+        .end((_error, response) => {
+          expect(200);
+          meetup = response.body.data.find(meetup => meetup.topic == 'Meetup for questions');
+          done();
+        });
+    });
     it('returns an array of created questions', (done) => {
       request(app)
-        .get(questionApi)
+        .get(`/api/v1/meetups/${meetup.id}/questions`)
         .end((_error, response) => {
           expect(200);
           expect(response.body.status).toBe(200);
-          expect(response.body.data[0].length).toBeGreaterThan(0);
+          expect(response.body.data.length).toBeGreaterThan(0);
           done();
         });
     });

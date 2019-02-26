@@ -30,10 +30,35 @@ class Question {
    * @return {Object} Promise
    */
 
-  static all() {
-    const statement = `SELECT * FROM ${table}`;
+  static withUsers(meetupId) {
+    const statement = `SELECT 
+                        questions.body,
+                        questions.upvotes,
+                        questions.downvotes,
+                        (
+                          SELECT 
+                            row_to_json(users) 
+                          FROM
+                          (
+                            SELECT 
+                              firstname,
+                              lastname,
+                              id,
+                              email 
+                            FROM 
+                              users 
+                            WHERE 
+                              ${table}.user_id = users.id) 
+                            AS 
+                              users) 
+                              AS 
+                                user 
+                              FROM 
+                                ${table} 
+                      WHERE 
+                        meetup_id = $1`;
     return new Promise((resolve, reject) => {
-      queryFactory.run(statement)
+      queryFactory.run(statement,[meetupId])
         .then(response => resolve(response))
         .catch(error => reject(error));
     });

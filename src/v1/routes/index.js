@@ -6,6 +6,7 @@ import userController from '../controllers/userController';
 import Validator from '../helpers/validator';
 import helper from '../helpers/helper';
 import Auth from '../middlewares/auth';
+import QuestionsController from '../controllers/questionsController';
 
 const router = express.Router();
 
@@ -21,9 +22,9 @@ router.post('/api/v1/meetups/:id/tags', [Auth.verifyToken, Validator.validateId,
 router.post('/api/v1/meetups/:id/images', [Auth.verifyToken, Validator.validateId, Validator.validateMeetupImage], meetupController.update);
 router.delete('/api/v1/meetups/:id', [Auth.verifyToken, Validator.validateId], meetupController.destroy);
 router.get('/api/v1/meetups/:id/rsvps', Validator.validateId, rsvpController.index);
+router.get('/api/v1/meetups/:id/questions', Validator.validateId, QuestionsController.index);
 router.post('/api/v1/meetups/:id/rsvps', [Auth.verifyToken, Validator.validateId, Validator.validateRsvps], rsvpController.create);
 router.post('/api/v1/questions', [Auth.verifyToken, Validator.validateQuestion], questionsController.create);
-router.get('/api/v1/questions', questionsController.index);
 router.get('/api/v1/questions/:id', Validator.validateId, questionsController.show);
 router.patch('/api/v1/questions/:id/upvote', [Auth.verifyToken, Validator.validateId], questionsController.vote);
 router.patch('/api/v1/questions/:id/downvote', [Auth.verifyToken, Validator.validateId], questionsController.vote);

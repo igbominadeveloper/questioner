@@ -102,8 +102,8 @@ class Meetup {
       payload.location,
       payload.date,
       payload.organizerName,
-      payload.organizerPhone,
       payload.organizerEmail,
+      payload.organizerPhone,
       images,
       tags,
     ];

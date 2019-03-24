@@ -10,7 +10,7 @@ Questioner is an API driven application that crowd-sources questions and comment
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
-Node and Npm must be installed on your machine.
+Node and Npm must be installed on your machine to run this application locally
 
 ### Installing
 Clone the Repository

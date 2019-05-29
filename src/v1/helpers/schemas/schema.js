@@ -9,8 +9,8 @@ const meetup = Joi.object().keys({
   topic: Joi.string().trim().min(3).required(),
   location: Joi.string().trim().min(3).required(),
   date: Joi.date().iso().required(),
-  tags: [Joi.string().min(3).required(),Joi.array().required()],
-  images: [Joi.string().min(3).required(),Joi.array().required()],
+  // tags: [Joi.string().min(3),Joi.array()],
+  images: [Joi.string().min(3),Joi.array()],
   organizerName: Joi.string().trim().min(3).required(),
   organizerPhone: Joi.string().trim().min(3).required(),
   organizerEmail: Joi.string().email({ minDomainAtoms: 2 }).required(),
@@ -69,7 +69,8 @@ const newUser = Joi.object().keys({
   firstname: Joi.string().trim().min(3).required(),
   lastname: Joi.string().trim().min(3).required(),
   email: Joi.string().email({ minDomainAtoms: 2 }).required(),
-  password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/).required(),
+  password: Joi.string().min(3).alphanum().required(),
+  phoneNumber: Joi.number().min(11),
 });
 
 /**

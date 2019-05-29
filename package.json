@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "start": "babel-node app.js",
-    "dev": "cross-env NODE_ENV=test nodemon npm start",
+    "dev": "cross-env NODE_ENV=development nodemon npm start",
     "lint": "node_modules/.bin/eslint src/v1/\"**/*.js\" src/tests/**.spec.js",
+    "pretest": "cross-env NODE_ENV=test npm run migrate:refresh",
     "test": "cross-env NODE_ENV=test nyc --require babel-register mocha src/v1/tests/**.spec.js --exit",
     "test:watch": "cross-env NODE_ENV=test nyc --require babel-register mocha src/v1/tests/**.spec.js --watch",
     "migrate:refresh": "cross-env NODE_ENV=test babel-node src/database/runMigrations.js down && cross-env NODE_ENV=test babel-node src/database/runMigrations.js up && cross-env NODE_ENV=test babel-node src/database/runMigrations.js seed",

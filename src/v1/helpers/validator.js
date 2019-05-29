@@ -81,33 +81,12 @@ class Validate {
     * @return {Object} error if any exists
     */
 
-    Joi.validate(validateObject, schema.meetup, (err) => {
+    Joi.validate(validateObject, schema.meetup,{stripUnknown: true }, (err) => {
       if (err) {
         var error = err.details[0].message.replace('"', '');
         return response.status(400).json({
           status: 400,
           error: error.replace('"', ''),
-        });
-      }
-      if (!isNaN(topic)) {
-        response.status(400).json({
-          status: 400,
-          error: 'topic should not be a number',
-        });
-      } else if (!isNaN(location)) {
-        response.status(400).json({
-          status: 400,
-          error: 'location should not be a number',
-        });
-      } else if (!(tags)) {
-        response.status(400).json({
-          status: 400,
-          error: 'Tags is required',
-        });
-      } else if (!(images)) {
-        response.status(400).json({
-          status: 400,
-          error: 'Images is required',
         });
       } else next();
     });

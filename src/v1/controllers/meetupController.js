@@ -66,7 +66,7 @@ class meetupController {
           });
           return response.status(200).json({
             status: 200,
-            data: [result.rows[0]],
+            data: result.rows[0],
           });
         }
         return response.status(404).json({
@@ -107,6 +107,7 @@ class meetupController {
           });
         })
         .catch(error => {
+          console.log(error);
           return response.status(422).json({
           status: error.status,
           error: error.error,
@@ -140,7 +141,7 @@ class meetupController {
         });
         return response.status(200).json({
           status: 200,
-          data: [rows],
+          data: rows,
         });
       }
       return helper.errorResponse(response, {

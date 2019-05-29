@@ -57,7 +57,7 @@ before((done) => {
     .post(registrationUrl)
     .send(userData)
     .end((_error, response) => {
-      registeredUser = response.body.data[0].user;
+      registeredUser = response.body.data.user;
       done();
     });
 });
@@ -69,8 +69,8 @@ describe('POST /api/v1/auth/login', () => {
       .send({ email: 'afolayan@tech4dev.com', password: 'password1' })
       .end((_error, response) => {
         expect(response.body.status).toBe(200);
-        expect(response.body.data[0].user.email).toBe('afolayan@tech4dev.com');
-        expect(response.body.data[0].user.firstname).toBe('Freeze');
+        expect(response.body.data.user.email).toBe('afolayan@tech4dev.com');
+        expect(response.body.data.user.firstname).toBe('Freeze');
         done();
       });
   });
@@ -211,12 +211,12 @@ describe('POST /api/v1/auth/signup', () => {
       .end((_error, response) => {
         expect(201);
         expect(response.status).toBe(201);
-        expect(response.body.data[0]).toHaveProperty('token');
-        expect(response.body.data[0]).toHaveProperty('user');
-        expect(response.body.data[0].user).toHaveProperty('firstname');
-        expect(response.body.data[0].user).toHaveProperty('lastname');
-        expect(response.body.data[0].user.firstname).toBe(payload.firstname);
-        expect(response.body.data[0].user.lastname).toBe(payload.lastname);
+        expect(response.body.data).toHaveProperty('token');
+        expect(response.body.data).toHaveProperty('user');
+        expect(response.body.data.user).toHaveProperty('firstname');
+        expect(response.body.data.user).toHaveProperty('lastname');
+        expect(response.body.data.user.firstname).toBe(payload.firstname);
+        expect(response.body.data.user.lastname).toBe(payload.lastname);
         done();
       });
   });
@@ -233,8 +233,8 @@ describe('PATCH /api/v1/user/:id', () => {
       .send({ email: 'user@questioner.com', password: 'password1' })
       .end((_error, response) => {
         expect(200);
-        user = response.body.data[0].user;
-        token = response.body.data[0].token;
+        user = response.body.data.user;
+        token = response.body.data.token;
         done();
       });
   });
@@ -308,8 +308,8 @@ describe('PATCH /api/v1/user/:id', () => {
         .send({ email: 'user@questioner.com', password: 'password1' })
         .end((_error, response) => {
           expect(200);
-          user = response.body.data[0].user;
-          userToken = response.body.data[0].token;
+          user = response.body.data.user;
+          userToken = response.body.data.token;
         });
 
       request(app)
@@ -317,8 +317,8 @@ describe('PATCH /api/v1/user/:id', () => {
         .send({ email: 'superadmin@questioner.com', password: 'password1' })
         .end((_error, response) => {
           expect(200);
-          admin = response.body.data[0].user;
-          adminToken = response.body.data[0].token;
+          admin = response.body.data.user;
+          adminToken = response.body.data.token;
           done();
         });
     });

@@ -42,7 +42,7 @@ class Meetup {
   */
 
   static upcoming() {
-    const statement = `SELECT * FROM ${table} WHERE date > NOW() ORDER BY date ASC`;
+    const statement = `SELECT * FROM ${table} WHERE date > NOW() ORDER BY date ASC LIMIT 10`;
     return new Promise((resolve, reject) => {
       queryFactory.run(statement)
         .then(response => resolve(response))
@@ -74,8 +74,9 @@ class Meetup {
    */
 
   static async create(payload) {
-    const { rows } = await queryFactory.run(`SELECT topic FROM ${table} WHERE topic = $1 OR date = $2`, [payload.topic, payload.date]);
+    const { rows } = await queryFactory.run(`SELECT * FROM ${table} WHERE topic = $1 AND date = $2`, [payload.topic, payload.date]);
     if (rows.length > 0) {
+      console.log(rows);
       return Promise.reject({ status: 422, error: 'Similar meetup exists already' });
     }
 

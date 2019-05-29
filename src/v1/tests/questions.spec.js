@@ -28,7 +28,7 @@ describe('Question', () => {
       .end((_error, response) => {
         expect(200);
         const { data } = response.body;
-        userToken = data[0].token;
+        userToken = data.token;
         // eslint-disable-next-line prefer-destructuring
       });
 
@@ -38,7 +38,7 @@ describe('Question', () => {
       .end((_error, response) => {
         expect(200);
         const { data } = response.body;
-        adminToken = data[0].token;
+        adminToken = data.token;
         // eslint-disable-next-line prefer-destructuring
         done();
       });

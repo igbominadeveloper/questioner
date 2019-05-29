@@ -44,6 +44,7 @@ class Auth {
 
   static async verifyToken(request, response, next) {
     const token = request.headers['x-access-token'];
+
     if (!token) {
       return helper.errorResponse(response, { status: 401, error: 'Token not set' });
     }

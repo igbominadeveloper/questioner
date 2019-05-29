@@ -15,7 +15,7 @@ install:
 - npm install
 before_script:
   - psql -c "CREATE USER favour WITH PASSWORD 'password1';"
-  - psql -c 'create database testdb;'
+  - psql -c 'create database newtestdb;'
   - npm run migrate:refresh
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter

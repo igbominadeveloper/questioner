@@ -58,7 +58,7 @@ class userController {
 		      delete user.updated_at;
             return response.status(200).json({
               status: 200,
-              data: [data],
+              data,
             });
           }
           return response.status(400).json({
@@ -88,8 +88,7 @@ class userController {
   static register(request, response) {
     user.register(request.body)
       .then((result) => {
-        const { token, user } = result;
-        delete user.isadmin;
+        const { user } = result;
         delete user.othername;
         delete user.phonenumber;
         delete user.username;
@@ -98,7 +97,7 @@ class userController {
         delete user.updated_at;
         return response.status(201).json({
           status: 201,
-          data: [result],
+          data: result,
         });
       });
   }

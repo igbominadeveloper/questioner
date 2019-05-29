@@ -17,7 +17,7 @@ describe('Rsvp', () => {
       .send({ email: 'user@questioner.com', password: 'password1' })
       .end((_error, response) => {
         expect(200);
-        const { token, user } = response.body.data[0];
+        const { token, user } = response.body.data;
         loggedInUser = { token, user };
       });
     request(app)
@@ -25,7 +25,7 @@ describe('Rsvp', () => {
       .send({ email: 'superadmin@questioner.com', password: 'password1' })
       .end((_error, response) => {
         expect(200);
-        const { token, user } = response.body.data[0];
+        const { token, user } = response.body.data;
         loggedInAdmin = { token, user };
         done();
       });

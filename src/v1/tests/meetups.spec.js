@@ -91,7 +91,7 @@ describe('Meetups', () => {
       .send(userCredentials)
       .end((_error, response) => {
         expect(200);
-        const { token } = response.body.data[0];
+        const { token } = response.body.data;
         userToken = token;
       });
 
@@ -100,7 +100,7 @@ describe('Meetups', () => {
       .send(adminCredentials)
       .end((_error, response) => {
         expect(200);
-        const { token } = response.body.data[0];
+        const { token } = response.body.data;
         adminToken = token;
         done();
       });
@@ -228,7 +228,7 @@ describe('Meetups', () => {
         .get(`${meetupsApi}/${id}`)
         .end((_error, response) => {
           expect(200);
-          expect(response.body.data[0].id).toBe(id);
+          expect(response.body.data.id).toBe(id);
           done();
         });
     });
@@ -265,8 +265,8 @@ describe('Meetups', () => {
         .get(`${meetupsApi}/upcoming`)
         .end((_error, response) => {
           expect(200);
-          expect(Date.parse(response.body.data[0][0].date))
-            .toBeLessThan(Date.parse(response.body.data[0][1].date));
+          expect(Date.parse(response.body.data[0].date))
+            .toBeLessThan(Date.parse(response.body.data[1].date));
           done();
         });
     });

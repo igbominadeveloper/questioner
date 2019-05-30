@@ -3,21 +3,25 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 let pool;
-if (process.env.NODE_ENV == 'development') {
-  pool = new Pool({
-    connectionString: process.env.DEV_DATABASE_URL,
-  });
-}
-else if (process.env.NODE_ENV == 'test') {
-  pool = new Pool({
-    connectionString: process.env.TEST_DATABASE_URL,
-  });
-}else {
+
+if(process.env.NODE_ENV === 'production'){
   pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
   });
 }
+
+if (process.env.NODE_ENV === 'development') {
+  pool = new Pool({
+    connectionString: process.env.DEV_DATABASE_URL,
+  });
+}
+else if (process.env.NODE_ENV === 'test') {
+  pool = new Pool({
+    connectionString: process.env.TEST_DATABASE_URL,
+  });
+}
+
 
 pool.on('connect', (response, error) => {
   let config = response.connectionParameters;

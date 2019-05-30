@@ -206,23 +206,6 @@ describe('Question', () => {
         });
     });
 
-    it('returns a 409 error when user tries to create an existing question again', (done) => {
-      const validQuestionOne = {
-        meetup_id: newMeetup.id,
-        title: 'My Question title',
-        body: 'My Question body',
-      };
-      request(app)
-        .post(questionApi)
-        .set('x-access-token', userToken)
-        .send(validQuestionOne)
-        .end((_error, response) => {
-          expect(409);
-          expect(response.body.status).toBe(409);
-          done();
-        });
-    });
-
     describe('PATCH /api/v1/questions/:id', () => {
       it('upvotes a question successfully', (done) => {
         request(app)

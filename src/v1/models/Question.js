@@ -35,6 +35,7 @@ class Question {
                         questions.body,
                         questions.upvotes,
                         questions.downvotes,
+                        questions.created_at,
                         (
                           SELECT 
                             row_to_json(users) 

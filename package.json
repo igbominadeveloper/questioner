@@ -8,6 +8,7 @@
     "lint": "node_modules/.bin/eslint src/v1/\"**/*.js\" src/tests/**.spec.js",
     "pretest": "cross-env NODE_ENV=test npm run migrate:refresh",
     "test": "cross-env NODE_ENV=test nyc --require babel-register mocha src/v1/tests/**.spec.js --exit",
+    "migrate": "cross-env NODE_ENV=production babel-node src/database/runMigrations.js down && cross-env NODE_ENV=production babel-node src/database/runMigrations.js up && cross-env NODE_ENV=production babel-node src/database/runMigrations.js seed",
     "test:watch": "cross-env NODE_ENV=test nyc --require babel-register mocha src/v1/tests/**.spec.js --watch",
     "migrate:refresh": "cross-env NODE_ENV=test babel-node src/database/runMigrations.js down && cross-env NODE_ENV=test babel-node src/database/runMigrations.js up && cross-env NODE_ENV=test babel-node src/database/runMigrations.js seed",
     "coverage": "nyc report --reporter=text-lcov | coveralls"

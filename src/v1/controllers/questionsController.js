@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
 import question from '../models/Question';
 import helper from '../helpers/helper';
-import queryFactory from '../../database/queryFactory';
 
 import meetup from '../models/Meetup';
 import vote from '../models/vote';
+import User from '../models/user';
 
 class QuestionsController {
 /**
@@ -31,10 +31,6 @@ class QuestionsController {
     question.withUsers(id)
       .then((result) => {
         if (result.rowCount > 0) {
-          result.rows.map((row) => {
-            delete row.created_at;
-            delete row.updated_at;
-          });
           return response.status(200).json({
             status: 200,
             data: result.rows,
@@ -93,20 +89,11 @@ class QuestionsController {
       return helper.errorResponse(response,
         { status: 404, error: 'You cannot ask question on a non-existent meetup' });
     }
-    const questionResult = await queryFactory.run('SELECT * FROM questions WHERE meetup_id = $1 AND title = $2 OR body = $3', [newQuestion.meetup_id, newQuestion.title, newQuestion.body]);
-    if (questionResult.rowCount > 0) {
-      return helper.errorResponse(response,
-        { status: 409, error: `Your question has been asked already: see http://${request.hostname}${request.url}/${questionResult.rows[0].id}` });
-    }
-
     try {
+      const user = await User.find(request.user.id);
       const { rows } = await question.create(newQuestion);
       const data = Object.assign({}, rows[0]);
-      delete data.updated_at;
-      delete data.user_id;
-      delete data.created_at;
-      delete data.downvotes;
-      delete data.upvotes;
+      data.user = user.rows[0];
       return response.status(201).json({
         status: 201,
         data,

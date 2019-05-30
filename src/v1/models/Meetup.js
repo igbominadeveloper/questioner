@@ -58,7 +58,8 @@ class Meetup {
    */
 
   static find(id) {
-    const statement = `SELECT * FROM ${table} WHERE id = $1`;
+    // const statement = `SELECT * FROM ${table} WHERE id = $1`;
+    const statement =  `SELECT "meetup"."id", "meetup"."topic", "meetup"."location","meetup"."organizer_name","meetup"."topic","meetup"."topic","meetup"."organizer_phone","meetup"."organizer_email","meetup"."date","meetup"."images","meetup"."tags","question"."id" AS "question.id", "question"."title" AS "question.title" FROM "meetups" AS "meetup" LEFT OUTER JOIN "questions" AS "question" ON "meetup"."id" = "question"."meetup_id" WHERE "meetup"."id" = $1;`
     return new Promise((resolve, reject) => {
       queryFactory.run(statement, [id])
         .then(response => resolve(response))

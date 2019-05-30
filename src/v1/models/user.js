@@ -93,7 +93,7 @@ class User {
   }
 
   static find(user_id) {
-    const statement = 'SELECT id, firstname, lastname, othername, username, phonenumber FROM users WHERE id=$1';
+    const statement = 'SELECT id, firstname, lastname, othername, username, phonenumber,email FROM users WHERE id=$1';
     return new Promise((resolve, reject) => {
       queryFactory.run(statement, [user_id])
         .then(response => resolve(response))

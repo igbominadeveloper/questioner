@@ -36,6 +36,7 @@ const down = async () => {
 const seed = async () => {
   try {
     await queryFactory.run(seeders.users);
+    await queryFactory.run(seeders.meetups);
   } catch (error) {
     console.log(error);
   }

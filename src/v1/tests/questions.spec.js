@@ -103,6 +103,8 @@ describe('Question', () => {
         location: 'Akure, Oloyemekun, Nigeria',
         date: '2019-10-19T11:36:38.380Z',
         organizerName: 'Igbominadeveloper',
+            description: 'Hey guys',
+
         organizerEmail: 'favourafolayan@gmail.com',
         organizerPhone: '08135586949',
         tags: 'tag1',

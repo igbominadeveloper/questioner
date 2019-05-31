@@ -226,12 +226,8 @@ class QuestionsController {
       if (singleVote.rowCount === 0) {
         await vote.record(voteType, newVote);
         const value = rows[0][`${voteType}s`] === 0 ? 0 : parseInt(rows[0][`${voteType}s`], 10);
-        const result = await question.update(`${voteType}s`, value + 1);
+        const result = await question.update(`${voteType}s`, value + 1,newVote.question_id);
         const updatedQuestion = Object.assign({}, result.rows[0]);
-        delete updatedQuestion.id;
-        delete updatedQuestion.user_id;
-        delete updatedQuestion.created_at;
-        delete updatedQuestion.updated_at;
         return response.status(200).json({
           status: 200,
           data: updatedQuestion,
@@ -242,12 +238,8 @@ class QuestionsController {
       const newQuestionValue = await question.find(newVote.question_id);
       await vote.remove(newVote);
       const value = parseInt(newQuestionValue.rows[0][`${row}`], 10);
-      const result = await question.update(row, value - 1);
+      const result = await question.update(row, value - 1,newVote.question_id);
       const updatedQuestion = Object.assign({}, result.rows[0]);
-      delete updatedQuestion.id;
-      delete updatedQuestion.user_id;
-      delete updatedQuestion.created_at;
-      delete updatedQuestion.updated_at;
       return response.status(200).json({
         status: 200,
         data: updatedQuestion,

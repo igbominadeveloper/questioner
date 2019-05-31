@@ -42,7 +42,7 @@ class Meetup {
   */
 
   static upcoming() {
-    const statement = `SELECT * FROM ${table} WHERE date > NOW() ORDER BY date ASC LIMIT 10`;
+    const statement = `SELECT * FROM ${table} WHERE date > NOW() ORDER BY date DESC LIMIT 10`;
     return new Promise((resolve, reject) => {
       queryFactory.run(statement)
         .then(response => resolve(response))
@@ -58,7 +58,6 @@ class Meetup {
    */
 
   static find(id) {
-    // const statement = `SELECT * FROM ${table} WHERE id = $1`;
     const statement =  `SELECT "meetup"."id", "meetup"."topic", "meetup"."location","meetup"."organizer_name","meetup"."topic","meetup"."topic","meetup"."organizer_phone","meetup"."organizer_email","meetup"."date","meetup"."images","meetup"."tags","question"."id" AS "question.id", "question"."title" AS "question.title" FROM "meetups" AS "meetup" LEFT OUTER JOIN "questions" AS "question" ON "meetup"."id" = "question"."meetup_id" WHERE "meetup"."id" = $1;`
     return new Promise((resolve, reject) => {
       queryFactory.run(statement, [id])
@@ -103,6 +102,7 @@ class Meetup {
       payload.topic,
       payload.location,
       payload.date,
+      payload.description,
       payload.organizerName,
       payload.organizerEmail,
       payload.organizerPhone,
@@ -110,7 +110,7 @@ class Meetup {
       tags,
     ];
 
-    const statement = `INSERT INTO ${table}(topic, location, date, organizer_name, organizer_email, organizer_phone, images, tags) VALUES($1, $2, $3, $4, $5, $6, $7, $8) returning *`;
+    const statement = `INSERT INTO ${table}(topic, location, date,description, organizer_name, organizer_email, organizer_phone, images, tags) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) returning *`;
     return new Promise((resolve, reject) => {
       queryFactory.run(statement,[...meetup])
         .then(response => resolve(response))

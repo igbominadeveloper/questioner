@@ -31,7 +31,8 @@ class Question {
    */
 
   static withUsers(meetupId) {
-    const statement = `SELECT 
+    const statement = `SELECT
+                        questions.id, 
                         questions.body,
                         questions.upvotes,
                         questions.downvotes,
@@ -57,7 +58,8 @@ class Question {
                               FROM 
                                 ${table} 
                       WHERE 
-                        meetup_id = $1`;
+                        meetup_id = $1
+                        ORDER BY questions.created_at ASC`;
     return new Promise((resolve, reject) => {
       queryFactory.run(statement,[meetupId])
         .then(response => resolve(response))
@@ -106,14 +108,14 @@ class Question {
    /**
    * update a row in table
    * 
-   * @param {Object} tableRow
+   * @param {Object} rowColumn
    * @return {Object} Promise  
    */
   
-  static async update(tableRow, value) {
-    const statement = `UPDATE ${table} SET ${tableRow} = $1 returning *`;
+  static async update(column, value, question_id) {
+    const statement = `UPDATE ${table} SET ${column} = $1 WHERE id= $2 returning *`;
     return new Promise((resolve, reject) => {
-      queryFactory.run(statement, [value])
+      queryFactory.run(statement, [value,question_id])
         .then(response => resolve(response))
         .catch(error => reject(error));
     });

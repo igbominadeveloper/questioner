@@ -38,6 +38,7 @@ describe('Rsvp', () => {
       date: new Date().toISOString(),
       organizerName: 'Igbominadeveloper',
       organizerEmail: 'favourafolayan@gmail.com',
+          description: 'Hey guys',
       organizerPhone: '08135586949',
       tags: 'tag1',
       images: 'image1'

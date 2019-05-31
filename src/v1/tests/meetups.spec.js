@@ -12,6 +12,7 @@ describe('Meetups', () => {
   const firstInvalidMeetup = {
     topic: '',
     location: 'Ilorin, Nigeria',
+    description: 'Hey guys',
     date: '2019-04-19T11:36:38.380Z',
     organizerName: 'Igbominadeveloper',
     organizerEmail: 'favourafolayan@gmail.com',
@@ -25,6 +26,7 @@ describe('Meetups', () => {
     location: '',
     date: '2019-02-19T11:36:38.380Z',
     organizerName: 'Igbominadeveloper',
+    description: 'Hey guys',
     organizerEmail: 'favourafolayan@gmail.com',
     organizerPhone: '08135586949',
     tags:'tag1',
@@ -36,6 +38,7 @@ describe('Meetups', () => {
     location: 'Ilorin, Nigeria',
     date: '',
     organizerName: 'Igbominadeveloper',
+    description: 'Hey guys',
     organizerEmail: 'favourafolayan@gmail.com',
     organizerPhone: '08135586949',
     tags:'tag1',
@@ -47,6 +50,8 @@ describe('Meetups', () => {
     location: 'Ilorin,Kwara state, Nigeria',
     date: '2019-12-02T11:36:38.380Z',
     organizerName: 'Igbominadeveloper',
+        description: 'Hey guys',
+
     organizerEmail: 'favourafolayan@gmail.com',
     organizerPhone: '08135586949',
     tags:'tag1',
@@ -58,6 +63,8 @@ describe('Meetups', () => {
     location: 'Lagos, Nigeria',
     date: '2019-08-02T11:36:38.380Z',
     organizerName: 'Igbominadeveloper',
+        description: 'Hey guys',
+
     organizerEmail: 'favourafolayan@gmail.com',
     organizerPhone: '08135586949',
     tags:'tag1',
@@ -68,6 +75,8 @@ describe('Meetups', () => {
     topic: 'Ember JS Meetup',
     location: 'PH, Nigeria',
     date: '2019-11-02T11:36:38.380Z',
+        description: 'Hey guys',
+
     organizerName: 'Igbominadeveloper',
     organizerEmail: 'favourafolayan@gmail.com',
     organizerPhone: '08135586949',
@@ -265,8 +274,8 @@ describe('Meetups', () => {
         .get(`${meetupsApi}/upcoming`)
         .end((_error, response) => {
           expect(200);
-          expect(Date.parse(response.body.data[0].date))
-            .toBeLessThan(Date.parse(response.body.data[1].date));
+          expect(Date.parse(response.body.data[1].date))
+            .toBeLessThan(Date.parse(response.body.data[0].date));
           done();
         });
     });
@@ -374,6 +383,8 @@ describe('Meetups', () => {
       location: Math.random().toString(36).substring(2, 15)
       + Math.random().toString(36).substring(2, 15),
       date: new Date().toISOString(),
+          description: 'Hey guys',
+
       organizerName: 'Igbominadeveloper',
       organizerEmail: 'favourafolayan@gmail.com',
       organizerPhone: '08135586949',
@@ -388,6 +399,7 @@ describe('Meetups', () => {
         .end((_error, response) => {
           expect(200);
           meetupToBeUpdated = response.body.data;
+          console.log(response);
           done();
         });
     });
@@ -465,6 +477,8 @@ describe('Meetups', () => {
       location: 'Styled in Lagos, Nigeria',
       date: '2019-07-02T11:36:38.380Z',
       organizerName: 'Igbominadeveloper',
+          description: 'Hey guys',
+
       organizerEmail: 'favourafolayan@gmail.com',
       organizerPhone: '08135586949',
       tags:'tag1',

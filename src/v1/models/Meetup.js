@@ -76,26 +76,30 @@ class Meetup {
   static async create(payload) {
     const { rows } = await queryFactory.run(`SELECT * FROM ${table} WHERE topic = $1 AND date = $2`, [payload.topic, payload.date]);
     if (rows.length > 0) {
-      console.log(rows);
       return Promise.reject({ status: 422, error: 'Similar meetup exists already' });
     }
 
     let tags = [];
     let images = [];
-    if (payload.tags instanceof Array) {
-      payload.tags.forEach((tag) => {
-        tags.push(tag.trim());
-      });
-    } else { 
-      tags.push(payload.tags.trim());
-    }
 
-    if (payload.images instanceof Array) {
-      payload.images.forEach((url) => {
-        images.push(url.trim());
-      });
-    } else {
-      images.push(payload.images.trim());
+    if (payload.tags !== undefined) {
+      if (payload.tags instanceof Array) {
+        payload.tags.forEach((tag) => {
+          tags.push(tag.trim());
+        });
+      } else if (payload.tags !== '') {
+        tags.push(payload.tags.trim());
+      }
+    }
+    
+    if (payload.images !== undefined) {  
+      if (payload.images instanceof Array) {
+        payload.images.forEach((url) => {
+          images.push(url.trim());
+        });
+      } else if(payload.images !== ''){
+        images.push(payload.images.trim());
+      }
     }
 
     const meetup = [

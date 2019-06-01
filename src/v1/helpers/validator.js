@@ -57,7 +57,7 @@ class Validate {
      */
 
     const {
-      topic, location, date, tags, images, organizerName, organizerPhone, organizerEmail
+      topic, location, date, tags, images, description, organizerName, organizerPhone, organizerEmail
     } = request.body;
 
     /**
@@ -69,7 +69,7 @@ class Validate {
     */
 
     const validateObject = {
-      topic, location, date, tags, images, organizerName, organizerPhone, organizerEmail
+      topic, location, date, tags, images, description, organizerName, organizerPhone, organizerEmail
     };
 
     /**

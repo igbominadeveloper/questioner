@@ -64,9 +64,7 @@ class RsvpController {
       if (rows.length > 0) {
         const result = await rsvp.create(payload);
         result.rows.map((row) => {
-          delete row.created_at;
           delete row.updated_at;
-          delete row.meetup_id;
         });
         return response.status(201).json({
           status: 201,

@@ -115,18 +115,6 @@ describe('Meetups', () => {
       });
   });
 
-  describe('GET /api/v1/meetups', () => {
-    it('returns 404 response code when meetups record is empty', (done) => {
-      request(app)
-        .get(meetupsApi)
-        .end((_error, response) => {
-          expect(404);
-          expect(response.body.error).toMatch(/available right now/);
-          done();
-        });
-    });
-  });
-
   describe('POST /api/v1/meetups', () => {
     describe('response', () => {
       it('returns 401 when no user token is set', (done) => {

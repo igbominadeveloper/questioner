@@ -43,7 +43,7 @@ class QuestionsController {
       })
       .catch(error => response.status(400).json({
         status: 400,
-        error: error.error,
+        error: error.message,
       }));
   }
   
@@ -94,6 +94,7 @@ class QuestionsController {
       const { rows } = await question.create(newQuestion);
       const data = Object.assign({}, rows[0]);
       data.user = user.rows[0];
+      data.comments =[];
       return response.status(201).json({
         status: 201,
         data,
@@ -182,14 +183,13 @@ class QuestionsController {
       const result = await question.find(request.body.question_id);
       if (result.rowCount > 0) {
         const { rows } = await question.createComment(request.body, request.user.id);
+        const user = await User.find(request.user.id);
+        const comment = Object.assign({}, rows[0]);
+        comment.user = user.rows[0];
         if (rows[0]) {
-          const newComment = Object.assign({}, rows[0]);
-          delete newComment.id;
-          delete newComment.created_at;
-          delete newComment.updated_at;
           return response.status(201).json({
             status: 201,
-            data: newComment,
+            data: comment,
           });
         }
         return helper.errorResponse(response, {

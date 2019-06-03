@@ -10,7 +10,7 @@
     "test": "NODE_ENV=test nyc --require babel-register mocha src/v1/tests/**.spec.js --exit",
     "migrate": "NODE_ENV=production babel-node src/database/runMigrations.js down && NODE_ENV=production babel-node src/database/runMigrations.js up && NODE_ENV=production babel-node src/database/runMigrations.js seed",
     "test:watch": "NODE_ENV=test nyc --require babel-register mocha src/v1/tests/**.spec.js --watch",
-    "test-migrate:refresh": "NODE_ENV=development babel-node src/database/runMigrations.js down && NODE_ENV=development babel-node src/database/runMigrations.js up && NODE_ENV=development babel-node src/database/runMigrations.js seed",
+    "test-migrate:refresh": "NODE_ENV=test babel-node src/database/runMigrations.js down && NODE_ENV=test babel-node src/database/runMigrations.js up && NODE_ENV=test babel-node src/database/runMigrations.js seed",
     "migrate:refresh": "NODE_ENV=development babel-node src/database/runMigrations.js down && NODE_ENV=development babel-node src/database/runMigrations.js up && NODE_ENV=development babel-node src/database/runMigrations.js seed",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },

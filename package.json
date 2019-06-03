@@ -6,7 +6,7 @@
     "start": "babel-node app.js",
     "dev": "NODE_ENV=development nodemon npm start",
     "lint": "node_modules/.bin/eslint src/v1/\"**/*.js\" src/tests/**.spec.js",
-    "pretest": "NODE_ENV=test npm run migrate:refresh",
+    "pretest": "NODE_ENV=test npm run test-migrate:refresh",
     "test": "NODE_ENV=test nyc --require babel-register mocha src/v1/tests/**.spec.js --exit",
     "migrate": "NODE_ENV=production babel-node src/database/runMigrations.js down && NODE_ENV=production babel-node src/database/runMigrations.js up && NODE_ENV=production babel-node src/database/runMigrations.js seed",
     "test:watch": "NODE_ENV=test nyc --require babel-register mocha src/v1/tests/**.spec.js --watch",
